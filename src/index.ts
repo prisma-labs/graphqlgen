@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-// TODO: Fix all "any" types
-// TODO: Pin all package version in package.json
+// TODO: Write snapshot tests
 // TODO: Split code to separate files
 // TODO: Extract template from code as we can easily support multiple languages
 // once GraphQL types are "extracted". This does not have to be hardcoded to TS.
@@ -53,7 +52,21 @@ type GraphQLTypeObject = {
   fields: [GraphQLTypeField];
 };
 
-type GraphQLScalarType = "Boolean" | "Float" | "Int" | "String";
+const GraphQLScalarTypeArray = [
+  "Boolean",
+  "Int",
+  "Float",
+  "String",
+  "ID",
+  "DateTime"
+];
+type GraphQLScalarType =
+  | "Boolean"
+  | "Float"
+  | "Int"
+  | "String"
+  | "ID"
+  | "DateTime";
 type TSGraphQLScalarType = "boolean" | "number" | "string";
 
 function getTSTypeFromGraphQLType(
@@ -65,7 +78,7 @@ function getTSTypeFromGraphQLType(
   if (type === "Boolean") {
     return "boolean";
   }
-  if (type === "String") {
+  if (type === "String" || type === "ID" || type === "DateTime") {
     return "string";
   }
 }
@@ -139,8 +152,6 @@ function generateCode(args: CLIArgs) {
     }
   });
 
-  // TODO: Fix indentation
-  // TODO: Handle field type in case of scalars and scalar arrays
   // TODO: Handle field type in case of ID
   // TODO: Handle input object types
   const code = `
@@ -153,6 +164,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 }
 
 export interface ITypes {
+Context: any
 ${types.map(type => `   ${type.name}Root: any`).join(os.EOL)}
 }
 
@@ -170,7 +182,7 @@ ${types.map(type => `   ${type.name}Root: any`).join(os.EOL)}
         .map(
           arg =>
             `${arg.name}: ${
-              ["Boolean", "Int", "Float", "String"].indexOf(arg.type.name) > -1
+              GraphQLScalarTypeArray.indexOf(arg.type.name) > -1
                 ? getTSTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
                 : `T['${field.type.name}Root']`
             }${field.type.isArray ? "[]" : ""}`
@@ -185,7 +197,7 @@ ${types.map(type => `   ${type.name}Root: any`).join(os.EOL)}
     {},
     T['Context'],
     ${
-      ["Boolean", "Int", "Float", "String"].indexOf(field.type.name) > -1
+      GraphQLScalarTypeArray.indexOf(field.type.name) > -1
         ? getTSTypeFromGraphQLType(field.type.name as GraphQLScalarType)
         : `T['${field.type.name}Root']`
     }${field.type.isArray ? "[]" : ""}
