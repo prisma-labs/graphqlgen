@@ -13,7 +13,8 @@ import {
   NamedTypeNode,
   NonNullTypeNode,
   ListTypeNode,
-  InputValueDefinitionNode
+  InputValueDefinitionNode,
+  DocumentNode
 } from "graphql";
 import * as fs from "fs";
 import * as os from "os";
@@ -22,7 +23,7 @@ import * as chalk from "chalk";
 import * as prettier from "prettier";
 
 type CLIArgs = {
-  schema: string;
+  schemaPath: string;
   output: string;
 };
 
@@ -83,18 +84,13 @@ function getTSTypeFromGraphQLType(
   }
 }
 
-function generateCode(args: CLIArgs) {
-  // TODO: Check if schema exists
+export type GenerateCodeArgs = {
+  schema: DocumentNode;
+};
 
-  // TODO: Error handling around read
-  // TODO: Add support for graphql-import
-  const schema = fs.readFileSync(args.schema, "utf-8");
-
-  // TODO: Error handling around parse
-  const parsedSchema = parse(schema);
-
+export function generateCode(args: GenerateCodeArgs): string {
   const types: GraphQLTypeObject[] = [];
-  visit(parsedSchema, {
+  visit(args.schema, {
     ObjectTypeDefinition(node: ObjectTypeDefinitionNode) {
       const fields: GraphQLTypeField[] = [];
       visit(node.fields, {
@@ -224,17 +220,9 @@ export interface IResolvers<T extends ITypes> {
 
   `;
 
-  fs.writeFileSync(
-    args.output,
-    prettier.format(code, {
-      parser: "typescript"
-    }),
-    {
-      encoding: "utf-8"
-    }
-  );
-  console.log(chalk.default.green(`Code generated at ${args.output}`));
-  process.exit(0);
+  return prettier.format(code, {
+    parser: "typescript"
+  });
 }
 
 // TODO: Validation around input args, make invalid states
@@ -242,10 +230,26 @@ export interface IResolvers<T extends ITypes> {
 function run() {
   const argv = yargs.argv;
   const args: CLIArgs = {
-    schema: argv.schema,
+    schemaPath: argv.schemaPath,
     output: argv.output
   };
-  console.log(generateCode(args));
+
+  // TODO: Check if schema exists
+
+  // TODO: Error handling around read
+  // TODO: Add support for graphql-import
+  const schema = fs.readFileSync(args.schemaPath, "utf-8");
+
+  // TODO: Error handling around parse
+  const parsedSchema = parse(schema);
+
+  const code = generateCode({ schema: parsedSchema });
+  fs.writeFileSync(args.output, code, { encoding: "utf-8" });
+  console.log(chalk.default.green(`Code generated at ${args.output}`));
+  process.exit(0);
 }
 
-run();
+// Only call run when running from CLI, not when included for tests
+if (require.main === module) {
+  run();
+}
