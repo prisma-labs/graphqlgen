@@ -5,11 +5,19 @@ import {
   GraphQLTypeObject,
   GraphQLScalarTypeArray,
   GraphQLScalarType,
-  getTSTypeFromGraphQLType
+  getTSTypeFromGraphQLType,
+  GraphQLEnumObject
 } from "../source-helper";
 
+type GenerateArgs = {
+  types: GraphQLTypeObject[];
+  enums: GraphQLEnumObject[];
+};
+
 // TODO: Handle input object types, enum, union
-export function generate(types: GraphQLTypeObject[]) {
+export function generate(args: GenerateArgs) {
+  const types: GraphQLTypeObject[] = args.types;
+  const enums: GraphQLEnumObject[] = args.enums;
   return `
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -21,6 +29,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
 Context: any
+${enums.map(e => `${e.name}Root: any`).join(os.EOL)}
 ${types.map(type => `${type.name}Root: any`).join(os.EOL)}
 }
 

@@ -5,7 +5,12 @@ import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
 import * as chalk from "chalk";
 import * as prettier from "prettier";
-import { GraphQLTypeObject, extractGraphQLTypes } from "./source-helper";
+import {
+  GraphQLTypeObject,
+  extractGraphQLTypes,
+  GraphQLEnumObject,
+  extractGraphQLEnums
+} from "./source-helper";
 import { resolve } from "path";
 import { generate } from "./generators/ts-generator";
 import { importSchema } from "graphql-import";
@@ -16,7 +21,7 @@ type CLIArgs = {
 };
 
 export type GenerateCodeArgs = {
-  schema: DocumentNode;
+  schema: DocumentNode | undefined;
   prettify?: boolean;
 };
 
@@ -29,7 +34,8 @@ export function generateCode({
   }
 
   const types: GraphQLTypeObject[] = extractGraphQLTypes(schema!);
-  const code = generate(types);
+  const enums: GraphQLEnumObject[] = extractGraphQLEnums(schema!);
+  const code = generate({ types, enums });
 
   if (prettify) {
     return prettier.format(code, {
@@ -86,6 +92,7 @@ function run() {
         `Failed to write the file at ${args.output}, error: ${e}`
       )
     );
+    process.exit(1);
   }
   console.log(chalk.default.green(`Code generated at ${args.output}`));
   process.exit(0);

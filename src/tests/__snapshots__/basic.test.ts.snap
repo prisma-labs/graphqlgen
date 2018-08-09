@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basic enum 1`] = `
+"import { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ResolverFn<Root, Args, Ctx, Payload> {
+  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+    | Payload
+    | Promise<Payload>;
+}
+
+export interface ITypes {
+  Context: any;
+  UserTypeRoot: any;
+  UserRoot: any;
+}
+
+export namespace IUser {
+  export type IdResolver<T extends ITypes> = ResolverFn<
+    T[\\"UserRoot\\"],
+    {},
+    T[\\"Context\\"],
+    string
+  >;
+
+  export type NameResolver<T extends ITypes> = ResolverFn<
+    T[\\"UserRoot\\"],
+    {},
+    T[\\"Context\\"],
+    string
+  >;
+
+  export type TypeResolver<T extends ITypes> = ResolverFn<
+    T[\\"UserRoot\\"],
+    {},
+    T[\\"Context\\"],
+    T[\\"UserTypeRoot\\"]
+  >;
+
+  export interface Resolver<T extends ITypes> {
+    id: IdResolver<T>;
+    name: NameResolver<T>;
+    type: TypeResolver<T>;
+  }
+}
+
+export interface IResolvers<T extends ITypes> {
+  User: IUser.Resolver<T>;
+}
+"
+`;
+
 exports[`basic schema 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
@@ -11,6 +61,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
   Context: any;
+
   QueryRoot: any;
   NumberRoot: any;
 }

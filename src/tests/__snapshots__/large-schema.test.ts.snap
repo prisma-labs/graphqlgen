@@ -11,6 +11,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
   Context: any;
+
   QueryRoot: any;
   MutationRoot: any;
   ViewerRoot: any;

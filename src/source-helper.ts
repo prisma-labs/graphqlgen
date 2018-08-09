@@ -4,7 +4,9 @@ import {
   FieldDefinitionNode,
   NamedTypeNode,
   InputValueDefinitionNode,
-  DocumentNode
+  DocumentNode,
+  EnumTypeDefinitionNode,
+  EnumValueDefinitionNode
 } from "graphql";
 
 type GraphQLType = {
@@ -27,6 +29,11 @@ type GraphQLTypeField = {
 export type GraphQLTypeObject = {
   name: string;
   fields: [GraphQLTypeField];
+};
+
+export type GraphQLEnumObject = {
+  name: string;
+  values: [string];
 };
 
 export const GraphQLScalarTypeArray = [
@@ -83,7 +90,7 @@ function extractTypeFields(node: ObjectTypeDefinitionNode) {
     FieldDefinition(fieldNode: FieldDefinitionNode) {
       const fieldType: GraphQLType = extractTypeLike(fieldNode);
 
-      const fieldArguments: GraphQLTypeArgument[] = [] as any;
+      const fieldArguments: GraphQLTypeArgument[] = [];
       visit(fieldNode.arguments, {
         InputValueDefinition(
           inputValueDefinitionNode: InputValueDefinitionNode
@@ -118,6 +125,30 @@ export function extractGraphQLTypes(schema: DocumentNode) {
         name: node.name.value,
         fields: fields
       } as GraphQLTypeObject);
+    }
+  });
+  return types;
+}
+
+function extractEnumValues(node: EnumTypeDefinitionNode) {
+  const values: string[] = [];
+  visit(node.values, {
+    EnumValueDefinition(node: EnumValueDefinitionNode) {
+      values.push(node.name.value);
+    }
+  });
+  return values;
+}
+
+export function extractGraphQLEnums(schema: DocumentNode) {
+  const types: GraphQLEnumObject[] = [];
+  visit(schema, {
+    EnumTypeDefinition(node: EnumTypeDefinitionNode) {
+      const values: string[] = extractEnumValues(node);
+      types.push({
+        name: node.name.value,
+        values: values
+      } as GraphQLEnumObject);
     }
   });
   return types;
