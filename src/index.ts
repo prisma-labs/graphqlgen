@@ -9,7 +9,9 @@ import {
   GraphQLTypeObject,
   extractGraphQLTypes,
   GraphQLEnumObject,
-  extractGraphQLEnums
+  extractGraphQLEnums,
+  GraphQLUnionObject,
+  extractGraphQLUnions
 } from "./source-helper";
 import { resolve } from "path";
 import { generate } from "./generators/ts-generator";
@@ -35,7 +37,8 @@ export function generateCode({
 
   const types: GraphQLTypeObject[] = extractGraphQLTypes(schema!);
   const enums: GraphQLEnumObject[] = extractGraphQLEnums(schema!);
-  const code = generate({ types, enums });
+  const unions: GraphQLUnionObject[] = extractGraphQLUnions(schema!);
+  const code = generate({ types, enums, unions });
 
   if (prettify) {
     return prettier.format(code, {

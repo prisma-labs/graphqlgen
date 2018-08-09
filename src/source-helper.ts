@@ -6,7 +6,9 @@ import {
   InputValueDefinitionNode,
   DocumentNode,
   EnumTypeDefinitionNode,
-  EnumValueDefinitionNode
+  EnumValueDefinitionNode,
+  UnionTypeDefinitionNode,
+  GraphQLObjectType
 } from "graphql";
 
 type GraphQLType = {
@@ -34,6 +36,11 @@ export type GraphQLTypeObject = {
 export type GraphQLEnumObject = {
   name: string;
   values: [string];
+};
+
+export type GraphQLUnionObject = {
+  name: string;
+  types: [GraphQLTypeObject];
 };
 
 export const GraphQLScalarTypeArray = [
@@ -149,6 +156,34 @@ export function extractGraphQLEnums(schema: DocumentNode) {
         name: node.name.value,
         values: values
       } as GraphQLEnumObject);
+    }
+  });
+  return types;
+}
+
+function extractUnionTypes(
+  node: UnionTypeDefinitionNode,
+  types: GraphQLObjectType[]
+) {
+  const unionTypesStrings: string[] = [];
+  visit(node.types, {
+    NamedType(node: NamedTypeNode) {
+      unionTypesStrings.push(node.name.value);
+    }
+  });
+  return types.filter(type => unionTypesStrings.indexOf(type.name) > -1);
+}
+
+export function extractGraphQLUnions(schema: DocumentNode) {
+  const types: GraphQLUnionObject[] = [];
+  visit(schema, {
+    UnionTypeDefinition(node: UnionTypeDefinitionNode) {
+      const allTypes: GraphQLTypeObject[] = extractGraphQLTypes(schema);
+      const unionTypes: GraphQLTypeObject[] = extractUnionTypes(node, allTypes);
+      types.push({
+        name: node.name.value,
+        types: unionTypes
+      } as GraphQLUnionObject);
     }
   });
   return types;

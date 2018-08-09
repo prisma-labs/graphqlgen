@@ -22,3 +22,13 @@ test("basic enum", async () => {
   const code = generateCode({ schema: parsedSchema });
   expect(code).toMatchSnapshot();
 });
+
+test("basic union", async () => {
+  const schema = fs.readFileSync(
+    join(__dirname, "./fixtures/union.graphql"),
+    "utf-8"
+  );
+  const parsedSchema = parse(schema);
+  const code = generateCode({ schema: parsedSchema });
+  expect(code).toMatchSnapshot();
+});
