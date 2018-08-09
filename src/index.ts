@@ -39,13 +39,18 @@ export function generateCode({
   }
 }
 
-// TODO: Validation around input args, make invalid states
-// unrepresentable
 function run() {
-  const argv = yargs.argv;
+  const argv = yargs
+    .usage("Usage: $0 -s [schema-path] -o [output-path]")
+    .alias("s", "schema-path")
+    .describe("s", "GraphQL schema file path")
+    .alias("o", "output")
+    .describe("o", "Output file path")
+    .demandOption(["s"])
+    .strict().argv;
   const args: CLIArgs = {
     schemaPath: resolve(argv.schemaPath),
-    output: argv.output
+    output: argv.output || "./resolvers.ts"
   };
 
   if (!fs.existsSync(args.schemaPath)) {
