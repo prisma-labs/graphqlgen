@@ -1,155 +1,41 @@
 #!/usr/bin/env node
 
-// TODO: Write snapshot tests
-// TODO: Split code to separate files
-// TODO: Extract template from code as we can easily support multiple languages
-// once GraphQL types are "extracted". This does not have to be hardcoded to TS.
 import * as yargs from "yargs";
-import {
-  parse,
-  visit,
-  ObjectTypeDefinitionNode,
-  FieldDefinitionNode,
-  NamedTypeNode,
-  NonNullTypeNode,
-  ListTypeNode,
-  InputValueDefinitionNode,
-  DocumentNode
-} from "graphql";
+import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
 import * as os from "os";
 import * as capitalize from "capitalize";
 import * as chalk from "chalk";
 import * as prettier from "prettier";
+import {
+  GraphQLTypeObject,
+  GraphQLScalarTypeArray,
+  GraphQLScalarType,
+  getTSTypeFromGraphQLType,
+  extractGraphQLTypes
+} from "./source-helper";
 
 type CLIArgs = {
   schemaPath: string;
   output: string;
 };
 
-// TODO: Seek feedback on the names on internal AST
-// representation types for GraphQL
-
-// TODO: This structure assumes one type for field/argument and does not account for union etc yet
-type GraphQLType = {
-  name: string;
-  isArray: boolean;
-  isRequired: boolean;
-};
-
-type GraphQLTypeArgument = {
-  name: string;
-  type: GraphQLType;
-};
-
-type GraphQLTypeField = {
-  name: string;
-  type: GraphQLType;
-  arguments: [GraphQLTypeArgument];
-};
-
-type GraphQLTypeObject = {
-  name: string;
-  fields: [GraphQLTypeField];
-};
-
-const GraphQLScalarTypeArray = [
-  "Boolean",
-  "Int",
-  "Float",
-  "String",
-  "ID",
-  "DateTime"
-];
-type GraphQLScalarType =
-  | "Boolean"
-  | "Float"
-  | "Int"
-  | "String"
-  | "ID"
-  | "DateTime";
-type TSGraphQLScalarType = "boolean" | "number" | "string";
-
-function getTSTypeFromGraphQLType(
-  type: GraphQLScalarType
-): TSGraphQLScalarType {
-  if (type === "Int" || type === "Float") {
-    return "number";
-  }
-  if (type === "Boolean") {
-    return "boolean";
-  }
-  if (type === "String" || type === "ID" || type === "DateTime") {
-    return "string";
-  }
-}
-
 export type GenerateCodeArgs = {
   schema: DocumentNode;
+  prettify?: boolean;
 };
 
-export function generateCode(args: GenerateCodeArgs): string {
-  const types: GraphQLTypeObject[] = [];
-  visit(args.schema, {
-    ObjectTypeDefinition(node: ObjectTypeDefinitionNode) {
-      const fields: GraphQLTypeField[] = [];
-      visit(node.fields, {
-        FieldDefinition(fieldNode: FieldDefinitionNode) {
-          const fieldType: GraphQLType = {} as any;
-          visit(fieldNode.type, {
-            NonNullType(nonNullTypeNode: NonNullTypeNode) {
-              fieldType.isRequired = true;
-            },
-            ListType(listTypeNode: ListTypeNode) {
-              fieldType.isArray = true;
-            },
-            NamedType(namedTypeNode: NamedTypeNode) {
-              fieldType.name = namedTypeNode.name.value;
-            }
-          });
+export function generateCode({
+  schema = undefined,
+  prettify = true
+}: GenerateCodeArgs): string {
+  if (!schema) {
+    console.error(chalk.default.red(`Please provide a parsed GraphQL schema`));
+  }
 
-          const fieldArguments: GraphQLTypeArgument[] = [] as any;
-          visit(fieldNode.arguments, {
-            InputValueDefinition(
-              inputValueDefinitionNode: InputValueDefinitionNode
-            ) {
-              const argumentType: GraphQLType = {} as any;
-              visit(inputValueDefinitionNode.type, {
-                NonNullType(nonNullTypeNode: NonNullTypeNode) {
-                  argumentType.isRequired = true;
-                },
-                ListType(listTypeNode: ListTypeNode) {
-                  argumentType.isArray = true;
-                },
-                NamedType(namedTypeNode: NamedTypeNode) {
-                  argumentType.name = namedTypeNode.name.value;
-                }
-              });
+  const types: GraphQLTypeObject[] = extractGraphQLTypes(schema);
 
-              fieldArguments.push({
-                name: inputValueDefinitionNode.name.value,
-                type: argumentType
-              } as GraphQLTypeArgument);
-            }
-          });
-
-          fields.push({
-            name: fieldNode.name.value,
-            type: fieldType,
-            arguments: fieldArguments
-          } as GraphQLTypeField);
-        }
-      });
-
-      types.push({
-        name: node.name.value,
-        fields: fields
-      } as GraphQLTypeObject);
-    }
-  });
-
-  // TODO: Handle field type in case of ID
-  // TODO: Handle input object types
+  // TODO: Handle input object types, enum, union
   const code = `
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -220,9 +106,13 @@ export interface IResolvers<T extends ITypes> {
 
   `;
 
-  return prettier.format(code, {
-    parser: "typescript"
-  });
+  if (prettify) {
+    return prettier.format(code, {
+      parser: "typescript"
+    });
+  } else {
+    return code;
+  }
 }
 
 // TODO: Validation around input args, make invalid states
