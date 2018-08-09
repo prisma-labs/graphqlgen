@@ -8,6 +8,7 @@ import * as prettier from "prettier";
 import { GraphQLTypeObject, extractGraphQLTypes } from "./source-helper";
 import { resolve } from "path";
 import { generate } from "./generators/ts-generator";
+import { importSchema } from "graphql-import";
 
 type CLIArgs = {
   schemaPath: string;
@@ -58,10 +59,9 @@ function run() {
     process.exit(1);
   }
 
-  // TODO: Add support for graphql-import
   let schema = undefined;
   try {
-    schema = fs.readFileSync(args.schemaPath, "utf-8");
+    schema = importSchema(args.schemaPath);
   } catch (e) {
     console.error(
       chalk.default.red(`Error occurred while reading schema: ${e}`)
