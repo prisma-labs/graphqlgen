@@ -14,6 +14,7 @@ import {
   getTSTypeFromGraphQLType,
   extractGraphQLTypes
 } from "./source-helper";
+import { join, resolve } from "path";
 
 type CLIArgs = {
   schemaPath: string;
@@ -120,18 +121,33 @@ export interface IResolvers<T extends ITypes> {
 function run() {
   const argv = yargs.argv;
   const args: CLIArgs = {
-    schemaPath: argv.schemaPath,
+    schemaPath: resolve(argv.schemaPath),
     output: argv.output
   };
 
-  // TODO: Check if schema exists
+  if (!fs.existsSync(args.schemaPath)) {
+    console.error(`The schema file ${args.schemaPath} does not exist`);
+    process.exit(1);
+  }
 
-  // TODO: Error handling around read
   // TODO: Add support for graphql-import
-  const schema = fs.readFileSync(args.schemaPath, "utf-8");
+  let schema = undefined;
+  try {
+    schema = fs.readFileSync(args.schemaPath, "utf-8");
+  } catch (e) {
+    console.error(
+      chalk.default.red(`Error occurred while reading schema: ${e}`)
+    );
+    process.exit(1);
+  }
 
-  // TODO: Error handling around parse
-  const parsedSchema = parse(schema);
+  let parsedSchema = undefined;
+  try {
+    parsedSchema = parse(schema);
+  } catch (e) {
+    console.error(chalk.default.red(`Failed to parse schema: ${e}`));
+    process.exit(1);
+  }
 
   const code = generateCode({ schema: parsedSchema });
   fs.writeFileSync(args.output, code, { encoding: "utf-8" });

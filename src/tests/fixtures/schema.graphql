@@ -1,4 +1,4 @@
-# import * from "./generated/prisma.graphql"
+# import * from "./prisma.graphql"
 
 type Query {
   topExperiences: [Experience!]!
