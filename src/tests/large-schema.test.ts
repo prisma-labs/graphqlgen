@@ -1,4 +1,4 @@
-import { generateCode, GenerateCodeArgs } from "../";
+import { generateCode } from "..";
 import * as fs from "fs";
 import { parse } from "graphql";
 import { join } from "path";

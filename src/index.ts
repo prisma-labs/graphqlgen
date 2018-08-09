@@ -3,18 +3,11 @@
 import * as yargs from "yargs";
 import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
-import * as os from "os";
-import * as capitalize from "capitalize";
 import * as chalk from "chalk";
 import * as prettier from "prettier";
-import {
-  GraphQLTypeObject,
-  GraphQLScalarTypeArray,
-  GraphQLScalarType,
-  getTSTypeFromGraphQLType,
-  extractGraphQLTypes
-} from "./source-helper";
-import { join, resolve } from "path";
+import { GraphQLTypeObject, extractGraphQLTypes } from "./source-helper";
+import { resolve } from "path";
+import { generate } from "./generators/ts-generator";
 
 type CLIArgs = {
   schemaPath: string;
@@ -35,77 +28,7 @@ export function generateCode({
   }
 
   const types: GraphQLTypeObject[] = extractGraphQLTypes(schema);
-
-  // TODO: Handle input object types, enum, union
-  const code = `
-import { GraphQLResolveInfo } from 'graphql'
-
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>
-}
-
-export interface ITypes {
-Context: any
-${types.map(type => `   ${type.name}Root: any`).join(os.EOL)}
-}
-
-  ${types
-    .map(
-      type => `export namespace I${type.name} {
-  ${type.fields
-    .map(
-      field => `
-
-  ${
-    field.arguments.length > 0
-      ? `export interface Args${capitalize(field.name)} {
-      ${field.arguments
-        .map(
-          arg =>
-            `${arg.name}: ${
-              GraphQLScalarTypeArray.indexOf(arg.type.name) > -1
-                ? getTSTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
-                : `T['${field.type.name}Root']`
-            }${field.type.isArray ? "[]" : ""}`
-        )
-        .join(os.EOL)}
-    }`
-      : ""
-  }
-
-  export type ${capitalize(field.name)}Resolver<T extends ITypes> = ResolverFn<
-    T['${type.name}Root'],
-    {},
-    T['Context'],
-    ${
-      GraphQLScalarTypeArray.indexOf(field.type.name) > -1
-        ? getTSTypeFromGraphQLType(field.type.name as GraphQLScalarType)
-        : `T['${field.type.name}Root']`
-    }${field.type.isArray ? "[]" : ""}
-  >
-  `
-    )
-    .join(os.EOL)}
-
-  export interface Resolver<T extends ITypes> {
-  ${type.fields
-    .map(field => `   ${field.name}: ${capitalize(field.name)}Resolver<T>`)
-    .join(os.EOL)}
-  }
-}
-`
-    )
-    .join(os.EOL)}
-
-export interface IResolvers<T extends ITypes> {
-  ${types
-    .map(type => `   ${type.name}: I${type.name}.Resolver<T>`)
-    .join(os.EOL)}
-}
-
-  `;
+  const code = generate(types);
 
   if (prettify) {
     return prettier.format(code, {
@@ -150,7 +73,15 @@ function run() {
   }
 
   const code = generateCode({ schema: parsedSchema });
-  fs.writeFileSync(args.output, code, { encoding: "utf-8" });
+  try {
+    fs.writeFileSync(args.output, code, { encoding: "utf-8" });
+  } catch (e) {
+    console.error(
+      chalk.default.red(
+        `Failed to write the file at ${args.output}, error: ${e}`
+      )
+    );
+  }
   console.log(chalk.default.green(`Code generated at ${args.output}`));
   process.exit(0);
 }
