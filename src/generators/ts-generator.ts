@@ -5,8 +5,7 @@ import {
   GraphQLTypeObject,
   GraphQLScalarTypeArray,
   GraphQLScalarType,
-  getTSTypeFromGraphQLType,
-  extractGraphQLTypes
+  getTSTypeFromGraphQLType
 } from "../source-helper";
 
 // TODO: Handle input object types, enum, union

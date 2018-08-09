@@ -3,7 +3,10 @@
     "rootDir": "./src",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["es2015", "esnext.asynciterable"]
+    "lib": ["es2015", "esnext.asynciterable"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true
   },
   "exclude": ["node_modules", "generated"]
 }

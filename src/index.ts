@@ -28,7 +28,7 @@ export function generateCode({
     console.error(chalk.default.red(`Please provide a parsed GraphQL schema`));
   }
 
-  const types: GraphQLTypeObject[] = extractGraphQLTypes(schema);
+  const types: GraphQLTypeObject[] = extractGraphQLTypes(schema!);
   const code = generate(types);
 
   if (prettify) {
@@ -71,13 +71,13 @@ function run() {
 
   let parsedSchema = undefined;
   try {
-    parsedSchema = parse(schema);
+    parsedSchema = parse(schema!);
   } catch (e) {
     console.error(chalk.default.red(`Failed to parse schema: ${e}`));
     process.exit(1);
   }
 
-  const code = generateCode({ schema: parsedSchema });
+  const code = generateCode({ schema: parsedSchema! });
   try {
     fs.writeFileSync(args.output, code, { encoding: "utf-8" });
   } catch (e) {
