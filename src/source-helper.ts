@@ -7,8 +7,7 @@ import {
   DocumentNode,
   EnumTypeDefinitionNode,
   EnumValueDefinitionNode,
-  UnionTypeDefinitionNode,
-  GraphQLObjectType
+  UnionTypeDefinitionNode
 } from "graphql";
 
 type GraphQLType = {
@@ -163,7 +162,7 @@ export function extractGraphQLEnums(schema: DocumentNode) {
 
 function extractUnionTypes(
   node: UnionTypeDefinitionNode,
-  types: GraphQLObjectType[]
+  types: GraphQLTypeObject[]
 ) {
   const unionTypesStrings: string[] = [];
   visit(node.types, {
