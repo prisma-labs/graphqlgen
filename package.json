@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
+  "bin": {
+    "graphql-resolver-codegen": "dist/index.js"
+  },
   "scripts": {
+    "build": "tsc",
     "test": "jest"
   },
   "repository": {
