@@ -13,4 +13,4 @@ jobs:
           paths:
             - ./node_modules
       - run: npm test
-      # - run: npx semantic-release
+      - run: npx semantic-release
