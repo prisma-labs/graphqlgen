@@ -92,12 +92,12 @@ function extractTypeLike(node: FieldDefinitionNode | InputValueDefinitionNode) {
 
 function extractTypeFields(node: ObjectTypeDefinitionNode) {
   const fields: GraphQLTypeField[] = [];
-  visit(node.fields, {
+  visit(node, {
     FieldDefinition(fieldNode: FieldDefinitionNode) {
       const fieldType: GraphQLType = extractTypeLike(fieldNode);
 
       const fieldArguments: GraphQLTypeArgument[] = [];
-      visit(fieldNode.arguments, {
+      visit(fieldNode, {
         InputValueDefinition(
           inputValueDefinitionNode: InputValueDefinitionNode
         ) {
@@ -138,7 +138,7 @@ export function extractGraphQLTypes(schema: DocumentNode) {
 
 function extractEnumValues(node: EnumTypeDefinitionNode) {
   const values: string[] = [];
-  visit(node.values, {
+  visit(node, {
     EnumValueDefinition(node: EnumValueDefinitionNode) {
       values.push(node.name.value);
     }
@@ -165,7 +165,7 @@ function extractUnionTypes(
   types: GraphQLTypeObject[]
 ) {
   const unionTypesStrings: string[] = [];
-  visit(node.types, {
+  visit(node, {
     NamedType(node: NamedTypeNode) {
       unionTypesStrings.push(node.name.value);
     }
