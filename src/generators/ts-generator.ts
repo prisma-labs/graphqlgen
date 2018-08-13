@@ -3,16 +3,38 @@ import * as capitalize from "capitalize";
 import * as prettier from "prettier";
 
 import { GenerateArgs } from "./generator-interface";
-import {
-  GraphQLScalarTypeArray,
-  GraphQLScalarType,
-  getTSTypeFromGraphQLType
-} from "../source-helper";
+import { GraphQLScalarTypeArray, GraphQLScalarType } from "../source-helper";
+
+type SpecificGraphQLScalarType = "boolean" | "number" | "string";
+
+function getTypeFromGraphQLType(
+  type: GraphQLScalarType
+): SpecificGraphQLScalarType {
+  if (type === "Int" || type === "Float") {
+    return "number";
+  }
+  if (type === "Boolean") {
+    return "boolean";
+  }
+  if (type === "String" || type === "ID" || type === "DateTime") {
+    return "string";
+  }
+  return "string";
+}
 
 export function format(code: string) {
-  return prettier.format(code, {
-    parser: "typescript"
-  });
+  try {
+    return prettier.format(code, {
+      parser: "typescript"
+    });
+  } catch (e) {
+    console.log(
+      `There is a syntax error in generated code, unformatted code printed, error: ${JSON.stringify(
+        e
+      )}`
+    );
+    return code;
+  }
 }
 
 export function generate(args: GenerateArgs) {
@@ -45,7 +67,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
           arg =>
             `${arg.name}: ${
               GraphQLScalarTypeArray.indexOf(arg.type.name) > -1
-                ? getTSTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
+                ? getTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
                 : `T['${field.type.name}Root']`
             }${field.type.isArray ? "[]" : ""}`
         )
@@ -60,7 +82,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
     T['Context'],
     ${
       GraphQLScalarTypeArray.indexOf(field.type.name) > -1
-        ? getTSTypeFromGraphQLType(field.type.name as GraphQLScalarType)
+        ? getTypeFromGraphQLType(field.type.name as GraphQLScalarType)
         : `T['${field.type.name}Root']`
     }${field.type.isArray ? "[]" : ""}
   >

@@ -57,22 +57,6 @@ export type GraphQLScalarType =
   | "String"
   | "ID"
   | "DateTime";
-type TSGraphQLScalarType = "boolean" | "number" | "string";
-
-export function getTSTypeFromGraphQLType(
-  type: GraphQLScalarType
-): TSGraphQLScalarType {
-  if (type === "Int" || type === "Float") {
-    return "number";
-  }
-  if (type === "Boolean") {
-    return "boolean";
-  }
-  if (type === "String" || type === "ID" || type === "DateTime") {
-    return "string";
-  }
-  return "string";
-}
 
 function extractTypeLike(node: FieldDefinitionNode | InputValueDefinitionNode) {
   const typeLike: GraphQLType = {} as any;
