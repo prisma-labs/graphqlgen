@@ -1,26 +1,21 @@
 import * as os from "os";
 import * as capitalize from "capitalize";
+import * as prettier from "prettier";
 
+import { GenerateArgs } from "./generator-interface";
 import {
-  GraphQLTypeObject,
   GraphQLScalarTypeArray,
   GraphQLScalarType,
-  getTSTypeFromGraphQLType,
-  GraphQLEnumObject,
-  GraphQLUnionObject
+  getTSTypeFromGraphQLType
 } from "../source-helper";
 
-type GenerateArgs = {
-  types: GraphQLTypeObject[];
-  enums: GraphQLEnumObject[];
-  unions: GraphQLUnionObject[];
-};
+export function format(code: string) {
+  return prettier.format(code, {
+    parser: "typescript"
+  });
+}
 
-// TODO: Handle input object types, enum, union
 export function generate(args: GenerateArgs) {
-  const types: GraphQLTypeObject[] = args.types;
-  const enums: GraphQLEnumObject[] = args.enums;
-  const unions: GraphQLUnionObject[] = args.unions;
   return `
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -32,12 +27,12 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
 Context: any
-${enums.map(e => `${e.name}Root: any`).join(os.EOL)}
-${unions.map(union => `${union.name}Root: any`).join(os.EOL)}
-${types.map(type => `${type.name}Root: any`).join(os.EOL)}
+${args.enums.map(e => `${e.name}Root: any`).join(os.EOL)}
+${args.unions.map(union => `${union.name}Root: any`).join(os.EOL)}
+${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 }
 
-  ${types
+  ${args.types
     .map(
       type => `export namespace I${type.name} {
   ${type.fields
@@ -84,7 +79,7 @@ ${types.map(type => `${type.name}Root: any`).join(os.EOL)}
     .join(os.EOL)}
 
 export interface IResolvers<T extends ITypes> {
-  ${types
+  ${args.types
     .map(type => `   ${type.name}: I${type.name}.Resolver<T>`)
     .join(os.EOL)}
 }

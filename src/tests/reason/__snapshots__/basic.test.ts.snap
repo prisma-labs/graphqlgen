@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum to reason 1`] = `"Reason code will be generated here [object Object]"`;
+
+exports[`basic schema to reason 1`] = `"Reason code will be generated here [object Object]"`;
+
+exports[`basic union to reason 1`] = `"Reason code will be generated here [object Object]"`;
