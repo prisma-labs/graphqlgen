@@ -83,6 +83,20 @@ export function generate(args: GenerateArgs) {
     `
       )
       .join(os.EOL)}
+
+      ${args.unions.map(
+        union => `
+        type ${camelCase(union.name)} =
+          ${union.types.map(t => `| ${t.name}`).join(os.EOL)}  
+      `
+      )}
+
+      ${args.enums.map(
+        e => `
+        type ${camelCase(e.name)} =
+          ${e.values.map(v => `| ${v}`).join(os.EOL)}  
+      `
+      )}
   };
 
 
@@ -107,12 +121,7 @@ export function generate(args: GenerateArgs) {
         )
         .join(os.EOL)}
 
-      ${
-        type.fields.some(field => field.arguments.length > 0)
-          ? `type root;`
-          : ``
-      }
-
+      type root;
       type args;
       type context;
       type info;
