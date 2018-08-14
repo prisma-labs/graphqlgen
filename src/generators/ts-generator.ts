@@ -1,26 +1,43 @@
 import * as os from "os";
 import * as capitalize from "capitalize";
+import * as prettier from "prettier";
 
-import {
-  GraphQLTypeObject,
-  GraphQLScalarTypeArray,
-  GraphQLScalarType,
-  getTSTypeFromGraphQLType,
-  GraphQLEnumObject,
-  GraphQLUnionObject
-} from "../source-helper";
+import { GenerateArgs } from "./generator-interface";
+import { GraphQLScalarTypeArray, GraphQLScalarType } from "../source-helper";
 
-type GenerateArgs = {
-  types: GraphQLTypeObject[];
-  enums: GraphQLEnumObject[];
-  unions: GraphQLUnionObject[];
-};
+type SpecificGraphQLScalarType = "boolean" | "number" | "string";
 
-// TODO: Handle input object types, enum, union
+function getTypeFromGraphQLType(
+  type: GraphQLScalarType
+): SpecificGraphQLScalarType {
+  if (type === "Int" || type === "Float") {
+    return "number";
+  }
+  if (type === "Boolean") {
+    return "boolean";
+  }
+  if (type === "String" || type === "ID" || type === "DateTime") {
+    return "string";
+  }
+  return "string";
+}
+
+export function format(code: string) {
+  try {
+    return prettier.format(code, {
+      parser: "typescript"
+    });
+  } catch (e) {
+    console.log(
+      `There is a syntax error in generated code, unformatted code printed, error: ${JSON.stringify(
+        e
+      )}`
+    );
+    return code;
+  }
+}
+
 export function generate(args: GenerateArgs) {
-  const types: GraphQLTypeObject[] = args.types;
-  const enums: GraphQLEnumObject[] = args.enums;
-  const unions: GraphQLUnionObject[] = args.unions;
   return `
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -32,12 +49,12 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
 Context: any
-${enums.map(e => `${e.name}Root: any`).join(os.EOL)}
-${unions.map(union => `${union.name}Root: any`).join(os.EOL)}
-${types.map(type => `${type.name}Root: any`).join(os.EOL)}
+${args.enums.map(e => `${e.name}Root: any`).join(os.EOL)}
+${args.unions.map(union => `${union.name}Root: any`).join(os.EOL)}
+${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 }
 
-  ${types
+  ${args.types
     .map(
       type => `export namespace I${type.name} {
   ${type.fields
@@ -50,7 +67,7 @@ ${types.map(type => `${type.name}Root: any`).join(os.EOL)}
           arg =>
             `${arg.name}: ${
               GraphQLScalarTypeArray.indexOf(arg.type.name) > -1
-                ? getTSTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
+                ? getTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
                 : `T['${field.type.name}Root']`
             }${field.type.isArray ? "[]" : ""}`
         )
@@ -65,7 +82,7 @@ ${types.map(type => `${type.name}Root: any`).join(os.EOL)}
     T['Context'],
     ${
       GraphQLScalarTypeArray.indexOf(field.type.name) > -1
-        ? getTSTypeFromGraphQLType(field.type.name as GraphQLScalarType)
+        ? getTypeFromGraphQLType(field.type.name as GraphQLScalarType)
         : `T['${field.type.name}Root']`
     }${field.type.isArray ? "[]" : ""}
   >
@@ -84,7 +101,7 @@ ${types.map(type => `${type.name}Root: any`).join(os.EOL)}
     .join(os.EOL)}
 
 export interface IResolvers<T extends ITypes> {
-  ${types
+  ${args.types
     .map(type => `   ${type.name}: I${type.name}.Resolver<T>`)
     .join(os.EOL)}
 }

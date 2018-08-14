@@ -1,11 +1,11 @@
-import { generateCode } from "..";
+import { generateCode } from "../../";
 import * as fs from "fs";
 import { parse } from "graphql";
 import { join } from "path";
 
 test("basic schema", async () => {
   const schema = fs.readFileSync(
-    join(__dirname, "./fixtures/basic.graphql"),
+    join(__dirname, "../fixtures/basic.graphql"),
     "utf-8"
   );
   const parsedSchema = parse(schema);
@@ -15,7 +15,7 @@ test("basic schema", async () => {
 
 test("basic enum", async () => {
   const schema = fs.readFileSync(
-    join(__dirname, "./fixtures/enum.graphql"),
+    join(__dirname, "../fixtures/enum.graphql"),
     "utf-8"
   );
   const parsedSchema = parse(schema);
@@ -25,7 +25,7 @@ test("basic enum", async () => {
 
 test("basic union", async () => {
   const schema = fs.readFileSync(
-    join(__dirname, "./fixtures/union.graphql"),
+    join(__dirname, "../fixtures/union.graphql"),
     "utf-8"
   );
   const parsedSchema = parse(schema);

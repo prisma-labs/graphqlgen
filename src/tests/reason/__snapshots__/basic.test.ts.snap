@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum to reason 1`] = `
+"module Data = {
+  type user = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+  };
+
+  type userType =
+    | ADMIN
+    | EDITOR
+    | COLLABORATOR;
+};
+
+module User = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {. \\"type\\": (root, args, context, info) => Data.userType};
+};
+"
+`;
+
+exports[`basic schema to reason 1`] = `
+"module Data = {
+  type query = {
+    .
+    \\"id\\": string,
+    \\"scalar_required\\": bool,
+    \\"scalar_nullable\\": bool,
+    \\"scalar_array_nullable\\": bool,
+    \\"scalar_array_required\\": bool,
+    \\"scalar_with_arg\\": bool,
+    \\"scalar_with_custom_arg\\": bool,
+  };
+
+  type number = {
+    .
+    \\"id\\": string,
+    \\"value\\": float,
+  };
+};
+
+module Query = {
+  type custom_with_argArgument = {. \\"id\\": Data.number};
+
+  type custom_with_custom_argArgument = {. \\"id\\": Data.number};
+
+  type scalar_with_argArgument = {. \\"id\\": bool};
+
+  type scalar_with_custom_argArgument = {. \\"id\\": bool};
+
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"custom_required\\": (root, args, context, info) => Data.number,
+    \\"custom_nullable\\": (root, args, context, info) => Data.number,
+    \\"custom_array_nullable\\":
+      (root, args, context, info) => Js.Array.t(Data.number),
+    \\"custom_array_required\\":
+      (root, args, context, info) => Js.Array.t(Data.number),
+    \\"custom_with_arg\\":
+      (root, custom_with_argArgument, context, info) => Data.number,
+    \\"custom_with_custom_arg\\":
+      (root, custom_with_custom_argArgument, context, info) => Data.number,
+  };
+};
+
+module Number = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+"
+`;
+
+exports[`basic union to reason 1`] = `
+"module Data = {
+  type user = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+  };
+
+  type student = {. \\"age\\": int};
+
+  type professor = {. \\"degree\\": string};
+
+  type userType =
+    | Student
+    | Professor;
+};
+
+module User = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {. \\"type\\": (root, args, context, info) => Data.userType};
+};
+
+module Student = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Professor = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+"
+`;

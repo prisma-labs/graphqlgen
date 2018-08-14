@@ -4,63 +4,95 @@ import * as yargs from "yargs";
 import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
 import * as chalk from "chalk";
-import * as prettier from "prettier";
 import {
-  GraphQLTypeObject,
   extractGraphQLTypes,
-  GraphQLEnumObject,
   extractGraphQLEnums,
-  GraphQLUnionObject,
   extractGraphQLUnions
 } from "./source-helper";
+import { IGenerator, GenerateArgs } from "./generators/generator-interface";
 import { resolve } from "path";
-import { generate } from "./generators/ts-generator";
+import {
+  generate as generateTS,
+  format as formatTS
+} from "./generators/ts-generator";
+import {
+  generate as generateReason,
+  format as formatReason
+} from "./generators/reason-generator";
 import { importSchema } from "graphql-import";
+
+type GeneratorType = "typescript" | "reason";
 
 type CLIArgs = {
   schemaPath: string;
   output: string;
+  generator: GeneratorType;
+};
+
+type DefaultOptions = {
+  output: string;
+  generator: GeneratorType;
 };
 
 export type GenerateCodeArgs = {
   schema: DocumentNode | undefined;
   prettify?: boolean;
+  generator?: GeneratorType;
 };
+
+function getGenerator(generator: GeneratorType): IGenerator {
+  if (generator === "reason") {
+    return { generate: generateReason, format: formatReason };
+  }
+  return { generate: generateTS, format: formatTS };
+}
 
 export function generateCode({
   schema = undefined,
-  prettify = true
+  prettify = true,
+  generator = "typescript"
 }: GenerateCodeArgs): string {
   if (!schema) {
     console.error(chalk.default.red(`Please provide a parsed GraphQL schema`));
   }
 
-  const types: GraphQLTypeObject[] = extractGraphQLTypes(schema!);
-  const enums: GraphQLEnumObject[] = extractGraphQLEnums(schema!);
-  const unions: GraphQLUnionObject[] = extractGraphQLUnions(schema!);
-  const code = generate({ types, enums, unions });
+  const generateArgs: GenerateArgs = {
+    types: extractGraphQLTypes(schema!),
+    enums: extractGraphQLEnums(schema!),
+    unions: extractGraphQLUnions(schema!)
+  };
+  const generatorFn: IGenerator = getGenerator(generator);
+  const code = generatorFn.generate(generateArgs);
 
   if (prettify) {
-    return prettier.format(code, {
-      parser: "typescript"
-    });
+    return generatorFn.format(code);
   } else {
     return code;
   }
 }
 
 function run() {
+  const defaults: DefaultOptions = {
+    output: "./resolvers.ts",
+    generator: "typescript"
+  };
   const argv = yargs
-    .usage("Usage: $0 -s [schema-path] -o [output-path]")
+    .usage("Usage: $0 -s [schema-path] -o [output-path] -g [generator]")
     .alias("s", "schema-path")
     .describe("s", "GraphQL schema file path")
     .alias("o", "output")
-    .describe("o", "Output file path")
+    .describe("o", `Output file path [default: ${defaults.output}]`)
+    .alias("g", "generator")
+    .describe(
+      "g",
+      `Generator to use [default: ${defaults.generator}, options: reason]`
+    )
     .demandOption(["s"])
     .strict().argv;
   const args: CLIArgs = {
     schemaPath: resolve(argv.schemaPath),
-    output: argv.output || "./resolvers.ts"
+    output: argv.output || defaults.output,
+    generator: argv.generator || defaults.generator
   };
 
   if (!fs.existsSync(args.schemaPath)) {
@@ -86,7 +118,10 @@ function run() {
     process.exit(1);
   }
 
-  const code = generateCode({ schema: parsedSchema! });
+  const code = generateCode({
+    schema: parsedSchema!,
+    generator: args.generator
+  });
   try {
     fs.writeFileSync(args.output, code, { encoding: "utf-8" });
   } catch (e) {

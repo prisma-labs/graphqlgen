@@ -103,6 +103,28 @@ export namespace IQuery {
     T[\\"NumberRoot\\"][]
   >;
 
+  export interface ArgsCustom_with_arg {
+    id: number;
+  }
+
+  export type Custom_with_argResolver<T extends ITypes> = ResolverFn<
+    T[\\"QueryRoot\\"],
+    {},
+    T[\\"Context\\"],
+    T[\\"NumberRoot\\"]
+  >;
+
+  export interface ArgsCustom_with_custom_arg {
+    id: T[\\"NumberRoot\\"];
+  }
+
+  export type Custom_with_custom_argResolver<T extends ITypes> = ResolverFn<
+    T[\\"QueryRoot\\"],
+    {},
+    T[\\"Context\\"],
+    T[\\"NumberRoot\\"]
+  >;
+
   export type Scalar_requiredResolver<T extends ITypes> = ResolverFn<
     T[\\"QueryRoot\\"],
     {},
@@ -131,16 +153,42 @@ export namespace IQuery {
     boolean[]
   >;
 
+  export interface ArgsScalar_with_arg {
+    id: number;
+  }
+
+  export type Scalar_with_argResolver<T extends ITypes> = ResolverFn<
+    T[\\"QueryRoot\\"],
+    {},
+    T[\\"Context\\"],
+    boolean
+  >;
+
+  export interface ArgsScalar_with_custom_arg {
+    id: T[\\"BooleanRoot\\"];
+  }
+
+  export type Scalar_with_custom_argResolver<T extends ITypes> = ResolverFn<
+    T[\\"QueryRoot\\"],
+    {},
+    T[\\"Context\\"],
+    boolean
+  >;
+
   export interface Resolver<T extends ITypes> {
     id: IdResolver<T>;
     custom_required: Custom_requiredResolver<T>;
     custom_nullable: Custom_nullableResolver<T>;
     custom_array_nullable: Custom_array_nullableResolver<T>;
     custom_array_required: Custom_array_requiredResolver<T>;
+    custom_with_arg: Custom_with_argResolver<T>;
+    custom_with_custom_arg: Custom_with_custom_argResolver<T>;
     scalar_required: Scalar_requiredResolver<T>;
     scalar_nullable: Scalar_nullableResolver<T>;
     scalar_array_nullable: Scalar_array_nullableResolver<T>;
     scalar_array_required: Scalar_array_requiredResolver<T>;
+    scalar_with_arg: Scalar_with_argResolver<T>;
+    scalar_with_custom_arg: Scalar_with_custom_argResolver<T>;
   }
 }
 
