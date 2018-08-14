@@ -77,7 +77,7 @@ function run() {
     generator: "typescript"
   };
   const argv = yargs
-    .usage("Usage: $0 -s [schema-path] -o [output-path]")
+    .usage("Usage: $0 -s [schema-path] -o [output-path] -g [generator]")
     .alias("s", "schema-path")
     .describe("s", "GraphQL schema file path")
     .alias("o", "output")
