@@ -11,7 +11,7 @@ Generate TS Resolvers
 
 ```bash
 graphql-resolver-codegen --help
-Usage: graphql-resolver-codegen -s [schema-path] -o [output-path] - g [generator]
+Usage: graphql-resolver-codegen -s [schema-path] -o [output-path] -g [generator]
 
 Options:
   --help             Show help                                         [boolean]
