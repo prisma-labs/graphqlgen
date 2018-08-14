@@ -7,9 +7,15 @@ exports[`basic enum to reason 1`] = `
     \\"id\\": string,
     \\"name\\": string,
   };
+
+  type userType =
+    | ADMIN
+    | EDITOR
+    | COLLABORATOR;
 };
 
 module User = {
+  type root;
   type args;
   type context;
   type info;
@@ -49,7 +55,6 @@ module Query = {
   type scalar_with_custom_argArgument = {. \\"id\\": bool};
 
   type root;
-
   type args;
   type context;
   type info;
@@ -70,6 +75,7 @@ module Query = {
 };
 
 module Number = {
+  type root;
   type args;
   type context;
   type info;
@@ -90,9 +96,14 @@ exports[`basic union to reason 1`] = `
   type student = {. \\"age\\": int};
 
   type professor = {. \\"degree\\": string};
+
+  type userType =
+    | Student
+    | Professor;
 };
 
 module User = {
+  type root;
   type args;
   type context;
   type info;
@@ -101,6 +112,7 @@ module User = {
 };
 
 module Student = {
+  type root;
   type args;
   type context;
   type info;
@@ -109,6 +121,7 @@ module Student = {
 };
 
 module Professor = {
+  type root;
   type args;
   type context;
   type info;

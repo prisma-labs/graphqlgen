@@ -84,19 +84,23 @@ export function generate(args: GenerateArgs) {
       )
       .join(os.EOL)}
 
-      ${args.unions.map(
-        union => `
+      ${args.unions
+        .map(
+          union => `
         type ${camelCase(union.name)} =
           ${union.types.map(t => `| ${t.name}`).join(os.EOL)}  
       `
-      )}
+        )
+        .join(os.EOL)}
 
-      ${args.enums.map(
-        e => `
+      ${args.enums
+        .map(
+          e => `
         type ${camelCase(e.name)} =
           ${e.values.map(v => `| ${v}`).join(os.EOL)}  
       `
-      )}
+        )
+        .join(os.EOL)}
   };
 
 
@@ -111,11 +115,13 @@ export function generate(args: GenerateArgs) {
           field => `
           type ${field.name}Argument = {
             .
-            ${field.arguments.map(
-              arg => `
+            ${field.arguments
+              .map(
+                arg => `
               "${arg.name}": ${printFieldLikeType(field)}
             `
-            )}
+              )
+              .join(os.EOL)}
           }
         `
         )

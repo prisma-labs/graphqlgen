@@ -1,0 +1,711 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`large schema 1`] = `
+"module Data = {
+  type query = {.};
+
+  type mutation = {.};
+
+  type viewer = {.};
+
+  type authPayload = {. \\"token\\": string};
+
+  type mutationResult = {. \\"success\\": bool};
+
+  type experiencesByCity = {.};
+
+  type home = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+    \\"description\\": string,
+    \\"numRatings\\": int,
+    \\"avgRating\\": float,
+    \\"perNight\\": int,
+  };
+
+  type reservation = {
+    .
+    \\"id\\": string,
+    \\"title\\": string,
+    \\"avgPricePerPerson\\": int,
+    \\"isCurated\\": bool,
+    \\"slug\\": string,
+    \\"popularity\\": int,
+  };
+
+  type experience = {
+    .
+    \\"id\\": string,
+    \\"title\\": string,
+    \\"pricePerPerson\\": int,
+    \\"popularity\\": int,
+  };
+
+  type review = {
+    .
+    \\"accuracy\\": int,
+    \\"checkIn\\": int,
+    \\"cleanliness\\": int,
+    \\"communication\\": int,
+    \\"createdAt\\": string,
+    \\"id\\": string,
+    \\"location\\": int,
+    \\"stars\\": int,
+    \\"text\\": string,
+    \\"value\\": int,
+  };
+
+  type neighbourhood = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+    \\"slug\\": string,
+    \\"featured\\": bool,
+    \\"popularity\\": int,
+  };
+
+  type location = {
+    .
+    \\"id\\": string,
+    \\"lat\\": float,
+    \\"lng\\": float,
+    \\"address\\": string,
+    \\"directions\\": string,
+  };
+
+  type picture = {
+    .
+    \\"id\\": string,
+    \\"url\\": string,
+  };
+
+  type city = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+  };
+
+  type experienceCategory = {
+    .
+    \\"id\\": string,
+    \\"mainColor\\": string,
+    \\"name\\": string,
+  };
+
+  type user = {
+    .
+    \\"createdAt\\": string,
+    \\"email\\": string,
+    \\"firstName\\": string,
+    \\"id\\": string,
+    \\"isSuperHost\\": bool,
+    \\"lastName\\": string,
+    \\"phone\\": string,
+    \\"responseRate\\": float,
+    \\"responseTime\\": int,
+    \\"updatedAt\\": string,
+    \\"token\\": string,
+  };
+
+  type paymentAccount = {
+    .
+    \\"id\\": string,
+    \\"createdAt\\": string,
+  };
+
+  type place = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+    \\"shortDescription\\": string,
+    \\"description\\": string,
+    \\"slug\\": string,
+    \\"maxGuests\\": int,
+    \\"numBedrooms\\": int,
+    \\"numBeds\\": int,
+    \\"numBaths\\": int,
+    \\"popularity\\": int,
+  };
+
+  type booking = {
+    .
+    \\"id\\": string,
+    \\"createdAt\\": string,
+    \\"startDate\\": string,
+    \\"endDate\\": string,
+  };
+
+  type notification = {
+    .
+    \\"createdAt\\": string,
+    \\"id\\": string,
+    \\"link\\": string,
+    \\"readDate\\": string,
+  };
+
+  type payment = {
+    .
+    \\"createdAt\\": string,
+    \\"id\\": string,
+    \\"serviceFee\\": float,
+  };
+
+  type paypalInformation = {
+    .
+    \\"createdAt\\": string,
+    \\"email\\": string,
+    \\"id\\": string,
+  };
+
+  type creditCardInformation = {
+    .
+    \\"cardNumber\\": string,
+    \\"country\\": string,
+    \\"createdAt\\": string,
+    \\"expiresOnMonth\\": int,
+    \\"expiresOnYear\\": int,
+    \\"firstName\\": string,
+    \\"id\\": string,
+    \\"lastName\\": string,
+    \\"postalCode\\": string,
+    \\"securityCode\\": string,
+  };
+
+  type message = {
+    .
+    \\"createdAt\\": string,
+    \\"deliveredAt\\": string,
+    \\"id\\": string,
+    \\"readAt\\": string,
+  };
+
+  type pricing = {
+    .
+    \\"averageMonthly\\": int,
+    \\"averageWeekly\\": int,
+    \\"basePrice\\": int,
+    \\"cleaningFee\\": int,
+    \\"extraGuests\\": int,
+    \\"id\\": string,
+    \\"monthlyDiscount\\": int,
+    \\"perNight\\": int,
+    \\"securityDeposit\\": int,
+    \\"smartPricing\\": bool,
+    \\"weekendPricing\\": int,
+    \\"weeklyDiscount\\": int,
+  };
+
+  type placeViews = {
+    .
+    \\"id\\": string,
+    \\"lastWeek\\": int,
+  };
+
+  type guestRequirements = {
+    .
+    \\"govIssuedId\\": bool,
+    \\"guestTripInformation\\": bool,
+    \\"id\\": string,
+    \\"recommendationsFromOtherHosts\\": bool,
+  };
+
+  type policies = {
+    .
+    \\"checkInEndTime\\": float,
+    \\"checkInStartTime\\": float,
+    \\"checkoutTime\\": float,
+    \\"createdAt\\": string,
+    \\"id\\": string,
+    \\"updatedAt\\": string,
+  };
+
+  type houseRules = {
+    .
+    \\"additionalRules\\": string,
+    \\"createdAt\\": string,
+    \\"id\\": string,
+    \\"partiesAndEventsAllowed\\": bool,
+    \\"petsAllowed\\": bool,
+    \\"smokingAllowed\\": bool,
+    \\"suitableForChildren\\": bool,
+    \\"suitableForInfants\\": bool,
+    \\"updatedAt\\": string,
+  };
+
+  type amenities = {
+    .
+    \\"airConditioning\\": bool,
+    \\"babyBath\\": bool,
+    \\"babyMonitor\\": bool,
+    \\"babysitterRecommendations\\": bool,
+    \\"bathtub\\": bool,
+    \\"breakfast\\": bool,
+    \\"buzzerWirelessIntercom\\": bool,
+    \\"cableTv\\": bool,
+    \\"changingTable\\": bool,
+    \\"childrensBooksAndToys\\": bool,
+    \\"childrensDinnerware\\": bool,
+    \\"crib\\": bool,
+    \\"doorman\\": bool,
+    \\"dryer\\": bool,
+    \\"elevator\\": bool,
+    \\"essentials\\": bool,
+    \\"familyKidFriendly\\": bool,
+    \\"freeParkingOnPremises\\": bool,
+    \\"freeParkingOnStreet\\": bool,
+    \\"gym\\": bool,
+    \\"hairDryer\\": bool,
+    \\"hangers\\": bool,
+    \\"heating\\": bool,
+    \\"hotTub\\": bool,
+    \\"id\\": string,
+    \\"indoorFireplace\\": bool,
+    \\"internet\\": bool,
+    \\"iron\\": bool,
+    \\"kitchen\\": bool,
+    \\"laptopFriendlyWorkspace\\": bool,
+    \\"paidParkingOffPremises\\": bool,
+    \\"petsAllowed\\": bool,
+    \\"pool\\": bool,
+    \\"privateEntrance\\": bool,
+    \\"shampoo\\": bool,
+    \\"smokingAllowed\\": bool,
+    \\"suitableForEvents\\": bool,
+    \\"tv\\": bool,
+    \\"washer\\": bool,
+    \\"wheelchairAccessible\\": bool,
+    \\"wirelessInternet\\": bool,
+  };
+};
+
+module Query = {
+  type homesInPriceRangeArgument = {
+    .
+    \\"min\\": Js.Array.t(Data.home),
+    \\"max\\": Js.Array.t(Data.home),
+  };
+
+  type experiencesByCityArgument = {
+    .
+    \\"cities\\": Js.Array.t(Data.experiencesByCity),
+  };
+
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"topExperiences\\":
+      (root, args, context, info) => Js.Array.t(Data.experience),
+    \\"topHomes\\": (root, args, context, info) => Js.Array.t(Data.home),
+    \\"homesInPriceRange\\":
+      (root, homesInPriceRangeArgument, context, info) =>
+      Js.Array.t(Data.home),
+    \\"topReservations\\":
+      (root, args, context, info) => Js.Array.t(Data.reservation),
+    \\"featuredDestinations\\":
+      (root, args, context, info) => Js.Array.t(Data.neighbourhood),
+    \\"experiencesByCity\\":
+      (root, experiencesByCityArgument, context, info) =>
+      Js.Array.t(Data.experiencesByCity),
+    \\"viewer\\": (root, args, context, info) => Data.viewer,
+    \\"myLocation\\": (root, args, context, info) => Data.location,
+  };
+};
+
+module Mutation = {
+  type signupArgument = {
+    .
+    \\"email\\": Data.authPayload,
+    \\"password\\": Data.authPayload,
+    \\"firstName\\": Data.authPayload,
+    \\"lastName\\": Data.authPayload,
+    \\"phone\\": Data.authPayload,
+  };
+
+  type loginArgument = {
+    .
+    \\"email\\": Data.authPayload,
+    \\"password\\": Data.authPayload,
+  };
+
+  type addPaymentMethodArgument = {
+    .
+    \\"cardNumber\\": Data.mutationResult,
+    \\"expiresOnMonth\\": Data.mutationResult,
+    \\"expiresOnYear\\": Data.mutationResult,
+    \\"securityCode\\": Data.mutationResult,
+    \\"firstName\\": Data.mutationResult,
+    \\"lastName\\": Data.mutationResult,
+    \\"postalCode\\": Data.mutationResult,
+    \\"country\\": Data.mutationResult,
+  };
+
+  type bookArgument = {
+    .
+    \\"placeId\\": Data.mutationResult,
+    \\"checkIn\\": Data.mutationResult,
+    \\"checkOut\\": Data.mutationResult,
+    \\"numGuests\\": Data.mutationResult,
+  };
+
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"signup\\": (root, signupArgument, context, info) => Data.authPayload,
+    \\"login\\": (root, loginArgument, context, info) => Data.authPayload,
+    \\"addPaymentMethod\\":
+      (root, addPaymentMethodArgument, context, info) => Data.mutationResult,
+    \\"book\\": (root, bookArgument, context, info) => Data.mutationResult,
+  };
+};
+
+module Viewer = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"me\\": (root, args, context, info) => Data.user,
+    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
+  };
+};
+
+module AuthPayload = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {. \\"user\\": (root, args, context, info) => Data.user};
+};
+
+module MutationResult = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module ExperiencesByCity = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"experiences\\": (root, args, context, info) => Js.Array.t(Data.experience),
+    \\"city\\": (root, args, context, info) => Data.city,
+  };
+};
+
+module Home = {
+  type picturesArgument = {. \\"first\\": Js.Array.t(Data.picture)};
+
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"pictures\\":
+      (root, picturesArgument, context, info) => Js.Array.t(Data.picture),
+  };
+};
+
+module Reservation = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"pictures\\": (root, args, context, info) => Js.Array.t(Data.picture),
+    \\"location\\": (root, args, context, info) => Data.location,
+  };
+};
+
+module Experience = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"category\\": (root, args, context, info) => Data.experienceCategory,
+    \\"location\\": (root, args, context, info) => Data.location,
+    \\"reviews\\": (root, args, context, info) => Js.Array.t(Data.review),
+    \\"preview\\": (root, args, context, info) => Data.picture,
+  };
+};
+
+module Review = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Neighbourhood = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"homePreview\\": (root, args, context, info) => Data.picture,
+    \\"city\\": (root, args, context, info) => Data.city,
+  };
+};
+
+module Location = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Picture = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module City = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module ExperienceCategory = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"experience\\": (root, args, context, info) => Data.experience,
+  };
+};
+
+module User = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
+    \\"hostingExperiences\\":
+      (root, args, context, info) => Js.Array.t(Data.experience),
+    \\"location\\": (root, args, context, info) => Data.location,
+    \\"notifications\\":
+      (root, args, context, info) => Js.Array.t(Data.notification),
+    \\"ownedPlaces\\": (root, args, context, info) => Js.Array.t(Data.place),
+    \\"paymentAccount\\":
+      (root, args, context, info) => Js.Array.t(Data.paymentAccount),
+    \\"profilePicture\\": (root, args, context, info) => Data.picture,
+    \\"receivedMessages\\":
+      (root, args, context, info) => Js.Array.t(Data.message),
+    \\"sentMessages\\": (root, args, context, info) => Js.Array.t(Data.message),
+  };
+};
+
+module PaymentAccount = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"type\\": (root, args, context, info) => Data.paymentProvider,
+    \\"user\\": (root, args, context, info) => Data.user,
+    \\"payments\\": (root, args, context, info) => Js.Array.t(Data.payment),
+    \\"paypal\\": (root, args, context, info) => Data.paypalInformation,
+    \\"creditcard\\": (root, args, context, info) => Data.creditCardInformation,
+  };
+};
+
+module Place = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"size\\": (root, args, context, info) => Data.placeSizes,
+    \\"reviews\\": (root, args, context, info) => Js.Array.t(Data.review),
+    \\"amenities\\": (root, args, context, info) => Data.amenities,
+    \\"host\\": (root, args, context, info) => Data.user,
+    \\"pricing\\": (root, args, context, info) => Data.pricing,
+    \\"location\\": (root, args, context, info) => Data.location,
+    \\"views\\": (root, args, context, info) => Data.placeViews,
+    \\"guestRequirements\\": (root, args, context, info) => Data.guestRequirements,
+    \\"policies\\": (root, args, context, info) => Data.policies,
+    \\"houseRules\\": (root, args, context, info) => Data.houseRules,
+    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
+    \\"pictures\\": (root, args, context, info) => Js.Array.t(Data.picture),
+  };
+};
+
+module Booking = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"bookee\\": (root, args, context, info) => Data.user,
+    \\"place\\": (root, args, context, info) => Data.place,
+    \\"payment\\": (root, args, context, info) => Data.payment,
+  };
+};
+
+module Notification = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"type\\": (root, args, context, info) => Data.notificationType,
+    \\"user\\": (root, args, context, info) => Data.user,
+  };
+};
+
+module Payment = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"booking\\": (root, args, context, info) => Data.booking,
+    \\"paymentMethod\\": (root, args, context, info) => Data.paymentAccount,
+  };
+};
+
+module PaypalInformation = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"paymentAccount\\": (root, args, context, info) => Data.paymentAccount,
+  };
+};
+
+module CreditCardInformation = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"paymentAccount\\": (root, args, context, info) => Data.paymentAccount,
+  };
+};
+
+module Message = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Pricing = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"currency\\": (root, args, context, info) => Data.currency,
+  };
+};
+
+module PlaceViews = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module GuestRequirements = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Policies = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module HouseRules = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Amenities = {
+  type root;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+"
+`;
