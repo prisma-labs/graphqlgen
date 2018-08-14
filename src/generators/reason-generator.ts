@@ -2,7 +2,7 @@ import * as os from "os";
 import * as capitalize from "capitalize";
 import * as camelCase from "camelcase";
 import * as refmt from "reason";
-import { GraphQLScalarType } from "../source-helper";
+import { GraphQLScalarType, GraphQLTypeField } from "../source-helper";
 
 import { GenerateArgs } from "./generator-interface";
 
@@ -44,6 +44,20 @@ export function format(code: string) {
   }
 }
 
+function printFieldLikeType(field: GraphQLTypeField) {
+  if (
+    getTypeFromGraphQLType(field.type.name as GraphQLScalarType) !== "nonScalar"
+  ) {
+    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)},`;
+  }
+
+  if (field.type.isArray) {
+    return `Js.Array.t(Data.${camelCase(field.type.name)}),`;
+  }
+
+  return `Data.${camelCase(field.type.name)},`;
+}
+
 export function generate(args: GenerateArgs) {
   console.log(`Reason binding is experimental`);
   return `
@@ -61,8 +75,7 @@ export function generate(args: GenerateArgs) {
           )
           .map(
             field => `
-          "${field.name}": ${getTypeFromGraphQLType(field.type
-              .name as GraphQLScalarType)},
+          "${field.name}": ${printFieldLikeType(field)}
         `
           )
           .join(os.EOL)}
@@ -77,6 +90,33 @@ export function generate(args: GenerateArgs) {
     .map(
       type => `
     module ${capitalize(type.name)} = {
+      
+      ${type.fields
+        .filter(field => field.arguments.length > 0)
+        .map(
+          field => `
+          type ${field.name}Argument = {
+            .
+            ${field.arguments.map(
+              arg => `
+              "${arg.name}": ${printFieldLikeType(field)}
+            `
+            )}
+          }
+        `
+        )
+        .join(os.EOL)}
+
+      ${
+        type.fields.some(field => field.arguments.length > 0)
+          ? `type root;`
+          : ``
+      }
+
+      type args;
+      type context;
+      type info;
+      
       type resolvers = {
         .
         ${type.fields
@@ -87,11 +127,9 @@ export function generate(args: GenerateArgs) {
           )
           .map(
             field => `
-          "${field.name}": ${
-              field.type.isArray
-                ? `Js.Array.t(Data.${camelCase(field.type.name)})`
-                : `Data.${camelCase(field.type.name)}`
-            },
+          "${field.name}": (root, ${
+              field.arguments.length > 0 ? `${field.name}Argument` : `args`
+            }, context, info) => ${printFieldLikeType(field)}
         `
           )
           .join(os.EOL)}

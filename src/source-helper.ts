@@ -21,7 +21,7 @@ type GraphQLTypeArgument = {
   type: GraphQLType;
 };
 
-type GraphQLTypeField = {
+export type GraphQLTypeField = {
   name: string;
   type: GraphQLType;
   arguments: [GraphQLTypeArgument];
