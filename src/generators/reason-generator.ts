@@ -1,4 +1,5 @@
 import * as os from "os";
+import * as capitalize from "capitalize";
 import * as camelCase from "camelcase";
 import * as refmt from "reason";
 import { GraphQLScalarType } from "../source-helper";
@@ -44,6 +45,7 @@ export function format(code: string) {
 }
 
 export function generate(args: GenerateArgs) {
+  console.log(`Reason binding is experimental`);
   return `
   module Data = {
     ${args.types
@@ -69,5 +71,35 @@ export function generate(args: GenerateArgs) {
       )
       .join(os.EOL)}
   };
+
+
+  ${args.types
+    .map(
+      type => `
+    module ${capitalize(type.name)} = {
+      type resolvers = {
+        .
+        ${type.fields
+          .filter(
+            field =>
+              getTypeFromGraphQLType(field.type.name as GraphQLScalarType) ===
+              "nonScalar"
+          )
+          .map(
+            field => `
+          "${field.name}": ${
+              field.type.isArray
+                ? `Js.Array.t(Data.${camelCase(field.type.name)})`
+                : `Data.${camelCase(field.type.name)}`
+            },
+        `
+          )
+          .join(os.EOL)}
+      }
+    }
+  `
+    )
+    .join(os.EOL)}
+
   `;
 }
