@@ -978,63 +978,34 @@ export interface Types extends ITypes {
   Context: Context;
 
   QueryRoot: QueryRoot;
-
   MutationRoot: MutationRoot;
-
   ViewerRoot: ViewerRoot;
-
   AuthPayloadRoot: AuthPayloadRoot;
-
   MutationResultRoot: MutationResultRoot;
-
   ExperiencesByCityRoot: ExperiencesByCityRoot;
-
   HomeRoot: HomeRoot;
-
   ReservationRoot: ReservationRoot;
-
   ExperienceRoot: ExperienceRoot;
-
   ReviewRoot: ReviewRoot;
-
   NeighbourhoodRoot: NeighbourhoodRoot;
-
   LocationRoot: LocationRoot;
-
   PictureRoot: PictureRoot;
-
   CityRoot: CityRoot;
-
   ExperienceCategoryRoot: ExperienceCategoryRoot;
-
   UserRoot: UserRoot;
-
   PaymentAccountRoot: PaymentAccountRoot;
-
   PlaceRoot: PlaceRoot;
-
   BookingRoot: BookingRoot;
-
   NotificationRoot: NotificationRoot;
-
   PaymentRoot: PaymentRoot;
-
   PaypalInformationRoot: PaypalInformationRoot;
-
   CreditCardInformationRoot: CreditCardInformationRoot;
-
   MessageRoot: MessageRoot;
-
   PricingRoot: PricingRoot;
-
   PlaceViewsRoot: PlaceViewsRoot;
-
   GuestRequirementsRoot: GuestRequirementsRoot;
-
   PoliciesRoot: PoliciesRoot;
-
   HouseRulesRoot: HouseRulesRoot;
-
   AmenitiesRoot: AmenitiesRoot;
 }
 ",

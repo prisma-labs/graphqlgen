@@ -103,7 +103,7 @@ export interface Types extends ITypes {
 ${type.name}Root: ${type.name}Root
 `
     )
-    .join(os.EOL)}
+    .join(";")}
 }
     `
   });

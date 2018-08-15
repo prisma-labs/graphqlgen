@@ -117,7 +117,6 @@ export interface Types extends ITypes {
   Context: Context;
 
   QueryRoot: QueryRoot;
-
   NumberRoot: NumberRoot;
 }
 ",
@@ -197,9 +196,7 @@ export interface Types extends ITypes {
   Context: Context;
 
   UserRoot: UserRoot;
-
   StudentRoot: StudentRoot;
-
   ProfessorRoot: ProfessorRoot;
 }
 ",
