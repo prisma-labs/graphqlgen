@@ -66,7 +66,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         field => `
         ${field.name}: async (root${
           field.arguments.length > 0 ? ", args" : ""
-        }) => null
+        }) => root.${field.name}
       `
       )}
     }
