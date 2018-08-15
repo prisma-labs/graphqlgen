@@ -15,15 +15,9 @@ export interface UserRoot {
 }
 
 export const User: IUser.Resolver<Types> = {
-  id: async (root, args, ctx, info) => {
-    return null;
-  },
-  name: async (root, args, ctx, info) => {
-    return null;
-  },
-  type: async (root, args, ctx, info) => {
-    return null;
-  }
+  id: async root => null,
+  name: async root => null,
+  type: async root => null
 };
 ",
     "path": "User.ts",
@@ -74,45 +68,19 @@ export interface QueryRoot {
 }
 
 export const Query: IQuery.Resolver<Types> = {
-  id: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_required: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_nullable: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_array_nullable: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_array_required: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_with_arg: async (root, args, ctx, info) => {
-    return null;
-  },
-  custom_with_custom_arg: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_required: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_nullable: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_array_nullable: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_array_required: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_with_arg: async (root, args, ctx, info) => {
-    return null;
-  },
-  scalar_with_custom_arg: async (root, args, ctx, info) => {
-    return null;
-  }
+  id: async root => null,
+  custom_required: async root => null,
+  custom_nullable: async root => null,
+  custom_array_nullable: async root => null,
+  custom_array_required: async root => null,
+  custom_with_arg: async (root, args) => null,
+  custom_with_custom_arg: async (root, args) => null,
+  scalar_required: async root => null,
+  scalar_nullable: async root => null,
+  scalar_array_nullable: async root => null,
+  scalar_array_required: async root => null,
+  scalar_with_arg: async (root, args) => null,
+  scalar_with_custom_arg: async (root, args) => null
 };
 ",
     "path": "Query.ts",
@@ -127,12 +95,8 @@ export interface NumberRoot {
 }
 
 export const Number: INumber.Resolver<Types> = {
-  id: async (root, args, ctx, info) => {
-    return null;
-  },
-  value: async (root, args, ctx, info) => {
-    return null;
-  }
+  id: async root => null,
+  value: async root => null
 };
 ",
     "path": "Number.ts",
@@ -180,15 +144,9 @@ export interface UserRoot {
 }
 
 export const User: IUser.Resolver<Types> = {
-  id: async (root, args, ctx, info) => {
-    return null;
-  },
-  name: async (root, args, ctx, info) => {
-    return null;
-  },
-  type: async (root, args, ctx, info) => {
-    return null;
-  }
+  id: async root => null,
+  name: async root => null,
+  type: async root => null
 };
 ",
     "path": "User.ts",
@@ -202,9 +160,7 @@ export interface StudentRoot {
 }
 
 export const Student: IStudent.Resolver<Types> = {
-  age: async (root, args, ctx, info) => {
-    return null;
-  }
+  age: async root => null
 };
 ",
     "path": "Student.ts",
@@ -218,9 +174,7 @@ export interface ProfessorRoot {
 }
 
 export const Professor: IProfessor.Resolver<Types> = {
-  degree: async (root, args, ctx, info) => {
-    return null;
-  }
+  degree: async root => null
 };
 ",
     "path": "Professor.ts",
