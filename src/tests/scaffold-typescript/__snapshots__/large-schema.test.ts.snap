@@ -26,14 +26,14 @@ export interface QueryRoot {
 }
 
 export const Query: IQuery.Resolver<Types> = {
-  topExperiences: async root => null,
-  topHomes: async root => null,
-  homesInPriceRange: async (root, args) => null,
-  topReservations: async root => null,
-  featuredDestinations: async root => null,
-  experiencesByCity: async (root, args) => null,
-  viewer: async root => null,
-  myLocation: async root => null
+  topExperiences: async root => root.topExperiences,
+  topHomes: async root => root.topHomes,
+  homesInPriceRange: async (root, args) => root.homesInPriceRange,
+  topReservations: async root => root.topReservations,
+  featuredDestinations: async root => root.featuredDestinations,
+  experiencesByCity: async (root, args) => root.experiencesByCity,
+  viewer: async root => root.viewer,
+  myLocation: async root => root.myLocation
 };
 ",
     "path": "Query.ts",
@@ -53,10 +53,10 @@ export interface MutationRoot {
 }
 
 export const Mutation: IMutation.Resolver<Types> = {
-  signup: async (root, args) => null,
-  login: async (root, args) => null,
-  addPaymentMethod: async (root, args) => null,
-  book: async (root, args) => null
+  signup: async (root, args) => root.signup,
+  login: async (root, args) => root.login,
+  addPaymentMethod: async (root, args) => root.addPaymentMethod,
+  book: async (root, args) => root.book
 };
 ",
     "path": "Mutation.ts",
@@ -74,8 +74,8 @@ export interface ViewerRoot {
 }
 
 export const Viewer: IViewer.Resolver<Types> = {
-  me: async root => null,
-  bookings: async root => null
+  me: async root => root.me,
+  bookings: async root => root.bookings
 };
 ",
     "path": "Viewer.ts",
@@ -92,8 +92,8 @@ export interface AuthPayloadRoot {
 }
 
 export const AuthPayload: IAuthPayload.Resolver<Types> = {
-  token: async root => null,
-  user: async root => null
+  token: async root => root.token,
+  user: async root => root.user
 };
 ",
     "path": "AuthPayload.ts",
@@ -107,7 +107,7 @@ export interface MutationResultRoot {
 }
 
 export const MutationResult: IMutationResult.Resolver<Types> = {
-  success: async root => null
+  success: async root => root.success
 };
 ",
     "path": "MutationResult.ts",
@@ -125,8 +125,8 @@ export interface ExperiencesByCityRoot {
 }
 
 export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
-  experiences: async root => null,
-  city: async root => null
+  experiences: async root => root.experiences,
+  city: async root => root.city
 };
 ",
     "path": "ExperiencesByCity.ts",
@@ -148,13 +148,13 @@ export interface HomeRoot {
 }
 
 export const Home: IHome.Resolver<Types> = {
-  id: async root => null,
-  name: async root => null,
-  description: async root => null,
-  numRatings: async root => null,
-  avgRating: async root => null,
-  pictures: async (root, args) => null,
-  perNight: async root => null
+  id: async root => root.id,
+  name: async root => root.name,
+  description: async root => root.description,
+  numRatings: async root => root.numRatings,
+  avgRating: async root => root.avgRating,
+  pictures: async (root, args) => root.pictures,
+  perNight: async root => root.perNight
 };
 ",
     "path": "Home.ts",
@@ -178,14 +178,14 @@ export interface ReservationRoot {
 }
 
 export const Reservation: IReservation.Resolver<Types> = {
-  id: async root => null,
-  title: async root => null,
-  avgPricePerPerson: async root => null,
-  pictures: async root => null,
-  location: async root => null,
-  isCurated: async root => null,
-  slug: async root => null,
-  popularity: async root => null
+  id: async root => root.id,
+  title: async root => root.title,
+  avgPricePerPerson: async root => root.avgPricePerPerson,
+  pictures: async root => root.pictures,
+  location: async root => root.location,
+  isCurated: async root => root.isCurated,
+  slug: async root => root.slug,
+  popularity: async root => root.popularity
 };
 ",
     "path": "Reservation.ts",
@@ -211,14 +211,14 @@ export interface ExperienceRoot {
 }
 
 export const Experience: IExperience.Resolver<Types> = {
-  id: async root => null,
-  category: async root => null,
-  title: async root => null,
-  location: async root => null,
-  pricePerPerson: async root => null,
-  reviews: async root => null,
-  preview: async root => null,
-  popularity: async root => null
+  id: async root => root.id,
+  category: async root => root.category,
+  title: async root => root.title,
+  location: async root => root.location,
+  pricePerPerson: async root => root.pricePerPerson,
+  reviews: async root => root.reviews,
+  preview: async root => root.preview,
+  popularity: async root => root.popularity
 };
 ",
     "path": "Experience.ts",
@@ -241,16 +241,16 @@ export interface ReviewRoot {
 }
 
 export const Review: IReview.Resolver<Types> = {
-  accuracy: async root => null,
-  checkIn: async root => null,
-  cleanliness: async root => null,
-  communication: async root => null,
-  createdAt: async root => null,
-  id: async root => null,
-  location: async root => null,
-  stars: async root => null,
-  text: async root => null,
-  value: async root => null
+  accuracy: async root => root.accuracy,
+  checkIn: async root => root.checkIn,
+  cleanliness: async root => root.cleanliness,
+  communication: async root => root.communication,
+  createdAt: async root => root.createdAt,
+  id: async root => root.id,
+  location: async root => root.location,
+  stars: async root => root.stars,
+  text: async root => root.text,
+  value: async root => root.value
 };
 ",
     "path": "Review.ts",
@@ -273,13 +273,13 @@ export interface NeighbourhoodRoot {
 }
 
 export const Neighbourhood: INeighbourhood.Resolver<Types> = {
-  id: async root => null,
-  name: async root => null,
-  slug: async root => null,
-  homePreview: async root => null,
-  city: async root => null,
-  featured: async root => null,
-  popularity: async root => null
+  id: async root => root.id,
+  name: async root => root.name,
+  slug: async root => root.slug,
+  homePreview: async root => root.homePreview,
+  city: async root => root.city,
+  featured: async root => root.featured,
+  popularity: async root => root.popularity
 };
 ",
     "path": "Neighbourhood.ts",
@@ -297,11 +297,11 @@ export interface LocationRoot {
 }
 
 export const Location: ILocation.Resolver<Types> = {
-  id: async root => null,
-  lat: async root => null,
-  lng: async root => null,
-  address: async root => null,
-  directions: async root => null
+  id: async root => root.id,
+  lat: async root => root.lat,
+  lng: async root => root.lng,
+  address: async root => root.address,
+  directions: async root => root.directions
 };
 ",
     "path": "Location.ts",
@@ -316,8 +316,8 @@ export interface PictureRoot {
 }
 
 export const Picture: IPicture.Resolver<Types> = {
-  id: async root => null,
-  url: async root => null
+  id: async root => root.id,
+  url: async root => root.url
 };
 ",
     "path": "Picture.ts",
@@ -332,8 +332,8 @@ export interface CityRoot {
 }
 
 export const City: ICity.Resolver<Types> = {
-  id: async root => null,
-  name: async root => null
+  id: async root => root.id,
+  name: async root => root.name
 };
 ",
     "path": "City.ts",
@@ -352,10 +352,10 @@ export interface ExperienceCategoryRoot {
 }
 
 export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
-  id: async root => null,
-  mainColor: async root => null,
-  name: async root => null,
-  experience: async root => null
+  id: async root => root.id,
+  mainColor: async root => root.mainColor,
+  name: async root => root.name,
+  experience: async root => root.experience
 };
 ",
     "path": "ExperienceCategory.ts",
@@ -397,26 +397,26 @@ export interface UserRoot {
 }
 
 export const User: IUser.Resolver<Types> = {
-  bookings: async root => null,
-  createdAt: async root => null,
-  email: async root => null,
-  firstName: async root => null,
-  hostingExperiences: async root => null,
-  id: async root => null,
-  isSuperHost: async root => null,
-  lastName: async root => null,
-  location: async root => null,
-  notifications: async root => null,
-  ownedPlaces: async root => null,
-  paymentAccount: async root => null,
-  phone: async root => null,
-  profilePicture: async root => null,
-  receivedMessages: async root => null,
-  responseRate: async root => null,
-  responseTime: async root => null,
-  sentMessages: async root => null,
-  updatedAt: async root => null,
-  token: async root => null
+  bookings: async root => root.bookings,
+  createdAt: async root => root.createdAt,
+  email: async root => root.email,
+  firstName: async root => root.firstName,
+  hostingExperiences: async root => root.hostingExperiences,
+  id: async root => root.id,
+  isSuperHost: async root => root.isSuperHost,
+  lastName: async root => root.lastName,
+  location: async root => root.location,
+  notifications: async root => root.notifications,
+  ownedPlaces: async root => root.ownedPlaces,
+  paymentAccount: async root => root.paymentAccount,
+  phone: async root => root.phone,
+  profilePicture: async root => root.profilePicture,
+  receivedMessages: async root => root.receivedMessages,
+  responseRate: async root => root.responseRate,
+  responseTime: async root => root.responseTime,
+  sentMessages: async root => root.sentMessages,
+  updatedAt: async root => root.updatedAt,
+  token: async root => root.token
 };
 ",
     "path": "User.ts",
@@ -442,13 +442,13 @@ export interface PaymentAccountRoot {
 }
 
 export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
-  id: async root => null,
-  createdAt: async root => null,
-  type: async root => null,
-  user: async root => null,
-  payments: async root => null,
-  paypal: async root => null,
-  creditcard: async root => null
+  id: async root => root.id,
+  createdAt: async root => root.createdAt,
+  type: async root => root.type,
+  user: async root => root.user,
+  payments: async root => root.payments,
+  paypal: async root => root.paypal,
+  creditcard: async root => root.creditcard
 };
 ",
     "path": "PaymentAccount.ts",
@@ -496,28 +496,28 @@ export interface PlaceRoot {
 }
 
 export const Place: IPlace.Resolver<Types> = {
-  id: async root => null,
-  name: async root => null,
-  size: async root => null,
-  shortDescription: async root => null,
-  description: async root => null,
-  slug: async root => null,
-  maxGuests: async root => null,
-  numBedrooms: async root => null,
-  numBeds: async root => null,
-  numBaths: async root => null,
-  reviews: async root => null,
-  amenities: async root => null,
-  host: async root => null,
-  pricing: async root => null,
-  location: async root => null,
-  views: async root => null,
-  guestRequirements: async root => null,
-  policies: async root => null,
-  houseRules: async root => null,
-  bookings: async root => null,
-  pictures: async root => null,
-  popularity: async root => null
+  id: async root => root.id,
+  name: async root => root.name,
+  size: async root => root.size,
+  shortDescription: async root => root.shortDescription,
+  description: async root => root.description,
+  slug: async root => root.slug,
+  maxGuests: async root => root.maxGuests,
+  numBedrooms: async root => root.numBedrooms,
+  numBeds: async root => root.numBeds,
+  numBaths: async root => root.numBaths,
+  reviews: async root => root.reviews,
+  amenities: async root => root.amenities,
+  host: async root => root.host,
+  pricing: async root => root.pricing,
+  location: async root => root.location,
+  views: async root => root.views,
+  guestRequirements: async root => root.guestRequirements,
+  policies: async root => root.policies,
+  houseRules: async root => root.houseRules,
+  bookings: async root => root.bookings,
+  pictures: async root => root.pictures,
+  popularity: async root => root.popularity
 };
 ",
     "path": "Place.ts",
@@ -541,13 +541,13 @@ export interface BookingRoot {
 }
 
 export const Booking: IBooking.Resolver<Types> = {
-  id: async root => null,
-  createdAt: async root => null,
-  bookee: async root => null,
-  place: async root => null,
-  startDate: async root => null,
-  endDate: async root => null,
-  payment: async root => null
+  id: async root => root.id,
+  createdAt: async root => root.createdAt,
+  bookee: async root => root.bookee,
+  place: async root => root.place,
+  startDate: async root => root.startDate,
+  endDate: async root => root.endDate,
+  payment: async root => root.payment
 };
 ",
     "path": "Booking.ts",
@@ -569,12 +569,12 @@ export interface NotificationRoot {
 }
 
 export const Notification: INotification.Resolver<Types> = {
-  createdAt: async root => null,
-  id: async root => null,
-  link: async root => null,
-  readDate: async root => null,
-  type: async root => null,
-  user: async root => null
+  createdAt: async root => root.createdAt,
+  id: async root => root.id,
+  link: async root => root.link,
+  readDate: async root => root.readDate,
+  type: async root => root.type,
+  user: async root => root.user
 };
 ",
     "path": "Notification.ts",
@@ -595,11 +595,11 @@ export interface PaymentRoot {
 }
 
 export const Payment: IPayment.Resolver<Types> = {
-  booking: async root => null,
-  createdAt: async root => null,
-  id: async root => null,
-  paymentMethod: async root => null,
-  serviceFee: async root => null
+  booking: async root => root.booking,
+  createdAt: async root => root.createdAt,
+  id: async root => root.id,
+  paymentMethod: async root => root.paymentMethod,
+  serviceFee: async root => root.serviceFee
 };
 ",
     "path": "Payment.ts",
@@ -618,10 +618,10 @@ export interface PaypalInformationRoot {
 }
 
 export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
-  createdAt: async root => null,
-  email: async root => null,
-  id: async root => null,
-  paymentAccount: async root => null
+  createdAt: async root => root.createdAt,
+  email: async root => root.email,
+  id: async root => root.id,
+  paymentAccount: async root => root.paymentAccount
 };
 ",
     "path": "PaypalInformation.ts",
@@ -647,17 +647,17 @@ export interface CreditCardInformationRoot {
 }
 
 export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
-  cardNumber: async root => null,
-  country: async root => null,
-  createdAt: async root => null,
-  expiresOnMonth: async root => null,
-  expiresOnYear: async root => null,
-  firstName: async root => null,
-  id: async root => null,
-  lastName: async root => null,
-  paymentAccount: async root => null,
-  postalCode: async root => null,
-  securityCode: async root => null
+  cardNumber: async root => root.cardNumber,
+  country: async root => root.country,
+  createdAt: async root => root.createdAt,
+  expiresOnMonth: async root => root.expiresOnMonth,
+  expiresOnYear: async root => root.expiresOnYear,
+  firstName: async root => root.firstName,
+  id: async root => root.id,
+  lastName: async root => root.lastName,
+  paymentAccount: async root => root.paymentAccount,
+  postalCode: async root => root.postalCode,
+  securityCode: async root => root.securityCode
 };
 ",
     "path": "CreditCardInformation.ts",
@@ -674,10 +674,10 @@ export interface MessageRoot {
 }
 
 export const Message: IMessage.Resolver<Types> = {
-  createdAt: async root => null,
-  deliveredAt: async root => null,
-  id: async root => null,
-  readAt: async root => null
+  createdAt: async root => root.createdAt,
+  deliveredAt: async root => root.deliveredAt,
+  id: async root => root.id,
+  readAt: async root => root.readAt
 };
 ",
     "path": "Message.ts",
@@ -705,19 +705,19 @@ export interface PricingRoot {
 }
 
 export const Pricing: IPricing.Resolver<Types> = {
-  averageMonthly: async root => null,
-  averageWeekly: async root => null,
-  basePrice: async root => null,
-  cleaningFee: async root => null,
-  currency: async root => null,
-  extraGuests: async root => null,
-  id: async root => null,
-  monthlyDiscount: async root => null,
-  perNight: async root => null,
-  securityDeposit: async root => null,
-  smartPricing: async root => null,
-  weekendPricing: async root => null,
-  weeklyDiscount: async root => null
+  averageMonthly: async root => root.averageMonthly,
+  averageWeekly: async root => root.averageWeekly,
+  basePrice: async root => root.basePrice,
+  cleaningFee: async root => root.cleaningFee,
+  currency: async root => root.currency,
+  extraGuests: async root => root.extraGuests,
+  id: async root => root.id,
+  monthlyDiscount: async root => root.monthlyDiscount,
+  perNight: async root => root.perNight,
+  securityDeposit: async root => root.securityDeposit,
+  smartPricing: async root => root.smartPricing,
+  weekendPricing: async root => root.weekendPricing,
+  weeklyDiscount: async root => root.weeklyDiscount
 };
 ",
     "path": "Pricing.ts",
@@ -732,8 +732,8 @@ export interface PlaceViewsRoot {
 }
 
 export const PlaceViews: IPlaceViews.Resolver<Types> = {
-  id: async root => null,
-  lastWeek: async root => null
+  id: async root => root.id,
+  lastWeek: async root => root.lastWeek
 };
 ",
     "path": "PlaceViews.ts",
@@ -750,10 +750,11 @@ export interface GuestRequirementsRoot {
 }
 
 export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
-  govIssuedId: async root => null,
-  guestTripInformation: async root => null,
-  id: async root => null,
-  recommendationsFromOtherHosts: async root => null
+  govIssuedId: async root => root.govIssuedId,
+  guestTripInformation: async root => root.guestTripInformation,
+  id: async root => root.id,
+  recommendationsFromOtherHosts: async root =>
+    root.recommendationsFromOtherHosts
 };
 ",
     "path": "GuestRequirements.ts",
@@ -772,12 +773,12 @@ export interface PoliciesRoot {
 }
 
 export const Policies: IPolicies.Resolver<Types> = {
-  checkInEndTime: async root => null,
-  checkInStartTime: async root => null,
-  checkoutTime: async root => null,
-  createdAt: async root => null,
-  id: async root => null,
-  updatedAt: async root => null
+  checkInEndTime: async root => root.checkInEndTime,
+  checkInStartTime: async root => root.checkInStartTime,
+  checkoutTime: async root => root.checkoutTime,
+  createdAt: async root => root.createdAt,
+  id: async root => root.id,
+  updatedAt: async root => root.updatedAt
 };
 ",
     "path": "Policies.ts",
@@ -799,15 +800,15 @@ export interface HouseRulesRoot {
 }
 
 export const HouseRules: IHouseRules.Resolver<Types> = {
-  additionalRules: async root => null,
-  createdAt: async root => null,
-  id: async root => null,
-  partiesAndEventsAllowed: async root => null,
-  petsAllowed: async root => null,
-  smokingAllowed: async root => null,
-  suitableForChildren: async root => null,
-  suitableForInfants: async root => null,
-  updatedAt: async root => null
+  additionalRules: async root => root.additionalRules,
+  createdAt: async root => root.createdAt,
+  id: async root => root.id,
+  partiesAndEventsAllowed: async root => root.partiesAndEventsAllowed,
+  petsAllowed: async root => root.petsAllowed,
+  smokingAllowed: async root => root.smokingAllowed,
+  suitableForChildren: async root => root.suitableForChildren,
+  suitableForInfants: async root => root.suitableForInfants,
+  updatedAt: async root => root.updatedAt
 };
 ",
     "path": "HouseRules.ts",
@@ -861,47 +862,47 @@ export interface AmenitiesRoot {
 }
 
 export const Amenities: IAmenities.Resolver<Types> = {
-  airConditioning: async root => null,
-  babyBath: async root => null,
-  babyMonitor: async root => null,
-  babysitterRecommendations: async root => null,
-  bathtub: async root => null,
-  breakfast: async root => null,
-  buzzerWirelessIntercom: async root => null,
-  cableTv: async root => null,
-  changingTable: async root => null,
-  childrensBooksAndToys: async root => null,
-  childrensDinnerware: async root => null,
-  crib: async root => null,
-  doorman: async root => null,
-  dryer: async root => null,
-  elevator: async root => null,
-  essentials: async root => null,
-  familyKidFriendly: async root => null,
-  freeParkingOnPremises: async root => null,
-  freeParkingOnStreet: async root => null,
-  gym: async root => null,
-  hairDryer: async root => null,
-  hangers: async root => null,
-  heating: async root => null,
-  hotTub: async root => null,
-  id: async root => null,
-  indoorFireplace: async root => null,
-  internet: async root => null,
-  iron: async root => null,
-  kitchen: async root => null,
-  laptopFriendlyWorkspace: async root => null,
-  paidParkingOffPremises: async root => null,
-  petsAllowed: async root => null,
-  pool: async root => null,
-  privateEntrance: async root => null,
-  shampoo: async root => null,
-  smokingAllowed: async root => null,
-  suitableForEvents: async root => null,
-  tv: async root => null,
-  washer: async root => null,
-  wheelchairAccessible: async root => null,
-  wirelessInternet: async root => null
+  airConditioning: async root => root.airConditioning,
+  babyBath: async root => root.babyBath,
+  babyMonitor: async root => root.babyMonitor,
+  babysitterRecommendations: async root => root.babysitterRecommendations,
+  bathtub: async root => root.bathtub,
+  breakfast: async root => root.breakfast,
+  buzzerWirelessIntercom: async root => root.buzzerWirelessIntercom,
+  cableTv: async root => root.cableTv,
+  changingTable: async root => root.changingTable,
+  childrensBooksAndToys: async root => root.childrensBooksAndToys,
+  childrensDinnerware: async root => root.childrensDinnerware,
+  crib: async root => root.crib,
+  doorman: async root => root.doorman,
+  dryer: async root => root.dryer,
+  elevator: async root => root.elevator,
+  essentials: async root => root.essentials,
+  familyKidFriendly: async root => root.familyKidFriendly,
+  freeParkingOnPremises: async root => root.freeParkingOnPremises,
+  freeParkingOnStreet: async root => root.freeParkingOnStreet,
+  gym: async root => root.gym,
+  hairDryer: async root => root.hairDryer,
+  hangers: async root => root.hangers,
+  heating: async root => root.heating,
+  hotTub: async root => root.hotTub,
+  id: async root => root.id,
+  indoorFireplace: async root => root.indoorFireplace,
+  internet: async root => root.internet,
+  iron: async root => root.iron,
+  kitchen: async root => root.kitchen,
+  laptopFriendlyWorkspace: async root => root.laptopFriendlyWorkspace,
+  paidParkingOffPremises: async root => root.paidParkingOffPremises,
+  petsAllowed: async root => root.petsAllowed,
+  pool: async root => root.pool,
+  privateEntrance: async root => root.privateEntrance,
+  shampoo: async root => root.shampoo,
+  smokingAllowed: async root => root.smokingAllowed,
+  suitableForEvents: async root => root.suitableForEvents,
+  tv: async root => root.tv,
+  washer: async root => root.washer,
+  wheelchairAccessible: async root => root.wheelchairAccessible,
+  wirelessInternet: async root => root.wirelessInternet
 };
 ",
     "path": "Amenities.ts",
