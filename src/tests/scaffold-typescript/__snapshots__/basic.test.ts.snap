@@ -4,7 +4,7 @@ exports[`basic enum 1`] = `
 Array [
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
@@ -30,6 +30,24 @@ export const User: IUser.Resolver<Types> = {
 ",
     "path": "User.ts",
   },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserRoot } from \\"./User\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  UserRoot: UserRoot;
+}
+",
+    "path": "types.ts",
+  },
 ]
 `;
 
@@ -37,7 +55,7 @@ exports[`basic schema 1`] = `
 Array [
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 import { NumberRoot } from \\"./Number\\";
 
@@ -115,7 +133,7 @@ export const Query: IQuery.Resolver<Types> = {
   },
   Object {
     "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 export interface NumberRoot {
   id: string;
@@ -134,6 +152,28 @@ export const Number: INumber.Resolver<Types> = {
 ",
     "path": "Number.ts",
   },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { QueryRoot } from \\"./Query\\";
+
+import { NumberRoot } from \\"./Number\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  QueryRoot: QueryRoot;
+
+  NumberRoot: NumberRoot;
+}
+",
+    "path": "types.ts",
+  },
 ]
 `;
 
@@ -141,7 +181,7 @@ exports[`basic union 1`] = `
 Array [
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 import { StudentRoot } from \\"./Student\\";
 
@@ -173,7 +213,7 @@ export const User: IUser.Resolver<Types> = {
   },
   Object {
     "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 export interface StudentRoot {
   age: number;
@@ -189,7 +229,7 @@ export const Student: IStudent.Resolver<Types> = {
   },
   Object {
     "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"../types\\";
+import { Types } from \\"./types\\";
 
 export interface ProfessorRoot {
   degree: string;
@@ -202,6 +242,32 @@ export const Professor: IProfessor.Resolver<Types> = {
 };
 ",
     "path": "Professor.ts",
+  },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { StudentRoot } from \\"./Student\\";
+
+import { ProfessorRoot } from \\"./Professor\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  UserRoot: UserRoot;
+
+  StudentRoot: StudentRoot;
+
+  ProfessorRoot: ProfessorRoot;
+}
+",
+    "path": "types.ts",
   },
 ]
 `;
