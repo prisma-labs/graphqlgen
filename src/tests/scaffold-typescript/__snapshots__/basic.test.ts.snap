@@ -54,14 +54,14 @@ import { NumberRoot } from \\"./Number\\";
 export interface QueryRoot {
   id: string;
   custom_required: NumberRoot;
-  custom_nullable: NumberRoot;
-  custom_array_nullable: NumberRoot[];
+  custom_nullable: NumberRoot | null;
+  custom_array_nullable: NumberRoot[] | null;
   custom_array_required: NumberRoot[];
   custom_with_arg: NumberRoot;
   custom_with_custom_arg: NumberRoot;
   scalar_required: boolean;
-  scalar_nullable: boolean;
-  scalar_array_nullable: boolean[];
+  scalar_nullable: boolean | null;
+  scalar_array_nullable: boolean[] | null;
   scalar_array_required: boolean[];
   scalar_with_arg: boolean;
   scalar_with_custom_arg: boolean;
@@ -90,8 +90,8 @@ export const Query: IQuery.Resolver<Types> = {
 import { Types } from \\"./types\\";
 
 export interface NumberRoot {
-  id: string;
-  value: number;
+  id: string | null;
+  value: number | null;
 }
 
 export const Number: INumber.Resolver<Types> = {
@@ -169,7 +169,7 @@ export const Student: IStudent.Resolver<Types> = {
 import { Types } from \\"./types\\";
 
 export interface ProfessorRoot {
-  degree: string;
+  degree: string | null;
 }
 
 export const Professor: IProfessor.Resolver<Types> = {

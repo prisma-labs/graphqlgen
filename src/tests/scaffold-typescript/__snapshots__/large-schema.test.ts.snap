@@ -21,8 +21,8 @@ export interface QueryRoot {
   topReservations: ReservationRoot[];
   featuredDestinations: NeighbourhoodRoot[];
   experiencesByCity: ExperiencesByCityRoot[];
-  viewer: ViewerRoot;
-  myLocation: LocationRoot;
+  viewer: ViewerRoot | null;
+  myLocation: LocationRoot | null;
 }
 
 export const Query: IQuery.Resolver<Types> = {
@@ -139,10 +139,10 @@ import { PictureRoot } from \\"./Picture\\";
 
 export interface HomeRoot {
   id: string;
-  name: string;
+  name: string | null;
   description: string;
   numRatings: number;
-  avgRating: number;
+  avgRating: number | null;
   pictures: PictureRoot[];
   perNight: number;
 }
@@ -201,7 +201,7 @@ import { PictureRoot } from \\"./Picture\\";
 
 export interface ExperienceRoot {
   id: string;
-  category: ExperienceCategoryRoot;
+  category: ExperienceCategoryRoot | null;
   title: string;
   location: LocationRoot;
   pricePerPerson: number;
@@ -266,7 +266,7 @@ export interface NeighbourhoodRoot {
   id: string;
   name: string;
   slug: string;
-  homePreview: PictureRoot;
+  homePreview: PictureRoot | null;
   city: CityRoot;
   featured: boolean;
   popularity: number;
@@ -292,8 +292,8 @@ export interface LocationRoot {
   id: string;
   lat: number;
   lng: number;
-  address: string;
-  directions: string;
+  address: string | null;
+  directions: string | null;
 }
 
 export const Location: ILocation.Resolver<Types> = {
@@ -348,7 +348,7 @@ export interface ExperienceCategoryRoot {
   id: string;
   mainColor: string;
   name: string;
-  experience: ExperienceRoot;
+  experience: ExperienceRoot | null;
 }
 
 export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
@@ -387,10 +387,10 @@ export interface UserRoot {
   ownedPlaces: PlaceRoot[];
   paymentAccount: PaymentAccountRoot[];
   phone: string;
-  profilePicture: PictureRoot;
+  profilePicture: PictureRoot | null;
   receivedMessages: MessageRoot[];
-  responseRate: number;
-  responseTime: number;
+  responseRate: number | null;
+  responseTime: number | null;
   sentMessages: MessageRoot[];
   updatedAt: string;
   token: string;
@@ -434,11 +434,11 @@ import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
 export interface PaymentAccountRoot {
   id: string;
   createdAt: string;
-  type: PAYMENT_PROVIDERRoot;
+  type: PAYMENT_PROVIDERRoot | null;
   user: UserRoot;
   payments: PaymentRoot[];
-  paypal: PaypalInformationRoot;
-  creditcard: CreditCardInformationRoot;
+  paypal: PaypalInformationRoot | null;
+  creditcard: CreditCardInformationRoot | null;
 }
 
 export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
@@ -472,8 +472,8 @@ import { PictureRoot } from \\"./Picture\\";
 
 export interface PlaceRoot {
   id: string;
-  name: string;
-  size: PLACE_SIZESRoot;
+  name: string | null;
+  size: PLACE_SIZESRoot | null;
   shortDescription: string;
   description: string;
   slug: string;
@@ -487,9 +487,9 @@ export interface PlaceRoot {
   pricing: PricingRoot;
   location: LocationRoot;
   views: PlaceViewsRoot;
-  guestRequirements: GuestRequirementsRoot;
-  policies: PoliciesRoot;
-  houseRules: HouseRulesRoot;
+  guestRequirements: GuestRequirementsRoot | null;
+  policies: PoliciesRoot | null;
+  houseRules: HouseRulesRoot | null;
   bookings: BookingRoot[];
   pictures: PictureRoot[];
   popularity: number;
@@ -564,7 +564,7 @@ export interface NotificationRoot {
   id: string;
   link: string;
   readDate: string;
-  type: NOTIFICATION_TYPERoot;
+  type: NOTIFICATION_TYPERoot | null;
   user: UserRoot;
 }
 
@@ -641,7 +641,7 @@ export interface CreditCardInformationRoot {
   firstName: string;
   id: string;
   lastName: string;
-  paymentAccount: PaymentAccountRoot;
+  paymentAccount: PaymentAccountRoot | null;
   postalCode: string;
   securityCode: string;
 }
@@ -692,16 +692,16 @@ export interface PricingRoot {
   averageMonthly: number;
   averageWeekly: number;
   basePrice: number;
-  cleaningFee: number;
-  currency: CURRENCYRoot;
-  extraGuests: number;
+  cleaningFee: number | null;
+  currency: CURRENCYRoot | null;
+  extraGuests: number | null;
   id: string;
-  monthlyDiscount: number;
+  monthlyDiscount: number | null;
   perNight: number;
-  securityDeposit: number;
+  securityDeposit: number | null;
   smartPricing: boolean;
-  weekendPricing: number;
-  weeklyDiscount: number;
+  weekendPricing: number | null;
+  weeklyDiscount: number | null;
 }
 
 export const Pricing: IPricing.Resolver<Types> = {
@@ -787,14 +787,14 @@ export const Policies: IPolicies.Resolver<Types> = {
 import { Types } from \\"./types\\";
 
 export interface HouseRulesRoot {
-  additionalRules: string;
+  additionalRules: string | null;
   createdAt: string;
   id: string;
-  partiesAndEventsAllowed: boolean;
-  petsAllowed: boolean;
-  smokingAllowed: boolean;
-  suitableForChildren: boolean;
-  suitableForInfants: boolean;
+  partiesAndEventsAllowed: boolean | null;
+  petsAllowed: boolean | null;
+  smokingAllowed: boolean | null;
+  suitableForChildren: boolean | null;
+  suitableForInfants: boolean | null;
   updatedAt: string;
 }
 
