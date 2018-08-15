@@ -101,7 +101,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 
   export type ${capitalize(field.name)}Resolver<T extends ITypes> = ResolverFn<
     T['${type.name}Root'],
-    {},
+    ${field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"},
     T['Context'],
     ${printFieldLikeType(field)}
   >
