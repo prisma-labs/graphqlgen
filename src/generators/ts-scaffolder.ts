@@ -8,7 +8,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   const files: CodeFileLike[] = args.types.map(type => {
     const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
-    import { Types } from '../types'
+    import { Types } from './types'
 
     ${args.enums
       .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
@@ -74,5 +74,37 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       code
     } as CodeFileLike;
   });
+
+  files.push({
+    path: "types.ts",
+    code: `
+import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
+
+${args.types
+      .map(
+        type => `
+import { ${type.name}Root } from './${type.name}'
+`
+      )
+      .join(os.EOL)}
+
+export interface Context {
+  db: any
+  request: any
+}
+
+export interface Types extends ITypes {
+  Context: Context
+  ${args.types
+    .map(
+      type => `
+${type.name}Root: ${type.name}Root
+`
+    )
+    .join(os.EOL)}
+}
+    `
+  });
+
   return files;
 }
