@@ -37,3 +37,9 @@ Options:
 1. Run graphql-resolver-codegen scaffold -s <schema-path> -o <output-path> -g typescript -i <output-path>/generated/resolvers.ts
 
 Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
+
+### Design Decisions
+
+1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `types.ts`.
+
+1. Interface for `Context` is generated in a separate file called `Context.ts`. This is also exported from `types.ts`.
