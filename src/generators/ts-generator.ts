@@ -26,7 +26,7 @@ function getTypeFromGraphQLType(
   return "string";
 }
 
-export function format(code: string, options: prettier.Options) {
+export function format(code: string, options: prettier.Options = {}) {
   try {
     return prettier.format(code, {
       ...options,
