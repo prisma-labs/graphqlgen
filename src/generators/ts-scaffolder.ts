@@ -78,6 +78,13 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   });
 
   files.push({
+    path: "Context.ts",
+    code: `
+    export interface Context { }
+    `
+  });
+
+  files.push({
     path: "types.ts",
     code: `
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
@@ -90,10 +97,7 @@ import { ${type.name}Root } from './${type.name}'
       )
       .join(os.EOL)}
 
-export interface Context {
-  db: any
-  request: any
-}
+export { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context
