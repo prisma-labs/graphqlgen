@@ -80,7 +80,10 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files.push({
     path: "Context.ts",
     code: `
-    export interface Context { }
+    export interface Context {
+      db: any
+      request: any
+    }
     `
   });
 
