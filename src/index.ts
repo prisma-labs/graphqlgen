@@ -227,11 +227,7 @@ async function run() {
       ) {
         didWarn = true;
         console.log(
-          chalk.default.yellow(
-            `Warning: file (${writePath}) or folder (${dirname(
-              writePath
-            )}) already exists.`
-          )
+          chalk.default.yellow(`Warning: file (${writePath}) already exists.`)
         );
         return;
       }

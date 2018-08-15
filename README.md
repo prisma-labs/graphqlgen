@@ -23,6 +23,7 @@ Options:
                      ./generated/resolvers[.ts]]
   -g, --generator    Generator to use [default: typescript, options: reason]
   -i, --interfaces   Path to the interfaces folder used for scaffolding
+  -f, --force        Force write files when there is a clash while scaffolding
 
   Possible commands: scaffold, interfaces
 ```
