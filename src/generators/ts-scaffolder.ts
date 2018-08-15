@@ -64,7 +64,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     export const ${type.name}: I${type.name}.Resolver<Types> = {
       ${type.fields.map(
         field => `
-        ${field.name}: async (root${
+        ${field.name}: (root${
           field.arguments.length > 0 ? ", args" : ""
         }) => root.${field.name}
       `
