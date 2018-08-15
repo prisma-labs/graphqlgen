@@ -9,7 +9,10 @@ test("basic schema to reason", async () => {
     "utf-8"
   );
   const parsedSchema = parse(schema);
-  const code = generateCode({ schema: parsedSchema, generator: "reason" });
+  const code = generateCode({
+    schema: parsedSchema,
+    generator: "interfaces-reason"
+  });
   expect(code).toMatchSnapshot();
 });
 
@@ -19,7 +22,10 @@ test("basic enum to reason", async () => {
     "utf-8"
   );
   const parsedSchema = parse(schema);
-  const code = generateCode({ schema: parsedSchema, generator: "reason" });
+  const code = generateCode({
+    schema: parsedSchema,
+    generator: "interfaces-reason"
+  });
   expect(code).toMatchSnapshot();
 });
 
@@ -29,6 +35,9 @@ test("basic union to reason", async () => {
     "utf-8"
   );
   const parsedSchema = parse(schema);
-  const code = generateCode({ schema: parsedSchema, generator: "reason" });
+  const code = generateCode({
+    schema: parsedSchema,
+    generator: "interfaces-reason"
+  });
   expect(code).toMatchSnapshot();
 });

@@ -10,7 +10,11 @@ export type GenerateArgs = {
   unions: GraphQLUnionObject[];
 };
 
+interface CodeFileLike {
+  [path: string]: string;
+}
+
 export interface IGenerator {
-  generate: (args: GenerateArgs) => string;
+  generate: (args: GenerateArgs) => string | CodeFileLike;
   format: (code: string) => string;
 }

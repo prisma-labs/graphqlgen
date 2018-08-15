@@ -21,9 +21,14 @@ import {
 } from "./generators/reason-generator";
 import { importSchema } from "graphql-import";
 
-type GeneratorType = "typescript" | "reason";
+type GeneratorType =
+  | "interfaces-typescript"
+  | "scaffold-typescript"
+  | "interfaces-reason"
+  | "scaffold-reason";
 
 type CLIArgs = {
+  command: string;
   schemaPath: string;
   output: string;
   generator: GeneratorType;
@@ -41,8 +46,17 @@ export type GenerateCodeArgs = {
 };
 
 function getGenerator(generator: GeneratorType): IGenerator {
-  if (generator === "reason") {
+  if (generator === "interfaces-reason") {
     return { generate: generateReason, format: formatReason };
+  }
+  if (generator === "scaffold-reason") {
+    return { generate: generateReason, format: formatReason };
+  }
+  if (generator === "interfaces-typescript") {
+    return { generate: generateTS, format: formatTS };
+  }
+  if (generator === "scaffold-typescript") {
+    return { generate: generateTS, format: formatTS };
   }
   return { generate: generateTS, format: formatTS };
 }
@@ -50,7 +64,7 @@ function getGenerator(generator: GeneratorType): IGenerator {
 export function generateCode({
   schema = undefined,
   prettify = true,
-  generator = "typescript"
+  generator = "interfaces-typescript"
 }: GenerateCodeArgs): string {
   if (!schema) {
     console.error(chalk.default.red(`Please provide a parsed GraphQL schema`));
@@ -64,20 +78,26 @@ export function generateCode({
   const generatorFn: IGenerator = getGenerator(generator);
   const code = generatorFn.generate(generateArgs);
 
-  if (prettify) {
-    return generatorFn.format(code);
-  } else {
-    return code;
+  if (typeof code === "string") {
+    if (prettify) {
+      return generatorFn.format(code);
+    } else {
+      return code;
+    }
   }
+  // TODO: implement it
+  return "TODO: Implement writing CodeFileLike";
 }
 
 function run() {
   const defaults: DefaultOptions = {
     output: "./resolvers.ts",
-    generator: "typescript"
+    generator: "interfaces-typescript"
   };
   const argv = yargs
-    .usage("Usage: $0 -s [schema-path] -o [output-path] -g [generator]")
+    .usage(
+      "Usage: <command> $0 -s [schema-path] -o [output-path] -g [generator] -t [typings]"
+    )
     .alias("s", "schema-path")
     .describe("s", "GraphQL schema file path")
     .alias("o", "output")
@@ -87,9 +107,23 @@ function run() {
       "g",
       `Generator to use [default: ${defaults.generator}, options: reason]`
     )
+    .describe("t", `Path to the interfaces folder used for scaffolding`)
+    .alias("t", "typings") // TODO: Make this option only be used with scaffold command
     .demandOption(["s"])
+    .demandCommand(1)
+
     .strict().argv;
+
+  const command = argv._[0];
+  if (["scaffold", "interfaces"].indexOf(command.toLowerCase()) <= -1) {
+    console.error(
+      `Unknown command provided, please provide either scaffold or interfaces as the command`
+    );
+    process.exit(1);
+  }
+
   const args: CLIArgs = {
+    command: command,
     schemaPath: resolve(argv.schemaPath),
     output: argv.output || defaults.output,
     generator: argv.generator || defaults.generator
@@ -120,7 +154,7 @@ function run() {
 
   const code = generateCode({
     schema: parsedSchema!,
-    generator: args.generator
+    generator: `${args.command}-${args.generator}` as GeneratorType
   });
   try {
     fs.writeFileSync(args.output, code, { encoding: "utf-8" });
