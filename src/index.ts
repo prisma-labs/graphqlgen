@@ -5,6 +5,8 @@ import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
 import * as chalk from "chalk";
 import * as mkdirp from "mkdirp";
+import * as prettier from "prettier";
+import * as os from "os";
 import {
   extractGraphQLTypes,
   extractGraphQLEnums,
@@ -44,17 +46,20 @@ type CLIArgs = {
   output: string;
   generator: GeneratorType;
   interfaces: string;
+  force: boolean;
 };
 
 type DefaultOptions = {
   output: string;
   generator: GeneratorType;
   interfaces: string;
+  force: boolean;
 };
 
 export type GenerateCodeArgs = {
   schema: DocumentNode | undefined;
   prettify?: boolean;
+  prettifyOptions?: prettier.Options;
   generator?: ActualGeneratorType;
 };
 
@@ -77,6 +82,7 @@ function getGenerator(generator: ActualGeneratorType): IGenerator {
 export function generateCode({
   schema = undefined,
   prettify = true,
+  prettifyOptions,
   generator = "interfaces-typescript"
 }: GenerateCodeArgs): string | CodeFileLike[] {
   if (!schema) {
@@ -93,7 +99,7 @@ export function generateCode({
 
   if (typeof code === "string") {
     if (prettify) {
-      return generatorFn.format(code);
+      return generatorFn.format(code, prettifyOptions);
     } else {
       return code;
     }
@@ -101,17 +107,18 @@ export function generateCode({
     return code.map(f => {
       return {
         path: f.path,
-        code: prettify ? generatorFn.format(f.code) : f.code
+        code: prettify ? generatorFn.format(f.code, prettifyOptions) : f.code
       } as CodeFileLike;
     });
   }
 }
 
-function run() {
+async function run() {
   const defaults: DefaultOptions = {
     output: "./generated/resolvers",
     generator: "typescript",
-    interfaces: "./generated/"
+    interfaces: "./generated/",
+    force: false
   };
   const argv = yargs
     .usage(
@@ -128,6 +135,8 @@ function run() {
     )
     .describe("i", `Path to the interfaces folder used for scaffolding`)
     .alias("i", "interfaces") // TODO: Make this option only be used with scaffold command
+    .describe("f", `Force write files when there is a clash while scaffolding`)
+    .alias("f", "force") // TODO: Make this option only be used with scaffold command
     .demandOption(["s"])
     .demandCommand(1)
 
@@ -148,7 +157,8 @@ function run() {
       argv.output ||
       `${defaults.output}${command === "interfaces" ? ".ts" : ""}`,
     generator: argv.generator || defaults.generator,
-    interfaces: argv.interfaces || defaults.interfaces
+    interfaces: argv.interfaces || defaults.interfaces,
+    force: Boolean(argv.force) || defaults.force
   };
 
   // TODO: Do a check on interfaces if provided
@@ -176,9 +186,15 @@ function run() {
     process.exit(1);
   }
 
+  const options = (await prettier.resolveConfig(process.cwd())) || {
+    parser: "typescript"
+  }; // TODO: Abstract this TS specific behavior better
+
   const code = generateCode({
     schema: parsedSchema!,
-    generator: `${args.command}-${args.generator}` as ActualGeneratorType
+    generator: `${args.command}-${args.generator}` as ActualGeneratorType,
+    prettify: true,
+    prettifyOptions: options
   });
 
   if (typeof code === "string") {
@@ -201,8 +217,26 @@ function run() {
     // Create generation target folder, if it does not exist
     // TODO: Error handling around this
     mkdirp.sync(dirname(args.output));
+
+    let didWarn = false;
     code.forEach(f => {
       const writePath = join(args.output, f.path);
+      fs.existsSync(dirname(writePath));
+      if (
+        !args.force &&
+        (fs.existsSync(writePath) || fs.existsSync(dirname(writePath)))
+      ) {
+        didWarn = true;
+        console.log(
+          chalk.default.yellow(
+            `Warning: file (${writePath}) or folder (${dirname(
+              writePath
+            )}) already exists.`
+          )
+        );
+        return;
+      }
+
       try {
         fs.writeFileSync(
           writePath,
@@ -221,6 +255,15 @@ function run() {
       }
       console.log(chalk.default.green(`Code generated at ${writePath}`));
     });
+    if (didWarn) {
+      console.log(
+        chalk.default.yellow(
+          `${
+            os.EOL
+          }Please us the force flag (-f, --force) to overwrite the files.`
+        )
+      );
+    }
     process.exit(0);
   }
 }

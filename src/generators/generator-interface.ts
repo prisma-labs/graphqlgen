@@ -1,3 +1,4 @@
+import * as prettier from "prettier";
 import {
   GraphQLTypeObject,
   GraphQLEnumObject,
@@ -17,5 +18,5 @@ export interface CodeFileLike {
 
 export interface IGenerator {
   generate: (args: GenerateArgs) => string | CodeFileLike[];
-  format: (code: string) => string;
+  format: (code: string, options?: prettier.Options) => string;
 }
