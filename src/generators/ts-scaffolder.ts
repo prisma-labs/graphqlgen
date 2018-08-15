@@ -10,15 +10,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
     import { Types } from './types'
 
-    ${args.enums
-      .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
-      .map(
-        e => `
-    type ${e.name}Root = ${e.values.map(v => `"${v}"`).join("|")}
-    `
-      )
-      .join(os.EOL)}
-
       ${args.unions
         .filter(u => type.fields.map(f => f.type.name).indexOf(u.name) > -1)
         .map(
@@ -29,11 +20,20 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           import { ${type.name}Root } from './${type.name}'
           `
             )
-            .join(os.EOL)}
+            .join(";")}
       type ${u.name}Root = ${u.types.map(type => `${type.name}Root`).join("|")}
       `
         )
         .join(os.EOL)}
+
+        ${args.enums
+          .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
+          .map(
+            e => `
+        type ${e.name}Root = ${e.values.map(v => `"${v}"`).join("|")}
+        `
+          )
+          .join(os.EOL)}
 
     ${Array.from(
       new Set(
@@ -47,7 +47,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   `
           )
       )
-    ).join(os.EOL)}
+    ).join(";")}
 
     export interface ${type.name}Root {
       ${type.fields
@@ -56,7 +56,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       ${field.name}: ${printFieldLikeType(field, false)}
       `
         )
-        .join(os.EOL)}
+        .join(";")}
     }
 
     export const ${type.name}: I${type.name}.Resolver<Types> = {

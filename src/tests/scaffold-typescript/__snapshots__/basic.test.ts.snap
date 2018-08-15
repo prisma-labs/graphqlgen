@@ -10,9 +10,7 @@ type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
 export interface UserRoot {
   id: string;
-
   name: string;
-
   type: UserTypeRoot;
 }
 
@@ -61,29 +59,17 @@ import { NumberRoot } from \\"./Number\\";
 
 export interface QueryRoot {
   id: string;
-
   custom_required: NumberRoot;
-
   custom_nullable: NumberRoot;
-
   custom_array_nullable: NumberRoot[];
-
   custom_array_required: NumberRoot[];
-
   custom_with_arg: NumberRoot;
-
   custom_with_custom_arg: NumberRoot;
-
   scalar_required: boolean;
-
   scalar_nullable: boolean;
-
   scalar_array_nullable: boolean[];
-
   scalar_array_required: boolean[];
-
   scalar_with_arg: boolean;
-
   scalar_with_custom_arg: boolean;
 }
 
@@ -137,7 +123,6 @@ import { Types } from \\"./types\\";
 
 export interface NumberRoot {
   id: string;
-
   value: number;
 }
 
@@ -184,16 +169,13 @@ Array [
 import { Types } from \\"./types\\";
 
 import { StudentRoot } from \\"./Student\\";
-
 import { ProfessorRoot } from \\"./Professor\\";
 
 type UserTypeRoot = StudentRoot | ProfessorRoot;
 
 export interface UserRoot {
   id: string;
-
   name: string;
-
   type: UserTypeRoot;
 }
 
