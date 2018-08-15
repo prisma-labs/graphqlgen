@@ -157,7 +157,11 @@ async function run() {
       argv.output ||
       `${defaults.output}${command === "interfaces" ? ".ts" : ""}`,
     generator: argv.generator || defaults.generator,
-    interfaces: argv.interfaces || defaults.interfaces,
+    interfaces:
+      argv.interfaces
+        .trim()
+        .replace(".ts", "")
+        .replace(".js", "") || defaults.interfaces,
     force: Boolean(argv.force) || defaults.force
   };
 
