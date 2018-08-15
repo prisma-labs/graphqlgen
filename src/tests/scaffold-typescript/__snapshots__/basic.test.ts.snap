@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum 1`] = `
+Array [
+  Object {
+    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+
+export interface UserRoot {
+  id: string;
+
+  name: string;
+
+  type: UserTypeRoot;
+}
+
+export const User: IUser.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  type: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "User.ts",
+  },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserRoot } from \\"./User\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  UserRoot: UserRoot;
+}
+",
+    "path": "types.ts",
+  },
+]
+`;
+
+exports[`basic schema 1`] = `
+Array [
+  Object {
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+import { NumberRoot } from \\"./Number\\";
+
+export interface QueryRoot {
+  id: string;
+
+  custom_required: NumberRoot;
+
+  custom_nullable: NumberRoot;
+
+  custom_array_nullable: NumberRoot[];
+
+  custom_array_required: NumberRoot[];
+
+  custom_with_arg: NumberRoot;
+
+  custom_with_custom_arg: NumberRoot;
+
+  scalar_required: boolean;
+
+  scalar_nullable: boolean;
+
+  scalar_array_nullable: boolean[];
+
+  scalar_array_required: boolean[];
+
+  scalar_with_arg: boolean;
+
+  scalar_with_custom_arg: boolean;
+}
+
+export const Query: IQuery.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_required: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_nullable: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_array_nullable: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_array_required: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_with_arg: async (root, args, ctx, info) => {
+    return null;
+  },
+  custom_with_custom_arg: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_required: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_nullable: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_array_nullable: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_array_required: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_with_arg: async (root, args, ctx, info) => {
+    return null;
+  },
+  scalar_with_custom_arg: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Query.ts",
+  },
+  Object {
+    "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+export interface NumberRoot {
+  id: string;
+
+  value: number;
+}
+
+export const Number: INumber.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  value: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Number.ts",
+  },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { QueryRoot } from \\"./Query\\";
+
+import { NumberRoot } from \\"./Number\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  QueryRoot: QueryRoot;
+
+  NumberRoot: NumberRoot;
+}
+",
+    "path": "types.ts",
+  },
+]
+`;
+
+exports[`basic union 1`] = `
+Array [
+  Object {
+    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+import { StudentRoot } from \\"./Student\\";
+
+import { ProfessorRoot } from \\"./Professor\\";
+
+type UserTypeRoot = StudentRoot | ProfessorRoot;
+
+export interface UserRoot {
+  id: string;
+
+  name: string;
+
+  type: UserTypeRoot;
+}
+
+export const User: IUser.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  type: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "User.ts",
+  },
+  Object {
+    "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+export interface StudentRoot {
+  age: number;
+}
+
+export const Student: IStudent.Resolver<Types> = {
+  age: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Student.ts",
+  },
+  Object {
+    "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+export interface ProfessorRoot {
+  degree: string;
+}
+
+export const Professor: IProfessor.Resolver<Types> = {
+  degree: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Professor.ts",
+  },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { StudentRoot } from \\"./Student\\";
+
+import { ProfessorRoot } from \\"./Professor\\";
+
+export interface Context {
+  db: any;
+  request: any;
+}
+
+export interface Types extends ITypes {
+  Context: Context;
+
+  UserRoot: UserRoot;
+
+  StudentRoot: StudentRoot;
+
+  ProfessorRoot: ProfessorRoot;
+}
+",
+    "path": "types.ts",
+  },
+]
+`;

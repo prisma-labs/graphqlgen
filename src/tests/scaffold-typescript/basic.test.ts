@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { parse } from "graphql";
 import { join } from "path";
 
-test("basic schema to reason", async () => {
+test("basic schema", async () => {
   const schema = fs.readFileSync(
     join(__dirname, "../fixtures/basic.graphql"),
     "utf-8"
@@ -11,12 +11,12 @@ test("basic schema to reason", async () => {
   const parsedSchema = parse(schema);
   const code = generateCode({
     schema: parsedSchema,
-    generator: "interfaces-reason"
+    generator: "scaffold-typescript"
   });
   expect(code).toMatchSnapshot();
 });
 
-test("basic enum to reason", async () => {
+test("basic enum", async () => {
   const schema = fs.readFileSync(
     join(__dirname, "../fixtures/enum.graphql"),
     "utf-8"
@@ -24,12 +24,12 @@ test("basic enum to reason", async () => {
   const parsedSchema = parse(schema);
   const code = generateCode({
     schema: parsedSchema,
-    generator: "interfaces-reason"
+    generator: "scaffold-typescript"
   });
   expect(code).toMatchSnapshot();
 });
 
-test("basic union to reason", async () => {
+test("basic union", async () => {
   const schema = fs.readFileSync(
     join(__dirname, "../fixtures/union.graphql"),
     "utf-8"
@@ -37,7 +37,7 @@ test("basic union to reason", async () => {
   const parsedSchema = parse(schema);
   const code = generateCode({
     schema: parsedSchema,
-    generator: "interfaces-reason"
+    generator: "scaffold-typescript"
   });
   expect(code).toMatchSnapshot();
 });

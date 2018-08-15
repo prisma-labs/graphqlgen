@@ -3,7 +3,11 @@ import * as capitalize from "capitalize";
 import * as prettier from "prettier";
 
 import { GenerateArgs } from "./generator-interface";
-import { GraphQLScalarTypeArray, GraphQLScalarType } from "../source-helper";
+import {
+  GraphQLScalarTypeArray,
+  GraphQLScalarType,
+  GraphQLTypeField
+} from "../source-helper";
 
 type SpecificGraphQLScalarType = "boolean" | "number" | "string";
 
@@ -37,6 +41,25 @@ export function format(code: string) {
   }
 }
 
+export function isScalar(type: string) {
+  return GraphQLScalarTypeArray.indexOf(type) > -1;
+}
+
+export function printFieldLikeType(
+  field: GraphQLTypeField,
+  lookupType: boolean = true
+) {
+  if (isScalar(field.type.name)) {
+    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
+      field.type.isArray ? "[]" : ""
+    }`;
+  }
+
+  return lookupType
+    ? `T['${field.type.name}Root']${field.type.isArray ? "[]" : ""}`
+    : `${field.type.name}Root${field.type.isArray ? "[]" : ""}`;
+}
+
 export function generate(args: GenerateArgs) {
   return `
 import { GraphQLResolveInfo } from 'graphql'
@@ -64,12 +87,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
           ? `export interface Args${capitalize(field.name)} {
       ${field.arguments
         .map(
-          arg =>
-            `${arg.name}: ${
-              GraphQLScalarTypeArray.indexOf(arg.type.name) > -1
-                ? getTypeFromGraphQLType(arg.type.name as GraphQLScalarType)
-                : `T['${field.type.name}Root']`
-            }${field.type.isArray ? "[]" : ""}`
+          arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)}`
         )
         .join(os.EOL)}
     }`
@@ -80,11 +98,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
     T['${type.name}Root'],
     {},
     T['Context'],
-    ${
-      GraphQLScalarTypeArray.indexOf(field.type.name) > -1
-        ? getTypeFromGraphQLType(field.type.name as GraphQLScalarType)
-        : `T['${field.type.name}Root']`
-    }${field.type.isArray ? "[]" : ""}
+    ${printFieldLikeType(field)}
   >
   `
     )
