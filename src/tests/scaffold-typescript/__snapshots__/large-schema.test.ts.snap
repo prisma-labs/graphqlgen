@@ -1,0 +1,1619 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`large schema 1`] = `
+Array [
+  Object {
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { ExperienceRoot } from \\"./Experience\\";
+
+import { HomeRoot } from \\"./Home\\";
+
+import { ReservationRoot } from \\"./Reservation\\";
+
+import { NeighbourhoodRoot } from \\"./Neighbourhood\\";
+
+import { ExperiencesByCityRoot } from \\"./ExperiencesByCity\\";
+
+import { ViewerRoot } from \\"./Viewer\\";
+
+import { LocationRoot } from \\"./Location\\";
+
+export interface QueryRoot {
+  topExperiences: ExperienceRoot[];
+
+  topHomes: HomeRoot[];
+
+  homesInPriceRange: HomeRoot[];
+
+  topReservations: ReservationRoot[];
+
+  featuredDestinations: NeighbourhoodRoot[];
+
+  experiencesByCity: ExperiencesByCityRoot[];
+
+  viewer: ViewerRoot;
+
+  myLocation: LocationRoot;
+}
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: async (root, args, ctx, info) => {
+    return null;
+  },
+  topHomes: async (root, args, ctx, info) => {
+    return null;
+  },
+  homesInPriceRange: async (root, args, ctx, info) => {
+    return null;
+  },
+  topReservations: async (root, args, ctx, info) => {
+    return null;
+  },
+  featuredDestinations: async (root, args, ctx, info) => {
+    return null;
+  },
+  experiencesByCity: async (root, args, ctx, info) => {
+    return null;
+  },
+  viewer: async (root, args, ctx, info) => {
+    return null;
+  },
+  myLocation: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Query.ts",
+  },
+  Object {
+    "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { AuthPayloadRoot } from \\"./AuthPayload\\";
+
+import { MutationResultRoot } from \\"./MutationResult\\";
+
+export interface MutationRoot {
+  signup: AuthPayloadRoot;
+
+  login: AuthPayloadRoot;
+
+  addPaymentMethod: MutationResultRoot;
+
+  book: MutationResultRoot;
+}
+
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: async (root, args, ctx, info) => {
+    return null;
+  },
+  login: async (root, args, ctx, info) => {
+    return null;
+  },
+  addPaymentMethod: async (root, args, ctx, info) => {
+    return null;
+  },
+  book: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Mutation.ts",
+  },
+  Object {
+    "code": "import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { BookingRoot } from \\"./Booking\\";
+
+export interface ViewerRoot {
+  me: UserRoot;
+
+  bookings: BookingRoot[];
+}
+
+export const Viewer: IViewer.Resolver<Types> = {
+  me: async (root, args, ctx, info) => {
+    return null;
+  },
+  bookings: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Viewer.ts",
+  },
+  Object {
+    "code": "import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { UserRoot } from \\"./User\\";
+
+export interface AuthPayloadRoot {
+  token: string;
+
+  user: UserRoot;
+}
+
+export const AuthPayload: IAuthPayload.Resolver<Types> = {
+  token: async (root, args, ctx, info) => {
+    return null;
+  },
+  user: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "AuthPayload.ts",
+  },
+  Object {
+    "code": "import { IMutationResult } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface MutationResultRoot {
+  success: boolean;
+}
+
+export const MutationResult: IMutationResult.Resolver<Types> = {
+  success: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "MutationResult.ts",
+  },
+  Object {
+    "code": "import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { ExperienceRoot } from \\"./Experience\\";
+
+import { CityRoot } from \\"./City\\";
+
+export interface ExperiencesByCityRoot {
+  experiences: ExperienceRoot[];
+
+  city: CityRoot;
+}
+
+export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
+  experiences: async (root, args, ctx, info) => {
+    return null;
+  },
+  city: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "ExperiencesByCity.ts",
+  },
+  Object {
+    "code": "import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+export interface HomeRoot {
+  id: string;
+
+  name: string;
+
+  description: string;
+
+  numRatings: number;
+
+  avgRating: number;
+
+  pictures: PictureRoot[];
+
+  perNight: number;
+}
+
+export const Home: IHome.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  description: async (root, args, ctx, info) => {
+    return null;
+  },
+  numRatings: async (root, args, ctx, info) => {
+    return null;
+  },
+  avgRating: async (root, args, ctx, info) => {
+    return null;
+  },
+  pictures: async (root, args, ctx, info) => {
+    return null;
+  },
+  perNight: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Home.ts",
+  },
+  Object {
+    "code": "import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+import { LocationRoot } from \\"./Location\\";
+
+export interface ReservationRoot {
+  id: string;
+
+  title: string;
+
+  avgPricePerPerson: number;
+
+  pictures: PictureRoot[];
+
+  location: LocationRoot;
+
+  isCurated: boolean;
+
+  slug: string;
+
+  popularity: number;
+}
+
+export const Reservation: IReservation.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  title: async (root, args, ctx, info) => {
+    return null;
+  },
+  avgPricePerPerson: async (root, args, ctx, info) => {
+    return null;
+  },
+  pictures: async (root, args, ctx, info) => {
+    return null;
+  },
+  location: async (root, args, ctx, info) => {
+    return null;
+  },
+  isCurated: async (root, args, ctx, info) => {
+    return null;
+  },
+  slug: async (root, args, ctx, info) => {
+    return null;
+  },
+  popularity: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Reservation.ts",
+  },
+  Object {
+    "code": "import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { ExperienceCategoryRoot } from \\"./ExperienceCategory\\";
+
+import { LocationRoot } from \\"./Location\\";
+
+import { ReviewRoot } from \\"./Review\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+export interface ExperienceRoot {
+  id: string;
+
+  category: ExperienceCategoryRoot;
+
+  title: string;
+
+  location: LocationRoot;
+
+  pricePerPerson: number;
+
+  reviews: ReviewRoot[];
+
+  preview: PictureRoot;
+
+  popularity: number;
+}
+
+export const Experience: IExperience.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  category: async (root, args, ctx, info) => {
+    return null;
+  },
+  title: async (root, args, ctx, info) => {
+    return null;
+  },
+  location: async (root, args, ctx, info) => {
+    return null;
+  },
+  pricePerPerson: async (root, args, ctx, info) => {
+    return null;
+  },
+  reviews: async (root, args, ctx, info) => {
+    return null;
+  },
+  preview: async (root, args, ctx, info) => {
+    return null;
+  },
+  popularity: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Experience.ts",
+  },
+  Object {
+    "code": "import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface ReviewRoot {
+  accuracy: number;
+
+  checkIn: number;
+
+  cleanliness: number;
+
+  communication: number;
+
+  createdAt: string;
+
+  id: string;
+
+  location: number;
+
+  stars: number;
+
+  text: string;
+
+  value: number;
+}
+
+export const Review: IReview.Resolver<Types> = {
+  accuracy: async (root, args, ctx, info) => {
+    return null;
+  },
+  checkIn: async (root, args, ctx, info) => {
+    return null;
+  },
+  cleanliness: async (root, args, ctx, info) => {
+    return null;
+  },
+  communication: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  location: async (root, args, ctx, info) => {
+    return null;
+  },
+  stars: async (root, args, ctx, info) => {
+    return null;
+  },
+  text: async (root, args, ctx, info) => {
+    return null;
+  },
+  value: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Review.ts",
+  },
+  Object {
+    "code": "import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+import { CityRoot } from \\"./City\\";
+
+export interface NeighbourhoodRoot {
+  id: string;
+
+  name: string;
+
+  slug: string;
+
+  homePreview: PictureRoot;
+
+  city: CityRoot;
+
+  featured: boolean;
+
+  popularity: number;
+}
+
+export const Neighbourhood: INeighbourhood.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  slug: async (root, args, ctx, info) => {
+    return null;
+  },
+  homePreview: async (root, args, ctx, info) => {
+    return null;
+  },
+  city: async (root, args, ctx, info) => {
+    return null;
+  },
+  featured: async (root, args, ctx, info) => {
+    return null;
+  },
+  popularity: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Neighbourhood.ts",
+  },
+  Object {
+    "code": "import { ILocation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface LocationRoot {
+  id: string;
+
+  lat: number;
+
+  lng: number;
+
+  address: string;
+
+  directions: string;
+}
+
+export const Location: ILocation.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  lat: async (root, args, ctx, info) => {
+    return null;
+  },
+  lng: async (root, args, ctx, info) => {
+    return null;
+  },
+  address: async (root, args, ctx, info) => {
+    return null;
+  },
+  directions: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Location.ts",
+  },
+  Object {
+    "code": "import { IPicture } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface PictureRoot {
+  id: string;
+
+  url: string;
+}
+
+export const Picture: IPicture.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  url: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Picture.ts",
+  },
+  Object {
+    "code": "import { ICity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface CityRoot {
+  id: string;
+
+  name: string;
+}
+
+export const City: ICity.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "City.ts",
+  },
+  Object {
+    "code": "import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { ExperienceRoot } from \\"./Experience\\";
+
+export interface ExperienceCategoryRoot {
+  id: string;
+
+  mainColor: string;
+
+  name: string;
+
+  experience: ExperienceRoot;
+}
+
+export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  mainColor: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  experience: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "ExperienceCategory.ts",
+  },
+  Object {
+    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { BookingRoot } from \\"./Booking\\";
+
+import { ExperienceRoot } from \\"./Experience\\";
+
+import { LocationRoot } from \\"./Location\\";
+
+import { NotificationRoot } from \\"./Notification\\";
+
+import { PlaceRoot } from \\"./Place\\";
+
+import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+import { MessageRoot } from \\"./Message\\";
+
+export interface UserRoot {
+  bookings: BookingRoot[];
+
+  createdAt: string;
+
+  email: string;
+
+  firstName: string;
+
+  hostingExperiences: ExperienceRoot[];
+
+  id: string;
+
+  isSuperHost: boolean;
+
+  lastName: string;
+
+  location: LocationRoot;
+
+  notifications: NotificationRoot[];
+
+  ownedPlaces: PlaceRoot[];
+
+  paymentAccount: PaymentAccountRoot[];
+
+  phone: string;
+
+  profilePicture: PictureRoot;
+
+  receivedMessages: MessageRoot[];
+
+  responseRate: number;
+
+  responseTime: number;
+
+  sentMessages: MessageRoot[];
+
+  updatedAt: string;
+
+  token: string;
+}
+
+export const User: IUser.Resolver<Types> = {
+  bookings: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  email: async (root, args, ctx, info) => {
+    return null;
+  },
+  firstName: async (root, args, ctx, info) => {
+    return null;
+  },
+  hostingExperiences: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  isSuperHost: async (root, args, ctx, info) => {
+    return null;
+  },
+  lastName: async (root, args, ctx, info) => {
+    return null;
+  },
+  location: async (root, args, ctx, info) => {
+    return null;
+  },
+  notifications: async (root, args, ctx, info) => {
+    return null;
+  },
+  ownedPlaces: async (root, args, ctx, info) => {
+    return null;
+  },
+  paymentAccount: async (root, args, ctx, info) => {
+    return null;
+  },
+  phone: async (root, args, ctx, info) => {
+    return null;
+  },
+  profilePicture: async (root, args, ctx, info) => {
+    return null;
+  },
+  receivedMessages: async (root, args, ctx, info) => {
+    return null;
+  },
+  responseRate: async (root, args, ctx, info) => {
+    return null;
+  },
+  responseTime: async (root, args, ctx, info) => {
+    return null;
+  },
+  sentMessages: async (root, args, ctx, info) => {
+    return null;
+  },
+  updatedAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  token: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "User.ts",
+  },
+  Object {
+    "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PAYMENT_PROVIDERRoot } from \\"./PAYMENT_PROVIDER\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { PaymentRoot } from \\"./Payment\\";
+
+import { PaypalInformationRoot } from \\"./PaypalInformation\\";
+
+import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
+
+export interface PaymentAccountRoot {
+  id: string;
+
+  createdAt: string;
+
+  type: PAYMENT_PROVIDERRoot;
+
+  user: UserRoot;
+
+  payments: PaymentRoot[];
+
+  paypal: PaypalInformationRoot;
+
+  creditcard: CreditCardInformationRoot;
+}
+
+export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  type: async (root, args, ctx, info) => {
+    return null;
+  },
+  user: async (root, args, ctx, info) => {
+    return null;
+  },
+  payments: async (root, args, ctx, info) => {
+    return null;
+  },
+  paypal: async (root, args, ctx, info) => {
+    return null;
+  },
+  creditcard: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "PaymentAccount.ts",
+  },
+  Object {
+    "code": "import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PLACE_SIZESRoot } from \\"./PLACE_SIZES\\";
+
+import { ReviewRoot } from \\"./Review\\";
+
+import { AmenitiesRoot } from \\"./Amenities\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { PricingRoot } from \\"./Pricing\\";
+
+import { LocationRoot } from \\"./Location\\";
+
+import { PlaceViewsRoot } from \\"./PlaceViews\\";
+
+import { GuestRequirementsRoot } from \\"./GuestRequirements\\";
+
+import { PoliciesRoot } from \\"./Policies\\";
+
+import { HouseRulesRoot } from \\"./HouseRules\\";
+
+import { BookingRoot } from \\"./Booking\\";
+
+import { PictureRoot } from \\"./Picture\\";
+
+export interface PlaceRoot {
+  id: string;
+
+  name: string;
+
+  size: PLACE_SIZESRoot;
+
+  shortDescription: string;
+
+  description: string;
+
+  slug: string;
+
+  maxGuests: number;
+
+  numBedrooms: number;
+
+  numBeds: number;
+
+  numBaths: number;
+
+  reviews: ReviewRoot[];
+
+  amenities: AmenitiesRoot;
+
+  host: UserRoot;
+
+  pricing: PricingRoot;
+
+  location: LocationRoot;
+
+  views: PlaceViewsRoot;
+
+  guestRequirements: GuestRequirementsRoot;
+
+  policies: PoliciesRoot;
+
+  houseRules: HouseRulesRoot;
+
+  bookings: BookingRoot[];
+
+  pictures: PictureRoot[];
+
+  popularity: number;
+}
+
+export const Place: IPlace.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  name: async (root, args, ctx, info) => {
+    return null;
+  },
+  size: async (root, args, ctx, info) => {
+    return null;
+  },
+  shortDescription: async (root, args, ctx, info) => {
+    return null;
+  },
+  description: async (root, args, ctx, info) => {
+    return null;
+  },
+  slug: async (root, args, ctx, info) => {
+    return null;
+  },
+  maxGuests: async (root, args, ctx, info) => {
+    return null;
+  },
+  numBedrooms: async (root, args, ctx, info) => {
+    return null;
+  },
+  numBeds: async (root, args, ctx, info) => {
+    return null;
+  },
+  numBaths: async (root, args, ctx, info) => {
+    return null;
+  },
+  reviews: async (root, args, ctx, info) => {
+    return null;
+  },
+  amenities: async (root, args, ctx, info) => {
+    return null;
+  },
+  host: async (root, args, ctx, info) => {
+    return null;
+  },
+  pricing: async (root, args, ctx, info) => {
+    return null;
+  },
+  location: async (root, args, ctx, info) => {
+    return null;
+  },
+  views: async (root, args, ctx, info) => {
+    return null;
+  },
+  guestRequirements: async (root, args, ctx, info) => {
+    return null;
+  },
+  policies: async (root, args, ctx, info) => {
+    return null;
+  },
+  houseRules: async (root, args, ctx, info) => {
+    return null;
+  },
+  bookings: async (root, args, ctx, info) => {
+    return null;
+  },
+  pictures: async (root, args, ctx, info) => {
+    return null;
+  },
+  popularity: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Place.ts",
+  },
+  Object {
+    "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { UserRoot } from \\"./User\\";
+
+import { PlaceRoot } from \\"./Place\\";
+
+import { PaymentRoot } from \\"./Payment\\";
+
+export interface BookingRoot {
+  id: string;
+
+  createdAt: string;
+
+  bookee: UserRoot;
+
+  place: PlaceRoot;
+
+  startDate: string;
+
+  endDate: string;
+
+  payment: PaymentRoot;
+}
+
+export const Booking: IBooking.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  bookee: async (root, args, ctx, info) => {
+    return null;
+  },
+  place: async (root, args, ctx, info) => {
+    return null;
+  },
+  startDate: async (root, args, ctx, info) => {
+    return null;
+  },
+  endDate: async (root, args, ctx, info) => {
+    return null;
+  },
+  payment: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Booking.ts",
+  },
+  Object {
+    "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { NOTIFICATION_TYPERoot } from \\"./NOTIFICATION_TYPE\\";
+
+import { UserRoot } from \\"./User\\";
+
+export interface NotificationRoot {
+  createdAt: string;
+
+  id: string;
+
+  link: string;
+
+  readDate: string;
+
+  type: NOTIFICATION_TYPERoot;
+
+  user: UserRoot;
+}
+
+export const Notification: INotification.Resolver<Types> = {
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  link: async (root, args, ctx, info) => {
+    return null;
+  },
+  readDate: async (root, args, ctx, info) => {
+    return null;
+  },
+  type: async (root, args, ctx, info) => {
+    return null;
+  },
+  user: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Notification.ts",
+  },
+  Object {
+    "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { BookingRoot } from \\"./Booking\\";
+
+import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface PaymentRoot {
+  booking: BookingRoot;
+
+  createdAt: string;
+
+  id: string;
+
+  paymentMethod: PaymentAccountRoot;
+
+  serviceFee: number;
+}
+
+export const Payment: IPayment.Resolver<Types> = {
+  booking: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  paymentMethod: async (root, args, ctx, info) => {
+    return null;
+  },
+  serviceFee: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Payment.ts",
+  },
+  Object {
+    "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface PaypalInformationRoot {
+  createdAt: string;
+
+  email: string;
+
+  id: string;
+
+  paymentAccount: PaymentAccountRoot;
+}
+
+export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  email: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  paymentAccount: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "PaypalInformation.ts",
+  },
+  Object {
+    "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface CreditCardInformationRoot {
+  cardNumber: string;
+
+  country: string;
+
+  createdAt: string;
+
+  expiresOnMonth: number;
+
+  expiresOnYear: number;
+
+  firstName: string;
+
+  id: string;
+
+  lastName: string;
+
+  paymentAccount: PaymentAccountRoot;
+
+  postalCode: string;
+
+  securityCode: string;
+}
+
+export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
+  cardNumber: async (root, args, ctx, info) => {
+    return null;
+  },
+  country: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  expiresOnMonth: async (root, args, ctx, info) => {
+    return null;
+  },
+  expiresOnYear: async (root, args, ctx, info) => {
+    return null;
+  },
+  firstName: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  lastName: async (root, args, ctx, info) => {
+    return null;
+  },
+  paymentAccount: async (root, args, ctx, info) => {
+    return null;
+  },
+  postalCode: async (root, args, ctx, info) => {
+    return null;
+  },
+  securityCode: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "CreditCardInformation.ts",
+  },
+  Object {
+    "code": "import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface MessageRoot {
+  createdAt: string;
+
+  deliveredAt: string;
+
+  id: string;
+
+  readAt: string;
+}
+
+export const Message: IMessage.Resolver<Types> = {
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  deliveredAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  readAt: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Message.ts",
+  },
+  Object {
+    "code": "import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+import { CURRENCYRoot } from \\"./CURRENCY\\";
+
+export interface PricingRoot {
+  averageMonthly: number;
+
+  averageWeekly: number;
+
+  basePrice: number;
+
+  cleaningFee: number;
+
+  currency: CURRENCYRoot;
+
+  extraGuests: number;
+
+  id: string;
+
+  monthlyDiscount: number;
+
+  perNight: number;
+
+  securityDeposit: number;
+
+  smartPricing: boolean;
+
+  weekendPricing: number;
+
+  weeklyDiscount: number;
+}
+
+export const Pricing: IPricing.Resolver<Types> = {
+  averageMonthly: async (root, args, ctx, info) => {
+    return null;
+  },
+  averageWeekly: async (root, args, ctx, info) => {
+    return null;
+  },
+  basePrice: async (root, args, ctx, info) => {
+    return null;
+  },
+  cleaningFee: async (root, args, ctx, info) => {
+    return null;
+  },
+  currency: async (root, args, ctx, info) => {
+    return null;
+  },
+  extraGuests: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  monthlyDiscount: async (root, args, ctx, info) => {
+    return null;
+  },
+  perNight: async (root, args, ctx, info) => {
+    return null;
+  },
+  securityDeposit: async (root, args, ctx, info) => {
+    return null;
+  },
+  smartPricing: async (root, args, ctx, info) => {
+    return null;
+  },
+  weekendPricing: async (root, args, ctx, info) => {
+    return null;
+  },
+  weeklyDiscount: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Pricing.ts",
+  },
+  Object {
+    "code": "import { IPlaceViews } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface PlaceViewsRoot {
+  id: string;
+
+  lastWeek: number;
+}
+
+export const PlaceViews: IPlaceViews.Resolver<Types> = {
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  lastWeek: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "PlaceViews.ts",
+  },
+  Object {
+    "code": "import { IGuestRequirements } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface GuestRequirementsRoot {
+  govIssuedId: boolean;
+
+  guestTripInformation: boolean;
+
+  id: string;
+
+  recommendationsFromOtherHosts: boolean;
+}
+
+export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
+  govIssuedId: async (root, args, ctx, info) => {
+    return null;
+  },
+  guestTripInformation: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  recommendationsFromOtherHosts: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "GuestRequirements.ts",
+  },
+  Object {
+    "code": "import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface PoliciesRoot {
+  checkInEndTime: number;
+
+  checkInStartTime: number;
+
+  checkoutTime: number;
+
+  createdAt: string;
+
+  id: string;
+
+  updatedAt: string;
+}
+
+export const Policies: IPolicies.Resolver<Types> = {
+  checkInEndTime: async (root, args, ctx, info) => {
+    return null;
+  },
+  checkInStartTime: async (root, args, ctx, info) => {
+    return null;
+  },
+  checkoutTime: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  updatedAt: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Policies.ts",
+  },
+  Object {
+    "code": "import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface HouseRulesRoot {
+  additionalRules: string;
+
+  createdAt: string;
+
+  id: string;
+
+  partiesAndEventsAllowed: boolean;
+
+  petsAllowed: boolean;
+
+  smokingAllowed: boolean;
+
+  suitableForChildren: boolean;
+
+  suitableForInfants: boolean;
+
+  updatedAt: string;
+}
+
+export const HouseRules: IHouseRules.Resolver<Types> = {
+  additionalRules: async (root, args, ctx, info) => {
+    return null;
+  },
+  createdAt: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  partiesAndEventsAllowed: async (root, args, ctx, info) => {
+    return null;
+  },
+  petsAllowed: async (root, args, ctx, info) => {
+    return null;
+  },
+  smokingAllowed: async (root, args, ctx, info) => {
+    return null;
+  },
+  suitableForChildren: async (root, args, ctx, info) => {
+    return null;
+  },
+  suitableForInfants: async (root, args, ctx, info) => {
+    return null;
+  },
+  updatedAt: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "HouseRules.ts",
+  },
+  Object {
+    "code": "import { IAmenities } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"../types\\";
+
+export interface AmenitiesRoot {
+  airConditioning: boolean;
+
+  babyBath: boolean;
+
+  babyMonitor: boolean;
+
+  babysitterRecommendations: boolean;
+
+  bathtub: boolean;
+
+  breakfast: boolean;
+
+  buzzerWirelessIntercom: boolean;
+
+  cableTv: boolean;
+
+  changingTable: boolean;
+
+  childrensBooksAndToys: boolean;
+
+  childrensDinnerware: boolean;
+
+  crib: boolean;
+
+  doorman: boolean;
+
+  dryer: boolean;
+
+  elevator: boolean;
+
+  essentials: boolean;
+
+  familyKidFriendly: boolean;
+
+  freeParkingOnPremises: boolean;
+
+  freeParkingOnStreet: boolean;
+
+  gym: boolean;
+
+  hairDryer: boolean;
+
+  hangers: boolean;
+
+  heating: boolean;
+
+  hotTub: boolean;
+
+  id: string;
+
+  indoorFireplace: boolean;
+
+  internet: boolean;
+
+  iron: boolean;
+
+  kitchen: boolean;
+
+  laptopFriendlyWorkspace: boolean;
+
+  paidParkingOffPremises: boolean;
+
+  petsAllowed: boolean;
+
+  pool: boolean;
+
+  privateEntrance: boolean;
+
+  shampoo: boolean;
+
+  smokingAllowed: boolean;
+
+  suitableForEvents: boolean;
+
+  tv: boolean;
+
+  washer: boolean;
+
+  wheelchairAccessible: boolean;
+
+  wirelessInternet: boolean;
+}
+
+export const Amenities: IAmenities.Resolver<Types> = {
+  airConditioning: async (root, args, ctx, info) => {
+    return null;
+  },
+  babyBath: async (root, args, ctx, info) => {
+    return null;
+  },
+  babyMonitor: async (root, args, ctx, info) => {
+    return null;
+  },
+  babysitterRecommendations: async (root, args, ctx, info) => {
+    return null;
+  },
+  bathtub: async (root, args, ctx, info) => {
+    return null;
+  },
+  breakfast: async (root, args, ctx, info) => {
+    return null;
+  },
+  buzzerWirelessIntercom: async (root, args, ctx, info) => {
+    return null;
+  },
+  cableTv: async (root, args, ctx, info) => {
+    return null;
+  },
+  changingTable: async (root, args, ctx, info) => {
+    return null;
+  },
+  childrensBooksAndToys: async (root, args, ctx, info) => {
+    return null;
+  },
+  childrensDinnerware: async (root, args, ctx, info) => {
+    return null;
+  },
+  crib: async (root, args, ctx, info) => {
+    return null;
+  },
+  doorman: async (root, args, ctx, info) => {
+    return null;
+  },
+  dryer: async (root, args, ctx, info) => {
+    return null;
+  },
+  elevator: async (root, args, ctx, info) => {
+    return null;
+  },
+  essentials: async (root, args, ctx, info) => {
+    return null;
+  },
+  familyKidFriendly: async (root, args, ctx, info) => {
+    return null;
+  },
+  freeParkingOnPremises: async (root, args, ctx, info) => {
+    return null;
+  },
+  freeParkingOnStreet: async (root, args, ctx, info) => {
+    return null;
+  },
+  gym: async (root, args, ctx, info) => {
+    return null;
+  },
+  hairDryer: async (root, args, ctx, info) => {
+    return null;
+  },
+  hangers: async (root, args, ctx, info) => {
+    return null;
+  },
+  heating: async (root, args, ctx, info) => {
+    return null;
+  },
+  hotTub: async (root, args, ctx, info) => {
+    return null;
+  },
+  id: async (root, args, ctx, info) => {
+    return null;
+  },
+  indoorFireplace: async (root, args, ctx, info) => {
+    return null;
+  },
+  internet: async (root, args, ctx, info) => {
+    return null;
+  },
+  iron: async (root, args, ctx, info) => {
+    return null;
+  },
+  kitchen: async (root, args, ctx, info) => {
+    return null;
+  },
+  laptopFriendlyWorkspace: async (root, args, ctx, info) => {
+    return null;
+  },
+  paidParkingOffPremises: async (root, args, ctx, info) => {
+    return null;
+  },
+  petsAllowed: async (root, args, ctx, info) => {
+    return null;
+  },
+  pool: async (root, args, ctx, info) => {
+    return null;
+  },
+  privateEntrance: async (root, args, ctx, info) => {
+    return null;
+  },
+  shampoo: async (root, args, ctx, info) => {
+    return null;
+  },
+  smokingAllowed: async (root, args, ctx, info) => {
+    return null;
+  },
+  suitableForEvents: async (root, args, ctx, info) => {
+    return null;
+  },
+  tv: async (root, args, ctx, info) => {
+    return null;
+  },
+  washer: async (root, args, ctx, info) => {
+    return null;
+  },
+  wheelchairAccessible: async (root, args, ctx, info) => {
+    return null;
+  },
+  wirelessInternet: async (root, args, ctx, info) => {
+    return null;
+  }
+};
+",
+    "path": "Amenities.ts",
+  },
+]
+`;

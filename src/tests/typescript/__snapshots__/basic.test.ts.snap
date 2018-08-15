@@ -165,7 +165,7 @@ export namespace IQuery {
   >;
 
   export interface ArgsScalar_with_custom_arg {
-    id: T[\\"BooleanRoot\\"];
+    id: T[\\"NumberRoot\\"];
   }
 
   export type Scalar_with_custom_argResolver<T extends ITypes> = ResolverFn<
