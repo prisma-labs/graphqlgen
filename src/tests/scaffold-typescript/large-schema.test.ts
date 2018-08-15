@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { parse } from "graphql";
 import { join } from "path";
 
-test.skip("large schema", async () => {
+test("large schema", async () => {
   const schema = fs.readFileSync(
     join(__dirname, "../fixtures/schema.graphql"),
     "utf-8"
