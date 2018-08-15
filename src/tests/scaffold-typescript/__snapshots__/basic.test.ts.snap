@@ -23,14 +23,16 @@ export const User: IUser.Resolver<Types> = {
     "path": "User.ts",
   },
   Object {
+    "code": "export interface Context {}
+",
+    "path": "Context.ts",
+  },
+  Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserRoot } from \\"./User\\";
 
-export interface Context {
-  db: any;
-  request: any;
-}
+export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -102,16 +104,18 @@ export const Number: INumber.Resolver<Types> = {
     "path": "Number.ts",
   },
   Object {
+    "code": "export interface Context {}
+",
+    "path": "Context.ts",
+  },
+  Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryRoot } from \\"./Query\\";
 
 import { NumberRoot } from \\"./Number\\";
 
-export interface Context {
-  db: any;
-  request: any;
-}
+export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -179,6 +183,11 @@ export const Professor: IProfessor.Resolver<Types> = {
     "path": "Professor.ts",
   },
   Object {
+    "code": "export interface Context {}
+",
+    "path": "Context.ts",
+  },
+  Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserRoot } from \\"./User\\";
@@ -187,10 +196,7 @@ import { StudentRoot } from \\"./Student\\";
 
 import { ProfessorRoot } from \\"./Professor\\";
 
-export interface Context {
-  db: any;
-  request: any;
-}
+export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;

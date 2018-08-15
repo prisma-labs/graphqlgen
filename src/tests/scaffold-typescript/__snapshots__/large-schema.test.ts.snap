@@ -907,6 +907,11 @@ export const Amenities: IAmenities.Resolver<Types> = {
     "path": "Amenities.ts",
   },
   Object {
+    "code": "export interface Context {}
+",
+    "path": "Context.ts",
+  },
+  Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryRoot } from \\"./Query\\";
@@ -969,10 +974,7 @@ import { HouseRulesRoot } from \\"./HouseRules\\";
 
 import { AmenitiesRoot } from \\"./Amenities\\";
 
-export interface Context {
-  db: any;
-  request: any;
-}
+export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
