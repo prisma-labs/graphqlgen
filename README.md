@@ -6,6 +6,7 @@ Generate TS Resolvers
 
 1. Autogenerate resolver types
 1. Supports `graphql-import`
+1. Suports `prettier` i.e. code is generated following the code styling practices of your project.
 
 ### Usage
 
