@@ -53,12 +53,16 @@ export function printFieldLikeType(
   if (isScalar(field.type.name)) {
     return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
       field.type.isArray ? "[]" : ""
-    }`;
+    }${!field.type.isRequired ? "| null" : ""}`;
   }
 
   return lookupType
-    ? `T['${field.type.name}Root']${field.type.isArray ? "[]" : ""}`
-    : `${field.type.name}Root${field.type.isArray ? "[]" : ""}`;
+    ? `T['${field.type.name}Root']${field.type.isArray ? "[]" : ""}${
+        !field.type.isRequired ? "| null" : ""
+      }`
+    : `${field.type.name}Root${field.type.isArray ? "[]" : ""}${
+        !field.type.isRequired ? "| null" : ""
+      }`;
 }
 
 export function generate(args: GenerateArgs) {
