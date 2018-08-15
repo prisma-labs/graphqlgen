@@ -26,11 +26,14 @@ function getTypeFromGraphQLType(
   return "string";
 }
 
-export function format(code: string) {
+export function format(
+  code: string,
+  options: prettier.Options = {
+    parser: "typescript"
+  }
+) {
   try {
-    return prettier.format(code, {
-      parser: "typescript"
-    });
+    return prettier.format(code, options);
   } catch (e) {
     console.log(
       `There is a syntax error in generated code, unformatted code printed, error: ${JSON.stringify(

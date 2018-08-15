@@ -5,6 +5,7 @@ import { parse, DocumentNode } from "graphql";
 import * as fs from "fs";
 import * as chalk from "chalk";
 import * as mkdirp from "mkdirp";
+import * as prettier from "prettier";
 import {
   extractGraphQLTypes,
   extractGraphQLEnums,
@@ -55,6 +56,7 @@ type DefaultOptions = {
 export type GenerateCodeArgs = {
   schema: DocumentNode | undefined;
   prettify?: boolean;
+  prettifyOptions?: prettier.Options;
   generator?: ActualGeneratorType;
 };
 
@@ -77,6 +79,7 @@ function getGenerator(generator: ActualGeneratorType): IGenerator {
 export function generateCode({
   schema = undefined,
   prettify = true,
+  prettifyOptions,
   generator = "interfaces-typescript"
 }: GenerateCodeArgs): string | CodeFileLike[] {
   if (!schema) {
@@ -93,7 +96,7 @@ export function generateCode({
 
   if (typeof code === "string") {
     if (prettify) {
-      return generatorFn.format(code);
+      return generatorFn.format(code, prettifyOptions);
     } else {
       return code;
     }
@@ -101,13 +104,13 @@ export function generateCode({
     return code.map(f => {
       return {
         path: f.path,
-        code: prettify ? generatorFn.format(f.code) : f.code
+        code: prettify ? generatorFn.format(f.code, prettifyOptions) : f.code
       } as CodeFileLike;
     });
   }
 }
 
-function run() {
+async function run() {
   const defaults: DefaultOptions = {
     output: "./generated/resolvers",
     generator: "typescript",
@@ -176,9 +179,15 @@ function run() {
     process.exit(1);
   }
 
+  const options = (await prettier.resolveConfig(process.cwd())) || {
+    parser: "typescript"
+  }; // TODO: Abstract this TS specific behavior better
+
   const code = generateCode({
     schema: parsedSchema!,
-    generator: `${args.command}-${args.generator}` as ActualGeneratorType
+    generator: `${args.command}-${args.generator}` as ActualGeneratorType,
+    prettify: true,
+    prettifyOptions: options
   });
 
   if (typeof code === "string") {
