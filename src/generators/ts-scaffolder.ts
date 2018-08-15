@@ -5,7 +5,6 @@ import { printFieldLikeType, isScalar } from "./ts-generator";
 export { format } from "./ts-generator";
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
-  console.log(args.types.length);
   const files: CodeFileLike[] = args.types.map(type => {
     const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'

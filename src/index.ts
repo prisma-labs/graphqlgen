@@ -198,7 +198,6 @@ function run() {
     console.log(chalk.default.green(`Code generated at ${args.output}`));
     process.exit(0);
   } else {
-    console.log(JSON.stringify(code.map(c => join(args.output, c.path))));
     // Create generation target folder, if it does not exist
     // TODO: Error handling around this
     mkdirp.sync(dirname(args.output));
