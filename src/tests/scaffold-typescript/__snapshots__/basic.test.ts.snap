@@ -6,7 +6,7 @@ Array [
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+export type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
 export interface UserRoot {
   id: string;
@@ -135,7 +135,7 @@ import { Types } from \\"./types\\";
 import { StudentRoot } from \\"./Student\\";
 import { ProfessorRoot } from \\"./Professor\\";
 
-type UserTypeRoot = StudentRoot | ProfessorRoot;
+export type UserTypeRoot = StudentRoot | ProfessorRoot;
 
 export interface UserRoot {
   id: string;

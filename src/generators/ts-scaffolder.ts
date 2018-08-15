@@ -21,7 +21,9 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           `
             )
             .join(";")}
-      type ${u.name}Root = ${u.types.map(type => `${type.name}Root`).join("|")}
+      export type ${u.name}Root = ${u.types
+            .map(type => `${type.name}Root`)
+            .join("|")}
       `
         )
         .join(os.EOL)}
@@ -30,7 +32,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
           .map(
             e => `
-        type ${e.name}Root = ${e.values.map(v => `"${v}"`).join("|")}
+        export type ${e.name}Root = ${e.values.map(v => `"${v}"`).join("|")}
         `
           )
           .join(os.EOL)}
