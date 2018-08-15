@@ -186,9 +186,8 @@ async function run() {
     process.exit(1);
   }
 
-  const options = (await prettier.resolveConfig(process.cwd())) || {
-    parser: "typescript"
-  }; // TODO: Abstract this TS specific behavior better
+  const options = (await prettier.resolveConfig(process.cwd())) || {}; // TODO: Abstract this TS specific behavior better
+  console.log(chalk.default.blue(`Found a prettier configuration to use`));
 
   const code = generateCode({
     schema: parsedSchema!,
