@@ -9,22 +9,31 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
     import { Types } from './types'
-
+    ${Array.from(
+      new Set(
+        type.fields
+          .filter(field => !args.enums.some(e => e.name === field.type.name))
+          .filter(field => !args.unions.some(u => u.name === field.type.name))
+          .filter(field => !isScalar(field.type.name))
+          .map(
+            field => `import { ${field.type.name}Root } from './${
+              field.type.name
+            }'
+  `
+          )
+      )
+    ).join(";")}
       ${args.unions
         .filter(u => type.fields.map(f => f.type.name).indexOf(u.name) > -1)
         .map(
-          u => `
-          ${u.types
-            .map(
-              type => `
-          import { ${type.name}Root } from './${type.name}'
-          `
-            )
+          u => `${u.types
+            .map(type => `import { ${type.name}Root } from './${type.name}'`)
             .join(";")}
-      export type ${u.name}Root = ${u.types
+        
+            export type ${u.name}Root = ${u.types
             .map(type => `${type.name}Root`)
             .join("|")}
-      `
+        `
         )
         .join(os.EOL)}
 
@@ -36,20 +45,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         `
           )
           .join(os.EOL)}
-
-    ${Array.from(
-      new Set(
-        type.fields
-          .filter(field => !args.enums.some(e => e.name === field.type.name))
-          .filter(field => !args.unions.some(u => u.name === field.type.name))
-          .filter(field => !isScalar(field.type.name))
-          .map(
-            field => `
-    import { ${field.type.name}Root } from './${field.type.name}'
-  `
-          )
-      )
-    ).join(";")}
 
     export interface ${type.name}Root {
       ${type.fields

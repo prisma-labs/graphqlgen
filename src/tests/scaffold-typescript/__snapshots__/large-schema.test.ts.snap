@@ -5,7 +5,6 @@ Array [
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { ExperienceRoot } from \\"./Experience\\";
 import { HomeRoot } from \\"./Home\\";
 import { ReservationRoot } from \\"./Reservation\\";
@@ -41,7 +40,6 @@ export const Query: IQuery.Resolver<Types> = {
   Object {
     "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { AuthPayloadRoot } from \\"./AuthPayload\\";
 import { MutationResultRoot } from \\"./MutationResult\\";
 
@@ -64,7 +62,6 @@ export const Mutation: IMutation.Resolver<Types> = {
   Object {
     "code": "import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { UserRoot } from \\"./User\\";
 import { BookingRoot } from \\"./Booking\\";
 
@@ -83,7 +80,6 @@ export const Viewer: IViewer.Resolver<Types> = {
   Object {
     "code": "import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { UserRoot } from \\"./User\\";
 
 export interface AuthPayloadRoot {
@@ -115,7 +111,6 @@ export const MutationResult: IMutationResult.Resolver<Types> = {
   Object {
     "code": "import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { ExperienceRoot } from \\"./Experience\\";
 import { CityRoot } from \\"./City\\";
 
@@ -134,7 +129,6 @@ export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
   Object {
     "code": "import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PictureRoot } from \\"./Picture\\";
 
 export interface HomeRoot {
@@ -162,7 +156,6 @@ export const Home: IHome.Resolver<Types> = {
   Object {
     "code": "import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PictureRoot } from \\"./Picture\\";
 import { LocationRoot } from \\"./Location\\";
 
@@ -193,7 +186,6 @@ export const Reservation: IReservation.Resolver<Types> = {
   Object {
     "code": "import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { ExperienceCategoryRoot } from \\"./ExperienceCategory\\";
 import { LocationRoot } from \\"./Location\\";
 import { ReviewRoot } from \\"./Review\\";
@@ -258,7 +250,6 @@ export const Review: IReview.Resolver<Types> = {
   Object {
     "code": "import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PictureRoot } from \\"./Picture\\";
 import { CityRoot } from \\"./City\\";
 
@@ -341,7 +332,6 @@ export const City: ICity.Resolver<Types> = {
   Object {
     "code": "import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { ExperienceRoot } from \\"./Experience\\";
 
 export interface ExperienceCategoryRoot {
@@ -363,7 +353,6 @@ export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { BookingRoot } from \\"./Booking\\";
 import { ExperienceRoot } from \\"./Experience\\";
 import { LocationRoot } from \\"./Location\\";
@@ -424,7 +413,6 @@ export const User: IUser.Resolver<Types> = {
   Object {
     "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PAYMENT_PROVIDERRoot } from \\"./PAYMENT_PROVIDER\\";
 import { UserRoot } from \\"./User\\";
 import { PaymentRoot } from \\"./Payment\\";
@@ -456,7 +444,6 @@ export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
   Object {
     "code": "import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PLACE_SIZESRoot } from \\"./PLACE_SIZES\\";
 import { ReviewRoot } from \\"./Review\\";
 import { AmenitiesRoot } from \\"./Amenities\\";
@@ -525,7 +512,6 @@ export const Place: IPlace.Resolver<Types> = {
   Object {
     "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { UserRoot } from \\"./User\\";
 import { PlaceRoot } from \\"./Place\\";
 import { PaymentRoot } from \\"./Payment\\";
@@ -555,7 +541,6 @@ export const Booking: IBooking.Resolver<Types> = {
   Object {
     "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { NOTIFICATION_TYPERoot } from \\"./NOTIFICATION_TYPE\\";
 import { UserRoot } from \\"./User\\";
 
@@ -582,7 +567,6 @@ export const Notification: INotification.Resolver<Types> = {
   Object {
     "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { BookingRoot } from \\"./Booking\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
@@ -607,7 +591,6 @@ export const Payment: IPayment.Resolver<Types> = {
   Object {
     "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
 export interface PaypalInformationRoot {
@@ -629,7 +612,6 @@ export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
   Object {
     "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
 export interface CreditCardInformationRoot {
@@ -685,7 +667,6 @@ export const Message: IMessage.Resolver<Types> = {
   Object {
     "code": "import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { CURRENCYRoot } from \\"./CURRENCY\\";
 
 export interface PricingRoot {

@@ -53,7 +53,6 @@ Array [
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-
 import { NumberRoot } from \\"./Number\\";
 
 export interface QueryRoot {
