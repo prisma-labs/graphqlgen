@@ -907,7 +907,10 @@ export const Amenities: IAmenities.Resolver<Types> = {
     "path": "Amenities.ts",
   },
   Object {
-    "code": "export interface Context {}
+    "code": "export interface Context {
+  db: any;
+  request: any;
+}
 ",
     "path": "Context.ts",
   },
