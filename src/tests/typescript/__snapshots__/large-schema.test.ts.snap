@@ -100,14 +100,14 @@ export namespace IQuery {
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ViewerRoot\\"]
+    T[\\"ViewerRoot\\"] | null
   >;
 
   export type MyLocationResolver<T extends ITypes> = ResolverFn<
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"]
+    T[\\"LocationRoot\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -278,7 +278,7 @@ export namespace IHome {
     T[\\"HomeRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export type DescriptionResolver<T extends ITypes> = ResolverFn<
@@ -299,11 +299,11 @@ export namespace IHome {
     T[\\"HomeRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export interface ArgsPictures {
-    first: number;
+    first: number | null;
   }
 
   export type PicturesResolver<T extends ITypes> = ResolverFn<
@@ -412,7 +412,7 @@ export namespace IExperience {
     T[\\"ExperienceRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceCategoryRoot\\"]
+    T[\\"ExperienceCategoryRoot\\"] | null
   >;
 
   export type TitleResolver<T extends ITypes> = ResolverFn<
@@ -580,7 +580,7 @@ export namespace INeighbourhood {
     T[\\"NeighbourhoodRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"]
+    T[\\"PictureRoot\\"] | null
   >;
 
   export type CityResolver<T extends ITypes> = ResolverFn<
@@ -641,14 +641,14 @@ export namespace ILocation {
     T[\\"LocationRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export type DirectionsResolver<T extends ITypes> = ResolverFn<
     T[\\"LocationRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -728,7 +728,7 @@ export namespace IExperienceCategory {
     T[\\"ExperienceCategoryRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceRoot\\"]
+    T[\\"ExperienceRoot\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -835,7 +835,7 @@ export namespace IUser {
     T[\\"UserRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"]
+    T[\\"PictureRoot\\"] | null
   >;
 
   export type ReceivedMessagesResolver<T extends ITypes> = ResolverFn<
@@ -849,14 +849,14 @@ export namespace IUser {
     T[\\"UserRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type ResponseTimeResolver<T extends ITypes> = ResolverFn<
     T[\\"UserRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type SentMessagesResolver<T extends ITypes> = ResolverFn<
@@ -923,7 +923,7 @@ export namespace IPaymentAccount {
     T[\\"PaymentAccountRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PAYMENT_PROVIDERRoot\\"]
+    T[\\"PAYMENT_PROVIDERRoot\\"] | null
   >;
 
   export type UserResolver<T extends ITypes> = ResolverFn<
@@ -944,14 +944,14 @@ export namespace IPaymentAccount {
     T[\\"PaymentAccountRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaypalInformationRoot\\"]
+    T[\\"PaypalInformationRoot\\"] | null
   >;
 
   export type CreditcardResolver<T extends ITypes> = ResolverFn<
     T[\\"PaymentAccountRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CreditCardInformationRoot\\"]
+    T[\\"CreditCardInformationRoot\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -977,14 +977,14 @@ export namespace IPlace {
     T[\\"PlaceRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export type SizeResolver<T extends ITypes> = ResolverFn<
     T[\\"PlaceRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PLACE_SIZESRoot\\"]
+    T[\\"PLACE_SIZESRoot\\"] | null
   >;
 
   export type ShortDescriptionResolver<T extends ITypes> = ResolverFn<
@@ -1082,21 +1082,21 @@ export namespace IPlace {
     T[\\"PlaceRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"GuestRequirementsRoot\\"]
+    T[\\"GuestRequirementsRoot\\"] | null
   >;
 
   export type PoliciesResolver<T extends ITypes> = ResolverFn<
     T[\\"PlaceRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PoliciesRoot\\"]
+    T[\\"PoliciesRoot\\"] | null
   >;
 
   export type HouseRulesResolver<T extends ITypes> = ResolverFn<
     T[\\"PlaceRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"HouseRulesRoot\\"]
+    T[\\"HouseRulesRoot\\"] | null
   >;
 
   export type BookingsResolver<T extends ITypes> = ResolverFn<
@@ -1240,7 +1240,7 @@ export namespace INotification {
     T[\\"NotificationRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NOTIFICATION_TYPERoot\\"]
+    T[\\"NOTIFICATION_TYPERoot\\"] | null
   >;
 
   export type UserResolver<T extends ITypes> = ResolverFn<
@@ -1403,7 +1403,7 @@ export namespace ICreditCardInformation {
     T[\\"CreditCardInformationRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentAccountRoot\\"]
+    T[\\"PaymentAccountRoot\\"] | null
   >;
 
   export type PostalCodeResolver<T extends ITypes> = ResolverFn<
@@ -1498,21 +1498,21 @@ export namespace IPricing {
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type CurrencyResolver<T extends ITypes> = ResolverFn<
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CURRENCYRoot\\"]
+    T[\\"CURRENCYRoot\\"] | null
   >;
 
   export type ExtraGuestsResolver<T extends ITypes> = ResolverFn<
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
@@ -1526,7 +1526,7 @@ export namespace IPricing {
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type PerNightResolver<T extends ITypes> = ResolverFn<
@@ -1540,7 +1540,7 @@ export namespace IPricing {
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type SmartPricingResolver<T extends ITypes> = ResolverFn<
@@ -1554,14 +1554,14 @@ export namespace IPricing {
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export type WeeklyDiscountResolver<T extends ITypes> = ResolverFn<
     T[\\"PricingRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1694,7 +1694,7 @@ export namespace IHouseRules {
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
@@ -1715,35 +1715,35 @@ export namespace IHouseRules {
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type PetsAllowedResolver<T extends ITypes> = ResolverFn<
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type SmokingAllowedResolver<T extends ITypes> = ResolverFn<
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type SuitableForChildrenResolver<T extends ITypes> = ResolverFn<
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type SuitableForInfantsResolver<T extends ITypes> = ResolverFn<
     T[\\"HouseRulesRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type UpdatedAtResolver<T extends ITypes> = ResolverFn<

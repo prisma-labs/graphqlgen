@@ -86,14 +86,14 @@ export namespace IQuery {
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"]
+    T[\\"NumberRoot\\"] | null
   >;
 
   export type Custom_array_nullableResolver<T extends ITypes> = ResolverFn<
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"][]
+    T[\\"NumberRoot\\"][] | null
   >;
 
   export type Custom_array_requiredResolver<T extends ITypes> = ResolverFn<
@@ -136,14 +136,14 @@ export namespace IQuery {
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean
+    boolean | null
   >;
 
   export type Scalar_array_nullableResolver<T extends ITypes> = ResolverFn<
     T[\\"QueryRoot\\"],
     {},
     T[\\"Context\\"],
-    boolean[]
+    boolean[] | null
   >;
 
   export type Scalar_array_requiredResolver<T extends ITypes> = ResolverFn<
@@ -197,14 +197,14 @@ export namespace INumber {
     T[\\"NumberRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export type ValueResolver<T extends ITypes> = ResolverFn<
     T[\\"NumberRoot\\"],
     {},
     T[\\"Context\\"],
-    number
+    number | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -285,7 +285,7 @@ export namespace IProfessor {
     T[\\"ProfessorRoot\\"],
     {},
     T[\\"Context\\"],
-    string
+    string | null
   >;
 
   export interface Resolver<T extends ITypes> {

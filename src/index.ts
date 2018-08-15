@@ -157,7 +157,11 @@ async function run() {
       argv.output ||
       `${defaults.output}${command === "interfaces" ? ".ts" : ""}`,
     generator: argv.generator || defaults.generator,
-    interfaces: argv.interfaces || defaults.interfaces,
+    interfaces:
+      argv.interfaces
+        .trim()
+        .replace(".ts", "")
+        .replace(".js", "") || defaults.interfaces,
     force: Boolean(argv.force) || defaults.force
   };
 
@@ -186,9 +190,8 @@ async function run() {
     process.exit(1);
   }
 
-  const options = (await prettier.resolveConfig(process.cwd())) || {
-    parser: "typescript"
-  }; // TODO: Abstract this TS specific behavior better
+  const options = (await prettier.resolveConfig(process.cwd())) || {}; // TODO: Abstract this TS specific behavior better
+  console.log(chalk.default.blue(`Found a prettier configuration to use`));
 
   const code = generateCode({
     schema: parsedSchema!,
@@ -228,11 +231,7 @@ async function run() {
       ) {
         didWarn = true;
         console.log(
-          chalk.default.yellow(
-            `Warning: file (${writePath}) or folder (${dirname(
-              writePath
-            )}) already exists.`
-          )
+          chalk.default.yellow(`Warning: file (${writePath}) already exists.`)
         );
         return;
       }

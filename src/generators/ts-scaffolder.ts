@@ -64,7 +64,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     export const ${type.name}: I${type.name}.Resolver<Types> = {
       ${type.fields.map(
         field => `
-        ${field.name}: async (root${
+        ${field.name}: (root${
           field.arguments.length > 0 ? ", args" : ""
         }) => root.${field.name}
       `
@@ -75,6 +75,13 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       path: `${type.name}.ts`,
       code
     } as CodeFileLike;
+  });
+
+  files.push({
+    path: "Context.ts",
+    code: `
+    export interface Context { }
+    `
   });
 
   files.push({
@@ -90,10 +97,7 @@ import { ${type.name}Root } from './${type.name}'
       )
       .join(os.EOL)}
 
-export interface Context {
-  db: any
-  request: any
-}
+export { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context
@@ -103,7 +107,7 @@ export interface Types extends ITypes {
 ${type.name}Root: ${type.name}Root
 `
     )
-    .join(os.EOL)}
+    .join(";")}
 }
     `
   });
