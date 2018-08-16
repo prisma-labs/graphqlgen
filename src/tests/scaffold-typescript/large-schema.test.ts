@@ -13,5 +13,6 @@ test("large schema", async () => {
     schema: parsedSchema,
     generator: "scaffold-typescript"
   });
+  expect(code.length).toBe(32);
   expect(code).toMatchSnapshot();
 });

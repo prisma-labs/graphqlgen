@@ -25,3 +25,7 @@ enum TODO_STATE {
   IN_PROGRESS
   COMPLETED
 }
+
+type Query {
+  todos(completed: Boolean!): [Todo!]!
+}

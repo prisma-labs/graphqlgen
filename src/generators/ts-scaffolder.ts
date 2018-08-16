@@ -49,14 +49,10 @@ function isRootType(name: string) {
 }
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
-  const files: CodeFileLike[] = args.types
+  let files: CodeFileLike[] = args.types
     .filter(type => !isRootType(type.name))
     .map(type => {
       const code = `
-    ${args.types
-      .filter(type => isRootType(type.name))
-      .map(type => `import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'`)
-      .join(";")}
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
     import { Types } from './types'
     ${Array.from(
@@ -96,11 +92,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           )
           .join(os.EOL)}
 
-    ${args.types
-      .filter(type => isRootType(type.name))
-      .map(type => `export interface ${type.name}Root { }`)
-      .join(";")}
-
     export interface ${type.name}Root {
       ${type.fields
         .map(
@@ -110,22 +101,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )
         .join(";")}
     }
-
-    ${args.types
-      .filter(type => isRootType(type.name))
-      .map(
-        type => `
-        export const ${type.name}: I${type.name}.Resolver<Types> = {
-          ${type.fields.map(
-            field =>
-              `${field.name}: (root${
-                field.arguments.length > 0 ? ", args" : ""
-              }) => ${printFieldLikeTypeEmptyCase(field)}`
-          )}
-        }
-      `
-      )
-      .join(";")}
 
     export const ${type.name}: I${type.name}.Resolver<Types> = {
       ${type.fields.map(
@@ -143,6 +118,31 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         code
       };
     });
+
+  files = files.concat(
+    args.types.filter(type => isRootType(type.name)).map(type => {
+      const code = `
+      import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
+      import { Types } from './types'
+
+      export interface ${type.name}Root { }
+      
+      export const ${type.name}: I${type.name}.Resolver<Types> = {
+        ${type.fields.map(
+          field =>
+            `${field.name}: (root${
+              field.arguments.length > 0 ? ", args" : ""
+            }) => ${printFieldLikeTypeEmptyCase(field)}`
+        )}
+      }
+      `;
+      return {
+        path: `${type.name}.ts`,
+        force: false,
+        code
+      };
+    })
+  );
 
   files.push({
     path: "Context.ts",
