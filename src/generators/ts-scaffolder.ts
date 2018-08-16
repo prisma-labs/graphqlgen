@@ -88,24 +88,14 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
-      .map(
-        type => `
-import { ${type.name}Root } from './${type.name}'
-`
-      )
-      .join(os.EOL)}
+      .map(type => `import { ${type.name}Root } from './${type.name}'`)
+      .join(";")}
 
 export { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context
-  ${args.types
-    .map(
-      type => `
-${type.name}Root: ${type.name}Root
-`
-    )
-    .join(";")}
+  ${args.types.map(type => `${type.name}Root: ${type.name}Root`).join(";")}
 }
     `
   });

@@ -39,7 +39,6 @@ export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   UserRoot: UserRoot;
 }
 ",
@@ -117,14 +116,12 @@ export const Number: INumber.Resolver<Types> = {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryRoot } from \\"./Query\\";
-
 import { NumberRoot } from \\"./Number\\";
 
 export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   QueryRoot: QueryRoot;
   NumberRoot: NumberRoot;
 }
@@ -199,16 +196,13 @@ export const Professor: IProfessor.Resolver<Types> = {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserRoot } from \\"./User\\";
-
 import { StudentRoot } from \\"./Student\\";
-
 import { ProfessorRoot } from \\"./Professor\\";
 
 export { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   UserRoot: UserRoot;
   StudentRoot: StudentRoot;
   ProfessorRoot: ProfessorRoot;
