@@ -7,7 +7,7 @@
     "graphql-resolver-codegen": "dist/index.js"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "rm -rf example/node_modules && npm run build",
     "build": "npm run lint && tsc",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
