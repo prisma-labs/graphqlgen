@@ -68,12 +68,14 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     `;
     return {
       path: `${type.name}.ts`,
+      force: false,
       code
-    } as CodeFileLike;
+    };
   });
 
   files.push({
     path: "Context.ts",
+    force: false,
     code: `
     export interface Context {
       db: any
@@ -84,6 +86,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 
   files.push({
     path: "types.ts",
+    force: true,
     code: `
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
 

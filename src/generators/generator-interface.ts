@@ -13,6 +13,7 @@ export type GenerateArgs = {
 
 export interface CodeFileLike {
   path: string;
+  force: boolean;
   code: string;
 }
 

@@ -53,4 +53,6 @@ To see an example in action, please open the [`example`](https://github.com/pris
 
 1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `types.ts`.
 
-1. Interface for `Context` is generated in a separate file called `Context.ts`. This is also exported from `types.ts`.
+1. Interface for `Context` is generated in a separate file called `Context.ts`.
+
+1. The command `scaffold` always writes the `types.ts` file, irrespective of the `-f` flag.

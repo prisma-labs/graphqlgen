@@ -107,8 +107,9 @@ export function generateCode({
     return code.map(f => {
       return {
         path: f.path,
+        force: f.force,
         code: prettify ? generatorFn.format(f.code, prettifyOptions) : f.code
-      } as CodeFileLike;
+      };
     });
   }
 }
@@ -221,11 +222,14 @@ async function run() {
     mkdirp.sync(dirname(args.output));
 
     let didWarn = false;
+
     code.forEach(f => {
       const writePath = join(args.output, f.path);
       fs.existsSync(dirname(writePath));
+
       if (
         !args.force &&
+        !f.force &&
         (fs.existsSync(writePath) || fs.existsSync(dirname(writePath)))
       ) {
         didWarn = true;
