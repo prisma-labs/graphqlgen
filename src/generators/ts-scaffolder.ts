@@ -91,7 +91,7 @@ ${args.types
       .map(type => `import { ${type.name}Root } from './${type.name}'`)
       .join(";")}
 
-export { Context } from './Context'
+import { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context

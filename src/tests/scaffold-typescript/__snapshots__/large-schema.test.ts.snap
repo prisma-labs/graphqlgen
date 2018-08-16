@@ -929,7 +929,7 @@ import { PoliciesRoot } from \\"./Policies\\";
 import { HouseRulesRoot } from \\"./HouseRules\\";
 import { AmenitiesRoot } from \\"./Amenities\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;

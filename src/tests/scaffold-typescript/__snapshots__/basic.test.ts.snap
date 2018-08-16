@@ -35,7 +35,7 @@ export const User: IUser.Resolver<Types> = {
 
 import { UserRoot } from \\"./User\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -118,7 +118,7 @@ export const Number: INumber.Resolver<Types> = {
 import { QueryRoot } from \\"./Query\\";
 import { NumberRoot } from \\"./Number\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -199,7 +199,7 @@ import { UserRoot } from \\"./User\\";
 import { StudentRoot } from \\"./Student\\";
 import { ProfessorRoot } from \\"./Professor\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
