@@ -1,6 +1,6 @@
 {
   "name": "graphql-resolver-codegen",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "bin": {
@@ -9,6 +9,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run lint && tsc",
+    "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
     "t": "jest",
     "test": "npm run lint && npm run t",

@@ -20,6 +20,7 @@ export const User: IUser.Resolver<Types> = {
   type: root => root.type
 };
 ",
+    "force": false,
     "path": "User.ts",
   },
   Object {
@@ -28,6 +29,7 @@ export const User: IUser.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
@@ -35,14 +37,14 @@ export const User: IUser.Resolver<Types> = {
 
 import { UserRoot } from \\"./User\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   UserRoot: UserRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]
@@ -52,57 +54,46 @@ exports[`basic schema 1`] = `
 Array [
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
-import { NumberRoot } from \\"./Number\\";
 
-export interface QueryRoot {
-  id: string;
-  custom_required: NumberRoot;
-  custom_nullable: NumberRoot | null;
-  custom_array_nullable: NumberRoot[] | null;
-  custom_array_required: NumberRoot[];
-  custom_with_arg: NumberRoot;
-  custom_with_custom_arg: NumberRoot;
-  scalar_required: boolean;
-  scalar_nullable: boolean | null;
-  scalar_array_nullable: boolean[] | null;
-  scalar_array_required: boolean[];
-  scalar_with_arg: boolean;
-  scalar_with_custom_arg: boolean;
-}
-
-export const Query: IQuery.Resolver<Types> = {
-  id: root => root.id,
-  custom_required: root => root.custom_required,
-  custom_nullable: root => root.custom_nullable,
-  custom_array_nullable: root => root.custom_array_nullable,
-  custom_array_required: root => root.custom_array_required,
-  custom_with_arg: (root, args) => root.custom_with_arg,
-  custom_with_custom_arg: (root, args) => root.custom_with_custom_arg,
-  scalar_required: root => root.scalar_required,
-  scalar_nullable: root => root.scalar_nullable,
-  scalar_array_nullable: root => root.scalar_array_nullable,
-  scalar_array_required: root => root.scalar_array_required,
-  scalar_with_arg: (root, args) => root.scalar_with_arg,
-  scalar_with_custom_arg: (root, args) => root.scalar_with_custom_arg
-};
-",
-    "path": "Query.ts",
-  },
-  Object {
-    "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+export interface QueryRoot {}
 
 export interface NumberRoot {
   id: string | null;
   value: number | null;
 }
 
+export const Query: IQuery.Resolver<Types> = {
+  id: root => null,
+  custom_required: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_nullable: root => null,
+  custom_array_nullable: root => null,
+  custom_array_required: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_arg: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_custom_arg: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_required: root => false,
+  scalar_nullable: root => null,
+  scalar_array_nullable: root => null,
+  scalar_array_required: root => [],
+  scalar_with_arg: (root, args) => false,
+  scalar_with_custom_arg: (root, args) => false
+};
+
 export const Number: INumber.Resolver<Types> = {
   id: root => root.id,
   value: root => root.value
 };
 ",
+    "force": false,
     "path": "Number.ts",
   },
   Object {
@@ -111,24 +102,24 @@ export const Number: INumber.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryRoot } from \\"./Query\\";
-
 import { NumberRoot } from \\"./Number\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   QueryRoot: QueryRoot;
   NumberRoot: NumberRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]
@@ -157,6 +148,7 @@ export const User: IUser.Resolver<Types> = {
   type: root => root.type
 };
 ",
+    "force": false,
     "path": "User.ts",
   },
   Object {
@@ -171,6 +163,7 @@ export const Student: IStudent.Resolver<Types> = {
   age: root => root.age
 };
 ",
+    "force": false,
     "path": "Student.ts",
   },
   Object {
@@ -185,6 +178,7 @@ export const Professor: IProfessor.Resolver<Types> = {
   degree: root => root.degree
 };
 ",
+    "force": false,
     "path": "Professor.ts",
   },
   Object {
@@ -193,27 +187,26 @@ export const Professor: IProfessor.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserRoot } from \\"./User\\";
-
 import { StudentRoot } from \\"./Student\\";
-
 import { ProfessorRoot } from \\"./Professor\\";
 
-export { Context } from \\"./Context\\";
+import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-
   UserRoot: UserRoot;
   StudentRoot: StudentRoot;
   ProfessorRoot: ProfessorRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]

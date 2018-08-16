@@ -28,6 +28,15 @@ Options:
   Possible commands: scaffold, interfaces
 ```
 
+### Commands
+
+| Command    | Description                                                                                   | Flag -s              | Flag -o                                 | Flag -g    | Flag -i                               | Flag -f                                                                  |
+| ---------- | --------------------------------------------------------------------------------------------- | -------------------- | --------------------------------------- | ---------- | ------------------------------------- | ------------------------------------------------------------------------ |
+| interfaces | Generate type safe interfaces for resolves based on your schema.                              | Path to input schema | Path to generate interfaces file at     | typescript | NA                                    | NA                                                                       |
+| scaffold   | Scaffold resolvers based on your schema that rely on the generated interface for type safety. | Path to input schema | Path to folder for generating resolvers | typescript | Path to the generated interfaces file | Force write resolver files when there is a collision with existing files |
+
+Note: while using `scaffold`, types.ts will always be generated irrespective of `-f` flag.
+
 ### Example
 
 ##### To generate both resolvers and typings for a given GraphQL schema, run the following commands
@@ -38,8 +47,12 @@ Options:
 
 Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
 
+To see an example in action, please open the [`example`](https://github.com/prisma/graphql-resolver-codegen/tree/master/example) directory.
+
 ### Design Decisions
 
 1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `types.ts`.
 
-1. Interface for `Context` is generated in a separate file called `Context.ts`. This is also exported from `types.ts`.
+1. Interface for `Context` is generated in a separate file called `Context.ts`.
+
+1. The command `scaffold` always writes the `types.ts` file, irrespective of the `-f` flag.

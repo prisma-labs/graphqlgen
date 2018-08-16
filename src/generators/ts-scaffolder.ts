@@ -1,12 +1,62 @@
 import * as os from "os";
 import { GenerateArgs, CodeFileLike } from "./generator-interface";
+// TODO: isScalar is the wrong name for this function
 import { printFieldLikeType, isScalar } from "./ts-generator";
+import { GraphQLTypeField } from "../source-helper";
 
 export { format } from "./ts-generator";
 
+function printFieldLikeTypeEmptyCase(field: GraphQLTypeField) {
+  if (!field.type.isRequired || field.type.name === "ID") {
+    return `null`;
+  }
+  if (
+    field.type.isRequired &&
+    field.type.isArray &&
+    isScalar(field.type.name)
+  ) {
+    return `[]`;
+  }
+  if (
+    field.type.isRequired &&
+    field.type.name === "String" &&
+    isScalar(field.type.name)
+  ) {
+    return `''`;
+  }
+  if (
+    field.type.isRequired &&
+    (field.type.name === "Int" || field.type.name === "Float") &&
+    isScalar(field.type.name)
+  ) {
+    return `0`;
+  }
+  if (
+    field.type.isRequired &&
+    field.type.name === "Boolean" &&
+    isScalar(field.type.name)
+  ) {
+    return `false`;
+  }
+  if (field.type.isRequired && !isScalar(field.type.name)) {
+    return `{ throw new Error('Resolver not implemented') }`;
+  }
+}
+
+function isRootType(name: string) {
+  const rootTypes = ["Query", "Mutation", "Subscription"];
+  return rootTypes.indexOf(name) > -1;
+}
+
 export function generate(args: GenerateArgs): CodeFileLike[] {
-  const files: CodeFileLike[] = args.types.map(type => {
-    const code = `
+  const files: CodeFileLike[] = args.types
+    .filter(type => !isRootType(type.name))
+    .map(type => {
+      const code = `
+    ${args.types
+      .filter(type => isRootType(type.name))
+      .map(type => `import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'`)
+      .join(";")}
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
     import { Types } from './types'
     ${Array.from(
@@ -46,6 +96,11 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           )
           .join(os.EOL)}
 
+    ${args.types
+      .filter(type => isRootType(type.name))
+      .map(type => `export interface ${type.name}Root { }`)
+      .join(";")}
+
     export interface ${type.name}Root {
       ${type.fields
         .map(
@@ -55,6 +110,22 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )
         .join(";")}
     }
+
+    ${args.types
+      .filter(type => isRootType(type.name))
+      .map(
+        type => `
+        export const ${type.name}: I${type.name}.Resolver<Types> = {
+          ${type.fields.map(
+            field =>
+              `${field.name}: (root${
+                field.arguments.length > 0 ? ", args" : ""
+              }) => ${printFieldLikeTypeEmptyCase(field)}`
+          )}
+        }
+      `
+      )
+      .join(";")}
 
     export const ${type.name}: I${type.name}.Resolver<Types> = {
       ${type.fields.map(
@@ -66,14 +137,16 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       )}
     }
     `;
-    return {
-      path: `${type.name}.ts`,
-      code
-    } as CodeFileLike;
-  });
+      return {
+        path: `${type.name}.ts`,
+        force: false,
+        code
+      };
+    });
 
   files.push({
     path: "Context.ts",
+    force: false,
     code: `
     export interface Context {
       db: any
@@ -84,28 +157,19 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 
   files.push({
     path: "types.ts",
+    force: true,
     code: `
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
-      .map(
-        type => `
-import { ${type.name}Root } from './${type.name}'
-`
-      )
-      .join(os.EOL)}
+      .map(type => `import { ${type.name}Root } from './${type.name}'`)
+      .join(";")}
 
-export { Context } from './Context'
+import { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context
-  ${args.types
-    .map(
-      type => `
-${type.name}Root: ${type.name}Root
-`
-    )
-    .join(";")}
+  ${args.types.map(type => `${type.name}Root: ${type.name}Root`).join(";")}
 }
     `
   });
