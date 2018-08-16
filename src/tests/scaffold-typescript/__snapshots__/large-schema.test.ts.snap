@@ -4,73 +4,56 @@ exports[`large schema 1`] = `
 Array [
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { ExperienceRoot } from \\"./Experience\\";
-import { HomeRoot } from \\"./Home\\";
-import { ReservationRoot } from \\"./Reservation\\";
-import { NeighbourhoodRoot } from \\"./Neighbourhood\\";
-import { ExperiencesByCityRoot } from \\"./ExperiencesByCity\\";
-import { ViewerRoot } from \\"./Viewer\\";
-import { LocationRoot } from \\"./Location\\";
-
-export interface QueryRoot {
-  topExperiences: ExperienceRoot[];
-  topHomes: HomeRoot[];
-  homesInPriceRange: HomeRoot[];
-  topReservations: ReservationRoot[];
-  featuredDestinations: NeighbourhoodRoot[];
-  experiencesByCity: ExperiencesByCityRoot[];
-  viewer: ViewerRoot | null;
-  myLocation: LocationRoot | null;
-}
-
-export const Query: IQuery.Resolver<Types> = {
-  topExperiences: root => root.topExperiences,
-  topHomes: root => root.topHomes,
-  homesInPriceRange: (root, args) => root.homesInPriceRange,
-  topReservations: root => root.topReservations,
-  featuredDestinations: root => root.featuredDestinations,
-  experiencesByCity: (root, args) => root.experiencesByCity,
-  viewer: root => root.viewer,
-  myLocation: root => root.myLocation
-};
-",
-    "force": false,
-    "path": "Query.ts",
-  },
-  Object {
-    "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { AuthPayloadRoot } from \\"./AuthPayload\\";
-import { MutationResultRoot } from \\"./MutationResult\\";
-
-export interface MutationRoot {
-  signup: AuthPayloadRoot;
-  login: AuthPayloadRoot;
-  addPaymentMethod: MutationResultRoot;
-  book: MutationResultRoot;
-}
-
-export const Mutation: IMutation.Resolver<Types> = {
-  signup: (root, args) => root.signup,
-  login: (root, args) => root.login,
-  addPaymentMethod: (root, args) => root.addPaymentMethod,
-  book: (root, args) => root.book
-};
-",
-    "force": false,
-    "path": "Mutation.ts",
-  },
-  Object {
-    "code": "import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { UserRoot } from \\"./User\\";
 import { BookingRoot } from \\"./Booking\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ViewerRoot {
   me: UserRoot;
   bookings: BookingRoot[];
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Viewer: IViewer.Resolver<Types> = {
   me: root => root.me,
@@ -81,14 +64,56 @@ export const Viewer: IViewer.Resolver<Types> = {
     "path": "Viewer.ts",
   },
   Object {
-    "code": "import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { UserRoot } from \\"./User\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface AuthPayloadRoot {
   token: string;
   user: UserRoot;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const AuthPayload: IAuthPayload.Resolver<Types> = {
   token: root => root.token,
@@ -99,12 +124,54 @@ export const AuthPayload: IAuthPayload.Resolver<Types> = {
     "path": "AuthPayload.ts",
   },
   Object {
-    "code": "import { IMutationResult } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutationResult } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface MutationResultRoot {
   success: boolean;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const MutationResult: IMutationResult.Resolver<Types> = {
   success: root => root.success
@@ -114,15 +181,57 @@ export const MutationResult: IMutationResult.Resolver<Types> = {
     "path": "MutationResult.ts",
   },
   Object {
-    "code": "import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { ExperienceRoot } from \\"./Experience\\";
 import { CityRoot } from \\"./City\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ExperiencesByCityRoot {
   experiences: ExperienceRoot[];
   city: CityRoot;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
   experiences: root => root.experiences,
@@ -133,9 +242,14 @@ export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
     "path": "ExperiencesByCity.ts",
   },
   Object {
-    "code": "import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PictureRoot } from \\"./Picture\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface HomeRoot {
   id: string;
@@ -146,6 +260,43 @@ export interface HomeRoot {
   pictures: PictureRoot[];
   perNight: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Home: IHome.Resolver<Types> = {
   id: root => root.id,
@@ -161,10 +312,15 @@ export const Home: IHome.Resolver<Types> = {
     "path": "Home.ts",
   },
   Object {
-    "code": "import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PictureRoot } from \\"./Picture\\";
 import { LocationRoot } from \\"./Location\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ReservationRoot {
   id: string;
@@ -176,6 +332,43 @@ export interface ReservationRoot {
   slug: string;
   popularity: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Reservation: IReservation.Resolver<Types> = {
   id: root => root.id,
@@ -192,12 +385,17 @@ export const Reservation: IReservation.Resolver<Types> = {
     "path": "Reservation.ts",
   },
   Object {
-    "code": "import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { ExperienceCategoryRoot } from \\"./ExperienceCategory\\";
 import { LocationRoot } from \\"./Location\\";
 import { ReviewRoot } from \\"./Review\\";
 import { PictureRoot } from \\"./Picture\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ExperienceRoot {
   id: string;
@@ -209,6 +407,43 @@ export interface ExperienceRoot {
   preview: PictureRoot;
   popularity: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Experience: IExperience.Resolver<Types> = {
   id: root => root.id,
@@ -225,8 +460,13 @@ export const Experience: IExperience.Resolver<Types> = {
     "path": "Experience.ts",
   },
   Object {
-    "code": "import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ReviewRoot {
   accuracy: number;
@@ -240,6 +480,43 @@ export interface ReviewRoot {
   text: string;
   value: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Review: IReview.Resolver<Types> = {
   accuracy: root => root.accuracy,
@@ -258,10 +535,15 @@ export const Review: IReview.Resolver<Types> = {
     "path": "Review.ts",
   },
   Object {
-    "code": "import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PictureRoot } from \\"./Picture\\";
 import { CityRoot } from \\"./City\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface NeighbourhoodRoot {
   id: string;
@@ -272,6 +554,43 @@ export interface NeighbourhoodRoot {
   featured: boolean;
   popularity: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Neighbourhood: INeighbourhood.Resolver<Types> = {
   id: root => root.id,
@@ -287,8 +606,13 @@ export const Neighbourhood: INeighbourhood.Resolver<Types> = {
     "path": "Neighbourhood.ts",
   },
   Object {
-    "code": "import { ILocation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { ILocation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface LocationRoot {
   id: string;
@@ -297,6 +621,43 @@ export interface LocationRoot {
   address: string | null;
   directions: string | null;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Location: ILocation.Resolver<Types> = {
   id: root => root.id,
@@ -310,13 +671,55 @@ export const Location: ILocation.Resolver<Types> = {
     "path": "Location.ts",
   },
   Object {
-    "code": "import { IPicture } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPicture } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PictureRoot {
   id: string;
   url: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Picture: IPicture.Resolver<Types> = {
   id: root => root.id,
@@ -327,13 +730,55 @@ export const Picture: IPicture.Resolver<Types> = {
     "path": "Picture.ts",
   },
   Object {
-    "code": "import { ICity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { ICity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface CityRoot {
   id: string;
   name: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const City: ICity.Resolver<Types> = {
   id: root => root.id,
@@ -344,9 +789,14 @@ export const City: ICity.Resolver<Types> = {
     "path": "City.ts",
   },
   Object {
-    "code": "import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { ExperienceRoot } from \\"./Experience\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface ExperienceCategoryRoot {
   id: string;
@@ -354,6 +804,43 @@ export interface ExperienceCategoryRoot {
   name: string;
   experience: ExperienceRoot | null;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
   id: root => root.id,
@@ -366,7 +853,9 @@ export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
     "path": "ExperienceCategory.ts",
   },
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { BookingRoot } from \\"./Booking\\";
 import { ExperienceRoot } from \\"./Experience\\";
@@ -376,6 +865,9 @@ import { PlaceRoot } from \\"./Place\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 import { PictureRoot } from \\"./Picture\\";
 import { MessageRoot } from \\"./Message\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface UserRoot {
   bookings: BookingRoot[];
@@ -399,6 +891,43 @@ export interface UserRoot {
   updatedAt: string;
   token: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const User: IUser.Resolver<Types> = {
   bookings: root => root.bookings,
@@ -427,13 +956,18 @@ export const User: IUser.Resolver<Types> = {
     "path": "User.ts",
   },
   Object {
-    "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PAYMENT_PROVIDERRoot } from \\"./PAYMENT_PROVIDER\\";
 import { UserRoot } from \\"./User\\";
 import { PaymentRoot } from \\"./Payment\\";
 import { PaypalInformationRoot } from \\"./PaypalInformation\\";
 import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PaymentAccountRoot {
   id: string;
@@ -444,6 +978,43 @@ export interface PaymentAccountRoot {
   paypal: PaypalInformationRoot | null;
   creditcard: CreditCardInformationRoot | null;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
   id: root => root.id,
@@ -459,7 +1030,9 @@ export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
     "path": "PaymentAccount.ts",
   },
   Object {
-    "code": "import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PLACE_SIZESRoot } from \\"./PLACE_SIZES\\";
 import { ReviewRoot } from \\"./Review\\";
@@ -473,6 +1046,9 @@ import { PoliciesRoot } from \\"./Policies\\";
 import { HouseRulesRoot } from \\"./HouseRules\\";
 import { BookingRoot } from \\"./Booking\\";
 import { PictureRoot } from \\"./Picture\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PlaceRoot {
   id: string;
@@ -498,6 +1074,43 @@ export interface PlaceRoot {
   pictures: PictureRoot[];
   popularity: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Place: IPlace.Resolver<Types> = {
   id: root => root.id,
@@ -528,11 +1141,16 @@ export const Place: IPlace.Resolver<Types> = {
     "path": "Place.ts",
   },
   Object {
-    "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { UserRoot } from \\"./User\\";
 import { PlaceRoot } from \\"./Place\\";
 import { PaymentRoot } from \\"./Payment\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface BookingRoot {
   id: string;
@@ -543,6 +1161,43 @@ export interface BookingRoot {
   endDate: string;
   payment: PaymentRoot;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Booking: IBooking.Resolver<Types> = {
   id: root => root.id,
@@ -558,10 +1213,15 @@ export const Booking: IBooking.Resolver<Types> = {
     "path": "Booking.ts",
   },
   Object {
-    "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { NOTIFICATION_TYPERoot } from \\"./NOTIFICATION_TYPE\\";
 import { UserRoot } from \\"./User\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface NotificationRoot {
   createdAt: string;
@@ -571,6 +1231,43 @@ export interface NotificationRoot {
   type: NOTIFICATION_TYPERoot | null;
   user: UserRoot;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Notification: INotification.Resolver<Types> = {
   createdAt: root => root.createdAt,
@@ -585,10 +1282,15 @@ export const Notification: INotification.Resolver<Types> = {
     "path": "Notification.ts",
   },
   Object {
-    "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { BookingRoot } from \\"./Booking\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PaymentRoot {
   booking: BookingRoot;
@@ -597,6 +1299,43 @@ export interface PaymentRoot {
   paymentMethod: PaymentAccountRoot;
   serviceFee: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Payment: IPayment.Resolver<Types> = {
   booking: root => root.booking,
@@ -610,9 +1349,14 @@ export const Payment: IPayment.Resolver<Types> = {
     "path": "Payment.ts",
   },
   Object {
-    "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PaypalInformationRoot {
   createdAt: string;
@@ -620,6 +1364,43 @@ export interface PaypalInformationRoot {
   id: string;
   paymentAccount: PaymentAccountRoot;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
   createdAt: root => root.createdAt,
@@ -632,9 +1413,14 @@ export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
     "path": "PaypalInformation.ts",
   },
   Object {
-    "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface CreditCardInformationRoot {
   cardNumber: string;
@@ -649,6 +1435,43 @@ export interface CreditCardInformationRoot {
   postalCode: string;
   securityCode: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
   cardNumber: root => root.cardNumber,
@@ -668,8 +1491,13 @@ export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
     "path": "CreditCardInformation.ts",
   },
   Object {
-    "code": "import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface MessageRoot {
   createdAt: string;
@@ -677,6 +1505,43 @@ export interface MessageRoot {
   id: string;
   readAt: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Message: IMessage.Resolver<Types> = {
   createdAt: root => root.createdAt,
@@ -689,9 +1554,14 @@ export const Message: IMessage.Resolver<Types> = {
     "path": "Message.ts",
   },
   Object {
-    "code": "import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { CURRENCYRoot } from \\"./CURRENCY\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PricingRoot {
   averageMonthly: number;
@@ -708,6 +1578,43 @@ export interface PricingRoot {
   weekendPricing: number | null;
   weeklyDiscount: number | null;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Pricing: IPricing.Resolver<Types> = {
   averageMonthly: root => root.averageMonthly,
@@ -729,13 +1636,55 @@ export const Pricing: IPricing.Resolver<Types> = {
     "path": "Pricing.ts",
   },
   Object {
-    "code": "import { IPlaceViews } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPlaceViews } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PlaceViewsRoot {
   id: string;
   lastWeek: number;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const PlaceViews: IPlaceViews.Resolver<Types> = {
   id: root => root.id,
@@ -746,8 +1695,13 @@ export const PlaceViews: IPlaceViews.Resolver<Types> = {
     "path": "PlaceViews.ts",
   },
   Object {
-    "code": "import { IGuestRequirements } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IGuestRequirements } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface GuestRequirementsRoot {
   govIssuedId: boolean;
@@ -755,6 +1709,43 @@ export interface GuestRequirementsRoot {
   id: string;
   recommendationsFromOtherHosts: boolean;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
   govIssuedId: root => root.govIssuedId,
@@ -767,8 +1758,13 @@ export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
     "path": "GuestRequirements.ts",
   },
   Object {
-    "code": "import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface PoliciesRoot {
   checkInEndTime: number;
@@ -778,6 +1774,43 @@ export interface PoliciesRoot {
   id: string;
   updatedAt: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Policies: IPolicies.Resolver<Types> = {
   checkInEndTime: root => root.checkInEndTime,
@@ -792,8 +1825,13 @@ export const Policies: IPolicies.Resolver<Types> = {
     "path": "Policies.ts",
   },
   Object {
-    "code": "import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface HouseRulesRoot {
   additionalRules: string | null;
@@ -806,6 +1844,43 @@ export interface HouseRulesRoot {
   suitableForInfants: boolean | null;
   updatedAt: string;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const HouseRules: IHouseRules.Resolver<Types> = {
   additionalRules: root => root.additionalRules,
@@ -823,8 +1898,13 @@ export const HouseRules: IHouseRules.Resolver<Types> = {
     "path": "HouseRules.ts",
   },
   Object {
-    "code": "import { IAmenities } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { IAmenities } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+
+export interface QueryRoot {}
+export interface MutationRoot {}
 
 export interface AmenitiesRoot {
   airConditioning: boolean;
@@ -869,6 +1949,43 @@ export interface AmenitiesRoot {
   wheelchairAccessible: boolean;
   wirelessInternet: boolean;
 }
+
+export const Query: IQuery.Resolver<Types> = {
+  topExperiences: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topHomes: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  homesInPriceRange: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  topReservations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  featuredDestinations: root => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  experiencesByCity: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  viewer: root => null,
+  myLocation: root => null
+};
+export const Mutation: IMutation.Resolver<Types> = {
+  signup: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  login: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  addPaymentMethod: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  book: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
 
 export const Amenities: IAmenities.Resolver<Types> = {
   airConditioning: root => root.airConditioning,
