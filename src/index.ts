@@ -241,6 +241,7 @@ async function run() {
         return;
       }
 
+      mkdirp.sync(dirname(writePath));
       try {
         fs.writeFileSync(
           writePath,
