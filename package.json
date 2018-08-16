@@ -9,6 +9,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run lint && tsc",
+    "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
     "t": "jest",
     "test": "npm run lint && npm run t",

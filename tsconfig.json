@@ -11,5 +11,5 @@
     "noUnusedParameters": true,
     "strict": true
   },
-  "exclude": ["node_modules", "generated"]
+  "exclude": ["node_modules", "generated", "example"]
 }

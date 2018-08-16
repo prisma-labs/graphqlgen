@@ -191,7 +191,9 @@ async function run() {
   }
 
   const options = (await prettier.resolveConfig(process.cwd())) || {}; // TODO: Abstract this TS specific behavior better
-  console.log(chalk.default.blue(`Found a prettier configuration to use`));
+  if (JSON.stringify(options) !== "{}") {
+    console.log(chalk.default.blue(`Found a prettier configuration to use`));
+  }
 
   const code = generateCode({
     schema: parsedSchema!,
@@ -225,12 +227,12 @@ async function run() {
 
     code.forEach(f => {
       const writePath = join(args.output, f.path);
-      fs.existsSync(dirname(writePath));
-
       if (
         !args.force &&
         !f.force &&
-        (fs.existsSync(writePath) || fs.existsSync(dirname(writePath)))
+        (fs.existsSync(writePath) ||
+          (resolve(dirname(writePath)) !== resolve(args.output) &&
+            fs.existsSync(dirname(writePath))))
       ) {
         didWarn = true;
         console.log(
