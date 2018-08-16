@@ -20,6 +20,7 @@ export const User: IUser.Resolver<Types> = {
   type: root => root.type
 };
 ",
+    "force": false,
     "path": "User.ts",
   },
   Object {
@@ -28,6 +29,7 @@ export const User: IUser.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
@@ -42,6 +44,7 @@ export interface Types extends ITypes {
   UserRoot: UserRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]
@@ -86,6 +89,7 @@ export const Query: IQuery.Resolver<Types> = {
   scalar_with_custom_arg: (root, args) => root.scalar_with_custom_arg
 };
 ",
+    "force": false,
     "path": "Query.ts",
   },
   Object {
@@ -102,6 +106,7 @@ export const Number: INumber.Resolver<Types> = {
   value: root => root.value
 };
 ",
+    "force": false,
     "path": "Number.ts",
   },
   Object {
@@ -110,6 +115,7 @@ export const Number: INumber.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
@@ -126,6 +132,7 @@ export interface Types extends ITypes {
   NumberRoot: NumberRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]
@@ -154,6 +161,7 @@ export const User: IUser.Resolver<Types> = {
   type: root => root.type
 };
 ",
+    "force": false,
     "path": "User.ts",
   },
   Object {
@@ -168,6 +176,7 @@ export const Student: IStudent.Resolver<Types> = {
   age: root => root.age
 };
 ",
+    "force": false,
     "path": "Student.ts",
   },
   Object {
@@ -182,6 +191,7 @@ export const Professor: IProfessor.Resolver<Types> = {
   degree: root => root.degree
 };
 ",
+    "force": false,
     "path": "Professor.ts",
   },
   Object {
@@ -190,6 +200,7 @@ export const Professor: IProfessor.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
@@ -208,6 +219,7 @@ export interface Types extends ITypes {
   ProfessorRoot: ProfessorRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]

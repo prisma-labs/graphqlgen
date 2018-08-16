@@ -35,6 +35,7 @@ export const Query: IQuery.Resolver<Types> = {
   myLocation: root => root.myLocation
 };
 ",
+    "force": false,
     "path": "Query.ts",
   },
   Object {
@@ -57,6 +58,7 @@ export const Mutation: IMutation.Resolver<Types> = {
   book: (root, args) => root.book
 };
 ",
+    "force": false,
     "path": "Mutation.ts",
   },
   Object {
@@ -75,6 +77,7 @@ export const Viewer: IViewer.Resolver<Types> = {
   bookings: root => root.bookings
 };
 ",
+    "force": false,
     "path": "Viewer.ts",
   },
   Object {
@@ -92,6 +95,7 @@ export const AuthPayload: IAuthPayload.Resolver<Types> = {
   user: root => root.user
 };
 ",
+    "force": false,
     "path": "AuthPayload.ts",
   },
   Object {
@@ -106,6 +110,7 @@ export const MutationResult: IMutationResult.Resolver<Types> = {
   success: root => root.success
 };
 ",
+    "force": false,
     "path": "MutationResult.ts",
   },
   Object {
@@ -124,6 +129,7 @@ export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
   city: root => root.city
 };
 ",
+    "force": false,
     "path": "ExperiencesByCity.ts",
   },
   Object {
@@ -151,6 +157,7 @@ export const Home: IHome.Resolver<Types> = {
   perNight: root => root.perNight
 };
 ",
+    "force": false,
     "path": "Home.ts",
   },
   Object {
@@ -181,6 +188,7 @@ export const Reservation: IReservation.Resolver<Types> = {
   popularity: root => root.popularity
 };
 ",
+    "force": false,
     "path": "Reservation.ts",
   },
   Object {
@@ -213,6 +221,7 @@ export const Experience: IExperience.Resolver<Types> = {
   popularity: root => root.popularity
 };
 ",
+    "force": false,
     "path": "Experience.ts",
   },
   Object {
@@ -245,6 +254,7 @@ export const Review: IReview.Resolver<Types> = {
   value: root => root.value
 };
 ",
+    "force": false,
     "path": "Review.ts",
   },
   Object {
@@ -273,6 +283,7 @@ export const Neighbourhood: INeighbourhood.Resolver<Types> = {
   popularity: root => root.popularity
 };
 ",
+    "force": false,
     "path": "Neighbourhood.ts",
   },
   Object {
@@ -295,6 +306,7 @@ export const Location: ILocation.Resolver<Types> = {
   directions: root => root.directions
 };
 ",
+    "force": false,
     "path": "Location.ts",
   },
   Object {
@@ -311,6 +323,7 @@ export const Picture: IPicture.Resolver<Types> = {
   url: root => root.url
 };
 ",
+    "force": false,
     "path": "Picture.ts",
   },
   Object {
@@ -327,6 +340,7 @@ export const City: ICity.Resolver<Types> = {
   name: root => root.name
 };
 ",
+    "force": false,
     "path": "City.ts",
   },
   Object {
@@ -348,6 +362,7 @@ export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
   experience: root => root.experience
 };
 ",
+    "force": false,
     "path": "ExperienceCategory.ts",
   },
   Object {
@@ -408,6 +423,7 @@ export const User: IUser.Resolver<Types> = {
   token: root => root.token
 };
 ",
+    "force": false,
     "path": "User.ts",
   },
   Object {
@@ -439,6 +455,7 @@ export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
   creditcard: root => root.creditcard
 };
 ",
+    "force": false,
     "path": "PaymentAccount.ts",
   },
   Object {
@@ -507,6 +524,7 @@ export const Place: IPlace.Resolver<Types> = {
   popularity: root => root.popularity
 };
 ",
+    "force": false,
     "path": "Place.ts",
   },
   Object {
@@ -536,6 +554,7 @@ export const Booking: IBooking.Resolver<Types> = {
   payment: root => root.payment
 };
 ",
+    "force": false,
     "path": "Booking.ts",
   },
   Object {
@@ -562,6 +581,7 @@ export const Notification: INotification.Resolver<Types> = {
   user: root => root.user
 };
 ",
+    "force": false,
     "path": "Notification.ts",
   },
   Object {
@@ -586,6 +606,7 @@ export const Payment: IPayment.Resolver<Types> = {
   serviceFee: root => root.serviceFee
 };
 ",
+    "force": false,
     "path": "Payment.ts",
   },
   Object {
@@ -607,6 +628,7 @@ export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
   paymentAccount: root => root.paymentAccount
 };
 ",
+    "force": false,
     "path": "PaypalInformation.ts",
   },
   Object {
@@ -642,6 +664,7 @@ export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
   securityCode: root => root.securityCode
 };
 ",
+    "force": false,
     "path": "CreditCardInformation.ts",
   },
   Object {
@@ -662,6 +685,7 @@ export const Message: IMessage.Resolver<Types> = {
   readAt: root => root.readAt
 };
 ",
+    "force": false,
     "path": "Message.ts",
   },
   Object {
@@ -701,6 +725,7 @@ export const Pricing: IPricing.Resolver<Types> = {
   weeklyDiscount: root => root.weeklyDiscount
 };
 ",
+    "force": false,
     "path": "Pricing.ts",
   },
   Object {
@@ -717,6 +742,7 @@ export const PlaceViews: IPlaceViews.Resolver<Types> = {
   lastWeek: root => root.lastWeek
 };
 ",
+    "force": false,
     "path": "PlaceViews.ts",
   },
   Object {
@@ -737,6 +763,7 @@ export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
   recommendationsFromOtherHosts: root => root.recommendationsFromOtherHosts
 };
 ",
+    "force": false,
     "path": "GuestRequirements.ts",
   },
   Object {
@@ -761,6 +788,7 @@ export const Policies: IPolicies.Resolver<Types> = {
   updatedAt: root => root.updatedAt
 };
 ",
+    "force": false,
     "path": "Policies.ts",
   },
   Object {
@@ -791,6 +819,7 @@ export const HouseRules: IHouseRules.Resolver<Types> = {
   updatedAt: root => root.updatedAt
 };
 ",
+    "force": false,
     "path": "HouseRules.ts",
   },
   Object {
@@ -885,6 +914,7 @@ export const Amenities: IAmenities.Resolver<Types> = {
   wirelessInternet: root => root.wirelessInternet
 };
 ",
+    "force": false,
     "path": "Amenities.ts",
   },
   Object {
@@ -893,6 +923,7 @@ export const Amenities: IAmenities.Resolver<Types> = {
   request: any;
 }
 ",
+    "force": false,
     "path": "Context.ts",
   },
   Object {
@@ -965,6 +996,7 @@ export interface Types extends ITypes {
   AmenitiesRoot: AmenitiesRoot;
 }
 ",
+    "force": true,
     "path": "types.ts",
   },
 ]
