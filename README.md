@@ -38,6 +38,8 @@ Options:
 
 Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
 
+To see an example in action, please open the [`example`](https://github.com/prisma/graphql-resolver-codegen/tree/master/example) directory.
+
 ### Design Decisions
 
 1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `types.ts`.
