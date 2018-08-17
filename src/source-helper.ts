@@ -111,7 +111,7 @@ function extractTypeDefinition(
     }
   });
   // Handle built-in scalars
-  if (GraphQLScalarTypeArray.indexOf(typeLike.name) > -1) {
+  if (GraphQLScalarTypeArray.indexOf(fromNode.name) > -1) {
     typeLike.isScalar = true;
   }
   return typeLike;

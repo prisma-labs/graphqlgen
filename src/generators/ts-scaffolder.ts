@@ -1,7 +1,6 @@
 import * as os from "os";
 import { GenerateArgs, CodeFileLike } from "./generator-interface";
-// TODO: isScalar is the wrong name for this function
-import { printFieldLikeType, isScalar } from "./ts-generator";
+import { printFieldLikeType } from "./ts-generator";
 import { GraphQLTypeField } from "../source-helper";
 
 export { format } from "./ts-generator";
@@ -10,35 +9,31 @@ function printFieldLikeTypeEmptyCase(field: GraphQLTypeField) {
   if (!field.type.isRequired || field.type.name === "ID") {
     return `null`;
   }
-  if (
-    field.type.isRequired &&
-    field.type.isArray &&
-    isScalar(field.type.name)
-  ) {
+  if (field.type.isRequired && field.type.isArray && field.type.isScalar) {
     return `[]`;
   }
   if (
     field.type.isRequired &&
     field.type.name === "String" &&
-    isScalar(field.type.name)
+    field.type.isScalar
   ) {
     return `''`;
   }
   if (
     field.type.isRequired &&
     (field.type.name === "Int" || field.type.name === "Float") &&
-    isScalar(field.type.name)
+    field.type.isScalar
   ) {
     return `0`;
   }
   if (
     field.type.isRequired &&
     field.type.name === "Boolean" &&
-    isScalar(field.type.name)
+    field.type.isScalar
   ) {
     return `false`;
   }
-  if (field.type.isRequired && !isScalar(field.type.name)) {
+  if (field.type.isRequired && !field.type.isScalar) {
     return `{ throw new Error('Resolver not implemented') }`;
   }
 }
@@ -59,7 +54,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       new Set(
         type.fields
           .filter(field => !field.type.isEnum && !field.type.isUnion)
-          .filter(field => !isScalar(field.type.name))
+          .filter(field => !field.type.isScalar)
           .map(
             field => `import { ${field.type.name}Root } from './${
               field.type.name
