@@ -3,11 +3,7 @@ import * as capitalize from "capitalize";
 import * as prettier from "prettier";
 
 import { GenerateArgs } from "./generator-interface";
-import {
-  GraphQLScalarTypeArray,
-  GraphQLScalarType,
-  GraphQLTypeField
-} from "../source-helper";
+import { GraphQLScalarType, GraphQLTypeField } from "../source-helper";
 
 type SpecificGraphQLScalarType = "boolean" | "number" | "string";
 
@@ -42,15 +38,11 @@ export function format(code: string, options: prettier.Options = {}) {
   }
 }
 
-export function isScalar(type: string) {
-  return GraphQLScalarTypeArray.indexOf(type) > -1;
-}
-
 export function printFieldLikeType(
   field: GraphQLTypeField,
   lookupType: boolean = true
 ) {
-  if (isScalar(field.type.name)) {
+  if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
       field.type.isArray ? "[]" : ""
     }${!field.type.isRequired ? "| null" : ""}`;
