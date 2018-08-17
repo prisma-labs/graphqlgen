@@ -13,19 +13,6 @@ import {
   InputObjectTypeDefinitionNode
 } from "graphql";
 
-type GraphQLType = {
-  name: string;
-  isArray: boolean;
-  isRequired: boolean;
-  isScalar: boolean;
-  isEnum: boolean;
-  isUnion: boolean;
-  isInput: boolean;
-  isObject: boolean;
-  isInterface: boolean;
-};
-
-// TODO: Unify this with GraphQLType
 type GraphQLTypeDefinition = {
   name: string;
   isScalar: boolean;
@@ -34,6 +21,11 @@ type GraphQLTypeDefinition = {
   isInput: boolean;
   isObject: boolean;
   isInterface: boolean;
+};
+
+type GraphQLType = GraphQLTypeDefinition & {
+  isArray: boolean;
+  isRequired: boolean;
 };
 
 type GraphQLTypeArgument = {
@@ -70,16 +62,9 @@ export const GraphQLScalarTypeArray = [
   "Int",
   "Float",
   "String",
-  "ID",
-  "DateTime"
+  "ID"
 ];
-export type GraphQLScalarType =
-  | "Boolean"
-  | "Float"
-  | "Int"
-  | "String"
-  | "ID"
-  | "DateTime";
+export type GraphQLScalarType = "Boolean" | "Float" | "Int" | "String" | "ID";
 
 function extractTypeDefinition(
   schema: DocumentNode,
@@ -125,6 +110,10 @@ function extractTypeDefinition(
       }
     }
   });
+  // Handle built-in scalars
+  if (GraphQLScalarTypeArray.indexOf(typeLike.name) > -1) {
+    typeLike.isScalar = true;
+  }
   return typeLike;
 }
 

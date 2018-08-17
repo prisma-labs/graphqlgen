@@ -168,13 +168,14 @@ export const Experience: IExperience.Resolver<Types> = {
   Object {
     "code": "import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 
 export interface ReviewRoot {
   accuracy: number;
   checkIn: number;
   cleanliness: number;
   communication: number;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   id: string;
   location: number;
   stars: number;
@@ -310,6 +311,7 @@ export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { BookingRoot } from \\"./Booking\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { ExperienceRoot } from \\"./Experience\\";
 import { LocationRoot } from \\"./Location\\";
 import { NotificationRoot } from \\"./Notification\\";
@@ -320,7 +322,7 @@ import { MessageRoot } from \\"./Message\\";
 
 export interface UserRoot {
   bookings: BookingRoot[];
-  createdAt: string;
+  createdAt: DateTimeRoot;
   email: string;
   firstName: string;
   hostingExperiences: ExperienceRoot[];
@@ -337,7 +339,7 @@ export interface UserRoot {
   responseRate: number | null;
   responseTime: number | null;
   sentMessages: MessageRoot[];
-  updatedAt: string;
+  updatedAt: DateTimeRoot;
   token: string;
 }
 
@@ -370,6 +372,7 @@ export const User: IUser.Resolver<Types> = {
   Object {
     "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { PAYMENT_PROVIDERRoot } from \\"./PAYMENT_PROVIDER\\";
 import { UserRoot } from \\"./User\\";
 import { PaymentRoot } from \\"./Payment\\";
@@ -378,7 +381,7 @@ import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
 
 export interface PaymentAccountRoot {
   id: string;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   type: PAYMENT_PROVIDERRoot | null;
   user: UserRoot;
   payments: PaymentRoot[];
@@ -471,17 +474,18 @@ export const Place: IPlace.Resolver<Types> = {
   Object {
     "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { UserRoot } from \\"./User\\";
 import { PlaceRoot } from \\"./Place\\";
 import { PaymentRoot } from \\"./Payment\\";
 
 export interface BookingRoot {
   id: string;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   bookee: UserRoot;
   place: PlaceRoot;
-  startDate: string;
-  endDate: string;
+  startDate: DateTimeRoot;
+  endDate: DateTimeRoot;
   payment: PaymentRoot;
 }
 
@@ -501,14 +505,15 @@ export const Booking: IBooking.Resolver<Types> = {
   Object {
     "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { NOTIFICATION_TYPERoot } from \\"./NOTIFICATION_TYPE\\";
 import { UserRoot } from \\"./User\\";
 
 export interface NotificationRoot {
-  createdAt: string;
+  createdAt: DateTimeRoot;
   id: string;
   link: string;
-  readDate: string;
+  readDate: DateTimeRoot;
   type: NOTIFICATION_TYPERoot | null;
   user: UserRoot;
 }
@@ -529,11 +534,12 @@ export const Notification: INotification.Resolver<Types> = {
     "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 import { BookingRoot } from \\"./Booking\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
 export interface PaymentRoot {
   booking: BookingRoot;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   id: string;
   paymentMethod: PaymentAccountRoot;
   serviceFee: number;
@@ -553,10 +559,11 @@ export const Payment: IPayment.Resolver<Types> = {
   Object {
     "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
 export interface PaypalInformationRoot {
-  createdAt: string;
+  createdAt: DateTimeRoot;
   email: string;
   id: string;
   paymentAccount: PaymentAccountRoot;
@@ -575,12 +582,13 @@ export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
   Object {
     "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 import { PaymentAccountRoot } from \\"./PaymentAccount\\";
 
 export interface CreditCardInformationRoot {
   cardNumber: string;
   country: string;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   expiresOnMonth: number;
   expiresOnYear: number;
   firstName: string;
@@ -611,12 +619,13 @@ export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
   Object {
     "code": "import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 
 export interface MessageRoot {
-  createdAt: string;
-  deliveredAt: string;
+  createdAt: DateTimeRoot;
+  deliveredAt: DateTimeRoot;
   id: string;
-  readAt: string;
+  readAt: DateTimeRoot;
 }
 
 export const Message: IMessage.Resolver<Types> = {
@@ -710,14 +719,15 @@ export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
   Object {
     "code": "import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 
 export interface PoliciesRoot {
   checkInEndTime: number;
   checkInStartTime: number;
   checkoutTime: number;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   id: string;
-  updatedAt: string;
+  updatedAt: DateTimeRoot;
 }
 
 export const Policies: IPolicies.Resolver<Types> = {
@@ -735,17 +745,18 @@ export const Policies: IPolicies.Resolver<Types> = {
   Object {
     "code": "import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
+import { DateTimeRoot } from \\"./DateTime\\";
 
 export interface HouseRulesRoot {
   additionalRules: string | null;
-  createdAt: string;
+  createdAt: DateTimeRoot;
   id: string;
   partiesAndEventsAllowed: boolean | null;
   petsAllowed: boolean | null;
   smokingAllowed: boolean | null;
   suitableForChildren: boolean | null;
   suitableForInfants: boolean | null;
-  updatedAt: string;
+  updatedAt: DateTimeRoot;
 }
 
 export const HouseRules: IHouseRules.Resolver<Types> = {

@@ -58,8 +58,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     ${Array.from(
       new Set(
         type.fields
-          .filter(field => !args.enums.some(e => e.name === field.type.name))
-          .filter(field => !args.unions.some(u => u.name === field.type.name))
+          .filter(field => !field.type.isEnum && !field.type.isUnion)
           .filter(field => !isScalar(field.type.name))
           .map(
             field => `import { ${field.type.name}Root } from './${
