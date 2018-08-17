@@ -6,12 +6,12 @@ Array [
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-export type UserTypeRoot = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
 export interface UserRoot {
   id: string;
   name: string;
-  type: UserTypeRoot;
+  type: UserType;
 }
 
 export const User: IUser.Resolver<Types> = {
@@ -140,12 +140,12 @@ import { Types } from \\"./types\\";
 import { StudentRoot } from \\"./Student\\";
 import { ProfessorRoot } from \\"./Professor\\";
 
-export type UserTypeRoot = StudentRoot | ProfessorRoot;
+export type UserType = StudentRoot | ProfessorRoot;
 
 export interface UserRoot {
   id: string;
   name: string;
-  type: UserTypeRoot;
+  type: UserType;
 }
 
 export const User: IUser.Resolver<Types> = {

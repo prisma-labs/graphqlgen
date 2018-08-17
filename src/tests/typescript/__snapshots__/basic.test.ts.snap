@@ -11,7 +11,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
   Context: any;
-  UserTypeRoot: any;
+  UserType: any;
 
   UserRoot: any;
 }
@@ -35,7 +35,7 @@ export namespace IUser {
     T[\\"UserRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserTypeRoot\\"]
+    T[\\"UserType\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -232,7 +232,7 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 export interface ITypes {
   Context: any;
 
-  UserTypeRoot: any;
+  UserType: any;
   UserRoot: any;
   StudentRoot: any;
   ProfessorRoot: any;
@@ -257,7 +257,7 @@ export namespace IUser {
     T[\\"UserRoot\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserTypeRoot\\"]
+    T[\\"UserType\\"]
   >;
 
   export interface Resolver<T extends ITypes> {

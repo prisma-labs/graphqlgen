@@ -57,10 +57,14 @@ export function printFieldLikeType(
   }
 
   return lookupType
-    ? `T['${field.type.name}Root']${field.type.isArray ? "[]" : ""}${
+    ? `T['${field.type.name}${
+        field.type.isEnum || field.type.isUnion ? "" : "Root"
+      }']${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`
-    : `${field.type.name}Root${field.type.isArray ? "[]" : ""}${
+    : `${field.type.name}${
+        field.type.isEnum || field.type.isUnion ? "" : "Root"
+      }${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`;
 }
@@ -77,8 +81,8 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 
 export interface ITypes {
 Context: any
-${args.enums.map(e => `${e.name}Root: any`).join(os.EOL)}
-${args.unions.map(union => `${union.name}Root: any`).join(os.EOL)}
+${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
+${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
 ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 }
 
@@ -100,7 +104,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
       }
 
   export type ${capitalize(field.name)}Resolver<T extends ITypes> = ResolverFn<
-    T['${type.name}Root'],
+    T['${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Root"}'],
     ${field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"},
     T['Context'],
     ${printFieldLikeType(field)}
@@ -111,7 +115,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 
   export interface Resolver<T extends ITypes> {
   ${type.fields
-    .map(field => `   ${field.name}: ${capitalize(field.name)}Resolver<T>`)
+    .map(field => `${field.name}: ${capitalize(field.name)}Resolver<T>`)
     .join(os.EOL)}
   }
 }
@@ -121,7 +125,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
 
 export interface IResolvers<T extends ITypes> {
   ${args.types
-    .map(type => `   ${type.name}: I${type.name}.Resolver<T>`)
+    .map(type => `${type.name}: I${type.name}.Resolver<T>`)
     .join(os.EOL)}
 }
 

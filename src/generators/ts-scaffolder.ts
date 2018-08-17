@@ -58,8 +58,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     ${Array.from(
       new Set(
         type.fields
-          .filter(field => !args.enums.some(e => e.name === field.type.name))
-          .filter(field => !args.unions.some(u => u.name === field.type.name))
+          .filter(field => !field.type.isEnum && !field.type.isUnion)
           .filter(field => !isScalar(field.type.name))
           .map(
             field => `import { ${field.type.name}Root } from './${
@@ -76,7 +75,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
             .map(type => `import { ${type.name}Root } from './${type.name}'`)
             .join(";")}
         
-            export type ${u.name}Root = ${u.types
+            export type ${u.name} = ${u.types
             .map(type => `${type.name}Root`)
             .join("|")}
         `
@@ -87,7 +86,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
           .map(
             e => `
-        export type ${e.name}Root = ${e.values.map(v => `"${v}"`).join("|")}
+        export type ${e.name} = ${e.values.map(v => `"${v}"`).join("|")}
         `
           )
           .join(os.EOL)}
@@ -169,7 +168,14 @@ import { Context } from './Context'
 
 export interface Types extends ITypes {
   Context: Context
-  ${args.types.map(type => `${type.name}Root: ${type.name}Root`).join(";")}
+  ${args.types
+    .map(
+      type =>
+        `${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Root"}: ${
+          type.name
+        }${type.type.isEnum || type.type.isUnion ? "" : "Root"}`
+    )
+    .join(";")}
 }
     `
   });
