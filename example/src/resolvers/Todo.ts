@@ -4,9 +4,9 @@ import { Types } from "./types";
 import { EmployeeRoot } from "./Employee";
 import { FreelancerRoot } from "./Freelancer";
 
-export type UserRoot = EmployeeRoot | FreelancerRoot;
+export type User = EmployeeRoot | FreelancerRoot;
 
-export type TODO_STATERoot =
+export type TODO_STATE =
   | "NOT_STARTED"
   | "ASSIGNED"
   | "IN_PROGRESS"
@@ -16,8 +16,8 @@ export interface TodoRoot {
   id: string;
   text: string;
   completed: boolean;
-  state: TODO_STATERoot;
-  assigned_to: UserRoot[];
+  state: TODO_STATE;
+  assigned_to: User[];
 }
 
 export const Todo: ITodo.Resolver<Types> = {
