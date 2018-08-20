@@ -90,7 +90,10 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       ${type.fields
         .map(
           field => `
-      ${field.name}: ${printFieldLikeType(field, false)}
+      ${field.name}${!field.type.isRequired ? "?" : ""}: ${printFieldLikeType(
+            field,
+            false
+          ).replace("| null", "")}
       `
         )
         .join(";")}

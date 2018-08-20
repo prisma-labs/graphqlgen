@@ -57,8 +57,8 @@ Array [
 import { Types } from \\"./types\\";
 
 export interface NumberRoot {
-  id: string | null;
-  value: number | null;
+  id?: string;
+  value?: number;
 }
 
 export const Number: INumber.Resolver<Types> = {
@@ -177,7 +177,7 @@ export const Student: IStudent.Resolver<Types> = {
 import { Types } from \\"./types\\";
 
 export interface ProfessorRoot {
-  degree: string | null;
+  degree?: string;
 }
 
 export const Professor: IProfessor.Resolver<Types> = {
