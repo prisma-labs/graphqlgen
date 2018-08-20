@@ -12,6 +12,7 @@ type Query {
   scalar_array_required: [Boolean]!
   scalar_with_arg(id: Int!): Boolean!
   scalar_with_custom_arg(id: Number!): Boolean!
+  # commented_field: Boolean!
 }
 
 type Number {
