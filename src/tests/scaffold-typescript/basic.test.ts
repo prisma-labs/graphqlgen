@@ -13,7 +13,7 @@ test("basic schema", async () => {
     schema: parsedSchema,
     generator: "scaffold-typescript"
   });
-  expect(code.length).toBe(4);
+  expect(code.length).toBe(5);
   expect(code).toMatchSnapshot();
 });
 
@@ -27,7 +27,7 @@ test("basic enum", async () => {
     schema: parsedSchema,
     generator: "scaffold-typescript"
   });
-  expect(code.length).toBe(3);
+  expect(code.length).toBe(4);
   expect(code).toMatchSnapshot();
 });
 
@@ -41,6 +41,6 @@ test("basic union", async () => {
     schema: parsedSchema,
     generator: "scaffold-typescript"
   });
-  expect(code.length).toBe(5);
+  expect(code.length).toBe(6);
   expect(code).toMatchSnapshot();
 });

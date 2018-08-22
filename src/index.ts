@@ -50,7 +50,8 @@ type CLIArgs = {
 };
 
 type DefaultOptions = {
-  output: string;
+  outputInterfaces: string;
+  outputScaffold: string;
   generator: GeneratorType;
   interfaces: string;
   force: boolean;
@@ -116,9 +117,10 @@ export function generateCode({
 
 async function run() {
   const defaults: DefaultOptions = {
-    output: "./generated/resolvers",
+    outputInterfaces: "src/generated/resolvers.ts",
+    outputScaffold: "src/resolvers/",
     generator: "typescript",
-    interfaces: "./generated/",
+    interfaces: "../generated/resolvers.ts",
     force: false
   };
   const argv = yargs
@@ -128,7 +130,10 @@ async function run() {
     .alias("s", "schema-path")
     .describe("s", "GraphQL schema file path")
     .alias("o", "output")
-    .describe("o", `Output file/folder path [default: ${defaults.output}[.ts]]`)
+    .describe(
+      "o",
+      `Output file/folder path [default: ${defaults.outputInterfaces}]`
+    )
     .alias("g", "generator")
     .describe(
       "g",
@@ -156,7 +161,11 @@ async function run() {
     schemaPath: resolve(argv.schemaPath),
     output:
       argv.output ||
-      `${defaults.output}${command === "interfaces" ? ".ts" : ""}`,
+      `${
+        command === "interfaces"
+          ? `${defaults.outputInterfaces}`
+          : `${defaults.outputScaffold}`
+      }`,
     generator: argv.generator || defaults.generator,
     interfaces: (argv.interfaces || defaults.interfaces)
       .trim()

@@ -178,5 +178,25 @@ export interface Types extends ITypes {
     `
   });
 
+  files.push({
+    path: "index.ts",
+    force: false,
+    code: `
+    import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    import { Types } from './types'
+    ${args.types
+      .map(
+        type => `
+      import { ${type.name} } from './${type.name}'
+    `
+      )
+      .join(";")}
+
+    export const resolvers: IResolvers<Types> = {
+      ${args.types.map(type => `${type.name}`).join(",")}   
+    }
+    `
+  });
+
   return files;
 }
