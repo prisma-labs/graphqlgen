@@ -43,7 +43,7 @@ Note: while using `scaffold`, types.ts will always be generated irrespective of 
 
 ##### To generate both resolvers and typings for a given GraphQL schema, run the following commands
 
-1. Run `graphql-resolver-codegen scaffold -s <schema-path> -o <output-path>/generated/resolvers.ts -g typescript`
+1. Run `graphql-resolver-codegen interfaces -s <schema-path> -o <output-path>/generated/resolvers.ts -g typescript`
 
 1. Run `graphql-resolver-codegen scaffold -s <schema-path> -o <output-path> -g typescript -i <output-path>/generated/resolvers.ts`
 
