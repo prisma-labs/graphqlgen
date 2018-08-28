@@ -51,6 +51,59 @@ export interface IResolvers<T extends ITypes> {
 "
 `;
 
+exports[`basic scalar 1`] = `
+"import { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ResolverFn<Root, Args, Ctx, Payload> {
+  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+    | Payload
+    | Promise<Payload>;
+}
+
+export interface ITypes {
+  Context: any;
+
+  AddMemberPayloadRoot: any;
+  MutationRoot: any;
+}
+
+export namespace IAddMemberPayload {
+  export type JsonResolver<T extends ITypes> = ResolverFn<
+    T[\\"AddMemberPayloadRoot\\"],
+    {},
+    T[\\"Context\\"],
+    string | null
+  >;
+
+  export interface Resolver<T extends ITypes> {
+    json: JsonResolver<T>;
+  }
+}
+
+export namespace IMutation {
+  export interface ArgsAddMember {
+    data: T[\\"AddMemberDataRoot\\"];
+  }
+
+  export type AddMemberResolver<T extends ITypes> = ResolverFn<
+    T[\\"MutationRoot\\"],
+    ArgsAddMember,
+    T[\\"Context\\"],
+    T[\\"AddMemberPayloadRoot\\"]
+  >;
+
+  export interface Resolver<T extends ITypes> {
+    addMember: AddMemberResolver<T>;
+  }
+}
+
+export interface IResolvers<T extends ITypes> {
+  AddMemberPayload: IAddMemberPayload.Resolver<T>;
+  Mutation: IMutation.Resolver<T>;
+}
+"
+`;
+
 exports[`basic schema 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 

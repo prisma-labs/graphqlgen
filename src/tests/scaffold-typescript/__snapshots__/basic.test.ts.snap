@@ -63,6 +63,82 @@ export const resolvers: IResolvers<Types> = {
 ]
 `;
 
+exports[`basic scalar 1`] = `
+Array [
+  Object {
+    "code": "import { IAddMemberPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+export interface AddMemberPayloadRoot {
+  json?: string;
+}
+
+export const AddMemberPayload: IAddMemberPayload.Resolver<Types> = {
+  json: root => root.json
+};
+",
+    "force": false,
+    "path": "AddMemberPayload.ts",
+  },
+  Object {
+    "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+export interface MutationRoot {}
+
+export const Mutation: IMutation.Resolver<Types> = {
+  addMember: (root, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
+",
+    "force": false,
+    "path": "Mutation.ts",
+  },
+  Object {
+    "code": "export interface Context {
+  db: any;
+  request: any;
+}
+",
+    "force": false,
+    "path": "Context.ts",
+  },
+  Object {
+    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { AddMemberPayloadRoot } from \\"./AddMemberPayload\\";
+import { MutationRoot } from \\"./Mutation\\";
+
+import { Context } from \\"./Context\\";
+
+export interface Types extends ITypes {
+  Context: Context;
+  AddMemberPayloadRoot: AddMemberPayloadRoot;
+  MutationRoot: MutationRoot;
+}
+",
+    "force": true,
+    "path": "types.ts",
+  },
+  Object {
+    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { Types } from \\"./types\\";
+
+import { AddMemberPayload } from \\"./AddMemberPayload\\";
+import { Mutation } from \\"./Mutation\\";
+
+export const resolvers: IResolvers<Types> = {
+  AddMemberPayload,
+  Mutation
+};
+",
+    "force": false,
+    "path": "index.ts",
+  },
+]
+`;
+
 exports[`basic schema 1`] = `
 Array [
   Object {
