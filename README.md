@@ -34,7 +34,7 @@ Options:
 
 | Command    | Description                                                                                   | Flag -s              | Flag -o                                 | Flag -g    | Flag -i                               | Flag -f                                                                  |
 | ---------- | --------------------------------------------------------------------------------------------- | -------------------- | --------------------------------------- | ---------- | ------------------------------------- | ------------------------------------------------------------------------ |
-| interfaces | Generate type safe interfaces for resolves based on your schema.                              | Path to input schema | Path to generate interfaces file at     | typescript | NA                                    | NA                                                                       |
+| interfaces | Generate type safe interfaces for resolvers based on your schema.                              | Path to input schema | Path to generate interfaces file at     | typescript | NA                                    | NA                                                                       |
 | scaffold   | Scaffold resolvers based on your schema that rely on the generated interface for type safety. | Path to input schema | Path to folder for generating resolvers | typescript | Path to the generated interfaces file | Force write resolver files when there is a collision with existing files |
 
 Note: while using `scaffold`, typemap.ts will always be generated irrespective of `-f` flag.
