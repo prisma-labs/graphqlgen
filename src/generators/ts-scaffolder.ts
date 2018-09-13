@@ -49,7 +49,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .map(type => {
       const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
-    import { Types } from './types/typemap'
+    import { TypeMap } from './types/TypeMap'
     ${Array.from(
       new Set(
         type.fields
@@ -98,8 +98,9 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )
         .join(";")}
     }
+    
 
-    export const ${type.name}: I${type.name}.Resolver<Types> = {
+    export const ${type.name}: I${type.name}.Resolver<TypeMap> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -120,11 +121,11 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `
       import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
-      import { Types } from './types/typemap'
+      import { TypeMap } from './types/TypeMap'
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: I${type.name}.Resolver<Types> = {
+      export const ${type.name}: I${type.name}.Resolver<TypeMap> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${
@@ -142,7 +143,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   );
 
   files.push({
-    path: "types/context.ts",
+    path: "types/Context.ts",
     force: false,
     code: `
     export interface Context {
@@ -153,10 +154,10 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   });
 
   files.push({
-    path: "types/typemap.ts",
+    path: "types/TypeMap.ts",
     force: true,
     code: `
-import { ITypes } from '../[TEMPLATE-INTERFACES-PATH]'
+import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
       .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
@@ -164,7 +165,7 @@ ${args.types
 
 import { Context } from './context'
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context
   ${args.types
     .map(
@@ -183,7 +184,7 @@ export interface Types extends ITypes {
     force: false,
     code: `
     import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
-    import { Types } from './types/typemap'
+    import { TypeMap } from './types/TypeMap'
     ${args.types
       .map(
         type => `
@@ -192,7 +193,7 @@ export interface Types extends ITypes {
       )
       .join(";")}
 
-    export const resolvers: IResolvers<Types> = {
+    export const resolvers: IResolvers<TypeMap> = {
       ${args.types.map(type => `${type.name}`).join(",")}   
     }
     `

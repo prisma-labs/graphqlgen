@@ -1,5 +1,5 @@
 import { IViewer } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { UserParent } from "./User";
 import { BookingParent } from "./Booking";
 
@@ -8,7 +8,7 @@ export interface ViewerParent {
   bookings: BookingParent[];
 }
 
-export const Viewer: IViewer.Resolver<Types> = {
+export const Viewer: IViewer.Resolver<TypeMap> = {
   me: parent => parent.me,
   bookings: parent => parent.bookings
 };

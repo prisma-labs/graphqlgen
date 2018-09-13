@@ -1,5 +1,5 @@
 import { IUser } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { BookingParent } from "./Booking";
 import { ExperienceParent } from "./Experience";
 import { LocationParent } from "./Location";
@@ -32,7 +32,7 @@ export interface UserParent {
   token: string;
 }
 
-export const User: IUser.Resolver<Types> = {
+export const User: IUser.Resolver<TypeMap> = {
   bookings: parent => parent.bookings,
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,

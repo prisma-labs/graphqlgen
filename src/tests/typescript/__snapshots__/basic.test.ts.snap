@@ -3,13 +3,7 @@
 exports[`basic enum 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Parent, Args, Ctx, Payload> {
-  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>;
-}
-
-export interface ITypes {
+export interface ITypeMap {
   Context: any;
   UserType: any;
 
@@ -17,35 +11,50 @@ export interface ITypes {
 }
 
 export namespace IUser {
-  export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    string
-  >;
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string;
 
-  export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    string
-  >;
+  export type NameResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string;
 
-  export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"UserType\\"]
-  >;
+  export type TypeResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"UserType\\"];
 
-  export interface Resolver<T extends ITypes> {
-    id: IdResolver<T>;
-    name: NameResolver<T>;
-    type: TypeResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    id: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string;
+    name: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string;
+    type: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"UserType\\"];
   }
 }
 
-export interface IResolvers<T extends ITypes> {
+export interface IResolvers<T extends ITypeMap> {
   User: IUser.Resolver<T>;
 }
 "
@@ -54,13 +63,7 @@ export interface IResolvers<T extends ITypes> {
 exports[`basic schema 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Parent, Args, Ctx, Payload> {
-  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>;
-}
-
-export interface ITypes {
+export interface ITypeMap {
   Context: any;
 
   QueryParent: any;
@@ -68,152 +71,227 @@ export interface ITypes {
 }
 
 export namespace IQuery {
-  export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    string
-  >;
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string;
 
-  export type Custom_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"]
-  >;
+  export type Custom_requiredResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"];
 
-  export type Custom_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"] | null
-  >;
+  export type Custom_nullableResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"] | null;
 
-  export type Custom_array_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"][] | null
-  >;
+  export type Custom_array_nullableResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"][] | null;
 
-  export type Custom_array_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"][]
-  >;
+  export type Custom_array_requiredResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"][];
 
   export interface ArgsCustom_with_arg {
     id: number;
   }
 
-  export type Custom_with_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    ArgsCustom_with_arg,
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"]
-  >;
+  export type Custom_with_argResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: ArgsCustom_with_arg,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"];
 
   export interface ArgsCustom_with_custom_arg {
     id: T[\\"NumberParent\\"];
   }
 
-  export type Custom_with_custom_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    ArgsCustom_with_custom_arg,
-    T[\\"Context\\"],
-    T[\\"NumberParent\\"]
-  >;
+  export type Custom_with_custom_argResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: ArgsCustom_with_custom_arg,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"NumberParent\\"];
 
-  export type Scalar_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    boolean
-  >;
+  export type Scalar_requiredResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean;
 
-  export type Scalar_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    boolean | null
-  >;
+  export type Scalar_nullableResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean | null;
 
-  export type Scalar_array_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    boolean[] | null
-  >;
+  export type Scalar_array_nullableResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean[] | null;
 
-  export type Scalar_array_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    {},
-    T[\\"Context\\"],
-    boolean[]
-  >;
+  export type Scalar_array_requiredResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean[];
 
   export interface ArgsScalar_with_arg {
     id: number;
   }
 
-  export type Scalar_with_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    ArgsScalar_with_arg,
-    T[\\"Context\\"],
-    boolean
-  >;
+  export type Scalar_with_argResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: ArgsScalar_with_arg,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean;
 
   export interface ArgsScalar_with_custom_arg {
     id: T[\\"NumberParent\\"];
   }
 
-  export type Scalar_with_custom_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryParent\\"],
-    ArgsScalar_with_custom_arg,
-    T[\\"Context\\"],
-    boolean
-  >;
+  export type Scalar_with_custom_argResolver<T extends ITypeMap> = (
+    parent: T[\\"QueryParent\\"],
+    args: ArgsScalar_with_custom_arg,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean;
 
-  export interface Resolver<T extends ITypes> {
-    id: IdResolver<T>;
-    custom_required: Custom_requiredResolver<T>;
-    custom_nullable: Custom_nullableResolver<T>;
-    custom_array_nullable: Custom_array_nullableResolver<T>;
-    custom_array_required: Custom_array_requiredResolver<T>;
-    custom_with_arg: Custom_with_argResolver<T>;
-    custom_with_custom_arg: Custom_with_custom_argResolver<T>;
-    scalar_required: Scalar_requiredResolver<T>;
-    scalar_nullable: Scalar_nullableResolver<T>;
-    scalar_array_nullable: Scalar_array_nullableResolver<T>;
-    scalar_array_required: Scalar_array_requiredResolver<T>;
-    scalar_with_arg: Scalar_with_argResolver<T>;
-    scalar_with_custom_arg: Scalar_with_custom_argResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    id: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string;
+    custom_required: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"];
+    custom_nullable: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"] | null;
+    custom_array_nullable: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"][] | null;
+    custom_array_required: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"][];
+    custom_with_arg: (
+      parent: T[\\"QueryParent\\"],
+      args: ArgsCustom_with_arg,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"];
+    custom_with_custom_arg: (
+      parent: T[\\"QueryParent\\"],
+      args: ArgsCustom_with_custom_arg,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"NumberParent\\"];
+    scalar_required: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean;
+    scalar_nullable: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean | null;
+    scalar_array_nullable: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean[] | null;
+    scalar_array_required: (
+      parent: T[\\"QueryParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean[];
+    scalar_with_arg: (
+      parent: T[\\"QueryParent\\"],
+      args: ArgsScalar_with_arg,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean;
+    scalar_with_custom_arg: (
+      parent: T[\\"QueryParent\\"],
+      args: ArgsScalar_with_custom_arg,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean;
   }
 }
 
 export namespace INumber {
-  export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"NumberParent\\"],
-    {},
-    T[\\"Context\\"],
-    string | null
-  >;
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"NumberParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | null;
 
-  export type ValueResolver<T extends ITypes> = ResolverFn<
-    T[\\"NumberParent\\"],
-    {},
-    T[\\"Context\\"],
-    number | null
-  >;
+  export type ValueResolver<T extends ITypeMap> = (
+    parent: T[\\"NumberParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | null;
 
-  export interface Resolver<T extends ITypes> {
-    id: IdResolver<T>;
-    value: ValueResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    id: (
+      parent: T[\\"NumberParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | null;
+    value: (
+      parent: T[\\"NumberParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | null;
   }
 }
 
-export interface IResolvers<T extends ITypes> {
+export interface IResolvers<T extends ITypeMap> {
   Query: IQuery.Resolver<T>;
   Number: INumber.Resolver<T>;
 }
@@ -223,13 +301,7 @@ export interface IResolvers<T extends ITypes> {
 exports[`basic union 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Parent, Args, Ctx, Payload> {
-  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>;
-}
-
-export interface ITypes {
+export interface ITypeMap {
   Context: any;
 
   UserType: any;
@@ -239,61 +311,86 @@ export interface ITypes {
 }
 
 export namespace IUser {
-  export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    string
-  >;
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string;
 
-  export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    string
-  >;
+  export type NameResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string;
 
-  export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserParent\\"],
-    {},
-    T[\\"Context\\"],
-    T[\\"UserType\\"]
-  >;
+  export type TypeResolver<T extends ITypeMap> = (
+    parent: T[\\"UserParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"UserType\\"];
 
-  export interface Resolver<T extends ITypes> {
-    id: IdResolver<T>;
-    name: NameResolver<T>;
-    type: TypeResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    id: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string;
+    name: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string;
+    type: (
+      parent: T[\\"UserParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"UserType\\"];
   }
 }
 
 export namespace IStudent {
-  export type AgeResolver<T extends ITypes> = ResolverFn<
-    T[\\"StudentParent\\"],
-    {},
-    T[\\"Context\\"],
-    number
-  >;
+  export type AgeResolver<T extends ITypeMap> = (
+    parent: T[\\"StudentParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number;
 
-  export interface Resolver<T extends ITypes> {
-    age: AgeResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    age: (
+      parent: T[\\"StudentParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number;
   }
 }
 
 export namespace IProfessor {
-  export type DegreeResolver<T extends ITypes> = ResolverFn<
-    T[\\"ProfessorParent\\"],
-    {},
-    T[\\"Context\\"],
-    string | null
-  >;
+  export type DegreeResolver<T extends ITypeMap> = (
+    parent: T[\\"ProfessorParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | null;
 
-  export interface Resolver<T extends ITypes> {
-    degree: DegreeResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    degree: (
+      parent: T[\\"ProfessorParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | null;
   }
 }
 
-export interface IResolvers<T extends ITypes> {
+export interface IResolvers<T extends ITypeMap> {
   User: IUser.Resolver<T>;
   Student: IStudent.Resolver<T>;
   Professor: IProfessor.Resolver<T>;

@@ -1,5 +1,5 @@
 import { ICreditCardInformation } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { PaymentAccountParent } from "./PaymentAccount";
 
 export interface CreditCardInformationParent {
@@ -16,7 +16,7 @@ export interface CreditCardInformationParent {
   securityCode: string;
 }
 
-export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
+export const CreditCardInformation: ICreditCardInformation.Resolver<TypeMap> = {
   cardNumber: parent => parent.cardNumber,
   country: parent => parent.country,
   createdAt: parent => parent.createdAt,

@@ -1,5 +1,5 @@
 import { IResolvers } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 import { Query } from "./Query";
 import { Mutation } from "./Mutation";
@@ -32,7 +32,7 @@ import { Policies } from "./Policies";
 import { HouseRules } from "./HouseRules";
 import { Amenities } from "./Amenities";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   Query,
   Mutation,
   Viewer,

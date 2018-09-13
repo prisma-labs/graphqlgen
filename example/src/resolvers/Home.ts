@@ -1,5 +1,5 @@
 import { IHome } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { PictureParent } from "./Picture";
 
 export interface HomeParent {
@@ -12,7 +12,7 @@ export interface HomeParent {
   perNight: number;
 }
 
-export const Home: IHome.Resolver<Types> = {
+export const Home: IHome.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   description: parent => parent.description,

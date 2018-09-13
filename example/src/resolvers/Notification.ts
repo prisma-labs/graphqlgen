@@ -1,5 +1,5 @@
 import { INotification } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { UserParent } from "./User";
 
 export type NOTIFICATION_TYPE =
@@ -18,7 +18,7 @@ export interface NotificationParent {
   user: UserParent;
 }
 
-export const Notification: INotification.Resolver<Types> = {
+export const Notification: INotification.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
   link: parent => parent.link,

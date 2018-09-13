@@ -1,5 +1,5 @@
 import { IHouseRules } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 export interface HouseRulesParent {
   additionalRules?: string;
@@ -13,7 +13,7 @@ export interface HouseRulesParent {
   updatedAt: string;
 }
 
-export const HouseRules: IHouseRules.Resolver<Types> = {
+export const HouseRules: IHouseRules.Resolver<TypeMap> = {
   additionalRules: parent => parent.additionalRules,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,

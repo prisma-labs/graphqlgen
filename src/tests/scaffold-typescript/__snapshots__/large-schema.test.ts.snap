@@ -4,7 +4,7 @@ exports[`large schema 1`] = `
 Array [
   Object {
     "code": "import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { UserParent } from \\"./User\\";
 import { BookingParent } from \\"./Booking\\";
 
@@ -13,7 +13,7 @@ export interface ViewerParent {
   bookings: BookingParent[];
 }
 
-export const Viewer: IViewer.Resolver<Types> = {
+export const Viewer: IViewer.Resolver<TypeMap> = {
   me: parent => parent.me,
   bookings: parent => parent.bookings
 };
@@ -23,7 +23,7 @@ export const Viewer: IViewer.Resolver<Types> = {
   },
   Object {
     "code": "import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { UserParent } from \\"./User\\";
 
 export interface AuthPayloadParent {
@@ -31,7 +31,7 @@ export interface AuthPayloadParent {
   user: UserParent;
 }
 
-export const AuthPayload: IAuthPayload.Resolver<Types> = {
+export const AuthPayload: IAuthPayload.Resolver<TypeMap> = {
   token: parent => parent.token,
   user: parent => parent.user
 };
@@ -41,13 +41,13 @@ export const AuthPayload: IAuthPayload.Resolver<Types> = {
   },
   Object {
     "code": "import { IMutationResult } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationResultParent {
   success: boolean;
 }
 
-export const MutationResult: IMutationResult.Resolver<Types> = {
+export const MutationResult: IMutationResult.Resolver<TypeMap> = {
   success: parent => parent.success
 };
 ",
@@ -56,7 +56,7 @@ export const MutationResult: IMutationResult.Resolver<Types> = {
   },
   Object {
     "code": "import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { ExperienceParent } from \\"./Experience\\";
 import { CityParent } from \\"./City\\";
 
@@ -65,7 +65,7 @@ export interface ExperiencesByCityParent {
   city: CityParent;
 }
 
-export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
+export const ExperiencesByCity: IExperiencesByCity.Resolver<TypeMap> = {
   experiences: parent => parent.experiences,
   city: parent => parent.city
 };
@@ -75,7 +75,7 @@ export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
   },
   Object {
     "code": "import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { PictureParent } from \\"./Picture\\";
 
 export interface HomeParent {
@@ -88,7 +88,7 @@ export interface HomeParent {
   perNight: number;
 }
 
-export const Home: IHome.Resolver<Types> = {
+export const Home: IHome.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   description: parent => parent.description,
@@ -103,7 +103,7 @@ export const Home: IHome.Resolver<Types> = {
   },
   Object {
     "code": "import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { PictureParent } from \\"./Picture\\";
 import { LocationParent } from \\"./Location\\";
 
@@ -118,7 +118,7 @@ export interface ReservationParent {
   popularity: number;
 }
 
-export const Reservation: IReservation.Resolver<Types> = {
+export const Reservation: IReservation.Resolver<TypeMap> = {
   id: parent => parent.id,
   title: parent => parent.title,
   avgPricePerPerson: parent => parent.avgPricePerPerson,
@@ -134,7 +134,7 @@ export const Reservation: IReservation.Resolver<Types> = {
   },
   Object {
     "code": "import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { ExperienceCategoryParent } from \\"./ExperienceCategory\\";
 import { LocationParent } from \\"./Location\\";
 import { ReviewParent } from \\"./Review\\";
@@ -151,7 +151,7 @@ export interface ExperienceParent {
   popularity: number;
 }
 
-export const Experience: IExperience.Resolver<Types> = {
+export const Experience: IExperience.Resolver<TypeMap> = {
   id: parent => parent.id,
   category: parent => parent.category,
   title: parent => parent.title,
@@ -167,7 +167,7 @@ export const Experience: IExperience.Resolver<Types> = {
   },
   Object {
     "code": "import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 
 export interface ReviewParent {
@@ -183,7 +183,7 @@ export interface ReviewParent {
   value: number;
 }
 
-export const Review: IReview.Resolver<Types> = {
+export const Review: IReview.Resolver<TypeMap> = {
   accuracy: parent => parent.accuracy,
   checkIn: parent => parent.checkIn,
   cleanliness: parent => parent.cleanliness,
@@ -201,7 +201,7 @@ export const Review: IReview.Resolver<Types> = {
   },
   Object {
     "code": "import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { PictureParent } from \\"./Picture\\";
 import { CityParent } from \\"./City\\";
 
@@ -215,7 +215,7 @@ export interface NeighbourhoodParent {
   popularity: number;
 }
 
-export const Neighbourhood: INeighbourhood.Resolver<Types> = {
+export const Neighbourhood: INeighbourhood.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   slug: parent => parent.slug,
@@ -230,7 +230,7 @@ export const Neighbourhood: INeighbourhood.Resolver<Types> = {
   },
   Object {
     "code": "import { ILocation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface LocationParent {
   id: string;
@@ -240,7 +240,7 @@ export interface LocationParent {
   directions?: string;
 }
 
-export const Location: ILocation.Resolver<Types> = {
+export const Location: ILocation.Resolver<TypeMap> = {
   id: parent => parent.id,
   lat: parent => parent.lat,
   lng: parent => parent.lng,
@@ -253,14 +253,14 @@ export const Location: ILocation.Resolver<Types> = {
   },
   Object {
     "code": "import { IPicture } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface PictureParent {
   id: string;
   url: string;
 }
 
-export const Picture: IPicture.Resolver<Types> = {
+export const Picture: IPicture.Resolver<TypeMap> = {
   id: parent => parent.id,
   url: parent => parent.url
 };
@@ -270,14 +270,14 @@ export const Picture: IPicture.Resolver<Types> = {
   },
   Object {
     "code": "import { ICity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface CityParent {
   id: string;
   name: string;
 }
 
-export const City: ICity.Resolver<Types> = {
+export const City: ICity.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name
 };
@@ -287,7 +287,7 @@ export const City: ICity.Resolver<Types> = {
   },
   Object {
     "code": "import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { ExperienceParent } from \\"./Experience\\";
 
 export interface ExperienceCategoryParent {
@@ -297,7 +297,7 @@ export interface ExperienceCategoryParent {
   experience?: ExperienceParent;
 }
 
-export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
+export const ExperienceCategory: IExperienceCategory.Resolver<TypeMap> = {
   id: parent => parent.id,
   mainColor: parent => parent.mainColor,
   name: parent => parent.name,
@@ -309,7 +309,7 @@ export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
   },
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { BookingParent } from \\"./Booking\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { ExperienceParent } from \\"./Experience\\";
@@ -343,7 +343,7 @@ export interface UserParent {
   token: string;
 }
 
-export const User: IUser.Resolver<Types> = {
+export const User: IUser.Resolver<TypeMap> = {
   bookings: parent => parent.bookings,
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
@@ -371,7 +371,7 @@ export const User: IUser.Resolver<Types> = {
   },
   Object {
     "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { PAYMENT_PROVIDERParent } from \\"./PAYMENT_PROVIDER\\";
 import { UserParent } from \\"./User\\";
@@ -389,7 +389,7 @@ export interface PaymentAccountParent {
   creditcard?: CreditCardInformationParent;
 }
 
-export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
+export const PaymentAccount: IPaymentAccount.Resolver<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   type: parent => parent.type,
@@ -404,7 +404,7 @@ export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
   },
   Object {
     "code": "import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { PLACE_SIZESParent } from \\"./PLACE_SIZES\\";
 import { ReviewParent } from \\"./Review\\";
 import { AmenitiesParent } from \\"./Amenities\\";
@@ -443,7 +443,7 @@ export interface PlaceParent {
   popularity: number;
 }
 
-export const Place: IPlace.Resolver<Types> = {
+export const Place: IPlace.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   size: parent => parent.size,
@@ -473,7 +473,7 @@ export const Place: IPlace.Resolver<Types> = {
   },
   Object {
     "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { UserParent } from \\"./User\\";
 import { PlaceParent } from \\"./Place\\";
@@ -489,7 +489,7 @@ export interface BookingParent {
   payment: PaymentParent;
 }
 
-export const Booking: IBooking.Resolver<Types> = {
+export const Booking: IBooking.Resolver<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   bookee: parent => parent.bookee,
@@ -504,7 +504,7 @@ export const Booking: IBooking.Resolver<Types> = {
   },
   Object {
     "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { NOTIFICATION_TYPEParent } from \\"./NOTIFICATION_TYPE\\";
 import { UserParent } from \\"./User\\";
@@ -518,7 +518,7 @@ export interface NotificationParent {
   user: UserParent;
 }
 
-export const Notification: INotification.Resolver<Types> = {
+export const Notification: INotification.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
   link: parent => parent.link,
@@ -532,7 +532,7 @@ export const Notification: INotification.Resolver<Types> = {
   },
   Object {
     "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { BookingParent } from \\"./Booking\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { PaymentAccountParent } from \\"./PaymentAccount\\";
@@ -545,7 +545,7 @@ export interface PaymentParent {
   serviceFee: number;
 }
 
-export const Payment: IPayment.Resolver<Types> = {
+export const Payment: IPayment.Resolver<TypeMap> = {
   booking: parent => parent.booking,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
@@ -558,7 +558,7 @@ export const Payment: IPayment.Resolver<Types> = {
   },
   Object {
     "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { PaymentAccountParent } from \\"./PaymentAccount\\";
 
@@ -569,7 +569,7 @@ export interface PaypalInformationParent {
   paymentAccount: PaymentAccountParent;
 }
 
-export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
+export const PaypalInformation: IPaypalInformation.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
   id: parent => parent.id,
@@ -581,7 +581,7 @@ export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
   },
   Object {
     "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 import { PaymentAccountParent } from \\"./PaymentAccount\\";
 
@@ -599,7 +599,7 @@ export interface CreditCardInformationParent {
   securityCode: string;
 }
 
-export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
+export const CreditCardInformation: ICreditCardInformation.Resolver<TypeMap> = {
   cardNumber: parent => parent.cardNumber,
   country: parent => parent.country,
   createdAt: parent => parent.createdAt,
@@ -618,7 +618,7 @@ export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
   },
   Object {
     "code": "import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 
 export interface MessageParent {
@@ -628,7 +628,7 @@ export interface MessageParent {
   readAt: DateTimeParent;
 }
 
-export const Message: IMessage.Resolver<Types> = {
+export const Message: IMessage.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   deliveredAt: parent => parent.deliveredAt,
   id: parent => parent.id,
@@ -640,7 +640,7 @@ export const Message: IMessage.Resolver<Types> = {
   },
   Object {
     "code": "import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { CURRENCYParent } from \\"./CURRENCY\\";
 
 export interface PricingParent {
@@ -659,7 +659,7 @@ export interface PricingParent {
   weeklyDiscount?: number;
 }
 
-export const Pricing: IPricing.Resolver<Types> = {
+export const Pricing: IPricing.Resolver<TypeMap> = {
   averageMonthly: parent => parent.averageMonthly,
   averageWeekly: parent => parent.averageWeekly,
   basePrice: parent => parent.basePrice,
@@ -680,14 +680,14 @@ export const Pricing: IPricing.Resolver<Types> = {
   },
   Object {
     "code": "import { IPlaceViews } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface PlaceViewsParent {
   id: string;
   lastWeek: number;
 }
 
-export const PlaceViews: IPlaceViews.Resolver<Types> = {
+export const PlaceViews: IPlaceViews.Resolver<TypeMap> = {
   id: parent => parent.id,
   lastWeek: parent => parent.lastWeek
 };
@@ -697,7 +697,7 @@ export const PlaceViews: IPlaceViews.Resolver<Types> = {
   },
   Object {
     "code": "import { IGuestRequirements } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface GuestRequirementsParent {
   govIssuedId: boolean;
@@ -706,7 +706,7 @@ export interface GuestRequirementsParent {
   recommendationsFromOtherHosts: boolean;
 }
 
-export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
+export const GuestRequirements: IGuestRequirements.Resolver<TypeMap> = {
   govIssuedId: parent => parent.govIssuedId,
   guestTripInformation: parent => parent.guestTripInformation,
   id: parent => parent.id,
@@ -718,7 +718,7 @@ export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
   },
   Object {
     "code": "import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 
 export interface PoliciesParent {
@@ -730,7 +730,7 @@ export interface PoliciesParent {
   updatedAt: DateTimeParent;
 }
 
-export const Policies: IPolicies.Resolver<Types> = {
+export const Policies: IPolicies.Resolver<TypeMap> = {
   checkInEndTime: parent => parent.checkInEndTime,
   checkInStartTime: parent => parent.checkInStartTime,
   checkoutTime: parent => parent.checkoutTime,
@@ -744,7 +744,7 @@ export const Policies: IPolicies.Resolver<Types> = {
   },
   Object {
     "code": "import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 
 export interface HouseRulesParent {
@@ -759,7 +759,7 @@ export interface HouseRulesParent {
   updatedAt: DateTimeParent;
 }
 
-export const HouseRules: IHouseRules.Resolver<Types> = {
+export const HouseRules: IHouseRules.Resolver<TypeMap> = {
   additionalRules: parent => parent.additionalRules,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
@@ -776,7 +776,7 @@ export const HouseRules: IHouseRules.Resolver<Types> = {
   },
   Object {
     "code": "import { IAmenities } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AmenitiesParent {
   airConditioning: boolean;
@@ -822,7 +822,7 @@ export interface AmenitiesParent {
   wirelessInternet: boolean;
 }
 
-export const Amenities: IAmenities.Resolver<Types> = {
+export const Amenities: IAmenities.Resolver<TypeMap> = {
   airConditioning: parent => parent.airConditioning,
   babyBath: parent => parent.babyBath,
   babyMonitor: parent => parent.babyMonitor,
@@ -871,11 +871,11 @@ export const Amenities: IAmenities.Resolver<Types> = {
   },
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
 
-export const Query: IQuery.Resolver<Types> = {
+export const Query: IQuery.Resolver<TypeMap> = {
   topExperiences: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
@@ -903,11 +903,11 @@ export const Query: IQuery.Resolver<Types> = {
   },
   Object {
     "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
 
-export const Mutation: IMutation.Resolver<Types> = {
+export const Mutation: IMutation.Resolver<TypeMap> = {
   signup: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
@@ -932,10 +932,10 @@ export const Mutation: IMutation.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "types/context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryParent } from \\"../Query\\";
 import { MutationParent } from \\"../Mutation\\";
@@ -970,7 +970,7 @@ import { AmenitiesParent } from \\"../Amenities\\";
 
 import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
   QueryParent: QueryParent;
   MutationParent: MutationParent;
@@ -1005,11 +1005,11 @@ export interface Types extends ITypes {
 }
 ",
     "force": true,
-    "path": "types/typemap.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types/typemap\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
 import { Mutation } from \\"./Mutation\\";
@@ -1042,7 +1042,7 @@ import { Policies } from \\"./Policies\\";
 import { HouseRules } from \\"./HouseRules\\";
 import { Amenities } from \\"./Amenities\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   Query,
   Mutation,
   Viewer,

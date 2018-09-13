@@ -1,5 +1,5 @@
 import { IExperienceCategory } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { ExperienceParent } from "./Experience";
 
 export interface ExperienceCategoryParent {
@@ -9,7 +9,7 @@ export interface ExperienceCategoryParent {
   experience?: ExperienceParent;
 }
 
-export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
+export const ExperienceCategory: IExperienceCategory.Resolver<TypeMap> = {
   id: parent => parent.id,
   mainColor: parent => parent.mainColor,
   name: parent => parent.name,

@@ -1,5 +1,5 @@
 import { ILocation } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 export interface LocationParent {
   id: string;
@@ -9,7 +9,7 @@ export interface LocationParent {
   directions?: string;
 }
 
-export const Location: ILocation.Resolver<Types> = {
+export const Location: ILocation.Resolver<TypeMap> = {
   id: parent => parent.id,
   lat: parent => parent.lat,
   lng: parent => parent.lng,

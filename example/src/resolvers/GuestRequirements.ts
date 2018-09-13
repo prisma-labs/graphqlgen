@@ -1,5 +1,5 @@
 import { IGuestRequirements } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 export interface GuestRequirementsParent {
   govIssuedId: boolean;
@@ -8,7 +8,7 @@ export interface GuestRequirementsParent {
   recommendationsFromOtherHosts: boolean;
 }
 
-export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
+export const GuestRequirements: IGuestRequirements.Resolver<TypeMap> = {
   govIssuedId: parent => parent.govIssuedId,
   guestTripInformation: parent => parent.guestTripInformation,
   id: parent => parent.id,

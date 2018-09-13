@@ -1,5 +1,5 @@
 import { IPricing } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 export type CURRENCY = "CAD" | "CHF" | "EUR" | "JPY" | "USD" | "ZAR";
 
@@ -19,7 +19,7 @@ export interface PricingParent {
   weeklyDiscount?: number;
 }
 
-export const Pricing: IPricing.Resolver<Types> = {
+export const Pricing: IPricing.Resolver<TypeMap> = {
   averageMonthly: parent => parent.averageMonthly,
   averageWeekly: parent => parent.averageWeekly,
   basePrice: parent => parent.basePrice,

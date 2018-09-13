@@ -1,10 +1,10 @@
 import { IMutationResult } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 
 export interface MutationResultParent {
   success: boolean;
 }
 
-export const MutationResult: IMutationResult.Resolver<Types> = {
+export const MutationResult: IMutationResult.Resolver<TypeMap> = {
   success: parent => parent.success
 };

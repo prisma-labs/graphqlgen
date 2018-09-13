@@ -1,4 +1,4 @@
-import { ITypes } from "../../generated/resolvers";
+import { ITypeMap } from "../../generated/resolvers";
 
 import { QueryParent } from "../Query";
 import { MutationParent } from "../Mutation";
@@ -9,7 +9,6 @@ import { ExperiencesByCityParent } from "../ExperiencesByCity";
 import { HomeParent } from "../Home";
 import { ReservationParent } from "../Reservation";
 import { ExperienceParent } from "../Experience";
-
 import { ReviewParent } from "../Review";
 import { NeighbourhoodParent } from "../Neighbourhood";
 import { LocationParent } from "../Location";
@@ -34,7 +33,7 @@ import { AmenitiesParent } from "../Amenities";
 
 import { Context } from "./context";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
   QueryParent: QueryParent;
   MutationParent: MutationParent;

@@ -1,5 +1,5 @@
 import { IPaypalInformation } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { PaymentAccountParent } from "./PaymentAccount";
 
 export interface PaypalInformationParent {
@@ -9,7 +9,7 @@ export interface PaypalInformationParent {
   paymentAccount: PaymentAccountParent;
 }
 
-export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
+export const PaypalInformation: IPaypalInformation.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
   id: parent => parent.id,

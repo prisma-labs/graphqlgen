@@ -1,5 +1,5 @@
 import { INeighbourhood } from "../generated/resolvers";
-import { Types } from "./types/typemap";
+import { TypeMap } from "./types/TypeMap";
 import { PictureParent } from "./Picture";
 import { CityParent } from "./City";
 
@@ -13,7 +13,7 @@ export interface NeighbourhoodParent {
   popularity: number;
 }
 
-export const Neighbourhood: INeighbourhood.Resolver<Types> = {
+export const Neighbourhood: INeighbourhood.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   slug: parent => parent.slug,
