@@ -1,4 +1,1 @@
-export interface Context {
-  db: any;
-  request: any;
-}
+export interface Context {}
