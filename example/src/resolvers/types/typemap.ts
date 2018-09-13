@@ -31,7 +31,7 @@ import { PoliciesParent } from "./Policies";
 import { HouseRulesParent } from "./HouseRules";
 import { AmenitiesParent } from "./Amenities";
 
-import { Context } from "./Context";
+import { Context } from "./types/context";
 
 export interface Types extends ITypes {
   Context: Context;

@@ -1,5 +1,5 @@
 import { IPaymentAccount } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { UserParent } from "./User";
 import { PaymentParent } from "./Payment";
 import { PaypalInformationParent } from "./PaypalInformation";

@@ -1,5 +1,5 @@
 import { IPaypalInformation } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { PaymentAccountParent } from "./PaymentAccount";
 
 export interface PaypalInformationParent {

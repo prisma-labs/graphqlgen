@@ -1,5 +1,5 @@
 import { IUser } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { BookingParent } from "./Booking";
 import { ExperienceParent } from "./Experience";
 import { LocationParent } from "./Location";

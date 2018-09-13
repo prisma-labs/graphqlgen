@@ -1,5 +1,5 @@
 import { IPlace } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { ReviewParent } from "./Review";
 import { AmenitiesParent } from "./Amenities";
 import { UserParent } from "./User";

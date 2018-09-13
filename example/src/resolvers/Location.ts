@@ -1,5 +1,5 @@
 import { ILocation } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 
 export interface LocationParent {
   id: string;

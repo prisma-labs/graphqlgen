@@ -1,5 +1,5 @@
 import { IMessage } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 
 export interface MessageParent {
   createdAt: string;

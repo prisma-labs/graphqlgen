@@ -1,5 +1,5 @@
 import { IPicture } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 
 export interface PictureParent {
   id: string;

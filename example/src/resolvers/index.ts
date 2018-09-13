@@ -1,5 +1,5 @@
 import { IResolvers } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 
 import { Query } from "./Query";
 import { Mutation } from "./Mutation";

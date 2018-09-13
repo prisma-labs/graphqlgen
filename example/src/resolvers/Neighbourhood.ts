@@ -1,5 +1,5 @@
 import { INeighbourhood } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { PictureParent } from "./Picture";
 import { CityParent } from "./City";
 

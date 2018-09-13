@@ -1,5 +1,5 @@
 import { IExperience } from "../generated/resolvers";
-import { Types } from "./typemap";
+import { Types } from "./types/typemap";
 import { ExperienceCategoryParent } from "./ExperienceCategory";
 import { LocationParent } from "./Location";
 import { ReviewParent } from "./Review";
