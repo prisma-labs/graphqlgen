@@ -50,12 +50,12 @@ export function printFieldLikeType(
 
   return lookupType
     ? `T['${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Root"
+        field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }']${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`
     : `${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Root"
+        field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`;
@@ -65,8 +65,8 @@ export function generate(args: GenerateArgs) {
   return `
 import { GraphQLResolveInfo } from 'graphql'
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+export interface ResolverFn<Parent, Args, Ctx, Payload> {
+  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
     | Payload
     | Promise<Payload>
 }
@@ -75,7 +75,7 @@ export interface ITypes {
 Context: any
 ${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
 ${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
-${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
+${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
 }
 
   ${args.types
@@ -96,7 +96,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
       }
 
   export type ${capitalize(field.name)}Resolver<T extends ITypes> = ResolverFn<
-    T['${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Root"}'],
+    T['${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Parent"}'],
     ${field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"},
     T['Context'],
     ${printFieldLikeType(field)}

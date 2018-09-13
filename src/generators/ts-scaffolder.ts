@@ -38,14 +38,14 @@ function printFieldLikeTypeEmptyCase(field: GraphQLTypeField) {
   }
 }
 
-function isRootType(name: string) {
-  const rootTypes = ["Query", "Mutation", "Subscription"];
-  return rootTypes.indexOf(name) > -1;
+function isParentType(name: string) {
+  const parentTypes = ["Query", "Mutation", "Subscription"];
+  return parentTypes.indexOf(name) > -1;
 }
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
-    .filter(type => !isRootType(type.name))
+    .filter(type => !isParentType(type.name))
     .map(type => {
       const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
@@ -56,7 +56,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           .filter(field => !field.type.isEnum && !field.type.isUnion)
           .filter(field => !field.type.isScalar)
           .map(
-            field => `import { ${field.type.name}Root } from './${
+            field => `import { ${field.type.name}Parent } from './${
               field.type.name
             }'
   `
@@ -67,11 +67,11 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         .filter(u => type.fields.map(f => f.type.name).indexOf(u.name) > -1)
         .map(
           u => `${u.types
-            .map(type => `import { ${type.name}Root } from './${type.name}'`)
+            .map(type => `import { ${type.name}Parent } from './${type.name}'`)
             .join(";")}
         
             export type ${u.name} = ${u.types
-            .map(type => `${type.name}Root`)
+            .map(type => `${type.name}Parent`)
             .join("|")}
         `
         )
@@ -86,7 +86,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           )
           .join(os.EOL)}
 
-    export interface ${type.name}Root {
+    export interface ${type.name}Parent {
       ${type.fields
         .map(
           field => `
@@ -102,9 +102,9 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     export const ${type.name}: I${type.name}.Resolver<Types> = {
       ${type.fields.map(
         field => `
-        ${field.name}: (root${
+        ${field.name}: (parent${
           field.arguments.length > 0 ? ", args" : ""
-        }) => root.${field.name}
+        }) => parent.${field.name}
       `
       )}
     }
@@ -117,17 +117,17 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     });
 
   files = files.concat(
-    args.types.filter(type => isRootType(type.name)).map(type => {
+    args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `
       import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
       import { Types } from './types'
 
-      export interface ${type.name}Root { }
+      export interface ${type.name}Parent { }
       
       export const ${type.name}: I${type.name}.Resolver<Types> = {
         ${type.fields.map(
           field =>
-            `${field.name}: (root${
+            `${field.name}: (parent${
               field.arguments.length > 0 ? ", args" : ""
             }) => ${printFieldLikeTypeEmptyCase(field)}`
         )}
@@ -159,7 +159,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
-      .map(type => `import { ${type.name}Root } from './${type.name}'`)
+      .map(type => `import { ${type.name}Parent } from './${type.name}'`)
       .join(";")}
 
 import { Context } from './Context'
@@ -169,9 +169,9 @@ export interface Types extends ITypes {
   ${args.types
     .map(
       type =>
-        `${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Root"}: ${
-          type.name
-        }${type.type.isEnum || type.type.isUnion ? "" : "Root"}`
+        `${type.name}${
+          type.type.isEnum || type.type.isUnion ? "" : "Parent"
+        }: ${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Parent"}`
     )
     .join(";")}
 }

@@ -3,8 +3,8 @@
 exports[`basic enum 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+export interface ResolverFn<Parent, Args, Ctx, Payload> {
+  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
     | Payload
     | Promise<Payload>;
 }
@@ -13,26 +13,26 @@ export interface ITypes {
   Context: any;
   UserType: any;
 
-  UserRoot: any;
+  UserParent: any;
 }
 
 export namespace IUser {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     T[\\"UserType\\"]
@@ -54,8 +54,8 @@ export interface IResolvers<T extends ITypes> {
 exports[`basic schema 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+export interface ResolverFn<Parent, Args, Ctx, Payload> {
+  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
     | Payload
     | Promise<Payload>;
 }
@@ -63,44 +63,44 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 export interface ITypes {
   Context: any;
 
-  QueryRoot: any;
-  NumberRoot: any;
+  QueryParent: any;
+  NumberParent: any;
 }
 
 export namespace IQuery {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type Custom_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"]
+    T[\\"NumberParent\\"]
   >;
 
   export type Custom_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"] | null
+    T[\\"NumberParent\\"] | null
   >;
 
   export type Custom_array_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"][] | null
+    T[\\"NumberParent\\"][] | null
   >;
 
   export type Custom_array_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"][]
+    T[\\"NumberParent\\"][]
   >;
 
   export interface ArgsCustom_with_arg {
@@ -108,46 +108,46 @@ export namespace IQuery {
   }
 
   export type Custom_with_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsCustom_with_arg,
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"]
+    T[\\"NumberParent\\"]
   >;
 
   export interface ArgsCustom_with_custom_arg {
-    id: T[\\"NumberRoot\\"];
+    id: T[\\"NumberParent\\"];
   }
 
   export type Custom_with_custom_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsCustom_with_custom_arg,
     T[\\"Context\\"],
-    T[\\"NumberRoot\\"]
+    T[\\"NumberParent\\"]
   >;
 
   export type Scalar_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type Scalar_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type Scalar_array_nullableResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
     boolean[] | null
   >;
 
   export type Scalar_array_requiredResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
     boolean[]
@@ -158,18 +158,18 @@ export namespace IQuery {
   }
 
   export type Scalar_with_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsScalar_with_arg,
     T[\\"Context\\"],
     boolean
   >;
 
   export interface ArgsScalar_with_custom_arg {
-    id: T[\\"NumberRoot\\"];
+    id: T[\\"NumberParent\\"];
   }
 
   export type Scalar_with_custom_argResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsScalar_with_custom_arg,
     T[\\"Context\\"],
     boolean
@@ -194,14 +194,14 @@ export namespace IQuery {
 
 export namespace INumber {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"NumberRoot\\"],
+    T[\\"NumberParent\\"],
     {},
     T[\\"Context\\"],
     string | null
   >;
 
   export type ValueResolver<T extends ITypes> = ResolverFn<
-    T[\\"NumberRoot\\"],
+    T[\\"NumberParent\\"],
     {},
     T[\\"Context\\"],
     number | null
@@ -223,8 +223,8 @@ export interface IResolvers<T extends ITypes> {
 exports[`basic union 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+export interface ResolverFn<Parent, Args, Ctx, Payload> {
+  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
     | Payload
     | Promise<Payload>;
 }
@@ -233,28 +233,28 @@ export interface ITypes {
   Context: any;
 
   UserType: any;
-  UserRoot: any;
-  StudentRoot: any;
-  ProfessorRoot: any;
+  UserParent: any;
+  StudentParent: any;
+  ProfessorParent: any;
 }
 
 export namespace IUser {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     T[\\"UserType\\"]
@@ -269,7 +269,7 @@ export namespace IUser {
 
 export namespace IStudent {
   export type AgeResolver<T extends ITypes> = ResolverFn<
-    T[\\"StudentRoot\\"],
+    T[\\"StudentParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -282,7 +282,7 @@ export namespace IStudent {
 
 export namespace IProfessor {
   export type DegreeResolver<T extends ITypes> = ResolverFn<
-    T[\\"ProfessorRoot\\"],
+    T[\\"ProfessorParent\\"],
     {},
     T[\\"Context\\"],
     string | null

@@ -3,8 +3,8 @@
 exports[`large schema 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
+export interface ResolverFn<Parent, Args, Ctx, Payload> {
+  (parent: Parent, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
     | Payload
     | Promise<Payload>;
 }
@@ -12,51 +12,51 @@ export interface ResolverFn<Root, Args, Ctx, Payload> {
 export interface ITypes {
   Context: any;
 
-  QueryRoot: any;
-  MutationRoot: any;
-  ViewerRoot: any;
-  AuthPayloadRoot: any;
-  MutationResultRoot: any;
-  ExperiencesByCityRoot: any;
-  HomeRoot: any;
-  ReservationRoot: any;
-  ExperienceRoot: any;
-  ReviewRoot: any;
-  NeighbourhoodRoot: any;
-  LocationRoot: any;
-  PictureRoot: any;
-  CityRoot: any;
-  ExperienceCategoryRoot: any;
-  UserRoot: any;
-  PaymentAccountRoot: any;
-  PlaceRoot: any;
-  BookingRoot: any;
-  NotificationRoot: any;
-  PaymentRoot: any;
-  PaypalInformationRoot: any;
-  CreditCardInformationRoot: any;
-  MessageRoot: any;
-  PricingRoot: any;
-  PlaceViewsRoot: any;
-  GuestRequirementsRoot: any;
-  PoliciesRoot: any;
-  HouseRulesRoot: any;
-  AmenitiesRoot: any;
+  QueryParent: any;
+  MutationParent: any;
+  ViewerParent: any;
+  AuthPayloadParent: any;
+  MutationResultParent: any;
+  ExperiencesByCityParent: any;
+  HomeParent: any;
+  ReservationParent: any;
+  ExperienceParent: any;
+  ReviewParent: any;
+  NeighbourhoodParent: any;
+  LocationParent: any;
+  PictureParent: any;
+  CityParent: any;
+  ExperienceCategoryParent: any;
+  UserParent: any;
+  PaymentAccountParent: any;
+  PlaceParent: any;
+  BookingParent: any;
+  NotificationParent: any;
+  PaymentParent: any;
+  PaypalInformationParent: any;
+  CreditCardInformationParent: any;
+  MessageParent: any;
+  PricingParent: any;
+  PlaceViewsParent: any;
+  GuestRequirementsParent: any;
+  PoliciesParent: any;
+  HouseRulesParent: any;
+  AmenitiesParent: any;
 }
 
 export namespace IQuery {
   export type TopExperiencesResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceRoot\\"][]
+    T[\\"ExperienceParent\\"][]
   >;
 
   export type TopHomesResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"HomeRoot\\"][]
+    T[\\"HomeParent\\"][]
   >;
 
   export interface ArgsHomesInPriceRange {
@@ -65,24 +65,24 @@ export namespace IQuery {
   }
 
   export type HomesInPriceRangeResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsHomesInPriceRange,
     T[\\"Context\\"],
-    T[\\"HomeRoot\\"][]
+    T[\\"HomeParent\\"][]
   >;
 
   export type TopReservationsResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ReservationRoot\\"][]
+    T[\\"ReservationParent\\"][]
   >;
 
   export type FeaturedDestinationsResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NeighbourhoodRoot\\"][]
+    T[\\"NeighbourhoodParent\\"][]
   >;
 
   export interface ArgsExperiencesByCity {
@@ -90,24 +90,24 @@ export namespace IQuery {
   }
 
   export type ExperiencesByCityResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     ArgsExperiencesByCity,
     T[\\"Context\\"],
-    T[\\"ExperiencesByCityRoot\\"][]
+    T[\\"ExperiencesByCityParent\\"][]
   >;
 
   export type ViewerResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ViewerRoot\\"] | null
+    T[\\"ViewerParent\\"] | null
   >;
 
   export type MyLocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"QueryRoot\\"],
+    T[\\"QueryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"] | null
+    T[\\"LocationParent\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -132,10 +132,10 @@ export namespace IMutation {
   }
 
   export type SignupResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationRoot\\"],
+    T[\\"MutationParent\\"],
     ArgsSignup,
     T[\\"Context\\"],
-    T[\\"AuthPayloadRoot\\"]
+    T[\\"AuthPayloadParent\\"]
   >;
 
   export interface ArgsLogin {
@@ -144,10 +144,10 @@ export namespace IMutation {
   }
 
   export type LoginResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationRoot\\"],
+    T[\\"MutationParent\\"],
     ArgsLogin,
     T[\\"Context\\"],
-    T[\\"AuthPayloadRoot\\"]
+    T[\\"AuthPayloadParent\\"]
   >;
 
   export interface ArgsAddPaymentMethod {
@@ -162,10 +162,10 @@ export namespace IMutation {
   }
 
   export type AddPaymentMethodResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationRoot\\"],
+    T[\\"MutationParent\\"],
     ArgsAddPaymentMethod,
     T[\\"Context\\"],
-    T[\\"MutationResultRoot\\"]
+    T[\\"MutationResultParent\\"]
   >;
 
   export interface ArgsBook {
@@ -176,10 +176,10 @@ export namespace IMutation {
   }
 
   export type BookResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationRoot\\"],
+    T[\\"MutationParent\\"],
     ArgsBook,
     T[\\"Context\\"],
-    T[\\"MutationResultRoot\\"]
+    T[\\"MutationResultParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -192,17 +192,17 @@ export namespace IMutation {
 
 export namespace IViewer {
   export type MeResolver<T extends ITypes> = ResolverFn<
-    T[\\"ViewerRoot\\"],
+    T[\\"ViewerParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export type BookingsResolver<T extends ITypes> = ResolverFn<
-    T[\\"ViewerRoot\\"],
+    T[\\"ViewerParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"BookingRoot\\"][]
+    T[\\"BookingParent\\"][]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -213,17 +213,17 @@ export namespace IViewer {
 
 export namespace IAuthPayload {
   export type TokenResolver<T extends ITypes> = ResolverFn<
-    T[\\"AuthPayloadRoot\\"],
+    T[\\"AuthPayloadParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type UserResolver<T extends ITypes> = ResolverFn<
-    T[\\"AuthPayloadRoot\\"],
+    T[\\"AuthPayloadParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -234,7 +234,7 @@ export namespace IAuthPayload {
 
 export namespace IMutationResult {
   export type SuccessResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationResultRoot\\"],
+    T[\\"MutationResultParent\\"],
     {},
     T[\\"Context\\"],
     boolean
@@ -247,17 +247,17 @@ export namespace IMutationResult {
 
 export namespace IExperiencesByCity {
   export type ExperiencesResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperiencesByCityRoot\\"],
+    T[\\"ExperiencesByCityParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceRoot\\"][]
+    T[\\"ExperienceParent\\"][]
   >;
 
   export type CityResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperiencesByCityRoot\\"],
+    T[\\"ExperiencesByCityParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CityRoot\\"]
+    T[\\"CityParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -268,35 +268,35 @@ export namespace IExperiencesByCity {
 
 export namespace IHome {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     string | null
   >;
 
   export type DescriptionResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NumRatingsResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type AvgRatingResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     number | null
@@ -307,14 +307,14 @@ export namespace IHome {
   }
 
   export type PicturesResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     ArgsPictures,
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"][]
+    T[\\"PictureParent\\"][]
   >;
 
   export type PerNightResolver<T extends ITypes> = ResolverFn<
-    T[\\"HomeRoot\\"],
+    T[\\"HomeParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -333,56 +333,56 @@ export namespace IHome {
 
 export namespace IReservation {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type TitleResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type AvgPricePerPersonResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type PicturesResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"][]
+    T[\\"PictureParent\\"][]
   >;
 
   export type LocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"]
+    T[\\"LocationParent\\"]
   >;
 
   export type IsCuratedResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type SlugResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type PopularityResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReservationRoot\\"],
+    T[\\"ReservationParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -402,56 +402,56 @@ export namespace IReservation {
 
 export namespace IExperience {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type CategoryResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceCategoryRoot\\"] | null
+    T[\\"ExperienceCategoryParent\\"] | null
   >;
 
   export type TitleResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"]
+    T[\\"LocationParent\\"]
   >;
 
   export type PricePerPersonResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type ReviewsResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ReviewRoot\\"][]
+    T[\\"ReviewParent\\"][]
   >;
 
   export type PreviewResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"]
+    T[\\"PictureParent\\"]
   >;
 
   export type PopularityResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceRoot\\"],
+    T[\\"ExperienceParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -471,70 +471,70 @@ export namespace IExperience {
 
 export namespace IReview {
   export type AccuracyResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CheckInResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CleanlinessResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CommunicationResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type StarsResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type TextResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type ValueResolver<T extends ITypes> = ResolverFn<
-    T[\\"ReviewRoot\\"],
+    T[\\"ReviewParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -556,49 +556,49 @@ export namespace IReview {
 
 export namespace INeighbourhood {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type SlugResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type HomePreviewResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"] | null
+    T[\\"PictureParent\\"] | null
   >;
 
   export type CityResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CityRoot\\"]
+    T[\\"CityParent\\"]
   >;
 
   export type FeaturedResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type PopularityResolver<T extends ITypes> = ResolverFn<
-    T[\\"NeighbourhoodRoot\\"],
+    T[\\"NeighbourhoodParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -617,35 +617,35 @@ export namespace INeighbourhood {
 
 export namespace ILocation {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"LocationRoot\\"],
+    T[\\"LocationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LatResolver<T extends ITypes> = ResolverFn<
-    T[\\"LocationRoot\\"],
+    T[\\"LocationParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type LngResolver<T extends ITypes> = ResolverFn<
-    T[\\"LocationRoot\\"],
+    T[\\"LocationParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type AddressResolver<T extends ITypes> = ResolverFn<
-    T[\\"LocationRoot\\"],
+    T[\\"LocationParent\\"],
     {},
     T[\\"Context\\"],
     string | null
   >;
 
   export type DirectionsResolver<T extends ITypes> = ResolverFn<
-    T[\\"LocationRoot\\"],
+    T[\\"LocationParent\\"],
     {},
     T[\\"Context\\"],
     string | null
@@ -662,14 +662,14 @@ export namespace ILocation {
 
 export namespace IPicture {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PictureRoot\\"],
+    T[\\"PictureParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type UrlResolver<T extends ITypes> = ResolverFn<
-    T[\\"PictureRoot\\"],
+    T[\\"PictureParent\\"],
     {},
     T[\\"Context\\"],
     string
@@ -683,14 +683,14 @@ export namespace IPicture {
 
 export namespace ICity {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"CityRoot\\"],
+    T[\\"CityParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"CityRoot\\"],
+    T[\\"CityParent\\"],
     {},
     T[\\"Context\\"],
     string
@@ -704,31 +704,31 @@ export namespace ICity {
 
 export namespace IExperienceCategory {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceCategoryRoot\\"],
+    T[\\"ExperienceCategoryParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type MainColorResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceCategoryRoot\\"],
+    T[\\"ExperienceCategoryParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceCategoryRoot\\"],
+    T[\\"ExperienceCategoryParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type ExperienceResolver<T extends ITypes> = ResolverFn<
-    T[\\"ExperienceCategoryRoot\\"],
+    T[\\"ExperienceCategoryParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceRoot\\"] | null
+    T[\\"ExperienceParent\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -741,140 +741,140 @@ export namespace IExperienceCategory {
 
 export namespace IUser {
   export type BookingsResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"BookingRoot\\"][]
+    T[\\"BookingParent\\"][]
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type EmailResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type FirstNameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type HostingExperiencesResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ExperienceRoot\\"][]
+    T[\\"ExperienceParent\\"][]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type IsSuperHostResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type LastNameResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"]
+    T[\\"LocationParent\\"]
   >;
 
   export type NotificationsResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NotificationRoot\\"][]
+    T[\\"NotificationParent\\"][]
   >;
 
   export type OwnedPlacesResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PlaceRoot\\"][]
+    T[\\"PlaceParent\\"][]
   >;
 
   export type PaymentAccountResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentAccountRoot\\"][]
+    T[\\"PaymentAccountParent\\"][]
   >;
 
   export type PhoneResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type ProfilePictureResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"] | null
+    T[\\"PictureParent\\"] | null
   >;
 
   export type ReceivedMessagesResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"MessageRoot\\"][]
+    T[\\"MessageParent\\"][]
   >;
 
   export type ResponseRateResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type ResponseTimeResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type SentMessagesResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"MessageRoot\\"][]
+    T[\\"MessageParent\\"][]
   >;
 
   export type UpdatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type TokenResolver<T extends ITypes> = ResolverFn<
-    T[\\"UserRoot\\"],
+    T[\\"UserParent\\"],
     {},
     T[\\"Context\\"],
     string
@@ -906,52 +906,52 @@ export namespace IUser {
 
 export namespace IPaymentAccount {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PAYMENT_PROVIDERRoot\\"] | null
+    T[\\"PAYMENT_PROVIDERParent\\"] | null
   >;
 
   export type UserResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export type PaymentsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentRoot\\"][]
+    T[\\"PaymentParent\\"][]
   >;
 
   export type PaypalResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaypalInformationRoot\\"] | null
+    T[\\"PaypalInformationParent\\"] | null
   >;
 
   export type CreditcardResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentAccountRoot\\"],
+    T[\\"PaymentAccountParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CreditCardInformationRoot\\"] | null
+    T[\\"CreditCardInformationParent\\"] | null
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -967,154 +967,154 @@ export namespace IPaymentAccount {
 
 export namespace IPlace {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type NameResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     string | null
   >;
 
   export type SizeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PLACE_SIZESRoot\\"] | null
+    T[\\"PLACE_SIZESParent\\"] | null
   >;
 
   export type ShortDescriptionResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type DescriptionResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type SlugResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type MaxGuestsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type NumBedroomsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type NumBedsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type NumBathsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type ReviewsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"ReviewRoot\\"][]
+    T[\\"ReviewParent\\"][]
   >;
 
   export type AmenitiesResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"AmenitiesRoot\\"]
+    T[\\"AmenitiesParent\\"]
   >;
 
   export type HostResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export type PricingResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PricingRoot\\"]
+    T[\\"PricingParent\\"]
   >;
 
   export type LocationResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"LocationRoot\\"]
+    T[\\"LocationParent\\"]
   >;
 
   export type ViewsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PlaceViewsRoot\\"]
+    T[\\"PlaceViewsParent\\"]
   >;
 
   export type GuestRequirementsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"GuestRequirementsRoot\\"] | null
+    T[\\"GuestRequirementsParent\\"] | null
   >;
 
   export type PoliciesResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PoliciesRoot\\"] | null
+    T[\\"PoliciesParent\\"] | null
   >;
 
   export type HouseRulesResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"HouseRulesRoot\\"] | null
+    T[\\"HouseRulesParent\\"] | null
   >;
 
   export type BookingsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"BookingRoot\\"][]
+    T[\\"BookingParent\\"][]
   >;
 
   export type PicturesResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PictureRoot\\"][]
+    T[\\"PictureParent\\"][]
   >;
 
   export type PopularityResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceRoot\\"],
+    T[\\"PlaceParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -1148,52 +1148,52 @@ export namespace IPlace {
 
 export namespace IBooking {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type BookeeResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export type PlaceResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PlaceRoot\\"]
+    T[\\"PlaceParent\\"]
   >;
 
   export type StartDateResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type EndDateResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type PaymentResolver<T extends ITypes> = ResolverFn<
-    T[\\"BookingRoot\\"],
+    T[\\"BookingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentRoot\\"]
+    T[\\"PaymentParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1209,45 +1209,45 @@ export namespace IBooking {
 
 export namespace INotification {
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LinkResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type ReadDateResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type TypeResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"NOTIFICATION_TYPERoot\\"] | null
+    T[\\"NOTIFICATION_TYPEParent\\"] | null
   >;
 
   export type UserResolver<T extends ITypes> = ResolverFn<
-    T[\\"NotificationRoot\\"],
+    T[\\"NotificationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"UserRoot\\"]
+    T[\\"UserParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1262,35 +1262,35 @@ export namespace INotification {
 
 export namespace IPayment {
   export type BookingResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentRoot\\"],
+    T[\\"PaymentParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"BookingRoot\\"]
+    T[\\"BookingParent\\"]
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentRoot\\"],
+    T[\\"PaymentParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentRoot\\"],
+    T[\\"PaymentParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type PaymentMethodResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentRoot\\"],
+    T[\\"PaymentParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentAccountRoot\\"]
+    T[\\"PaymentAccountParent\\"]
   >;
 
   export type ServiceFeeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaymentRoot\\"],
+    T[\\"PaymentParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -1307,31 +1307,31 @@ export namespace IPayment {
 
 export namespace IPaypalInformation {
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaypalInformationRoot\\"],
+    T[\\"PaypalInformationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type EmailResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaypalInformationRoot\\"],
+    T[\\"PaypalInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaypalInformationRoot\\"],
+    T[\\"PaypalInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type PaymentAccountResolver<T extends ITypes> = ResolverFn<
-    T[\\"PaypalInformationRoot\\"],
+    T[\\"PaypalInformationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentAccountRoot\\"]
+    T[\\"PaymentAccountParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1344,77 +1344,77 @@ export namespace IPaypalInformation {
 
 export namespace ICreditCardInformation {
   export type CardNumberResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type CountryResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type ExpiresOnMonthResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type ExpiresOnYearResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type FirstNameResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LastNameResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type PaymentAccountResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"PaymentAccountRoot\\"] | null
+    T[\\"PaymentAccountParent\\"] | null
   >;
 
   export type PostalCodeResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type SecurityCodeResolver<T extends ITypes> = ResolverFn<
-    T[\\"CreditCardInformationRoot\\"],
+    T[\\"CreditCardInformationParent\\"],
     {},
     T[\\"Context\\"],
     string
@@ -1437,31 +1437,31 @@ export namespace ICreditCardInformation {
 
 export namespace IMessage {
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"MessageRoot\\"],
+    T[\\"MessageParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type DeliveredAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"MessageRoot\\"],
+    T[\\"MessageParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"MessageRoot\\"],
+    T[\\"MessageParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type ReadAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"MessageRoot\\"],
+    T[\\"MessageParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1474,91 +1474,91 @@ export namespace IMessage {
 
 export namespace IPricing {
   export type AverageMonthlyResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type AverageWeeklyResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type BasePriceResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CleaningFeeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type CurrencyResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"CURRENCYRoot\\"] | null
+    T[\\"CURRENCYParent\\"] | null
   >;
 
   export type ExtraGuestsResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type MonthlyDiscountResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type PerNightResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type SecurityDepositResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type SmartPricingResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type WeekendPricingResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
   >;
 
   export type WeeklyDiscountResolver<T extends ITypes> = ResolverFn<
-    T[\\"PricingRoot\\"],
+    T[\\"PricingParent\\"],
     {},
     T[\\"Context\\"],
     number | null
@@ -1583,14 +1583,14 @@ export namespace IPricing {
 
 export namespace IPlaceViews {
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceViewsRoot\\"],
+    T[\\"PlaceViewsParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type LastWeekResolver<T extends ITypes> = ResolverFn<
-    T[\\"PlaceViewsRoot\\"],
+    T[\\"PlaceViewsParent\\"],
     {},
     T[\\"Context\\"],
     number
@@ -1604,21 +1604,21 @@ export namespace IPlaceViews {
 
 export namespace IGuestRequirements {
   export type GovIssuedIdResolver<T extends ITypes> = ResolverFn<
-    T[\\"GuestRequirementsRoot\\"],
+    T[\\"GuestRequirementsParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type GuestTripInformationResolver<T extends ITypes> = ResolverFn<
-    T[\\"GuestRequirementsRoot\\"],
+    T[\\"GuestRequirementsParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"GuestRequirementsRoot\\"],
+    T[\\"GuestRequirementsParent\\"],
     {},
     T[\\"Context\\"],
     string
@@ -1626,7 +1626,7 @@ export namespace IGuestRequirements {
 
   export type RecommendationsFromOtherHostsResolver<
     T extends ITypes
-  > = ResolverFn<T[\\"GuestRequirementsRoot\\"], {}, T[\\"Context\\"], boolean>;
+  > = ResolverFn<T[\\"GuestRequirementsParent\\"], {}, T[\\"Context\\"], boolean>;
 
   export interface Resolver<T extends ITypes> {
     govIssuedId: GovIssuedIdResolver<T>;
@@ -1638,45 +1638,45 @@ export namespace IGuestRequirements {
 
 export namespace IPolicies {
   export type CheckInEndTimeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CheckInStartTimeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CheckoutTimeResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
     number
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type UpdatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"PoliciesRoot\\"],
+    T[\\"PoliciesParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1691,66 +1691,66 @@ export namespace IPolicies {
 
 export namespace IHouseRules {
   export type AdditionalRulesResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     string | null
   >;
 
   export type CreatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type PartiesAndEventsAllowedResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type PetsAllowedResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type SmokingAllowedResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type SuitableForChildrenResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type SuitableForInfantsResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
     boolean | null
   >;
 
   export type UpdatedAtResolver<T extends ITypes> = ResolverFn<
-    T[\\"HouseRulesRoot\\"],
+    T[\\"HouseRulesParent\\"],
     {},
     T[\\"Context\\"],
-    T[\\"DateTimeRoot\\"]
+    T[\\"DateTimeParent\\"]
   >;
 
   export interface Resolver<T extends ITypes> {
@@ -1768,287 +1768,287 @@ export namespace IHouseRules {
 
 export namespace IAmenities {
   export type AirConditioningResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BabyBathResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BabyMonitorResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BabysitterRecommendationsResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BathtubResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BreakfastResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type BuzzerWirelessIntercomResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type CableTvResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type ChangingTableResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type ChildrensBooksAndToysResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type ChildrensDinnerwareResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type CribResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type DoormanResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type DryerResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type ElevatorResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type EssentialsResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type FamilyKidFriendlyResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type FreeParkingOnPremisesResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type FreeParkingOnStreetResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type GymResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type HairDryerResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type HangersResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type HeatingResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type HotTubResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type IdResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     string
   >;
 
   export type IndoorFireplaceResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type InternetResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type IronResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type KitchenResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type LaptopFriendlyWorkspaceResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type PaidParkingOffPremisesResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type PetsAllowedResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type PoolResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type PrivateEntranceResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type ShampooResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type SmokingAllowedResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type SuitableForEventsResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type TvResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type WasherResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type WheelchairAccessibleResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean
   >;
 
   export type WirelessInternetResolver<T extends ITypes> = ResolverFn<
-    T[\\"AmenitiesRoot\\"],
+    T[\\"AmenitiesParent\\"],
     {},
     T[\\"Context\\"],
     boolean

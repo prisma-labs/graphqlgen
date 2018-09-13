@@ -8,16 +8,16 @@ import { Types } from \\"./types\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
-export interface UserRoot {
+export interface UserParent {
   id: string;
   name: string;
   type: UserType;
 }
 
 export const User: IUser.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  type: root => root.type
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
 };
 ",
     "force": false,
@@ -35,13 +35,13 @@ export const User: IUser.Resolver<Types> = {
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserRoot } from \\"./User\\";
+import { UserParent } from \\"./User\\";
 
 import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-  UserRoot: UserRoot;
+  UserParent: UserParent;
 }
 ",
     "force": true,
@@ -69,14 +69,14 @@ Array [
     "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-export interface NumberRoot {
+export interface NumberParent {
   id?: string;
   value?: number;
 }
 
 export const Number: INumber.Resolver<Types> = {
-  id: root => root.id,
-  value: root => root.value
+  id: parent => parent.id,
+  value: parent => parent.value
 };
 ",
     "force": false,
@@ -86,30 +86,30 @@ export const Number: INumber.Resolver<Types> = {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-export interface QueryRoot {}
+export interface QueryParent {}
 
 export const Query: IQuery.Resolver<Types> = {
-  id: root => null,
-  custom_required: root => {
+  id: parent => null,
+  custom_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_nullable: root => null,
-  custom_array_nullable: root => null,
-  custom_array_required: root => {
+  custom_nullable: parent => null,
+  custom_array_nullable: parent => null,
+  custom_array_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_arg: (root, args) => {
+  custom_with_arg: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_custom_arg: (root, args) => {
+  custom_with_custom_arg: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  scalar_required: root => false,
-  scalar_nullable: root => null,
-  scalar_array_nullable: root => null,
-  scalar_array_required: root => [],
-  scalar_with_arg: (root, args) => false,
-  scalar_with_custom_arg: (root, args) => false
+  scalar_required: parent => false,
+  scalar_nullable: parent => null,
+  scalar_array_nullable: parent => null,
+  scalar_array_required: parent => [],
+  scalar_with_arg: (parent, args) => false,
+  scalar_with_custom_arg: (parent, args) => false
 };
 ",
     "force": false,
@@ -127,15 +127,15 @@ export const Query: IQuery.Resolver<Types> = {
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
-import { QueryRoot } from \\"./Query\\";
-import { NumberRoot } from \\"./Number\\";
+import { QueryParent } from \\"./Query\\";
+import { NumberParent } from \\"./Number\\";
 
 import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-  QueryRoot: QueryRoot;
-  NumberRoot: NumberRoot;
+  QueryParent: QueryParent;
+  NumberParent: NumberParent;
 }
 ",
     "force": true,
@@ -165,21 +165,21 @@ Array [
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-import { StudentRoot } from \\"./Student\\";
-import { ProfessorRoot } from \\"./Professor\\";
+import { StudentParent } from \\"./Student\\";
+import { ProfessorParent } from \\"./Professor\\";
 
-export type UserType = StudentRoot | ProfessorRoot;
+export type UserType = StudentParent | ProfessorParent;
 
-export interface UserRoot {
+export interface UserParent {
   id: string;
   name: string;
   type: UserType;
 }
 
 export const User: IUser.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  type: root => root.type
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
 };
 ",
     "force": false,
@@ -189,12 +189,12 @@ export const User: IUser.Resolver<Types> = {
     "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-export interface StudentRoot {
+export interface StudentParent {
   age: number;
 }
 
 export const Student: IStudent.Resolver<Types> = {
-  age: root => root.age
+  age: parent => parent.age
 };
 ",
     "force": false,
@@ -204,12 +204,12 @@ export const Student: IStudent.Resolver<Types> = {
     "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { Types } from \\"./types\\";
 
-export interface ProfessorRoot {
+export interface ProfessorParent {
   degree?: string;
 }
 
 export const Professor: IProfessor.Resolver<Types> = {
-  degree: root => root.degree
+  degree: parent => parent.degree
 };
 ",
     "force": false,
@@ -227,17 +227,17 @@ export const Professor: IProfessor.Resolver<Types> = {
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserRoot } from \\"./User\\";
-import { StudentRoot } from \\"./Student\\";
-import { ProfessorRoot } from \\"./Professor\\";
+import { UserParent } from \\"./User\\";
+import { StudentParent } from \\"./Student\\";
+import { ProfessorParent } from \\"./Professor\\";
 
 import { Context } from \\"./Context\\";
 
 export interface Types extends ITypes {
   Context: Context;
-  UserRoot: UserRoot;
-  StudentRoot: StudentRoot;
-  ProfessorRoot: ProfessorRoot;
+  UserParent: UserParent;
+  StudentParent: StudentParent;
+  ProfessorParent: ProfessorParent;
 }
 ",
     "force": true,
