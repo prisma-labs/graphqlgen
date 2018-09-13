@@ -156,13 +156,13 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     path: "types/typemap.ts",
     force: true,
     code: `
-import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
+import { ITypes } from '../[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
-      .map(type => `import { ${type.name}Parent } from './${type.name}'`)
+      .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
       .join(";")}
 
-import { Context } from './types/context'
+import { Context } from './context'
 
 export interface Types extends ITypes {
   Context: Context

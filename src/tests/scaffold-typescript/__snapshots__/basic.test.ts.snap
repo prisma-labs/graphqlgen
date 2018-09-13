@@ -33,11 +33,11 @@ export const User: IUser.Resolver<Types> = {
     "path": "types/context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypes } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserParent } from \\"./User\\";
+import { UserParent } from \\"../User\\";
 
-import { Context } from \\"./types/context\\";
+import { Context } from \\"./context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -125,12 +125,12 @@ export const Query: IQuery.Resolver<Types> = {
     "path": "types/context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypes } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { QueryParent } from \\"./Query\\";
-import { NumberParent } from \\"./Number\\";
+import { QueryParent } from \\"../Query\\";
+import { NumberParent } from \\"../Number\\";
 
-import { Context } from \\"./types/context\\";
+import { Context } from \\"./context\\";
 
 export interface Types extends ITypes {
   Context: Context;
@@ -225,13 +225,13 @@ export const Professor: IProfessor.Resolver<Types> = {
     "path": "types/context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypes } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserParent } from \\"./User\\";
-import { StudentParent } from \\"./Student\\";
-import { ProfessorParent } from \\"./Professor\\";
+import { UserParent } from \\"../User\\";
+import { StudentParent } from \\"../Student\\";
+import { ProfessorParent } from \\"../Professor\\";
 
-import { Context } from \\"./types/context\\";
+import { Context } from \\"./context\\";
 
 export interface Types extends ITypes {
   Context: Context;
