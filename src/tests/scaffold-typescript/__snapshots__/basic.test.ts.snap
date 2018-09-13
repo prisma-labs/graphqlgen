@@ -66,28 +66,28 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic scalar 1`] = `
 Array [
   Object {
-    "code": "import { IAddMemberPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { AddMemberPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface AddMemberPayloadRoot {
+export interface AddMemberPayloadParent {
   json?: string;
 }
 
-export const AddMemberPayload: IAddMemberPayload.Resolver<Types> = {
-  json: root => root.json
+export const AddMemberPayload: AddMemberPayloadResolvers.Resolver<TypeMap> = {
+  json: parent => parent.json
 };
 ",
     "force": false,
     "path": "AddMemberPayload.ts",
   },
   Object {
-    "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface MutationRoot {}
+export interface MutationParent {}
 
-export const Mutation: IMutation.Resolver<Types> = {
-  addMember: (root, args) => {
+export const Mutation: MutationResolvers.Resolver<TypeMap> = {
+  addMember: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -102,33 +102,33 @@ export const Mutation: IMutation.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { AddMemberPayloadRoot } from \\"./AddMemberPayload\\";
-import { MutationRoot } from \\"./Mutation\\";
+import { AddMemberPayloadParent } from \\"../AddMemberPayload\\";
+import { MutationParent } from \\"../Mutation\\";
 
-import { Context } from \\"./Context\\";
+import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
-  AddMemberPayloadRoot: AddMemberPayloadRoot;
-  MutationRoot: MutationRoot;
+  AddMemberPayloadParent: AddMemberPayloadParent;
+  MutationParent: MutationParent;
 }
 ",
     "force": true,
-    "path": "types.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { AddMemberPayload } from \\"./AddMemberPayload\\";
 import { Mutation } from \\"./Mutation\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   AddMemberPayload,
   Mutation
 };

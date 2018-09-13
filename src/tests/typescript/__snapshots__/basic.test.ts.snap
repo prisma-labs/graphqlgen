@@ -63,50 +63,54 @@ export interface IResolvers<T extends ITypeMap> {
 exports[`basic scalar 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>;
-}
-
-export interface ITypes {
+export interface ITypeMap {
   Context: any;
 
-  AddMemberPayloadRoot: any;
-  MutationRoot: any;
+  AddMemberPayloadParent: any;
+  MutationParent: any;
 }
 
-export namespace IAddMemberPayload {
-  export type JsonResolver<T extends ITypes> = ResolverFn<
-    T[\\"AddMemberPayloadRoot\\"],
-    {},
-    T[\\"Context\\"],
-    string | null
-  >;
+export namespace AddMemberPayloadResolvers {
+  export type JsonResolver<T extends ITypeMap> = (
+    parent: T[\\"AddMemberPayloadParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | null;
 
-  export interface Resolver<T extends ITypes> {
-    json: JsonResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    json: (
+      parent: T[\\"AddMemberPayloadParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | null;
   }
 }
 
-export namespace IMutation {
+export namespace MutationResolvers {
   export interface ArgsAddMember {
-    data: T[\\"AddMemberDataRoot\\"];
+    data: T[\\"AddMemberDataParent\\"];
   }
 
-  export type AddMemberResolver<T extends ITypes> = ResolverFn<
-    T[\\"MutationRoot\\"],
-    ArgsAddMember,
-    T[\\"Context\\"],
-    T[\\"AddMemberPayloadRoot\\"]
-  >;
+  export type AddMemberResolver<T extends ITypeMap> = (
+    parent: T[\\"MutationParent\\"],
+    args: ArgsAddMember,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"AddMemberPayloadParent\\"];
 
-  export interface Resolver<T extends ITypes> {
-    addMember: AddMemberResolver<T>;
+  export interface Resolver<T extends ITypeMap> {
+    addMember: (
+      parent: T[\\"MutationParent\\"],
+      args: ArgsAddMember,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"AddMemberPayloadParent\\"];
   }
 }
 
-export interface IResolvers<T extends ITypes> {
+export interface IResolvers<T extends ITypeMap> {
   AddMemberPayload: IAddMemberPayload.Resolver<T>;
   Mutation: IMutation.Resolver<T>;
 }
