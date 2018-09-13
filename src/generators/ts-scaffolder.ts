@@ -145,10 +145,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     path: "types/Context.ts",
     force: false,
     code: `
-    export interface Context {
-      db: any
-      request: any
-    }
+    export interface Context { }
     `
   });
 

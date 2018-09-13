@@ -928,10 +928,7 @@ export const Mutation: MutationResolvers.Type<TypeMap> = {
     "path": "Mutation.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",

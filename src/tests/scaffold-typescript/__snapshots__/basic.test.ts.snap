@@ -24,10 +24,7 @@ export const User: UserResolvers.Type<TypeMap> = {
     "path": "User.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",
@@ -96,10 +93,7 @@ export const Mutation: MutationResolvers.Type<TypeMap> = {
     "path": "Mutation.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",
@@ -192,10 +186,7 @@ export const Query: QueryResolvers.Type<TypeMap> = {
     "path": "Query.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",
@@ -292,10 +283,7 @@ export const Professor: ProfessorResolvers.Type<TypeMap> = {
     "path": "Professor.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",
