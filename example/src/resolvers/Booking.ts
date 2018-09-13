@@ -1,4 +1,4 @@
-import { IBooking } from "../generated/resolvers";
+import { BookingResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 import { UserParent } from "./User";
 import { PlaceParent } from "./Place";
@@ -14,7 +14,7 @@ export interface BookingParent {
   payment: PaymentParent;
 }
 
-export const Booking: IBooking.Resolver<TypeMap> = {
+export const Booking: BookingResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   bookee: parent => parent.bookee,

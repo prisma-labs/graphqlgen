@@ -1,4 +1,4 @@
-import { ICity } from "../generated/resolvers";
+import { CityResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface CityParent {
@@ -6,7 +6,7 @@ export interface CityParent {
   name: string;
 }
 
-export const City: ICity.Resolver<TypeMap> = {
+export const City: CityResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name
 };

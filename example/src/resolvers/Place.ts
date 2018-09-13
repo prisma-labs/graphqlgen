@@ -1,4 +1,4 @@
-import { IPlace } from "../generated/resolvers";
+import { PlaceResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 import { ReviewParent } from "./Review";
 import { AmenitiesParent } from "./Amenities";
@@ -47,7 +47,7 @@ export interface PlaceParent {
   popularity: number;
 }
 
-export const Place: IPlace.Resolver<TypeMap> = {
+export const Place: PlaceResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   size: parent => parent.size,

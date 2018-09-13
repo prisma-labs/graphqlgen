@@ -1,4 +1,4 @@
-import { IPolicies } from "../generated/resolvers";
+import { PoliciesResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface PoliciesParent {
@@ -10,7 +10,7 @@ export interface PoliciesParent {
   updatedAt: string;
 }
 
-export const Policies: IPolicies.Resolver<TypeMap> = {
+export const Policies: PoliciesResolvers.Resolver<TypeMap> = {
   checkInEndTime: parent => parent.checkInEndTime,
   checkInStartTime: parent => parent.checkInStartTime,
   checkoutTime: parent => parent.checkoutTime,

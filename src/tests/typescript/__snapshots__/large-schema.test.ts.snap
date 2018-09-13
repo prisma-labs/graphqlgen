@@ -38,7 +38,7 @@ export interface ITypeMap {
   AmenitiesParent: any;
 }
 
-export namespace IQuery {
+export namespace QueryResolvers {
   export type TopExperiencesResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
@@ -156,7 +156,7 @@ export namespace IQuery {
   }
 }
 
-export namespace IMutation {
+export namespace MutationResolvers {
   export interface ArgsSignup {
     email: string;
     password: string;
@@ -244,7 +244,7 @@ export namespace IMutation {
   }
 }
 
-export namespace IViewer {
+export namespace ViewerResolvers {
   export type MeResolver<T extends ITypeMap> = (
     parent: T[\\"ViewerParent\\"],
     args: {},
@@ -275,7 +275,7 @@ export namespace IViewer {
   }
 }
 
-export namespace IAuthPayload {
+export namespace AuthPayloadResolvers {
   export type TokenResolver<T extends ITypeMap> = (
     parent: T[\\"AuthPayloadParent\\"],
     args: {},
@@ -306,7 +306,7 @@ export namespace IAuthPayload {
   }
 }
 
-export namespace IMutationResult {
+export namespace MutationResultResolvers {
   export type SuccessResolver<T extends ITypeMap> = (
     parent: T[\\"MutationResultParent\\"],
     args: {},
@@ -324,7 +324,7 @@ export namespace IMutationResult {
   }
 }
 
-export namespace IExperiencesByCity {
+export namespace ExperiencesByCityResolvers {
   export type ExperiencesResolver<T extends ITypeMap> = (
     parent: T[\\"ExperiencesByCityParent\\"],
     args: {},
@@ -355,7 +355,7 @@ export namespace IExperiencesByCity {
   }
 }
 
-export namespace IHome {
+export namespace HomeResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"HomeParent\\"],
     args: {},
@@ -455,7 +455,7 @@ export namespace IHome {
   }
 }
 
-export namespace IReservation {
+export namespace ReservationResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"ReservationParent\\"],
     args: {},
@@ -564,7 +564,7 @@ export namespace IReservation {
   }
 }
 
-export namespace IExperience {
+export namespace ExperienceResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"ExperienceParent\\"],
     args: {},
@@ -673,7 +673,7 @@ export namespace IExperience {
   }
 }
 
-export namespace IReview {
+export namespace ReviewResolvers {
   export type AccuracyResolver<T extends ITypeMap> = (
     parent: T[\\"ReviewParent\\"],
     args: {},
@@ -808,7 +808,7 @@ export namespace IReview {
   }
 }
 
-export namespace INeighbourhood {
+export namespace NeighbourhoodResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"NeighbourhoodParent\\"],
     args: {},
@@ -904,7 +904,7 @@ export namespace INeighbourhood {
   }
 }
 
-export namespace ILocation {
+export namespace LocationResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"LocationParent\\"],
     args: {},
@@ -974,7 +974,7 @@ export namespace ILocation {
   }
 }
 
-export namespace IPicture {
+export namespace PictureResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"PictureParent\\"],
     args: {},
@@ -1005,7 +1005,7 @@ export namespace IPicture {
   }
 }
 
-export namespace ICity {
+export namespace CityResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"CityParent\\"],
     args: {},
@@ -1036,7 +1036,7 @@ export namespace ICity {
   }
 }
 
-export namespace IExperienceCategory {
+export namespace ExperienceCategoryResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"ExperienceCategoryParent\\"],
     args: {},
@@ -1093,7 +1093,7 @@ export namespace IExperienceCategory {
   }
 }
 
-export namespace IUser {
+export namespace UserResolvers {
   export type BookingsResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
@@ -1358,7 +1358,7 @@ export namespace IUser {
   }
 }
 
-export namespace IPaymentAccount {
+export namespace PaymentAccountResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"PaymentAccountParent\\"],
     args: {},
@@ -1454,7 +1454,7 @@ export namespace IPaymentAccount {
   }
 }
 
-export namespace IPlace {
+export namespace PlaceResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"PlaceParent\\"],
     args: {},
@@ -1745,7 +1745,7 @@ export namespace IPlace {
   }
 }
 
-export namespace IBooking {
+export namespace BookingResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"BookingParent\\"],
     args: {},
@@ -1841,7 +1841,7 @@ export namespace IBooking {
   }
 }
 
-export namespace INotification {
+export namespace NotificationResolvers {
   export type CreatedAtResolver<T extends ITypeMap> = (
     parent: T[\\"NotificationParent\\"],
     args: {},
@@ -1924,7 +1924,7 @@ export namespace INotification {
   }
 }
 
-export namespace IPayment {
+export namespace PaymentResolvers {
   export type BookingResolver<T extends ITypeMap> = (
     parent: T[\\"PaymentParent\\"],
     args: {},
@@ -1994,7 +1994,7 @@ export namespace IPayment {
   }
 }
 
-export namespace IPaypalInformation {
+export namespace PaypalInformationResolvers {
   export type CreatedAtResolver<T extends ITypeMap> = (
     parent: T[\\"PaypalInformationParent\\"],
     args: {},
@@ -2051,7 +2051,7 @@ export namespace IPaypalInformation {
   }
 }
 
-export namespace ICreditCardInformation {
+export namespace CreditCardInformationResolvers {
   export type CardNumberResolver<T extends ITypeMap> = (
     parent: T[\\"CreditCardInformationParent\\"],
     args: {},
@@ -2199,7 +2199,7 @@ export namespace ICreditCardInformation {
   }
 }
 
-export namespace IMessage {
+export namespace MessageResolvers {
   export type CreatedAtResolver<T extends ITypeMap> = (
     parent: T[\\"MessageParent\\"],
     args: {},
@@ -2256,7 +2256,7 @@ export namespace IMessage {
   }
 }
 
-export namespace IPricing {
+export namespace PricingResolvers {
   export type AverageMonthlyResolver<T extends ITypeMap> = (
     parent: T[\\"PricingParent\\"],
     args: {},
@@ -2430,7 +2430,7 @@ export namespace IPricing {
   }
 }
 
-export namespace IPlaceViews {
+export namespace PlaceViewsResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"PlaceViewsParent\\"],
     args: {},
@@ -2461,7 +2461,7 @@ export namespace IPlaceViews {
   }
 }
 
-export namespace IGuestRequirements {
+export namespace GuestRequirementsResolvers {
   export type GovIssuedIdResolver<T extends ITypeMap> = (
     parent: T[\\"GuestRequirementsParent\\"],
     args: {},
@@ -2518,7 +2518,7 @@ export namespace IGuestRequirements {
   }
 }
 
-export namespace IPolicies {
+export namespace PoliciesResolvers {
   export type CheckInEndTimeResolver<T extends ITypeMap> = (
     parent: T[\\"PoliciesParent\\"],
     args: {},
@@ -2601,7 +2601,7 @@ export namespace IPolicies {
   }
 }
 
-export namespace IHouseRules {
+export namespace HouseRulesResolvers {
   export type AdditionalRulesResolver<T extends ITypeMap> = (
     parent: T[\\"HouseRulesParent\\"],
     args: {},
@@ -2723,7 +2723,7 @@ export namespace IHouseRules {
   }
 }
 
-export namespace IAmenities {
+export namespace AmenitiesResolvers {
   export type AirConditioningResolver<T extends ITypeMap> = (
     parent: T[\\"AmenitiesParent\\"],
     args: {},

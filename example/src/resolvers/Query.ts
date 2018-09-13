@@ -1,9 +1,9 @@
-import { IQuery } from "../generated/resolvers";
+import { QueryResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface QueryParent {}
 
-export const Query: IQuery.Resolver<TypeMap> = {
+export const Query: QueryResolvers.Resolver<TypeMap> = {
   topExperiences: parent => {
     throw new Error("Resolver not implemented");
   },

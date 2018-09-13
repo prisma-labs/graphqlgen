@@ -1,4 +1,4 @@
-import { IMessage } from "../generated/resolvers";
+import { MessageResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface MessageParent {
@@ -8,7 +8,7 @@ export interface MessageParent {
   readAt: string;
 }
 
-export const Message: IMessage.Resolver<TypeMap> = {
+export const Message: MessageResolvers.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   deliveredAt: parent => parent.deliveredAt,
   id: parent => parent.id,

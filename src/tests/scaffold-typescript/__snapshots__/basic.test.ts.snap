@@ -3,7 +3,7 @@
 exports[`basic enum 1`] = `
 Array [
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
@@ -14,7 +14,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: IUser.Resolver<TypeMap> = {
+export const User: UserResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -66,7 +66,7 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic schema 1`] = `
 Array [
   Object {
-    "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { NumberResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface NumberParent {
@@ -74,7 +74,7 @@ export interface NumberParent {
   value?: number;
 }
 
-export const Number: INumber.Resolver<TypeMap> = {
+export const Number: NumberResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   value: parent => parent.value
 };
@@ -83,12 +83,12 @@ export const Number: INumber.Resolver<TypeMap> = {
     "path": "Number.ts",
   },
   Object {
-    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
 
-export const Query: IQuery.Resolver<TypeMap> = {
+export const Query: QueryResolvers.Resolver<TypeMap> = {
   id: parent => null,
   custom_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
@@ -162,7 +162,7 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic union 1`] = `
 Array [
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { StudentParent } from \\"./Student\\";
@@ -176,7 +176,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: IUser.Resolver<TypeMap> = {
+export const User: UserResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -186,14 +186,14 @@ export const User: IUser.Resolver<TypeMap> = {
     "path": "User.ts",
   },
   Object {
-    "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface StudentParent {
   age: number;
 }
 
-export const Student: IStudent.Resolver<TypeMap> = {
+export const Student: StudentResolvers.Resolver<TypeMap> = {
   age: parent => parent.age
 };
 ",
@@ -201,14 +201,14 @@ export const Student: IStudent.Resolver<TypeMap> = {
     "path": "Student.ts",
   },
   Object {
-    "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface ProfessorParent {
   degree?: string;
 }
 
-export const Professor: IProfessor.Resolver<TypeMap> = {
+export const Professor: ProfessorResolvers.Resolver<TypeMap> = {
   degree: parent => parent.degree
 };
 ",

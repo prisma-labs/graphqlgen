@@ -1,4 +1,4 @@
-import { IReview } from "../generated/resolvers";
+import { ReviewResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface ReviewParent {
@@ -14,7 +14,7 @@ export interface ReviewParent {
   value: number;
 }
 
-export const Review: IReview.Resolver<TypeMap> = {
+export const Review: ReviewResolvers.Resolver<TypeMap> = {
   accuracy: parent => parent.accuracy,
   checkIn: parent => parent.checkIn,
   cleanliness: parent => parent.cleanliness,

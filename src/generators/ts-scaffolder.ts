@@ -48,7 +48,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .filter(type => !isParentType(type.name))
     .map(type => {
       const code = `
-    import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
+    import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${Array.from(
       new Set(
@@ -98,9 +98,8 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )
         .join(";")}
     }
-    
 
-    export const ${type.name}: I${type.name}.Resolver<TypeMap> = {
+    export const ${type.name}: ${type.name}Resolvers.Resolver<TypeMap> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -120,12 +119,12 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files = files.concat(
     args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `
-      import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
+      import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: I${type.name}.Resolver<TypeMap> = {
+      export const ${type.name}: ${type.name}Resolvers.Resolver<TypeMap> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${

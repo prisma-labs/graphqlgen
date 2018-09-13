@@ -1,4 +1,4 @@
-import { IPlaceViews } from "../generated/resolvers";
+import { PlaceViewsResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface PlaceViewsParent {
@@ -6,7 +6,7 @@ export interface PlaceViewsParent {
   lastWeek: number;
 }
 
-export const PlaceViews: IPlaceViews.Resolver<TypeMap> = {
+export const PlaceViews: PlaceViewsResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   lastWeek: parent => parent.lastWeek
 };

@@ -74,7 +74,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
 
   ${args.types
     .map(
-      type => `export namespace I${type.name} {
+      type => `export namespace ${type.name}Resolvers {
   ${type.fields
     .map(
       field => `${

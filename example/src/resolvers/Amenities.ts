@@ -1,4 +1,4 @@
-import { IAmenities } from "../generated/resolvers";
+import { AmenitiesResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface AmenitiesParent {
@@ -45,7 +45,7 @@ export interface AmenitiesParent {
   wirelessInternet: boolean;
 }
 
-export const Amenities: IAmenities.Resolver<TypeMap> = {
+export const Amenities: AmenitiesResolvers.Resolver<TypeMap> = {
   airConditioning: parent => parent.airConditioning,
   babyBath: parent => parent.babyBath,
   babyMonitor: parent => parent.babyMonitor,

@@ -1,4 +1,4 @@
-import { INotification } from "../generated/resolvers";
+import { NotificationResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 import { UserParent } from "./User";
 
@@ -18,7 +18,7 @@ export interface NotificationParent {
   user: UserParent;
 }
 
-export const Notification: INotification.Resolver<TypeMap> = {
+export const Notification: NotificationResolvers.Resolver<TypeMap> = {
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
   link: parent => parent.link,

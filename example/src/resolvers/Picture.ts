@@ -1,4 +1,4 @@
-import { IPicture } from "../generated/resolvers";
+import { PictureResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface PictureParent {
@@ -6,7 +6,7 @@ export interface PictureParent {
   url: string;
 }
 
-export const Picture: IPicture.Resolver<TypeMap> = {
+export const Picture: PictureResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   url: parent => parent.url
 };

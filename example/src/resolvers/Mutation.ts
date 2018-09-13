@@ -1,9 +1,9 @@
-import { IMutation } from "../generated/resolvers";
+import { MutationResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 
 export interface MutationParent {}
 
-export const Mutation: IMutation.Resolver<TypeMap> = {
+export const Mutation: MutationResolvers.Resolver<TypeMap> = {
   signup: (parent, args) => {
     throw new Error("Resolver not implemented");
   },

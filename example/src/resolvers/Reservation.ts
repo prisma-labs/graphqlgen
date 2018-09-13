@@ -1,4 +1,4 @@
-import { IReservation } from "../generated/resolvers";
+import { ReservationResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 import { PictureParent } from "./Picture";
 import { LocationParent } from "./Location";
@@ -14,7 +14,7 @@ export interface ReservationParent {
   popularity: number;
 }
 
-export const Reservation: IReservation.Resolver<TypeMap> = {
+export const Reservation: ReservationResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   title: parent => parent.title,
   avgPricePerPerson: parent => parent.avgPricePerPerson,

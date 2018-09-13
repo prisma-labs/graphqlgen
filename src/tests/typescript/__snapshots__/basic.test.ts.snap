@@ -10,7 +10,7 @@ export interface ITypeMap {
   UserParent: any;
 }
 
-export namespace IUser {
+export namespace UserResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
@@ -70,7 +70,7 @@ export interface ITypeMap {
   NumberParent: any;
 }
 
-export namespace IQuery {
+export namespace QueryResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
@@ -260,7 +260,7 @@ export namespace IQuery {
   }
 }
 
-export namespace INumber {
+export namespace NumberResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"NumberParent\\"],
     args: {},
@@ -310,7 +310,7 @@ export interface ITypeMap {
   ProfessorParent: any;
 }
 
-export namespace IUser {
+export namespace UserResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
@@ -354,7 +354,7 @@ export namespace IUser {
   }
 }
 
-export namespace IStudent {
+export namespace StudentResolvers {
   export type AgeResolver<T extends ITypeMap> = (
     parent: T[\\"StudentParent\\"],
     args: {},
@@ -372,7 +372,7 @@ export namespace IStudent {
   }
 }
 
-export namespace IProfessor {
+export namespace ProfessorResolvers {
   export type DegreeResolver<T extends ITypeMap> = (
     parent: T[\\"ProfessorParent\\"],
     args: {},

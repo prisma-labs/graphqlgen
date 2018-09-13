@@ -1,4 +1,4 @@
-import { IPaymentAccount } from "../generated/resolvers";
+import { PaymentAccountResolvers } from "../generated/resolvers";
 import { TypeMap } from "./types/TypeMap";
 import { UserParent } from "./User";
 import { PaymentParent } from "./Payment";
@@ -17,7 +17,7 @@ export interface PaymentAccountParent {
   creditcard?: CreditCardInformationParent;
 }
 
-export const PaymentAccount: IPaymentAccount.Resolver<TypeMap> = {
+export const PaymentAccount: PaymentAccountResolvers.Resolver<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   type: parent => parent.type,
