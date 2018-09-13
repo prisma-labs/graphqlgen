@@ -32,3 +32,14 @@ test("basic union", async () => {
   const code = generateCode({ schema: parsedSchema });
   expect(code).toMatchSnapshot();
 });
+
+test("basic scalar", async () => {
+  const schema = fs.readFileSync(
+    join(__dirname, "../fixtures/scalar.graphql"),
+    "utf-8"
+  );
+  const parsedSchema = parse(schema);
+  const code = generateCode({ schema: parsedSchema });
+  expect(code).toMatchSnapshot();
+});
+
