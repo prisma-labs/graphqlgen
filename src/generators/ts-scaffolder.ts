@@ -153,7 +153,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   });
 
   files.push({
-    path: "types.ts",
+    path: "typemap.ts",
     force: true,
     code: `
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
