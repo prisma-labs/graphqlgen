@@ -15,12 +15,12 @@ exports[`basic enum to reason 1`] = `
 };
 
 module User = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
-  type resolvers = {. \\"type\\": (root, args, context, info) => Data.userType};
+  type resolvers = {. \\"type\\": (parent, args, context, info) => Data.userType};
 };
 "
 `;
@@ -54,28 +54,28 @@ module Query = {
 
   type scalar_with_custom_argArgument = {. \\"id\\": bool};
 
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"custom_required\\": (root, args, context, info) => Data.number,
-    \\"custom_nullable\\": (root, args, context, info) => Data.number,
+    \\"custom_required\\": (parent, args, context, info) => Data.number,
+    \\"custom_nullable\\": (parent, args, context, info) => Data.number,
     \\"custom_array_nullable\\":
-      (root, args, context, info) => Js.Array.t(Data.number),
+      (parent, args, context, info) => Js.Array.t(Data.number),
     \\"custom_array_required\\":
-      (root, args, context, info) => Js.Array.t(Data.number),
+      (parent, args, context, info) => Js.Array.t(Data.number),
     \\"custom_with_arg\\":
-      (root, custom_with_argArgument, context, info) => Data.number,
+      (parent, custom_with_argArgument, context, info) => Data.number,
     \\"custom_with_custom_arg\\":
-      (root, custom_with_custom_argArgument, context, info) => Data.number,
+      (parent, custom_with_custom_argArgument, context, info) => Data.number,
   };
 };
 
 module Number = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -103,16 +103,16 @@ exports[`basic union to reason 1`] = `
 };
 
 module User = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
-  type resolvers = {. \\"type\\": (root, args, context, info) => Data.userType};
+  type resolvers = {. \\"type\\": (parent, args, context, info) => Data.userType};
 };
 
 module Student = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -121,7 +121,7 @@ module Student = {
 };
 
 module Professor = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;

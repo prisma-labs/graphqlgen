@@ -50,12 +50,12 @@ export function printFieldLikeType(
 
   return lookupType
     ? `T['${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Root"
+        field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }']${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`
     : `${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Root"
+        field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }${field.type.isArray ? "[]" : ""}${
         !field.type.isRequired ? "| null" : ""
       }`;
@@ -65,22 +65,16 @@ export function generate(args: GenerateArgs) {
   return `
 import { GraphQLResolveInfo } from 'graphql'
 
-export interface ResolverFn<Root, Args, Ctx, Payload> {
-  (root: Root, args: Args, ctx: Ctx, info: GraphQLResolveInfo):
-    | Payload
-    | Promise<Payload>
-}
-
-export interface ITypes {
+export interface ITypeMap {
 Context: any
 ${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
 ${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
-${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
+${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
 }
 
   ${args.types
     .map(
-      type => `export namespace I${type.name} {
+      type => `export namespace ${type.name}Resolvers {
   ${type.fields
     .map(
       field => `${
@@ -95,19 +89,34 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
           : ""
       }
 
-  export type ${capitalize(field.name)}Resolver<T extends ITypes> = ResolverFn<
-    T['${type.name}${type.type.isEnum || type.type.isUnion ? "" : "Root"}'],
-    ${field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"},
-    T['Context'],
-    ${printFieldLikeType(field)}
-  >
+  export type ${capitalize(field.name)}Resolver<T extends ITypeMap> = (
+    parent: T['${type.name}${
+        type.type.isEnum || type.type.isUnion ? "" : "Parent"
+      }'],
+    args: ${
+      field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"
+    },
+    ctx: T['Context'],
+    info: GraphQLResolveInfo,
+  ) => ${printFieldLikeType(field)}
   `
     )
     .join(os.EOL)}
 
-  export interface Resolver<T extends ITypes> {
+  export interface Resolver<T extends ITypeMap> {
   ${type.fields
-    .map(field => `${field.name}: ${capitalize(field.name)}Resolver<T>`)
+    .map(
+      field => `${field.name}: (
+      parent: T['${type.name}${
+        type.type.isEnum || type.type.isUnion ? "" : "Parent"
+      }'],
+      args: ${
+        field.arguments.length > 0 ? `Args${capitalize(field.name)}` : "{}"
+      },
+      ctx: T['Context'],
+      info: GraphQLResolveInfo,
+    ) => ${printFieldLikeType(field)}`
+    )
     .join(os.EOL)}
   }
 }
@@ -115,7 +124,7 @@ ${args.types.map(type => `${type.name}Root: any`).join(os.EOL)}
     )
     .join(os.EOL)}
 
-export interface IResolvers<T extends ITypes> {
+export interface IResolvers<T extends ITypeMap> {
   ${args.types
     .map(type => `${type.name}: I${type.name}.Resolver<T>`)
     .join(os.EOL)}

@@ -3,179 +3,179 @@
 exports[`large schema 1`] = `
 Array [
   Object {
-    "code": "import { IViewer } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { UserRoot } from \\"./User\\";
-import { BookingRoot } from \\"./Booking\\";
+    "code": "import { ViewerResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { UserParent } from \\"./User\\";
+import { BookingParent } from \\"./Booking\\";
 
-export interface ViewerRoot {
-  me: UserRoot;
-  bookings: BookingRoot[];
+export interface ViewerParent {
+  me: UserParent;
+  bookings: BookingParent[];
 }
 
-export const Viewer: IViewer.Resolver<Types> = {
-  me: root => root.me,
-  bookings: root => root.bookings
+export const Viewer: ViewerResolvers.Resolver<TypeMap> = {
+  me: parent => parent.me,
+  bookings: parent => parent.bookings
 };
 ",
     "force": false,
     "path": "Viewer.ts",
   },
   Object {
-    "code": "import { IAuthPayload } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { UserRoot } from \\"./User\\";
+    "code": "import { AuthPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { UserParent } from \\"./User\\";
 
-export interface AuthPayloadRoot {
+export interface AuthPayloadParent {
   token: string;
-  user: UserRoot;
+  user: UserParent;
 }
 
-export const AuthPayload: IAuthPayload.Resolver<Types> = {
-  token: root => root.token,
-  user: root => root.user
+export const AuthPayload: AuthPayloadResolvers.Resolver<TypeMap> = {
+  token: parent => parent.token,
+  user: parent => parent.user
 };
 ",
     "force": false,
     "path": "AuthPayload.ts",
   },
   Object {
-    "code": "import { IMutationResult } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { MutationResultResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface MutationResultRoot {
+export interface MutationResultParent {
   success: boolean;
 }
 
-export const MutationResult: IMutationResult.Resolver<Types> = {
-  success: root => root.success
+export const MutationResult: MutationResultResolvers.Resolver<TypeMap> = {
+  success: parent => parent.success
 };
 ",
     "force": false,
     "path": "MutationResult.ts",
   },
   Object {
-    "code": "import { IExperiencesByCity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { ExperienceRoot } from \\"./Experience\\";
-import { CityRoot } from \\"./City\\";
+    "code": "import { ExperiencesByCityResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { ExperienceParent } from \\"./Experience\\";
+import { CityParent } from \\"./City\\";
 
-export interface ExperiencesByCityRoot {
-  experiences: ExperienceRoot[];
-  city: CityRoot;
+export interface ExperiencesByCityParent {
+  experiences: ExperienceParent[];
+  city: CityParent;
 }
 
-export const ExperiencesByCity: IExperiencesByCity.Resolver<Types> = {
-  experiences: root => root.experiences,
-  city: root => root.city
+export const ExperiencesByCity: ExperiencesByCityResolvers.Resolver<TypeMap> = {
+  experiences: parent => parent.experiences,
+  city: parent => parent.city
 };
 ",
     "force": false,
     "path": "ExperiencesByCity.ts",
   },
   Object {
-    "code": "import { IHome } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { PictureRoot } from \\"./Picture\\";
+    "code": "import { HomeResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { PictureParent } from \\"./Picture\\";
 
-export interface HomeRoot {
+export interface HomeParent {
   id: string;
   name?: string;
   description: string;
   numRatings: number;
   avgRating?: number;
-  pictures: PictureRoot[];
+  pictures: PictureParent[];
   perNight: number;
 }
 
-export const Home: IHome.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  description: root => root.description,
-  numRatings: root => root.numRatings,
-  avgRating: root => root.avgRating,
-  pictures: (root, args) => root.pictures,
-  perNight: root => root.perNight
+export const Home: HomeResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  description: parent => parent.description,
+  numRatings: parent => parent.numRatings,
+  avgRating: parent => parent.avgRating,
+  pictures: (parent, args) => parent.pictures,
+  perNight: parent => parent.perNight
 };
 ",
     "force": false,
     "path": "Home.ts",
   },
   Object {
-    "code": "import { IReservation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { PictureRoot } from \\"./Picture\\";
-import { LocationRoot } from \\"./Location\\";
+    "code": "import { ReservationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { PictureParent } from \\"./Picture\\";
+import { LocationParent } from \\"./Location\\";
 
-export interface ReservationRoot {
+export interface ReservationParent {
   id: string;
   title: string;
   avgPricePerPerson: number;
-  pictures: PictureRoot[];
-  location: LocationRoot;
+  pictures: PictureParent[];
+  location: LocationParent;
   isCurated: boolean;
   slug: string;
   popularity: number;
 }
 
-export const Reservation: IReservation.Resolver<Types> = {
-  id: root => root.id,
-  title: root => root.title,
-  avgPricePerPerson: root => root.avgPricePerPerson,
-  pictures: root => root.pictures,
-  location: root => root.location,
-  isCurated: root => root.isCurated,
-  slug: root => root.slug,
-  popularity: root => root.popularity
+export const Reservation: ReservationResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  title: parent => parent.title,
+  avgPricePerPerson: parent => parent.avgPricePerPerson,
+  pictures: parent => parent.pictures,
+  location: parent => parent.location,
+  isCurated: parent => parent.isCurated,
+  slug: parent => parent.slug,
+  popularity: parent => parent.popularity
 };
 ",
     "force": false,
     "path": "Reservation.ts",
   },
   Object {
-    "code": "import { IExperience } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { ExperienceCategoryRoot } from \\"./ExperienceCategory\\";
-import { LocationRoot } from \\"./Location\\";
-import { ReviewRoot } from \\"./Review\\";
-import { PictureRoot } from \\"./Picture\\";
+    "code": "import { ExperienceResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { ExperienceCategoryParent } from \\"./ExperienceCategory\\";
+import { LocationParent } from \\"./Location\\";
+import { ReviewParent } from \\"./Review\\";
+import { PictureParent } from \\"./Picture\\";
 
-export interface ExperienceRoot {
+export interface ExperienceParent {
   id: string;
-  category?: ExperienceCategoryRoot;
+  category?: ExperienceCategoryParent;
   title: string;
-  location: LocationRoot;
+  location: LocationParent;
   pricePerPerson: number;
-  reviews: ReviewRoot[];
-  preview: PictureRoot;
+  reviews: ReviewParent[];
+  preview: PictureParent;
   popularity: number;
 }
 
-export const Experience: IExperience.Resolver<Types> = {
-  id: root => root.id,
-  category: root => root.category,
-  title: root => root.title,
-  location: root => root.location,
-  pricePerPerson: root => root.pricePerPerson,
-  reviews: root => root.reviews,
-  preview: root => root.preview,
-  popularity: root => root.popularity
+export const Experience: ExperienceResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  category: parent => parent.category,
+  title: parent => parent.title,
+  location: parent => parent.location,
+  pricePerPerson: parent => parent.pricePerPerson,
+  reviews: parent => parent.reviews,
+  preview: parent => parent.preview,
+  popularity: parent => parent.popularity
 };
 ",
     "force": false,
     "path": "Experience.ts",
   },
   Object {
-    "code": "import { IReview } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
+    "code": "import { ReviewResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
 
-export interface ReviewRoot {
+export interface ReviewParent {
   accuracy: number;
   checkIn: number;
   cleanliness: number;
   communication: number;
-  createdAt: DateTimeRoot;
+  createdAt: DateTimeParent;
   id: string;
   location: number;
   stars: number;
@@ -183,56 +183,56 @@ export interface ReviewRoot {
   value: number;
 }
 
-export const Review: IReview.Resolver<Types> = {
-  accuracy: root => root.accuracy,
-  checkIn: root => root.checkIn,
-  cleanliness: root => root.cleanliness,
-  communication: root => root.communication,
-  createdAt: root => root.createdAt,
-  id: root => root.id,
-  location: root => root.location,
-  stars: root => root.stars,
-  text: root => root.text,
-  value: root => root.value
+export const Review: ReviewResolvers.Resolver<TypeMap> = {
+  accuracy: parent => parent.accuracy,
+  checkIn: parent => parent.checkIn,
+  cleanliness: parent => parent.cleanliness,
+  communication: parent => parent.communication,
+  createdAt: parent => parent.createdAt,
+  id: parent => parent.id,
+  location: parent => parent.location,
+  stars: parent => parent.stars,
+  text: parent => parent.text,
+  value: parent => parent.value
 };
 ",
     "force": false,
     "path": "Review.ts",
   },
   Object {
-    "code": "import { INeighbourhood } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { PictureRoot } from \\"./Picture\\";
-import { CityRoot } from \\"./City\\";
+    "code": "import { NeighbourhoodResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { PictureParent } from \\"./Picture\\";
+import { CityParent } from \\"./City\\";
 
-export interface NeighbourhoodRoot {
+export interface NeighbourhoodParent {
   id: string;
   name: string;
   slug: string;
-  homePreview?: PictureRoot;
-  city: CityRoot;
+  homePreview?: PictureParent;
+  city: CityParent;
   featured: boolean;
   popularity: number;
 }
 
-export const Neighbourhood: INeighbourhood.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  slug: root => root.slug,
-  homePreview: root => root.homePreview,
-  city: root => root.city,
-  featured: root => root.featured,
-  popularity: root => root.popularity
+export const Neighbourhood: NeighbourhoodResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  slug: parent => parent.slug,
+  homePreview: parent => parent.homePreview,
+  city: parent => parent.city,
+  featured: parent => parent.featured,
+  popularity: parent => parent.popularity
 };
 ",
     "force": false,
     "path": "Neighbourhood.ts",
   },
   Object {
-    "code": "import { ILocation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { LocationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface LocationRoot {
+export interface LocationParent {
   id: string;
   lat: number;
   lng: number;
@@ -240,188 +240,190 @@ export interface LocationRoot {
   directions?: string;
 }
 
-export const Location: ILocation.Resolver<Types> = {
-  id: root => root.id,
-  lat: root => root.lat,
-  lng: root => root.lng,
-  address: root => root.address,
-  directions: root => root.directions
+export const Location: LocationResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  lat: parent => parent.lat,
+  lng: parent => parent.lng,
+  address: parent => parent.address,
+  directions: parent => parent.directions
 };
 ",
     "force": false,
     "path": "Location.ts",
   },
   Object {
-    "code": "import { IPicture } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { PictureResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface PictureRoot {
+export interface PictureParent {
   id: string;
   url: string;
 }
 
-export const Picture: IPicture.Resolver<Types> = {
-  id: root => root.id,
-  url: root => root.url
+export const Picture: PictureResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  url: parent => parent.url
 };
 ",
     "force": false,
     "path": "Picture.ts",
   },
   Object {
-    "code": "import { ICity } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { CityResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface CityRoot {
+export interface CityParent {
   id: string;
   name: string;
 }
 
-export const City: ICity.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name
+export const City: CityResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name
 };
 ",
     "force": false,
     "path": "City.ts",
   },
   Object {
-    "code": "import { IExperienceCategory } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { ExperienceRoot } from \\"./Experience\\";
+    "code": "import { ExperienceCategoryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { ExperienceParent } from \\"./Experience\\";
 
-export interface ExperienceCategoryRoot {
+export interface ExperienceCategoryParent {
   id: string;
   mainColor: string;
   name: string;
-  experience?: ExperienceRoot;
+  experience?: ExperienceParent;
 }
 
-export const ExperienceCategory: IExperienceCategory.Resolver<Types> = {
-  id: root => root.id,
-  mainColor: root => root.mainColor,
-  name: root => root.name,
-  experience: root => root.experience
+export const ExperienceCategory: ExperienceCategoryResolvers.Resolver<
+  TypeMap
+> = {
+  id: parent => parent.id,
+  mainColor: parent => parent.mainColor,
+  name: parent => parent.name,
+  experience: parent => parent.experience
 };
 ",
     "force": false,
     "path": "ExperienceCategory.ts",
   },
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { BookingRoot } from \\"./Booking\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { ExperienceRoot } from \\"./Experience\\";
-import { LocationRoot } from \\"./Location\\";
-import { NotificationRoot } from \\"./Notification\\";
-import { PlaceRoot } from \\"./Place\\";
-import { PaymentAccountRoot } from \\"./PaymentAccount\\";
-import { PictureRoot } from \\"./Picture\\";
-import { MessageRoot } from \\"./Message\\";
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { BookingParent } from \\"./Booking\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { ExperienceParent } from \\"./Experience\\";
+import { LocationParent } from \\"./Location\\";
+import { NotificationParent } from \\"./Notification\\";
+import { PlaceParent } from \\"./Place\\";
+import { PaymentAccountParent } from \\"./PaymentAccount\\";
+import { PictureParent } from \\"./Picture\\";
+import { MessageParent } from \\"./Message\\";
 
-export interface UserRoot {
-  bookings: BookingRoot[];
-  createdAt: DateTimeRoot;
+export interface UserParent {
+  bookings: BookingParent[];
+  createdAt: DateTimeParent;
   email: string;
   firstName: string;
-  hostingExperiences: ExperienceRoot[];
+  hostingExperiences: ExperienceParent[];
   id: string;
   isSuperHost: boolean;
   lastName: string;
-  location: LocationRoot;
-  notifications: NotificationRoot[];
-  ownedPlaces: PlaceRoot[];
-  paymentAccount: PaymentAccountRoot[];
+  location: LocationParent;
+  notifications: NotificationParent[];
+  ownedPlaces: PlaceParent[];
+  paymentAccount: PaymentAccountParent[];
   phone: string;
-  profilePicture?: PictureRoot;
-  receivedMessages: MessageRoot[];
+  profilePicture?: PictureParent;
+  receivedMessages: MessageParent[];
   responseRate?: number;
   responseTime?: number;
-  sentMessages: MessageRoot[];
-  updatedAt: DateTimeRoot;
+  sentMessages: MessageParent[];
+  updatedAt: DateTimeParent;
   token: string;
 }
 
-export const User: IUser.Resolver<Types> = {
-  bookings: root => root.bookings,
-  createdAt: root => root.createdAt,
-  email: root => root.email,
-  firstName: root => root.firstName,
-  hostingExperiences: root => root.hostingExperiences,
-  id: root => root.id,
-  isSuperHost: root => root.isSuperHost,
-  lastName: root => root.lastName,
-  location: root => root.location,
-  notifications: root => root.notifications,
-  ownedPlaces: root => root.ownedPlaces,
-  paymentAccount: root => root.paymentAccount,
-  phone: root => root.phone,
-  profilePicture: root => root.profilePicture,
-  receivedMessages: root => root.receivedMessages,
-  responseRate: root => root.responseRate,
-  responseTime: root => root.responseTime,
-  sentMessages: root => root.sentMessages,
-  updatedAt: root => root.updatedAt,
-  token: root => root.token
+export const User: UserResolvers.Resolver<TypeMap> = {
+  bookings: parent => parent.bookings,
+  createdAt: parent => parent.createdAt,
+  email: parent => parent.email,
+  firstName: parent => parent.firstName,
+  hostingExperiences: parent => parent.hostingExperiences,
+  id: parent => parent.id,
+  isSuperHost: parent => parent.isSuperHost,
+  lastName: parent => parent.lastName,
+  location: parent => parent.location,
+  notifications: parent => parent.notifications,
+  ownedPlaces: parent => parent.ownedPlaces,
+  paymentAccount: parent => parent.paymentAccount,
+  phone: parent => parent.phone,
+  profilePicture: parent => parent.profilePicture,
+  receivedMessages: parent => parent.receivedMessages,
+  responseRate: parent => parent.responseRate,
+  responseTime: parent => parent.responseTime,
+  sentMessages: parent => parent.sentMessages,
+  updatedAt: parent => parent.updatedAt,
+  token: parent => parent.token
 };
 ",
     "force": false,
     "path": "User.ts",
   },
   Object {
-    "code": "import { IPaymentAccount } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { PAYMENT_PROVIDERRoot } from \\"./PAYMENT_PROVIDER\\";
-import { UserRoot } from \\"./User\\";
-import { PaymentRoot } from \\"./Payment\\";
-import { PaypalInformationRoot } from \\"./PaypalInformation\\";
-import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
+    "code": "import { PaymentAccountResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { PAYMENT_PROVIDERParent } from \\"./PAYMENT_PROVIDER\\";
+import { UserParent } from \\"./User\\";
+import { PaymentParent } from \\"./Payment\\";
+import { PaypalInformationParent } from \\"./PaypalInformation\\";
+import { CreditCardInformationParent } from \\"./CreditCardInformation\\";
 
-export interface PaymentAccountRoot {
+export interface PaymentAccountParent {
   id: string;
-  createdAt: DateTimeRoot;
-  type?: PAYMENT_PROVIDERRoot;
-  user: UserRoot;
-  payments: PaymentRoot[];
-  paypal?: PaypalInformationRoot;
-  creditcard?: CreditCardInformationRoot;
+  createdAt: DateTimeParent;
+  type?: PAYMENT_PROVIDERParent;
+  user: UserParent;
+  payments: PaymentParent[];
+  paypal?: PaypalInformationParent;
+  creditcard?: CreditCardInformationParent;
 }
 
-export const PaymentAccount: IPaymentAccount.Resolver<Types> = {
-  id: root => root.id,
-  createdAt: root => root.createdAt,
-  type: root => root.type,
-  user: root => root.user,
-  payments: root => root.payments,
-  paypal: root => root.paypal,
-  creditcard: root => root.creditcard
+export const PaymentAccount: PaymentAccountResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  createdAt: parent => parent.createdAt,
+  type: parent => parent.type,
+  user: parent => parent.user,
+  payments: parent => parent.payments,
+  paypal: parent => parent.paypal,
+  creditcard: parent => parent.creditcard
 };
 ",
     "force": false,
     "path": "PaymentAccount.ts",
   },
   Object {
-    "code": "import { IPlace } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { PLACE_SIZESRoot } from \\"./PLACE_SIZES\\";
-import { ReviewRoot } from \\"./Review\\";
-import { AmenitiesRoot } from \\"./Amenities\\";
-import { UserRoot } from \\"./User\\";
-import { PricingRoot } from \\"./Pricing\\";
-import { LocationRoot } from \\"./Location\\";
-import { PlaceViewsRoot } from \\"./PlaceViews\\";
-import { GuestRequirementsRoot } from \\"./GuestRequirements\\";
-import { PoliciesRoot } from \\"./Policies\\";
-import { HouseRulesRoot } from \\"./HouseRules\\";
-import { BookingRoot } from \\"./Booking\\";
-import { PictureRoot } from \\"./Picture\\";
+    "code": "import { PlaceResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { PLACE_SIZESParent } from \\"./PLACE_SIZES\\";
+import { ReviewParent } from \\"./Review\\";
+import { AmenitiesParent } from \\"./Amenities\\";
+import { UserParent } from \\"./User\\";
+import { PricingParent } from \\"./Pricing\\";
+import { LocationParent } from \\"./Location\\";
+import { PlaceViewsParent } from \\"./PlaceViews\\";
+import { GuestRequirementsParent } from \\"./GuestRequirements\\";
+import { PoliciesParent } from \\"./Policies\\";
+import { HouseRulesParent } from \\"./HouseRules\\";
+import { BookingParent } from \\"./Booking\\";
+import { PictureParent } from \\"./Picture\\";
 
-export interface PlaceRoot {
+export interface PlaceParent {
   id: string;
   name?: string;
-  size?: PLACE_SIZESRoot;
+  size?: PLACE_SIZESParent;
   shortDescription: string;
   description: string;
   slug: string;
@@ -429,226 +431,228 @@ export interface PlaceRoot {
   numBedrooms: number;
   numBeds: number;
   numBaths: number;
-  reviews: ReviewRoot[];
-  amenities: AmenitiesRoot;
-  host: UserRoot;
-  pricing: PricingRoot;
-  location: LocationRoot;
-  views: PlaceViewsRoot;
-  guestRequirements?: GuestRequirementsRoot;
-  policies?: PoliciesRoot;
-  houseRules?: HouseRulesRoot;
-  bookings: BookingRoot[];
-  pictures: PictureRoot[];
+  reviews: ReviewParent[];
+  amenities: AmenitiesParent;
+  host: UserParent;
+  pricing: PricingParent;
+  location: LocationParent;
+  views: PlaceViewsParent;
+  guestRequirements?: GuestRequirementsParent;
+  policies?: PoliciesParent;
+  houseRules?: HouseRulesParent;
+  bookings: BookingParent[];
+  pictures: PictureParent[];
   popularity: number;
 }
 
-export const Place: IPlace.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  size: root => root.size,
-  shortDescription: root => root.shortDescription,
-  description: root => root.description,
-  slug: root => root.slug,
-  maxGuests: root => root.maxGuests,
-  numBedrooms: root => root.numBedrooms,
-  numBeds: root => root.numBeds,
-  numBaths: root => root.numBaths,
-  reviews: root => root.reviews,
-  amenities: root => root.amenities,
-  host: root => root.host,
-  pricing: root => root.pricing,
-  location: root => root.location,
-  views: root => root.views,
-  guestRequirements: root => root.guestRequirements,
-  policies: root => root.policies,
-  houseRules: root => root.houseRules,
-  bookings: root => root.bookings,
-  pictures: root => root.pictures,
-  popularity: root => root.popularity
+export const Place: PlaceResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  size: parent => parent.size,
+  shortDescription: parent => parent.shortDescription,
+  description: parent => parent.description,
+  slug: parent => parent.slug,
+  maxGuests: parent => parent.maxGuests,
+  numBedrooms: parent => parent.numBedrooms,
+  numBeds: parent => parent.numBeds,
+  numBaths: parent => parent.numBaths,
+  reviews: parent => parent.reviews,
+  amenities: parent => parent.amenities,
+  host: parent => parent.host,
+  pricing: parent => parent.pricing,
+  location: parent => parent.location,
+  views: parent => parent.views,
+  guestRequirements: parent => parent.guestRequirements,
+  policies: parent => parent.policies,
+  houseRules: parent => parent.houseRules,
+  bookings: parent => parent.bookings,
+  pictures: parent => parent.pictures,
+  popularity: parent => parent.popularity
 };
 ",
     "force": false,
     "path": "Place.ts",
   },
   Object {
-    "code": "import { IBooking } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { UserRoot } from \\"./User\\";
-import { PlaceRoot } from \\"./Place\\";
-import { PaymentRoot } from \\"./Payment\\";
+    "code": "import { BookingResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { UserParent } from \\"./User\\";
+import { PlaceParent } from \\"./Place\\";
+import { PaymentParent } from \\"./Payment\\";
 
-export interface BookingRoot {
+export interface BookingParent {
   id: string;
-  createdAt: DateTimeRoot;
-  bookee: UserRoot;
-  place: PlaceRoot;
-  startDate: DateTimeRoot;
-  endDate: DateTimeRoot;
-  payment: PaymentRoot;
+  createdAt: DateTimeParent;
+  bookee: UserParent;
+  place: PlaceParent;
+  startDate: DateTimeParent;
+  endDate: DateTimeParent;
+  payment: PaymentParent;
 }
 
-export const Booking: IBooking.Resolver<Types> = {
-  id: root => root.id,
-  createdAt: root => root.createdAt,
-  bookee: root => root.bookee,
-  place: root => root.place,
-  startDate: root => root.startDate,
-  endDate: root => root.endDate,
-  payment: root => root.payment
+export const Booking: BookingResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  createdAt: parent => parent.createdAt,
+  bookee: parent => parent.bookee,
+  place: parent => parent.place,
+  startDate: parent => parent.startDate,
+  endDate: parent => parent.endDate,
+  payment: parent => parent.payment
 };
 ",
     "force": false,
     "path": "Booking.ts",
   },
   Object {
-    "code": "import { INotification } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { NOTIFICATION_TYPERoot } from \\"./NOTIFICATION_TYPE\\";
-import { UserRoot } from \\"./User\\";
+    "code": "import { NotificationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { NOTIFICATION_TYPEParent } from \\"./NOTIFICATION_TYPE\\";
+import { UserParent } from \\"./User\\";
 
-export interface NotificationRoot {
-  createdAt: DateTimeRoot;
+export interface NotificationParent {
+  createdAt: DateTimeParent;
   id: string;
   link: string;
-  readDate: DateTimeRoot;
-  type?: NOTIFICATION_TYPERoot;
-  user: UserRoot;
+  readDate: DateTimeParent;
+  type?: NOTIFICATION_TYPEParent;
+  user: UserParent;
 }
 
-export const Notification: INotification.Resolver<Types> = {
-  createdAt: root => root.createdAt,
-  id: root => root.id,
-  link: root => root.link,
-  readDate: root => root.readDate,
-  type: root => root.type,
-  user: root => root.user
+export const Notification: NotificationResolvers.Resolver<TypeMap> = {
+  createdAt: parent => parent.createdAt,
+  id: parent => parent.id,
+  link: parent => parent.link,
+  readDate: parent => parent.readDate,
+  type: parent => parent.type,
+  user: parent => parent.user
 };
 ",
     "force": false,
     "path": "Notification.ts",
   },
   Object {
-    "code": "import { IPayment } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { BookingRoot } from \\"./Booking\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+    "code": "import { PaymentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { BookingParent } from \\"./Booking\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { PaymentAccountParent } from \\"./PaymentAccount\\";
 
-export interface PaymentRoot {
-  booking: BookingRoot;
-  createdAt: DateTimeRoot;
+export interface PaymentParent {
+  booking: BookingParent;
+  createdAt: DateTimeParent;
   id: string;
-  paymentMethod: PaymentAccountRoot;
+  paymentMethod: PaymentAccountParent;
   serviceFee: number;
 }
 
-export const Payment: IPayment.Resolver<Types> = {
-  booking: root => root.booking,
-  createdAt: root => root.createdAt,
-  id: root => root.id,
-  paymentMethod: root => root.paymentMethod,
-  serviceFee: root => root.serviceFee
+export const Payment: PaymentResolvers.Resolver<TypeMap> = {
+  booking: parent => parent.booking,
+  createdAt: parent => parent.createdAt,
+  id: parent => parent.id,
+  paymentMethod: parent => parent.paymentMethod,
+  serviceFee: parent => parent.serviceFee
 };
 ",
     "force": false,
     "path": "Payment.ts",
   },
   Object {
-    "code": "import { IPaypalInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+    "code": "import { PaypalInformationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { PaymentAccountParent } from \\"./PaymentAccount\\";
 
-export interface PaypalInformationRoot {
-  createdAt: DateTimeRoot;
+export interface PaypalInformationParent {
+  createdAt: DateTimeParent;
   email: string;
   id: string;
-  paymentAccount: PaymentAccountRoot;
+  paymentAccount: PaymentAccountParent;
 }
 
-export const PaypalInformation: IPaypalInformation.Resolver<Types> = {
-  createdAt: root => root.createdAt,
-  email: root => root.email,
-  id: root => root.id,
-  paymentAccount: root => root.paymentAccount
+export const PaypalInformation: PaypalInformationResolvers.Resolver<TypeMap> = {
+  createdAt: parent => parent.createdAt,
+  email: parent => parent.email,
+  id: parent => parent.id,
+  paymentAccount: parent => parent.paymentAccount
 };
 ",
     "force": false,
     "path": "PaypalInformation.ts",
   },
   Object {
-    "code": "import { ICreditCardInformation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
-import { PaymentAccountRoot } from \\"./PaymentAccount\\";
+    "code": "import { CreditCardInformationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
+import { PaymentAccountParent } from \\"./PaymentAccount\\";
 
-export interface CreditCardInformationRoot {
+export interface CreditCardInformationParent {
   cardNumber: string;
   country: string;
-  createdAt: DateTimeRoot;
+  createdAt: DateTimeParent;
   expiresOnMonth: number;
   expiresOnYear: number;
   firstName: string;
   id: string;
   lastName: string;
-  paymentAccount?: PaymentAccountRoot;
+  paymentAccount?: PaymentAccountParent;
   postalCode: string;
   securityCode: string;
 }
 
-export const CreditCardInformation: ICreditCardInformation.Resolver<Types> = {
-  cardNumber: root => root.cardNumber,
-  country: root => root.country,
-  createdAt: root => root.createdAt,
-  expiresOnMonth: root => root.expiresOnMonth,
-  expiresOnYear: root => root.expiresOnYear,
-  firstName: root => root.firstName,
-  id: root => root.id,
-  lastName: root => root.lastName,
-  paymentAccount: root => root.paymentAccount,
-  postalCode: root => root.postalCode,
-  securityCode: root => root.securityCode
+export const CreditCardInformation: CreditCardInformationResolvers.Resolver<
+  TypeMap
+> = {
+  cardNumber: parent => parent.cardNumber,
+  country: parent => parent.country,
+  createdAt: parent => parent.createdAt,
+  expiresOnMonth: parent => parent.expiresOnMonth,
+  expiresOnYear: parent => parent.expiresOnYear,
+  firstName: parent => parent.firstName,
+  id: parent => parent.id,
+  lastName: parent => parent.lastName,
+  paymentAccount: parent => parent.paymentAccount,
+  postalCode: parent => parent.postalCode,
+  securityCode: parent => parent.securityCode
 };
 ",
     "force": false,
     "path": "CreditCardInformation.ts",
   },
   Object {
-    "code": "import { IMessage } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
+    "code": "import { MessageResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
 
-export interface MessageRoot {
-  createdAt: DateTimeRoot;
-  deliveredAt: DateTimeRoot;
+export interface MessageParent {
+  createdAt: DateTimeParent;
+  deliveredAt: DateTimeParent;
   id: string;
-  readAt: DateTimeRoot;
+  readAt: DateTimeParent;
 }
 
-export const Message: IMessage.Resolver<Types> = {
-  createdAt: root => root.createdAt,
-  deliveredAt: root => root.deliveredAt,
-  id: root => root.id,
-  readAt: root => root.readAt
+export const Message: MessageResolvers.Resolver<TypeMap> = {
+  createdAt: parent => parent.createdAt,
+  deliveredAt: parent => parent.deliveredAt,
+  id: parent => parent.id,
+  readAt: parent => parent.readAt
 };
 ",
     "force": false,
     "path": "Message.ts",
   },
   Object {
-    "code": "import { IPricing } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { CURRENCYRoot } from \\"./CURRENCY\\";
+    "code": "import { PricingResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { CURRENCYParent } from \\"./CURRENCY\\";
 
-export interface PricingRoot {
+export interface PricingParent {
   averageMonthly: number;
   averageWeekly: number;
   basePrice: number;
   cleaningFee?: number;
-  currency?: CURRENCYRoot;
+  currency?: CURRENCYParent;
   extraGuests?: number;
   id: string;
   monthlyDiscount?: number;
@@ -659,126 +663,126 @@ export interface PricingRoot {
   weeklyDiscount?: number;
 }
 
-export const Pricing: IPricing.Resolver<Types> = {
-  averageMonthly: root => root.averageMonthly,
-  averageWeekly: root => root.averageWeekly,
-  basePrice: root => root.basePrice,
-  cleaningFee: root => root.cleaningFee,
-  currency: root => root.currency,
-  extraGuests: root => root.extraGuests,
-  id: root => root.id,
-  monthlyDiscount: root => root.monthlyDiscount,
-  perNight: root => root.perNight,
-  securityDeposit: root => root.securityDeposit,
-  smartPricing: root => root.smartPricing,
-  weekendPricing: root => root.weekendPricing,
-  weeklyDiscount: root => root.weeklyDiscount
+export const Pricing: PricingResolvers.Resolver<TypeMap> = {
+  averageMonthly: parent => parent.averageMonthly,
+  averageWeekly: parent => parent.averageWeekly,
+  basePrice: parent => parent.basePrice,
+  cleaningFee: parent => parent.cleaningFee,
+  currency: parent => parent.currency,
+  extraGuests: parent => parent.extraGuests,
+  id: parent => parent.id,
+  monthlyDiscount: parent => parent.monthlyDiscount,
+  perNight: parent => parent.perNight,
+  securityDeposit: parent => parent.securityDeposit,
+  smartPricing: parent => parent.smartPricing,
+  weekendPricing: parent => parent.weekendPricing,
+  weeklyDiscount: parent => parent.weeklyDiscount
 };
 ",
     "force": false,
     "path": "Pricing.ts",
   },
   Object {
-    "code": "import { IPlaceViews } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { PlaceViewsResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface PlaceViewsRoot {
+export interface PlaceViewsParent {
   id: string;
   lastWeek: number;
 }
 
-export const PlaceViews: IPlaceViews.Resolver<Types> = {
-  id: root => root.id,
-  lastWeek: root => root.lastWeek
+export const PlaceViews: PlaceViewsResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  lastWeek: parent => parent.lastWeek
 };
 ",
     "force": false,
     "path": "PlaceViews.ts",
   },
   Object {
-    "code": "import { IGuestRequirements } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { GuestRequirementsResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface GuestRequirementsRoot {
+export interface GuestRequirementsParent {
   govIssuedId: boolean;
   guestTripInformation: boolean;
   id: string;
   recommendationsFromOtherHosts: boolean;
 }
 
-export const GuestRequirements: IGuestRequirements.Resolver<Types> = {
-  govIssuedId: root => root.govIssuedId,
-  guestTripInformation: root => root.guestTripInformation,
-  id: root => root.id,
-  recommendationsFromOtherHosts: root => root.recommendationsFromOtherHosts
+export const GuestRequirements: GuestRequirementsResolvers.Resolver<TypeMap> = {
+  govIssuedId: parent => parent.govIssuedId,
+  guestTripInformation: parent => parent.guestTripInformation,
+  id: parent => parent.id,
+  recommendationsFromOtherHosts: parent => parent.recommendationsFromOtherHosts
 };
 ",
     "force": false,
     "path": "GuestRequirements.ts",
   },
   Object {
-    "code": "import { IPolicies } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
+    "code": "import { PoliciesResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
 
-export interface PoliciesRoot {
+export interface PoliciesParent {
   checkInEndTime: number;
   checkInStartTime: number;
   checkoutTime: number;
-  createdAt: DateTimeRoot;
+  createdAt: DateTimeParent;
   id: string;
-  updatedAt: DateTimeRoot;
+  updatedAt: DateTimeParent;
 }
 
-export const Policies: IPolicies.Resolver<Types> = {
-  checkInEndTime: root => root.checkInEndTime,
-  checkInStartTime: root => root.checkInStartTime,
-  checkoutTime: root => root.checkoutTime,
-  createdAt: root => root.createdAt,
-  id: root => root.id,
-  updatedAt: root => root.updatedAt
+export const Policies: PoliciesResolvers.Resolver<TypeMap> = {
+  checkInEndTime: parent => parent.checkInEndTime,
+  checkInStartTime: parent => parent.checkInStartTime,
+  checkoutTime: parent => parent.checkoutTime,
+  createdAt: parent => parent.createdAt,
+  id: parent => parent.id,
+  updatedAt: parent => parent.updatedAt
 };
 ",
     "force": false,
     "path": "Policies.ts",
   },
   Object {
-    "code": "import { IHouseRules } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
-import { DateTimeRoot } from \\"./DateTime\\";
+    "code": "import { HouseRulesResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { DateTimeParent } from \\"./DateTime\\";
 
-export interface HouseRulesRoot {
+export interface HouseRulesParent {
   additionalRules?: string;
-  createdAt: DateTimeRoot;
+  createdAt: DateTimeParent;
   id: string;
   partiesAndEventsAllowed?: boolean;
   petsAllowed?: boolean;
   smokingAllowed?: boolean;
   suitableForChildren?: boolean;
   suitableForInfants?: boolean;
-  updatedAt: DateTimeRoot;
+  updatedAt: DateTimeParent;
 }
 
-export const HouseRules: IHouseRules.Resolver<Types> = {
-  additionalRules: root => root.additionalRules,
-  createdAt: root => root.createdAt,
-  id: root => root.id,
-  partiesAndEventsAllowed: root => root.partiesAndEventsAllowed,
-  petsAllowed: root => root.petsAllowed,
-  smokingAllowed: root => root.smokingAllowed,
-  suitableForChildren: root => root.suitableForChildren,
-  suitableForInfants: root => root.suitableForInfants,
-  updatedAt: root => root.updatedAt
+export const HouseRules: HouseRulesResolvers.Resolver<TypeMap> = {
+  additionalRules: parent => parent.additionalRules,
+  createdAt: parent => parent.createdAt,
+  id: parent => parent.id,
+  partiesAndEventsAllowed: parent => parent.partiesAndEventsAllowed,
+  petsAllowed: parent => parent.petsAllowed,
+  smokingAllowed: parent => parent.smokingAllowed,
+  suitableForChildren: parent => parent.suitableForChildren,
+  suitableForInfants: parent => parent.suitableForInfants,
+  updatedAt: parent => parent.updatedAt
 };
 ",
     "force": false,
     "path": "HouseRules.ts",
   },
   Object {
-    "code": "import { IAmenities } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { AmenitiesResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface AmenitiesRoot {
+export interface AmenitiesParent {
   airConditioning: boolean;
   babyBath: boolean;
   babyMonitor: boolean;
@@ -822,102 +826,102 @@ export interface AmenitiesRoot {
   wirelessInternet: boolean;
 }
 
-export const Amenities: IAmenities.Resolver<Types> = {
-  airConditioning: root => root.airConditioning,
-  babyBath: root => root.babyBath,
-  babyMonitor: root => root.babyMonitor,
-  babysitterRecommendations: root => root.babysitterRecommendations,
-  bathtub: root => root.bathtub,
-  breakfast: root => root.breakfast,
-  buzzerWirelessIntercom: root => root.buzzerWirelessIntercom,
-  cableTv: root => root.cableTv,
-  changingTable: root => root.changingTable,
-  childrensBooksAndToys: root => root.childrensBooksAndToys,
-  childrensDinnerware: root => root.childrensDinnerware,
-  crib: root => root.crib,
-  doorman: root => root.doorman,
-  dryer: root => root.dryer,
-  elevator: root => root.elevator,
-  essentials: root => root.essentials,
-  familyKidFriendly: root => root.familyKidFriendly,
-  freeParkingOnPremises: root => root.freeParkingOnPremises,
-  freeParkingOnStreet: root => root.freeParkingOnStreet,
-  gym: root => root.gym,
-  hairDryer: root => root.hairDryer,
-  hangers: root => root.hangers,
-  heating: root => root.heating,
-  hotTub: root => root.hotTub,
-  id: root => root.id,
-  indoorFireplace: root => root.indoorFireplace,
-  internet: root => root.internet,
-  iron: root => root.iron,
-  kitchen: root => root.kitchen,
-  laptopFriendlyWorkspace: root => root.laptopFriendlyWorkspace,
-  paidParkingOffPremises: root => root.paidParkingOffPremises,
-  petsAllowed: root => root.petsAllowed,
-  pool: root => root.pool,
-  privateEntrance: root => root.privateEntrance,
-  shampoo: root => root.shampoo,
-  smokingAllowed: root => root.smokingAllowed,
-  suitableForEvents: root => root.suitableForEvents,
-  tv: root => root.tv,
-  washer: root => root.washer,
-  wheelchairAccessible: root => root.wheelchairAccessible,
-  wirelessInternet: root => root.wirelessInternet
+export const Amenities: AmenitiesResolvers.Resolver<TypeMap> = {
+  airConditioning: parent => parent.airConditioning,
+  babyBath: parent => parent.babyBath,
+  babyMonitor: parent => parent.babyMonitor,
+  babysitterRecommendations: parent => parent.babysitterRecommendations,
+  bathtub: parent => parent.bathtub,
+  breakfast: parent => parent.breakfast,
+  buzzerWirelessIntercom: parent => parent.buzzerWirelessIntercom,
+  cableTv: parent => parent.cableTv,
+  changingTable: parent => parent.changingTable,
+  childrensBooksAndToys: parent => parent.childrensBooksAndToys,
+  childrensDinnerware: parent => parent.childrensDinnerware,
+  crib: parent => parent.crib,
+  doorman: parent => parent.doorman,
+  dryer: parent => parent.dryer,
+  elevator: parent => parent.elevator,
+  essentials: parent => parent.essentials,
+  familyKidFriendly: parent => parent.familyKidFriendly,
+  freeParkingOnPremises: parent => parent.freeParkingOnPremises,
+  freeParkingOnStreet: parent => parent.freeParkingOnStreet,
+  gym: parent => parent.gym,
+  hairDryer: parent => parent.hairDryer,
+  hangers: parent => parent.hangers,
+  heating: parent => parent.heating,
+  hotTub: parent => parent.hotTub,
+  id: parent => parent.id,
+  indoorFireplace: parent => parent.indoorFireplace,
+  internet: parent => parent.internet,
+  iron: parent => parent.iron,
+  kitchen: parent => parent.kitchen,
+  laptopFriendlyWorkspace: parent => parent.laptopFriendlyWorkspace,
+  paidParkingOffPremises: parent => parent.paidParkingOffPremises,
+  petsAllowed: parent => parent.petsAllowed,
+  pool: parent => parent.pool,
+  privateEntrance: parent => parent.privateEntrance,
+  shampoo: parent => parent.shampoo,
+  smokingAllowed: parent => parent.smokingAllowed,
+  suitableForEvents: parent => parent.suitableForEvents,
+  tv: parent => parent.tv,
+  washer: parent => parent.washer,
+  wheelchairAccessible: parent => parent.wheelchairAccessible,
+  wirelessInternet: parent => parent.wirelessInternet
 };
 ",
     "force": false,
     "path": "Amenities.ts",
   },
   Object {
-    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface QueryRoot {}
+export interface QueryParent {}
 
-export const Query: IQuery.Resolver<Types> = {
-  topExperiences: root => {
+export const Query: QueryResolvers.Resolver<TypeMap> = {
+  topExperiences: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  topHomes: root => {
+  topHomes: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  homesInPriceRange: (root, args) => {
+  homesInPriceRange: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  topReservations: root => {
+  topReservations: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  featuredDestinations: root => {
+  featuredDestinations: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  experiencesByCity: (root, args) => {
+  experiencesByCity: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  viewer: root => null,
-  myLocation: root => null
+  viewer: parent => null,
+  myLocation: parent => null
 };
 ",
     "force": false,
     "path": "Query.ts",
   },
   Object {
-    "code": "import { IMutation } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface MutationRoot {}
+export interface MutationParent {}
 
-export const Mutation: IMutation.Resolver<Types> = {
-  signup: (root, args) => {
+export const Mutation: MutationResolvers.Resolver<TypeMap> = {
+  signup: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  login: (root, args) => {
+  login: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  addPaymentMethod: (root, args) => {
+  addPaymentMethod: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  book: (root, args) => {
+  book: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -932,84 +936,84 @@ export const Mutation: IMutation.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { QueryRoot } from \\"./Query\\";
-import { MutationRoot } from \\"./Mutation\\";
-import { ViewerRoot } from \\"./Viewer\\";
-import { AuthPayloadRoot } from \\"./AuthPayload\\";
-import { MutationResultRoot } from \\"./MutationResult\\";
-import { ExperiencesByCityRoot } from \\"./ExperiencesByCity\\";
-import { HomeRoot } from \\"./Home\\";
-import { ReservationRoot } from \\"./Reservation\\";
-import { ExperienceRoot } from \\"./Experience\\";
-import { ReviewRoot } from \\"./Review\\";
-import { NeighbourhoodRoot } from \\"./Neighbourhood\\";
-import { LocationRoot } from \\"./Location\\";
-import { PictureRoot } from \\"./Picture\\";
-import { CityRoot } from \\"./City\\";
-import { ExperienceCategoryRoot } from \\"./ExperienceCategory\\";
-import { UserRoot } from \\"./User\\";
-import { PaymentAccountRoot } from \\"./PaymentAccount\\";
-import { PlaceRoot } from \\"./Place\\";
-import { BookingRoot } from \\"./Booking\\";
-import { NotificationRoot } from \\"./Notification\\";
-import { PaymentRoot } from \\"./Payment\\";
-import { PaypalInformationRoot } from \\"./PaypalInformation\\";
-import { CreditCardInformationRoot } from \\"./CreditCardInformation\\";
-import { MessageRoot } from \\"./Message\\";
-import { PricingRoot } from \\"./Pricing\\";
-import { PlaceViewsRoot } from \\"./PlaceViews\\";
-import { GuestRequirementsRoot } from \\"./GuestRequirements\\";
-import { PoliciesRoot } from \\"./Policies\\";
-import { HouseRulesRoot } from \\"./HouseRules\\";
-import { AmenitiesRoot } from \\"./Amenities\\";
+import { QueryParent } from \\"../Query\\";
+import { MutationParent } from \\"../Mutation\\";
+import { ViewerParent } from \\"../Viewer\\";
+import { AuthPayloadParent } from \\"../AuthPayload\\";
+import { MutationResultParent } from \\"../MutationResult\\";
+import { ExperiencesByCityParent } from \\"../ExperiencesByCity\\";
+import { HomeParent } from \\"../Home\\";
+import { ReservationParent } from \\"../Reservation\\";
+import { ExperienceParent } from \\"../Experience\\";
+import { ReviewParent } from \\"../Review\\";
+import { NeighbourhoodParent } from \\"../Neighbourhood\\";
+import { LocationParent } from \\"../Location\\";
+import { PictureParent } from \\"../Picture\\";
+import { CityParent } from \\"../City\\";
+import { ExperienceCategoryParent } from \\"../ExperienceCategory\\";
+import { UserParent } from \\"../User\\";
+import { PaymentAccountParent } from \\"../PaymentAccount\\";
+import { PlaceParent } from \\"../Place\\";
+import { BookingParent } from \\"../Booking\\";
+import { NotificationParent } from \\"../Notification\\";
+import { PaymentParent } from \\"../Payment\\";
+import { PaypalInformationParent } from \\"../PaypalInformation\\";
+import { CreditCardInformationParent } from \\"../CreditCardInformation\\";
+import { MessageParent } from \\"../Message\\";
+import { PricingParent } from \\"../Pricing\\";
+import { PlaceViewsParent } from \\"../PlaceViews\\";
+import { GuestRequirementsParent } from \\"../GuestRequirements\\";
+import { PoliciesParent } from \\"../Policies\\";
+import { HouseRulesParent } from \\"../HouseRules\\";
+import { AmenitiesParent } from \\"../Amenities\\";
 
-import { Context } from \\"./Context\\";
+import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
-  QueryRoot: QueryRoot;
-  MutationRoot: MutationRoot;
-  ViewerRoot: ViewerRoot;
-  AuthPayloadRoot: AuthPayloadRoot;
-  MutationResultRoot: MutationResultRoot;
-  ExperiencesByCityRoot: ExperiencesByCityRoot;
-  HomeRoot: HomeRoot;
-  ReservationRoot: ReservationRoot;
-  ExperienceRoot: ExperienceRoot;
-  ReviewRoot: ReviewRoot;
-  NeighbourhoodRoot: NeighbourhoodRoot;
-  LocationRoot: LocationRoot;
-  PictureRoot: PictureRoot;
-  CityRoot: CityRoot;
-  ExperienceCategoryRoot: ExperienceCategoryRoot;
-  UserRoot: UserRoot;
-  PaymentAccountRoot: PaymentAccountRoot;
-  PlaceRoot: PlaceRoot;
-  BookingRoot: BookingRoot;
-  NotificationRoot: NotificationRoot;
-  PaymentRoot: PaymentRoot;
-  PaypalInformationRoot: PaypalInformationRoot;
-  CreditCardInformationRoot: CreditCardInformationRoot;
-  MessageRoot: MessageRoot;
-  PricingRoot: PricingRoot;
-  PlaceViewsRoot: PlaceViewsRoot;
-  GuestRequirementsRoot: GuestRequirementsRoot;
-  PoliciesRoot: PoliciesRoot;
-  HouseRulesRoot: HouseRulesRoot;
-  AmenitiesRoot: AmenitiesRoot;
+  QueryParent: QueryParent;
+  MutationParent: MutationParent;
+  ViewerParent: ViewerParent;
+  AuthPayloadParent: AuthPayloadParent;
+  MutationResultParent: MutationResultParent;
+  ExperiencesByCityParent: ExperiencesByCityParent;
+  HomeParent: HomeParent;
+  ReservationParent: ReservationParent;
+  ExperienceParent: ExperienceParent;
+  ReviewParent: ReviewParent;
+  NeighbourhoodParent: NeighbourhoodParent;
+  LocationParent: LocationParent;
+  PictureParent: PictureParent;
+  CityParent: CityParent;
+  ExperienceCategoryParent: ExperienceCategoryParent;
+  UserParent: UserParent;
+  PaymentAccountParent: PaymentAccountParent;
+  PlaceParent: PlaceParent;
+  BookingParent: BookingParent;
+  NotificationParent: NotificationParent;
+  PaymentParent: PaymentParent;
+  PaypalInformationParent: PaypalInformationParent;
+  CreditCardInformationParent: CreditCardInformationParent;
+  MessageParent: MessageParent;
+  PricingParent: PricingParent;
+  PlaceViewsParent: PlaceViewsParent;
+  GuestRequirementsParent: GuestRequirementsParent;
+  PoliciesParent: PoliciesParent;
+  HouseRulesParent: HouseRulesParent;
+  AmenitiesParent: AmenitiesParent;
 }
 ",
     "force": true,
-    "path": "types.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
 import { Mutation } from \\"./Mutation\\";
@@ -1042,7 +1046,7 @@ import { Policies } from \\"./Policies\\";
 import { HouseRules } from \\"./HouseRules\\";
 import { Amenities } from \\"./Amenities\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   Query,
   Mutation,
   Viewer,

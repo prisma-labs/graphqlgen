@@ -291,7 +291,7 @@ module Query = {
     \\"cities\\": Js.Array.t(Data.experiencesByCity),
   };
 
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -299,20 +299,20 @@ module Query = {
   type resolvers = {
     .
     \\"topExperiences\\":
-      (root, args, context, info) => Js.Array.t(Data.experience),
-    \\"topHomes\\": (root, args, context, info) => Js.Array.t(Data.home),
+      (parent, args, context, info) => Js.Array.t(Data.experience),
+    \\"topHomes\\": (parent, args, context, info) => Js.Array.t(Data.home),
     \\"homesInPriceRange\\":
-      (root, homesInPriceRangeArgument, context, info) =>
+      (parent, homesInPriceRangeArgument, context, info) =>
       Js.Array.t(Data.home),
     \\"topReservations\\":
-      (root, args, context, info) => Js.Array.t(Data.reservation),
+      (parent, args, context, info) => Js.Array.t(Data.reservation),
     \\"featuredDestinations\\":
-      (root, args, context, info) => Js.Array.t(Data.neighbourhood),
+      (parent, args, context, info) => Js.Array.t(Data.neighbourhood),
     \\"experiencesByCity\\":
-      (root, experiencesByCityArgument, context, info) =>
+      (parent, experiencesByCityArgument, context, info) =>
       Js.Array.t(Data.experiencesByCity),
-    \\"viewer\\": (root, args, context, info) => Data.viewer,
-    \\"myLocation\\": (root, args, context, info) => Data.location,
+    \\"viewer\\": (parent, args, context, info) => Data.viewer,
+    \\"myLocation\\": (parent, args, context, info) => Data.location,
   };
 };
 
@@ -352,45 +352,45 @@ module Mutation = {
     \\"numGuests\\": Data.mutationResult,
   };
 
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"signup\\": (root, signupArgument, context, info) => Data.authPayload,
-    \\"login\\": (root, loginArgument, context, info) => Data.authPayload,
+    \\"signup\\": (parent, signupArgument, context, info) => Data.authPayload,
+    \\"login\\": (parent, loginArgument, context, info) => Data.authPayload,
     \\"addPaymentMethod\\":
-      (root, addPaymentMethodArgument, context, info) => Data.mutationResult,
-    \\"book\\": (root, bookArgument, context, info) => Data.mutationResult,
+      (parent, addPaymentMethodArgument, context, info) => Data.mutationResult,
+    \\"book\\": (parent, bookArgument, context, info) => Data.mutationResult,
   };
 };
 
 module Viewer = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"me\\": (root, args, context, info) => Data.user,
-    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
+    \\"me\\": (parent, args, context, info) => Data.user,
+    \\"bookings\\": (parent, args, context, info) => Js.Array.t(Data.booking),
   };
 };
 
 module AuthPayload = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
-  type resolvers = {. \\"user\\": (root, args, context, info) => Data.user};
+  type resolvers = {. \\"user\\": (parent, args, context, info) => Data.user};
 };
 
 module MutationResult = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -399,22 +399,23 @@ module MutationResult = {
 };
 
 module ExperiencesByCity = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"experiences\\": (root, args, context, info) => Js.Array.t(Data.experience),
-    \\"city\\": (root, args, context, info) => Data.city,
+    \\"experiences\\":
+      (parent, args, context, info) => Js.Array.t(Data.experience),
+    \\"city\\": (parent, args, context, info) => Data.city,
   };
 };
 
 module Home = {
   type picturesArgument = {. \\"first\\": Js.Array.t(Data.picture)};
 
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -422,40 +423,40 @@ module Home = {
   type resolvers = {
     .
     \\"pictures\\":
-      (root, picturesArgument, context, info) => Js.Array.t(Data.picture),
+      (parent, picturesArgument, context, info) => Js.Array.t(Data.picture),
   };
 };
 
 module Reservation = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"pictures\\": (root, args, context, info) => Js.Array.t(Data.picture),
-    \\"location\\": (root, args, context, info) => Data.location,
+    \\"pictures\\": (parent, args, context, info) => Js.Array.t(Data.picture),
+    \\"location\\": (parent, args, context, info) => Data.location,
   };
 };
 
 module Experience = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"category\\": (root, args, context, info) => Data.experienceCategory,
-    \\"location\\": (root, args, context, info) => Data.location,
-    \\"reviews\\": (root, args, context, info) => Js.Array.t(Data.review),
-    \\"preview\\": (root, args, context, info) => Data.picture,
+    \\"category\\": (parent, args, context, info) => Data.experienceCategory,
+    \\"location\\": (parent, args, context, info) => Data.location,
+    \\"reviews\\": (parent, args, context, info) => Js.Array.t(Data.review),
+    \\"preview\\": (parent, args, context, info) => Data.picture,
   };
 };
 
 module Review = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -464,20 +465,20 @@ module Review = {
 };
 
 module Neighbourhood = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"homePreview\\": (root, args, context, info) => Data.picture,
-    \\"city\\": (root, args, context, info) => Data.city,
+    \\"homePreview\\": (parent, args, context, info) => Data.picture,
+    \\"city\\": (parent, args, context, info) => Data.city,
   };
 };
 
 module Location = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -486,7 +487,7 @@ module Location = {
 };
 
 module Picture = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -495,7 +496,7 @@ module Picture = {
 };
 
 module City = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -504,146 +505,147 @@ module City = {
 };
 
 module ExperienceCategory = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"experience\\": (root, args, context, info) => Data.experience,
+    \\"experience\\": (parent, args, context, info) => Data.experience,
   };
 };
 
 module User = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
+    \\"bookings\\": (parent, args, context, info) => Js.Array.t(Data.booking),
     \\"hostingExperiences\\":
-      (root, args, context, info) => Js.Array.t(Data.experience),
-    \\"location\\": (root, args, context, info) => Data.location,
+      (parent, args, context, info) => Js.Array.t(Data.experience),
+    \\"location\\": (parent, args, context, info) => Data.location,
     \\"notifications\\":
-      (root, args, context, info) => Js.Array.t(Data.notification),
-    \\"ownedPlaces\\": (root, args, context, info) => Js.Array.t(Data.place),
+      (parent, args, context, info) => Js.Array.t(Data.notification),
+    \\"ownedPlaces\\": (parent, args, context, info) => Js.Array.t(Data.place),
     \\"paymentAccount\\":
-      (root, args, context, info) => Js.Array.t(Data.paymentAccount),
-    \\"profilePicture\\": (root, args, context, info) => Data.picture,
+      (parent, args, context, info) => Js.Array.t(Data.paymentAccount),
+    \\"profilePicture\\": (parent, args, context, info) => Data.picture,
     \\"receivedMessages\\":
-      (root, args, context, info) => Js.Array.t(Data.message),
-    \\"sentMessages\\": (root, args, context, info) => Js.Array.t(Data.message),
+      (parent, args, context, info) => Js.Array.t(Data.message),
+    \\"sentMessages\\": (parent, args, context, info) => Js.Array.t(Data.message),
   };
 };
 
 module PaymentAccount = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"type\\": (root, args, context, info) => Data.paymentProvider,
-    \\"user\\": (root, args, context, info) => Data.user,
-    \\"payments\\": (root, args, context, info) => Js.Array.t(Data.payment),
-    \\"paypal\\": (root, args, context, info) => Data.paypalInformation,
-    \\"creditcard\\": (root, args, context, info) => Data.creditCardInformation,
+    \\"type\\": (parent, args, context, info) => Data.paymentProvider,
+    \\"user\\": (parent, args, context, info) => Data.user,
+    \\"payments\\": (parent, args, context, info) => Js.Array.t(Data.payment),
+    \\"paypal\\": (parent, args, context, info) => Data.paypalInformation,
+    \\"creditcard\\": (parent, args, context, info) => Data.creditCardInformation,
   };
 };
 
 module Place = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"size\\": (root, args, context, info) => Data.placeSizes,
-    \\"reviews\\": (root, args, context, info) => Js.Array.t(Data.review),
-    \\"amenities\\": (root, args, context, info) => Data.amenities,
-    \\"host\\": (root, args, context, info) => Data.user,
-    \\"pricing\\": (root, args, context, info) => Data.pricing,
-    \\"location\\": (root, args, context, info) => Data.location,
-    \\"views\\": (root, args, context, info) => Data.placeViews,
-    \\"guestRequirements\\": (root, args, context, info) => Data.guestRequirements,
-    \\"policies\\": (root, args, context, info) => Data.policies,
-    \\"houseRules\\": (root, args, context, info) => Data.houseRules,
-    \\"bookings\\": (root, args, context, info) => Js.Array.t(Data.booking),
-    \\"pictures\\": (root, args, context, info) => Js.Array.t(Data.picture),
+    \\"size\\": (parent, args, context, info) => Data.placeSizes,
+    \\"reviews\\": (parent, args, context, info) => Js.Array.t(Data.review),
+    \\"amenities\\": (parent, args, context, info) => Data.amenities,
+    \\"host\\": (parent, args, context, info) => Data.user,
+    \\"pricing\\": (parent, args, context, info) => Data.pricing,
+    \\"location\\": (parent, args, context, info) => Data.location,
+    \\"views\\": (parent, args, context, info) => Data.placeViews,
+    \\"guestRequirements\\":
+      (parent, args, context, info) => Data.guestRequirements,
+    \\"policies\\": (parent, args, context, info) => Data.policies,
+    \\"houseRules\\": (parent, args, context, info) => Data.houseRules,
+    \\"bookings\\": (parent, args, context, info) => Js.Array.t(Data.booking),
+    \\"pictures\\": (parent, args, context, info) => Js.Array.t(Data.picture),
   };
 };
 
 module Booking = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"bookee\\": (root, args, context, info) => Data.user,
-    \\"place\\": (root, args, context, info) => Data.place,
-    \\"payment\\": (root, args, context, info) => Data.payment,
+    \\"bookee\\": (parent, args, context, info) => Data.user,
+    \\"place\\": (parent, args, context, info) => Data.place,
+    \\"payment\\": (parent, args, context, info) => Data.payment,
   };
 };
 
 module Notification = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"type\\": (root, args, context, info) => Data.notificationType,
-    \\"user\\": (root, args, context, info) => Data.user,
+    \\"type\\": (parent, args, context, info) => Data.notificationType,
+    \\"user\\": (parent, args, context, info) => Data.user,
   };
 };
 
 module Payment = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"booking\\": (root, args, context, info) => Data.booking,
-    \\"paymentMethod\\": (root, args, context, info) => Data.paymentAccount,
+    \\"booking\\": (parent, args, context, info) => Data.booking,
+    \\"paymentMethod\\": (parent, args, context, info) => Data.paymentAccount,
   };
 };
 
 module PaypalInformation = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"paymentAccount\\": (root, args, context, info) => Data.paymentAccount,
+    \\"paymentAccount\\": (parent, args, context, info) => Data.paymentAccount,
   };
 };
 
 module CreditCardInformation = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"paymentAccount\\": (root, args, context, info) => Data.paymentAccount,
+    \\"paymentAccount\\": (parent, args, context, info) => Data.paymentAccount,
   };
 };
 
 module Message = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -652,19 +654,19 @@ module Message = {
 };
 
 module Pricing = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
 
   type resolvers = {
     .
-    \\"currency\\": (root, args, context, info) => Data.currency,
+    \\"currency\\": (parent, args, context, info) => Data.currency,
   };
 };
 
 module PlaceViews = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -673,7 +675,7 @@ module PlaceViews = {
 };
 
 module GuestRequirements = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -682,7 +684,7 @@ module GuestRequirements = {
 };
 
 module Policies = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -691,7 +693,7 @@ module Policies = {
 };
 
 module HouseRules = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;
@@ -700,7 +702,7 @@ module HouseRules = {
 };
 
 module Amenities = {
-  type root;
+  type parent;
   type args;
   type context;
   type info;

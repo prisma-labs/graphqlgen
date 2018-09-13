@@ -127,7 +127,7 @@ export function generate(args: GenerateArgs) {
         )
         .join(os.EOL)}
 
-      type root;
+      type parent;
       type args;
       type context;
       type info;
@@ -142,7 +142,7 @@ export function generate(args: GenerateArgs) {
           )
           .map(
             field => `
-          "${field.name}": (root, ${
+          "${field.name}": (parent, ${
               field.arguments.length > 0 ? `${field.name}Argument` : `args`
             }, context, info) => ${printFieldLikeType(field)}
         `

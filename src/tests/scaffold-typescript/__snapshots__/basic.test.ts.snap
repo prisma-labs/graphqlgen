@@ -3,21 +3,21 @@
 exports[`basic enum 1`] = `
 Array [
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
-export interface UserRoot {
+export interface UserParent {
   id: string;
   name: string;
   type: UserType;
 }
 
-export const User: IUser.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  type: root => root.type
+export const User: UserResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
 };
 ",
     "force": false,
@@ -30,30 +30,30 @@ export const User: IUser.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserRoot } from \\"./User\\";
+import { UserParent } from \\"../User\\";
 
-import { Context } from \\"./Context\\";
+import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
-  UserRoot: UserRoot;
+  UserParent: UserParent;
 }
 ",
     "force": true,
-    "path": "types.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   User
 };
 ",
@@ -66,50 +66,50 @@ export const resolvers: IResolvers<Types> = {
 exports[`basic schema 1`] = `
 Array [
   Object {
-    "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { NumberResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface NumberRoot {
+export interface NumberParent {
   id?: string;
   value?: number;
 }
 
-export const Number: INumber.Resolver<Types> = {
-  id: root => root.id,
-  value: root => root.value
+export const Number: NumberResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  value: parent => parent.value
 };
 ",
     "force": false,
     "path": "Number.ts",
   },
   Object {
-    "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface QueryRoot {}
+export interface QueryParent {}
 
-export const Query: IQuery.Resolver<Types> = {
-  id: root => null,
-  custom_required: root => {
+export const Query: QueryResolvers.Resolver<TypeMap> = {
+  id: parent => null,
+  custom_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_nullable: root => null,
-  custom_array_nullable: root => null,
-  custom_array_required: root => {
+  custom_nullable: parent => null,
+  custom_array_nullable: parent => null,
+  custom_array_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_arg: (root, args) => {
+  custom_with_arg: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_custom_arg: (root, args) => {
+  custom_with_custom_arg: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  scalar_required: root => false,
-  scalar_nullable: root => null,
-  scalar_array_nullable: root => null,
-  scalar_array_required: root => [],
-  scalar_with_arg: (root, args) => false,
-  scalar_with_custom_arg: (root, args) => false
+  scalar_required: parent => false,
+  scalar_nullable: parent => null,
+  scalar_array_nullable: parent => null,
+  scalar_array_required: parent => [],
+  scalar_with_arg: (parent, args) => false,
+  scalar_with_custom_arg: (parent, args) => false
 };
 ",
     "force": false,
@@ -122,33 +122,33 @@ export const Query: IQuery.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { QueryRoot } from \\"./Query\\";
-import { NumberRoot } from \\"./Number\\";
+import { QueryParent } from \\"../Query\\";
+import { NumberParent } from \\"../Number\\";
 
-import { Context } from \\"./Context\\";
+import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
-  QueryRoot: QueryRoot;
-  NumberRoot: NumberRoot;
+  QueryParent: QueryParent;
+  NumberParent: NumberParent;
 }
 ",
     "force": true,
-    "path": "types.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
 import { Number } from \\"./Number\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   Query,
   Number
 };
@@ -162,54 +162,54 @@ export const resolvers: IResolvers<Types> = {
 exports[`basic union 1`] = `
 Array [
   Object {
-    "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-import { StudentRoot } from \\"./Student\\";
-import { ProfessorRoot } from \\"./Professor\\";
+import { StudentParent } from \\"./Student\\";
+import { ProfessorParent } from \\"./Professor\\";
 
-export type UserType = StudentRoot | ProfessorRoot;
+export type UserType = StudentParent | ProfessorParent;
 
-export interface UserRoot {
+export interface UserParent {
   id: string;
   name: string;
   type: UserType;
 }
 
-export const User: IUser.Resolver<Types> = {
-  id: root => root.id,
-  name: root => root.name,
-  type: root => root.type
+export const User: UserResolvers.Resolver<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
 };
 ",
     "force": false,
     "path": "User.ts",
   },
   Object {
-    "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface StudentRoot {
+export interface StudentParent {
   age: number;
 }
 
-export const Student: IStudent.Resolver<Types> = {
-  age: root => root.age
+export const Student: StudentResolvers.Resolver<TypeMap> = {
+  age: parent => parent.age
 };
 ",
     "force": false,
     "path": "Student.ts",
   },
   Object {
-    "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+    "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
-export interface ProfessorRoot {
+export interface ProfessorParent {
   degree?: string;
 }
 
-export const Professor: IProfessor.Resolver<Types> = {
-  degree: root => root.degree
+export const Professor: ProfessorResolvers.Resolver<TypeMap> = {
+  degree: parent => parent.degree
 };
 ",
     "force": false,
@@ -222,36 +222,36 @@ export const Professor: IProfessor.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/Context.ts",
   },
   Object {
-    "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
-import { UserRoot } from \\"./User\\";
-import { StudentRoot } from \\"./Student\\";
-import { ProfessorRoot } from \\"./Professor\\";
+import { UserParent } from \\"../User\\";
+import { StudentParent } from \\"../Student\\";
+import { ProfessorParent } from \\"../Professor\\";
 
-import { Context } from \\"./Context\\";
+import { Context } from \\"./context\\";
 
-export interface Types extends ITypes {
+export interface TypeMap extends ITypeMap {
   Context: Context;
-  UserRoot: UserRoot;
-  StudentRoot: StudentRoot;
-  ProfessorRoot: ProfessorRoot;
+  UserParent: UserParent;
+  StudentParent: StudentParent;
+  ProfessorParent: ProfessorParent;
 }
 ",
     "force": true,
-    "path": "types.ts",
+    "path": "types/TypeMap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
 import { Student } from \\"./Student\\";
 import { Professor } from \\"./Professor\\";
 
-export const resolvers: IResolvers<Types> = {
+export const resolvers: IResolvers<TypeMap> = {
   User,
   Student,
   Professor

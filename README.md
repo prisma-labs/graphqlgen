@@ -37,7 +37,7 @@ Options:
 | interfaces | Generate type safe interfaces for resolves based on your schema.                              | Path to input schema | Path to generate interfaces file at     | typescript | NA                                    | NA                                                                       |
 | scaffold   | Scaffold resolvers based on your schema that rely on the generated interface for type safety. | Path to input schema | Path to folder for generating resolvers | typescript | Path to the generated interfaces file | Force write resolver files when there is a collision with existing files |
 
-Note: while using `scaffold`, types.ts will always be generated irrespective of `-f` flag.
+Note: while using `scaffold`, typemap.ts will always be generated irrespective of `-f` flag.
 
 ### Example
 
@@ -53,8 +53,8 @@ To see an example in action, please open the [`example`](https://github.com/pris
 
 ### Design Decisions
 
-1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `types.ts`.
+1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `typemap.ts`.
 
 1. Interface for `Context` is generated in a separate file called `Context.ts`.
 
-1. The command `scaffold` always writes the `types.ts` file, irrespective of the `-f` flag.
+1. The command `scaffold` always writes the `typemap.ts` file, irrespective of the `-f` flag.
