@@ -30,7 +30,7 @@ export const User: IUser.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -45,7 +45,7 @@ export interface Types extends ITypes {
 }
 ",
     "force": true,
-    "path": "typemap.ts",
+    "path": "types/typemap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -122,7 +122,7 @@ export const Query: IQuery.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -139,7 +139,7 @@ export interface Types extends ITypes {
 }
 ",
     "force": true,
-    "path": "typemap.ts",
+    "path": "types/typemap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -222,7 +222,7 @@ export const Professor: IProfessor.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -241,7 +241,7 @@ export interface Types extends ITypes {
 }
 ",
     "force": true,
-    "path": "typemap.ts",
+    "path": "types/typemap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";

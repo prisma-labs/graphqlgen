@@ -932,7 +932,7 @@ export const Mutation: IMutation.Resolver<Types> = {
 }
 ",
     "force": false,
-    "path": "Context.ts",
+    "path": "types/context.ts",
   },
   Object {
     "code": "import { ITypes } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -1005,7 +1005,7 @@ export interface Types extends ITypes {
 }
 ",
     "force": true,
-    "path": "typemap.ts",
+    "path": "types/typemap.ts",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";

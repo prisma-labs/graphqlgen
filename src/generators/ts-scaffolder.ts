@@ -142,7 +142,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   );
 
   files.push({
-    path: "Context.ts",
+    path: "types/context.ts",
     force: false,
     code: `
     export interface Context {
@@ -153,7 +153,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   });
 
   files.push({
-    path: "typemap.ts",
+    path: "types/typemap.ts",
     force: true,
     code: `
 import { ITypes } from '[TEMPLATE-INTERFACES-PATH]'
