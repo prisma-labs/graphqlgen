@@ -10,7 +10,7 @@ export interface PoliciesParent {
   updatedAt: string;
 }
 
-export const Policies: PoliciesResolvers.Resolver<TypeMap> = {
+export const Policies: PoliciesResolvers.Type<TypeMap> = {
   checkInEndTime: parent => parent.checkInEndTime,
   checkInStartTime: parent => parent.checkInStartTime,
   checkoutTime: parent => parent.checkoutTime,

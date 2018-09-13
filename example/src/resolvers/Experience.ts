@@ -16,7 +16,7 @@ export interface ExperienceParent {
   popularity: number;
 }
 
-export const Experience: ExperienceResolvers.Resolver<TypeMap> = {
+export const Experience: ExperienceResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   category: parent => parent.category,
   title: parent => parent.title,

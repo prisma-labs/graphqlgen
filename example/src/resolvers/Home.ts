@@ -12,7 +12,7 @@ export interface HomeParent {
   perNight: number;
 }
 
-export const Home: HomeResolvers.Resolver<TypeMap> = {
+export const Home: HomeResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   description: parent => parent.description,

@@ -9,7 +9,7 @@ export interface LocationParent {
   directions?: string;
 }
 
-export const Location: LocationResolvers.Resolver<TypeMap> = {
+export const Location: LocationResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   lat: parent => parent.lat,
   lng: parent => parent.lng,

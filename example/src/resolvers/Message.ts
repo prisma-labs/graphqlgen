@@ -8,7 +8,7 @@ export interface MessageParent {
   readAt: string;
 }
 
-export const Message: MessageResolvers.Resolver<TypeMap> = {
+export const Message: MessageResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   deliveredAt: parent => parent.deliveredAt,
   id: parent => parent.id,

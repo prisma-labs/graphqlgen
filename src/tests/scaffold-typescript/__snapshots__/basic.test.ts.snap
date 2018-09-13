@@ -14,7 +14,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: UserResolvers.Resolver<TypeMap> = {
+export const User: UserResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -73,7 +73,7 @@ export interface AddMemberPayloadParent {
   json?: string;
 }
 
-export const AddMemberPayload: AddMemberPayloadResolvers.Resolver<TypeMap> = {
+export const AddMemberPayload: AddMemberPayloadResolvers.Type<TypeMap> = {
   json: parent => parent.json
 };
 ",
@@ -86,7 +86,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
 
-export const Mutation: MutationResolvers.Resolver<TypeMap> = {
+export const Mutation: MutationResolvers.Type<TypeMap> = {
   addMember: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   }
@@ -150,7 +150,7 @@ export interface NumberParent {
   value?: number;
 }
 
-export const Number: NumberResolvers.Resolver<TypeMap> = {
+export const Number: NumberResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   value: parent => parent.value
 };
@@ -164,7 +164,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
 
-export const Query: QueryResolvers.Resolver<TypeMap> = {
+export const Query: QueryResolvers.Type<TypeMap> = {
   id: parent => null,
   custom_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
@@ -252,7 +252,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: UserResolvers.Resolver<TypeMap> = {
+export const User: UserResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -269,7 +269,7 @@ export interface StudentParent {
   age: number;
 }
 
-export const Student: StudentResolvers.Resolver<TypeMap> = {
+export const Student: StudentResolvers.Type<TypeMap> = {
   age: parent => parent.age
 };
 ",
@@ -284,7 +284,7 @@ export interface ProfessorParent {
   degree?: string;
 }
 
-export const Professor: ProfessorResolvers.Resolver<TypeMap> = {
+export const Professor: ProfessorResolvers.Type<TypeMap> = {
   degree: parent => parent.degree
 };
 ",

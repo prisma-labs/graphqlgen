@@ -17,7 +17,7 @@ export interface PaymentAccountParent {
   creditcard?: CreditCardInformationParent;
 }
 
-export const PaymentAccount: PaymentAccountResolvers.Resolver<TypeMap> = {
+export const PaymentAccount: PaymentAccountResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   type: parent => parent.type,

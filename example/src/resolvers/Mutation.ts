@@ -3,7 +3,7 @@ import { TypeMap } from "./types/TypeMap";
 
 export interface MutationParent {}
 
-export const Mutation: MutationResolvers.Resolver<TypeMap> = {
+export const Mutation: MutationResolvers.Type<TypeMap> = {
   signup: (parent, args) => {
     throw new Error("Resolver not implemented");
   },

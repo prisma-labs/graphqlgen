@@ -89,7 +89,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
           : ""
       }
 
-  export type ${capitalize(field.name)}Resolver<T extends ITypeMap> = (
+  export type ${capitalize(field.name)}Type<T extends ITypeMap> = (
     parent: T['${type.name}${
         type.type.isEnum || type.type.isUnion ? "" : "Parent"
       }'],
@@ -103,7 +103,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
     )
     .join(os.EOL)}
 
-  export interface Resolver<T extends ITypeMap> {
+  export interface Type<T extends ITypeMap> {
   ${type.fields
     .map(
       field => `${field.name}: (
@@ -126,7 +126,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
 
 export interface IResolvers<T extends ITypeMap> {
   ${args.types
-    .map(type => `${type.name}: I${type.name}.Resolver<T>`)
+    .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`)
     .join(os.EOL)}
 }
 

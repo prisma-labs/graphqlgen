@@ -3,7 +3,7 @@ import { TypeMap } from "./types/TypeMap";
 
 export interface QueryParent {}
 
-export const Query: QueryResolvers.Resolver<TypeMap> = {
+export const Query: QueryResolvers.Type<TypeMap> = {
   topExperiences: parent => {
     throw new Error("Resolver not implemented");
   },
