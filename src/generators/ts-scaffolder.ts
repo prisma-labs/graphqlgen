@@ -49,7 +49,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .map(type => {
       const code = `
     import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
-    import { Types } from './types'
+    import { Types } from './typemap'
     ${Array.from(
       new Set(
         type.fields
@@ -120,7 +120,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `
       import { I${type.name} } from '[TEMPLATE-INTERFACES-PATH]'
-      import { Types } from './types'
+      import { Types } from './typemap'
 
       export interface ${type.name}Parent { }
       
@@ -183,7 +183,7 @@ export interface Types extends ITypes {
     force: false,
     code: `
     import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
-    import { Types } from './types'
+    import { Types } from './typemap'
     ${args.types
       .map(
         type => `

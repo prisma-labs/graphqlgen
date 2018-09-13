@@ -4,7 +4,7 @@ exports[`basic enum 1`] = `
 Array [
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
 
@@ -49,7 +49,7 @@ export interface Types extends ITypes {
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 import { User } from \\"./User\\";
 
@@ -67,7 +67,7 @@ exports[`basic schema 1`] = `
 Array [
   Object {
     "code": "import { INumber } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 export interface NumberParent {
   id?: string;
@@ -84,7 +84,7 @@ export const Number: INumber.Resolver<Types> = {
   },
   Object {
     "code": "import { IQuery } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 export interface QueryParent {}
 
@@ -143,7 +143,7 @@ export interface Types extends ITypes {
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 import { Query } from \\"./Query\\";
 import { Number } from \\"./Number\\";
@@ -163,7 +163,7 @@ exports[`basic union 1`] = `
 Array [
   Object {
     "code": "import { IUser } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 import { StudentParent } from \\"./Student\\";
 import { ProfessorParent } from \\"./Professor\\";
@@ -187,7 +187,7 @@ export const User: IUser.Resolver<Types> = {
   },
   Object {
     "code": "import { IStudent } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 export interface StudentParent {
   age: number;
@@ -202,7 +202,7 @@ export const Student: IStudent.Resolver<Types> = {
   },
   Object {
     "code": "import { IProfessor } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 export interface ProfessorParent {
   degree?: string;
@@ -245,7 +245,7 @@ export interface Types extends ITypes {
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
-import { Types } from \\"./types\\";
+import { Types } from \\"./typemap\\";
 
 import { User } from \\"./User\\";
 import { Student } from \\"./Student\\";
