@@ -89,7 +89,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
           : ""
       }
 
-  export type ${capitalize(field.name)}Type<T extends ITypeMap> = (
+  export type ${capitalize(field.name)}Resolver<T extends ITypeMap> = (
     parent: T['${type.name}${
         type.type.isEnum || type.type.isUnion ? "" : "Parent"
       }'],
