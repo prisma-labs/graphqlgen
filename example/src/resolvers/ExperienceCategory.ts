@@ -9,9 +9,7 @@ export interface ExperienceCategoryParent {
   experience?: ExperienceParent;
 }
 
-export const ExperienceCategory: ExperienceCategoryResolvers.Resolver<
-  TypeMap
-> = {
+export const ExperienceCategory: ExperienceCategoryResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   mainColor: parent => parent.mainColor,
   name: parent => parent.name,

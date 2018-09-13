@@ -47,7 +47,7 @@ export interface PlaceParent {
   popularity: number;
 }
 
-export const Place: PlaceResolvers.Resolver<TypeMap> = {
+export const Place: PlaceResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   size: parent => parent.size,

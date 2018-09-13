@@ -8,7 +8,7 @@ export interface ViewerParent {
   bookings: BookingParent[];
 }
 
-export const Viewer: ViewerResolvers.Resolver<TypeMap> = {
+export const Viewer: ViewerResolvers.Type<TypeMap> = {
   me: parent => parent.me,
   bookings: parent => parent.bookings
 };

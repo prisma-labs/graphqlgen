@@ -9,7 +9,7 @@ export interface PaypalInformationParent {
   paymentAccount: PaymentAccountParent;
 }
 
-export const PaypalInformation: PaypalInformationResolvers.Resolver<TypeMap> = {
+export const PaypalInformation: PaypalInformationResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
   id: parent => parent.id,

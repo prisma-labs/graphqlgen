@@ -13,7 +13,7 @@ export interface NeighbourhoodParent {
   popularity: number;
 }
 
-export const Neighbourhood: NeighbourhoodResolvers.Resolver<TypeMap> = {
+export const Neighbourhood: NeighbourhoodResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   slug: parent => parent.slug,

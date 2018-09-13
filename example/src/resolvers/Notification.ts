@@ -18,7 +18,7 @@ export interface NotificationParent {
   user: UserParent;
 }
 
-export const Notification: NotificationResolvers.Resolver<TypeMap> = {
+export const Notification: NotificationResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
   link: parent => parent.link,

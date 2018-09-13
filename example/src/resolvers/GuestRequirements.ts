@@ -8,7 +8,7 @@ export interface GuestRequirementsParent {
   recommendationsFromOtherHosts: boolean;
 }
 
-export const GuestRequirements: GuestRequirementsResolvers.Resolver<TypeMap> = {
+export const GuestRequirements: GuestRequirementsResolvers.Type<TypeMap> = {
   govIssuedId: parent => parent.govIssuedId,
   guestTripInformation: parent => parent.guestTripInformation,
   id: parent => parent.id,

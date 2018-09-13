@@ -5,6 +5,6 @@ export interface MutationResultParent {
   success: boolean;
 }
 
-export const MutationResult: MutationResultResolvers.Resolver<TypeMap> = {
+export const MutationResult: MutationResultResolvers.Type<TypeMap> = {
   success: parent => parent.success
 };

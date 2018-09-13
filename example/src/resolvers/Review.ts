@@ -14,7 +14,7 @@ export interface ReviewParent {
   value: number;
 }
 
-export const Review: ReviewResolvers.Resolver<TypeMap> = {
+export const Review: ReviewResolvers.Type<TypeMap> = {
   accuracy: parent => parent.accuracy,
   checkIn: parent => parent.checkIn,
   cleanliness: parent => parent.cleanliness,

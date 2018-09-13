@@ -19,7 +19,7 @@ export interface PricingParent {
   weeklyDiscount?: number;
 }
 
-export const Pricing: PricingResolvers.Resolver<TypeMap> = {
+export const Pricing: PricingResolvers.Type<TypeMap> = {
   averageMonthly: parent => parent.averageMonthly,
   averageWeekly: parent => parent.averageWeekly,
   basePrice: parent => parent.basePrice,

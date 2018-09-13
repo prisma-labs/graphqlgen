@@ -13,7 +13,7 @@ export interface HouseRulesParent {
   updatedAt: string;
 }
 
-export const HouseRules: HouseRulesResolvers.Resolver<TypeMap> = {
+export const HouseRules: HouseRulesResolvers.Type<TypeMap> = {
   additionalRules: parent => parent.additionalRules,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,

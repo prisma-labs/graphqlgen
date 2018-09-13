@@ -13,7 +13,7 @@ export interface ViewerParent {
   bookings: BookingParent[];
 }
 
-export const Viewer: ViewerResolvers.Resolver<TypeMap> = {
+export const Viewer: ViewerResolvers.Type<TypeMap> = {
   me: parent => parent.me,
   bookings: parent => parent.bookings
 };
@@ -31,7 +31,7 @@ export interface AuthPayloadParent {
   user: UserParent;
 }
 
-export const AuthPayload: AuthPayloadResolvers.Resolver<TypeMap> = {
+export const AuthPayload: AuthPayloadResolvers.Type<TypeMap> = {
   token: parent => parent.token,
   user: parent => parent.user
 };
@@ -47,7 +47,7 @@ export interface MutationResultParent {
   success: boolean;
 }
 
-export const MutationResult: MutationResultResolvers.Resolver<TypeMap> = {
+export const MutationResult: MutationResultResolvers.Type<TypeMap> = {
   success: parent => parent.success
 };
 ",
@@ -65,7 +65,7 @@ export interface ExperiencesByCityParent {
   city: CityParent;
 }
 
-export const ExperiencesByCity: ExperiencesByCityResolvers.Resolver<TypeMap> = {
+export const ExperiencesByCity: ExperiencesByCityResolvers.Type<TypeMap> = {
   experiences: parent => parent.experiences,
   city: parent => parent.city
 };
@@ -88,7 +88,7 @@ export interface HomeParent {
   perNight: number;
 }
 
-export const Home: HomeResolvers.Resolver<TypeMap> = {
+export const Home: HomeResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   description: parent => parent.description,
@@ -118,7 +118,7 @@ export interface ReservationParent {
   popularity: number;
 }
 
-export const Reservation: ReservationResolvers.Resolver<TypeMap> = {
+export const Reservation: ReservationResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   title: parent => parent.title,
   avgPricePerPerson: parent => parent.avgPricePerPerson,
@@ -151,7 +151,7 @@ export interface ExperienceParent {
   popularity: number;
 }
 
-export const Experience: ExperienceResolvers.Resolver<TypeMap> = {
+export const Experience: ExperienceResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   category: parent => parent.category,
   title: parent => parent.title,
@@ -183,7 +183,7 @@ export interface ReviewParent {
   value: number;
 }
 
-export const Review: ReviewResolvers.Resolver<TypeMap> = {
+export const Review: ReviewResolvers.Type<TypeMap> = {
   accuracy: parent => parent.accuracy,
   checkIn: parent => parent.checkIn,
   cleanliness: parent => parent.cleanliness,
@@ -215,7 +215,7 @@ export interface NeighbourhoodParent {
   popularity: number;
 }
 
-export const Neighbourhood: NeighbourhoodResolvers.Resolver<TypeMap> = {
+export const Neighbourhood: NeighbourhoodResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   slug: parent => parent.slug,
@@ -240,7 +240,7 @@ export interface LocationParent {
   directions?: string;
 }
 
-export const Location: LocationResolvers.Resolver<TypeMap> = {
+export const Location: LocationResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   lat: parent => parent.lat,
   lng: parent => parent.lng,
@@ -260,7 +260,7 @@ export interface PictureParent {
   url: string;
 }
 
-export const Picture: PictureResolvers.Resolver<TypeMap> = {
+export const Picture: PictureResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   url: parent => parent.url
 };
@@ -277,7 +277,7 @@ export interface CityParent {
   name: string;
 }
 
-export const City: CityResolvers.Resolver<TypeMap> = {
+export const City: CityResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name
 };
@@ -297,9 +297,7 @@ export interface ExperienceCategoryParent {
   experience?: ExperienceParent;
 }
 
-export const ExperienceCategory: ExperienceCategoryResolvers.Resolver<
-  TypeMap
-> = {
+export const ExperienceCategory: ExperienceCategoryResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   mainColor: parent => parent.mainColor,
   name: parent => parent.name,
@@ -345,7 +343,7 @@ export interface UserParent {
   token: string;
 }
 
-export const User: UserResolvers.Resolver<TypeMap> = {
+export const User: UserResolvers.Type<TypeMap> = {
   bookings: parent => parent.bookings,
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
@@ -391,7 +389,7 @@ export interface PaymentAccountParent {
   creditcard?: CreditCardInformationParent;
 }
 
-export const PaymentAccount: PaymentAccountResolvers.Resolver<TypeMap> = {
+export const PaymentAccount: PaymentAccountResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   type: parent => parent.type,
@@ -445,7 +443,7 @@ export interface PlaceParent {
   popularity: number;
 }
 
-export const Place: PlaceResolvers.Resolver<TypeMap> = {
+export const Place: PlaceResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   name: parent => parent.name,
   size: parent => parent.size,
@@ -491,7 +489,7 @@ export interface BookingParent {
   payment: PaymentParent;
 }
 
-export const Booking: BookingResolvers.Resolver<TypeMap> = {
+export const Booking: BookingResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   bookee: parent => parent.bookee,
@@ -520,7 +518,7 @@ export interface NotificationParent {
   user: UserParent;
 }
 
-export const Notification: NotificationResolvers.Resolver<TypeMap> = {
+export const Notification: NotificationResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
   link: parent => parent.link,
@@ -547,7 +545,7 @@ export interface PaymentParent {
   serviceFee: number;
 }
 
-export const Payment: PaymentResolvers.Resolver<TypeMap> = {
+export const Payment: PaymentResolvers.Type<TypeMap> = {
   booking: parent => parent.booking,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
@@ -571,7 +569,7 @@ export interface PaypalInformationParent {
   paymentAccount: PaymentAccountParent;
 }
 
-export const PaypalInformation: PaypalInformationResolvers.Resolver<TypeMap> = {
+export const PaypalInformation: PaypalInformationResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   email: parent => parent.email,
   id: parent => parent.id,
@@ -601,7 +599,7 @@ export interface CreditCardInformationParent {
   securityCode: string;
 }
 
-export const CreditCardInformation: CreditCardInformationResolvers.Resolver<
+export const CreditCardInformation: CreditCardInformationResolvers.Type<
   TypeMap
 > = {
   cardNumber: parent => parent.cardNumber,
@@ -632,7 +630,7 @@ export interface MessageParent {
   readAt: DateTimeParent;
 }
 
-export const Message: MessageResolvers.Resolver<TypeMap> = {
+export const Message: MessageResolvers.Type<TypeMap> = {
   createdAt: parent => parent.createdAt,
   deliveredAt: parent => parent.deliveredAt,
   id: parent => parent.id,
@@ -663,7 +661,7 @@ export interface PricingParent {
   weeklyDiscount?: number;
 }
 
-export const Pricing: PricingResolvers.Resolver<TypeMap> = {
+export const Pricing: PricingResolvers.Type<TypeMap> = {
   averageMonthly: parent => parent.averageMonthly,
   averageWeekly: parent => parent.averageWeekly,
   basePrice: parent => parent.basePrice,
@@ -691,7 +689,7 @@ export interface PlaceViewsParent {
   lastWeek: number;
 }
 
-export const PlaceViews: PlaceViewsResolvers.Resolver<TypeMap> = {
+export const PlaceViews: PlaceViewsResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   lastWeek: parent => parent.lastWeek
 };
@@ -710,7 +708,7 @@ export interface GuestRequirementsParent {
   recommendationsFromOtherHosts: boolean;
 }
 
-export const GuestRequirements: GuestRequirementsResolvers.Resolver<TypeMap> = {
+export const GuestRequirements: GuestRequirementsResolvers.Type<TypeMap> = {
   govIssuedId: parent => parent.govIssuedId,
   guestTripInformation: parent => parent.guestTripInformation,
   id: parent => parent.id,
@@ -734,7 +732,7 @@ export interface PoliciesParent {
   updatedAt: DateTimeParent;
 }
 
-export const Policies: PoliciesResolvers.Resolver<TypeMap> = {
+export const Policies: PoliciesResolvers.Type<TypeMap> = {
   checkInEndTime: parent => parent.checkInEndTime,
   checkInStartTime: parent => parent.checkInStartTime,
   checkoutTime: parent => parent.checkoutTime,
@@ -763,7 +761,7 @@ export interface HouseRulesParent {
   updatedAt: DateTimeParent;
 }
 
-export const HouseRules: HouseRulesResolvers.Resolver<TypeMap> = {
+export const HouseRules: HouseRulesResolvers.Type<TypeMap> = {
   additionalRules: parent => parent.additionalRules,
   createdAt: parent => parent.createdAt,
   id: parent => parent.id,
@@ -826,7 +824,7 @@ export interface AmenitiesParent {
   wirelessInternet: boolean;
 }
 
-export const Amenities: AmenitiesResolvers.Resolver<TypeMap> = {
+export const Amenities: AmenitiesResolvers.Type<TypeMap> = {
   airConditioning: parent => parent.airConditioning,
   babyBath: parent => parent.babyBath,
   babyMonitor: parent => parent.babyMonitor,
@@ -879,7 +877,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
 
-export const Query: QueryResolvers.Resolver<TypeMap> = {
+export const Query: QueryResolvers.Type<TypeMap> = {
   topExperiences: parent => {
     throw new Error(\\"Resolver not implemented\\");
   },
@@ -911,7 +909,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
 
-export const Mutation: MutationResolvers.Resolver<TypeMap> = {
+export const Mutation: MutationResolvers.Type<TypeMap> = {
   signup: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   },
@@ -930,10 +928,7 @@ export const Mutation: MutationResolvers.Resolver<TypeMap> = {
     "path": "Mutation.ts",
   },
   Object {
-    "code": "export interface Context {
-  db: any;
-  request: any;
-}
+    "code": "export interface Context {}
 ",
     "force": false,
     "path": "types/Context.ts",

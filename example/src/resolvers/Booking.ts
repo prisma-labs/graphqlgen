@@ -14,7 +14,7 @@ export interface BookingParent {
   payment: PaymentParent;
 }
 
-export const Booking: BookingResolvers.Resolver<TypeMap> = {
+export const Booking: BookingResolvers.Type<TypeMap> = {
   id: parent => parent.id,
   createdAt: parent => parent.createdAt,
   bookee: parent => parent.bookee,

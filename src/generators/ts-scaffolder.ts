@@ -99,7 +99,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         .join(";")}
     }
 
-    export const ${type.name}: ${type.name}Resolvers.Resolver<TypeMap> = {
+    export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -124,7 +124,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: ${type.name}Resolvers.Resolver<TypeMap> = {
+      export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${
@@ -145,10 +145,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     path: "types/Context.ts",
     force: false,
     code: `
-    export interface Context {
-      db: any
-      request: any
-    }
+    export interface Context { }
     `
   });
 
