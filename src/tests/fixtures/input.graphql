@@ -1,0 +1,13 @@
+type AddMemberPayload {
+  newUserId: ID
+  existingUserInviteSent: Boolean
+}
+
+input AddMemberData {
+  email: String!
+  projects: [ID!]!
+}
+
+type Mutation {
+  addMember(data: AddMemberData!): AddMemberPayload!
+}
