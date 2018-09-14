@@ -69,10 +69,14 @@ export interface ITypeMap {
 Context: any
 ${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
 ${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
-${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
+${args.types
+    .filter(type => type.type.isObject)
+    .map(type => `${type.name}Parent: any`)
+    .join(os.EOL)}
 }
 
   ${args.types
+    .filter(type => type.type.isObject)
     .map(
       type => `export namespace ${type.name}Resolvers {
   ${type.fields
@@ -126,6 +130,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
 
 export interface IResolvers<T extends ITypeMap> {
   ${args.types
+    .filter(type => type.type.isObject)
     .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`)
     .join(os.EOL)}
 }

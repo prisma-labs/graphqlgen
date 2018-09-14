@@ -144,7 +144,7 @@ function extractTypeLike(
 
 function extractTypeFields(
   schema: DocumentNode,
-  node: ObjectTypeDefinitionNode
+  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode
 ) {
   const fields: GraphQLTypeField[] = [];
   visit(node, {
@@ -189,6 +189,22 @@ export function extractGraphQLTypes(schema: DocumentNode) {
           name: node.name.value,
           isObject: true,
           isInput: false,
+          isEnum: false,
+          isUnion: false,
+          isScalar: false,
+          isInterface: false
+        },
+        fields: fields
+      });
+    },
+    InputObjectTypeDefinition(node: InputObjectTypeDefinitionNode) {
+      const fields: GraphQLTypeField[] = extractTypeFields(schema, node);
+      types.push({
+        name: node.name.value,
+        type: {
+          name: node.name.value,
+          isObject: false,
+          isInput: true,
           isEnum: false,
           isUnion: false,
           isScalar: false,

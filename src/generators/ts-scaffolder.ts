@@ -45,6 +45,7 @@ function isParentType(name: string) {
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
+    .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
     .map(type => {
       const code = `
@@ -117,8 +118,11 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     });
 
   files = files.concat(
-    args.types.filter(type => isParentType(type.name)).map(type => {
-      const code = `
+    args.types
+      .filter(type => type.type.isObject)
+      .filter(type => isParentType(type.name))
+      .map(type => {
+        const code = `
       import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
@@ -133,12 +137,12 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )}
       }
       `;
-      return {
-        path: `${type.name}.ts`,
-        force: false,
-        code
-      };
-    })
+        return {
+          path: `${type.name}.ts`,
+          force: false,
+          code
+        };
+      })
   );
 
   files.push({
@@ -156,6 +160,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
+      .filter(type => type.type.isObject)
       .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
       .join(";")}
 
@@ -164,6 +169,7 @@ import { Context } from './context'
 export interface TypeMap extends ITypeMap {
   Context: Context
   ${args.types
+    .filter(type => type.type.isObject)
     .map(
       type =>
         `${type.name}${
@@ -182,6 +188,7 @@ export interface TypeMap extends ITypeMap {
     import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${args.types
+      .filter(type => type.type.isObject)
       .map(
         type => `
       import { ${type.name} } from './${type.name}'
@@ -190,7 +197,10 @@ export interface TypeMap extends ITypeMap {
       .join(";")}
 
     export const resolvers: IResolvers<TypeMap> = {
-      ${args.types.map(type => `${type.name}`).join(",")}   
+      ${args.types
+        .filter(type => type.type.isObject)
+        .map(type => `${type.name}`)
+        .join(",")}
     }
     `
   });

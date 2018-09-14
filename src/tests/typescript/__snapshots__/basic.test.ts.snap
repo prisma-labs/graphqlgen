@@ -60,6 +60,76 @@ export interface IResolvers<T extends ITypeMap> {
 "
 `;
 
+exports[`basic input 1`] = `
+"import { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  AddMemberPayloadParent: any;
+  MutationParent: any;
+}
+
+export namespace AddMemberPayloadResolvers {
+  export type NewUserIdType<T extends ITypeMap> = (
+    parent: T[\\"AddMemberPayloadParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export type ExistingUserInviteSentType<T extends ITypeMap> = (
+    parent: T[\\"AddMemberPayloadParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => boolean | null | Promise<boolean | null>;
+
+  export interface Type<T extends ITypeMap> {
+    newUserId: (
+      parent: T[\\"AddMemberPayloadParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+    existingUserInviteSent: (
+      parent: T[\\"AddMemberPayloadParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => boolean | null | Promise<boolean | null>;
+  }
+}
+
+export namespace MutationResolvers {
+  export interface ArgsAddMember {
+    data: T[\\"AddMemberDataParent\\"];
+  }
+
+  export type AddMemberType<T extends ITypeMap> = (
+    parent: T[\\"MutationParent\\"],
+    args: ArgsAddMember,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"AddMemberPayloadParent\\"] | Promise<T[\\"AddMemberPayloadParent\\"]>;
+
+  export interface Type<T extends ITypeMap> {
+    addMember: (
+      parent: T[\\"MutationParent\\"],
+      args: ArgsAddMember,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"AddMemberPayloadParent\\"] | Promise<T[\\"AddMemberPayloadParent\\"]>;
+  }
+}
+
+export interface IResolvers<T extends ITypeMap> {
+  AddMemberPayload: AddMemberPayloadResolvers.Type<T>;
+  Mutation: MutationResolvers.Type<T>;
+}
+"
+`;
+
 exports[`basic scalar 1`] = `
 "import { GraphQLResolveInfo } from \\"graphql\\";
 
