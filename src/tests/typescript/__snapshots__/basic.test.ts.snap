@@ -16,21 +16,21 @@ export namespace UserResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string;
+  ) => string | Promise<string>;
 
   export type NameResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string;
+  ) => string | Promise<string>;
 
   export type TypeResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"UserType\\"];
+  ) => T[\\"UserType\\"] | Promise<T[\\"UserType\\"]>;
 
   export interface Type<T extends ITypeMap> {
     id: (
@@ -38,19 +38,19 @@ export namespace UserResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string;
+    ) => string | Promise<string>;
     name: (
       parent: T[\\"UserParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string;
+    ) => string | Promise<string>;
     type: (
       parent: T[\\"UserParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"UserType\\"];
+    ) => T[\\"UserType\\"] | Promise<T[\\"UserType\\"]>;
   }
 }
 
@@ -76,7 +76,7 @@ export namespace AddMemberPayloadResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string | null;
+  ) => string | null | Promise<string | null>;
 
   export interface Type<T extends ITypeMap> {
     json: (
@@ -84,7 +84,7 @@ export namespace AddMemberPayloadResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string | null;
+    ) => string | null | Promise<string | null>;
   }
 }
 
@@ -98,7 +98,7 @@ export namespace MutationResolvers {
     args: ArgsAddMember,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"AddMemberPayloadParent\\"];
+  ) => T[\\"AddMemberPayloadParent\\"] | Promise<T[\\"AddMemberPayloadParent\\"]>;
 
   export interface Type<T extends ITypeMap> {
     addMember: (
@@ -106,7 +106,7 @@ export namespace MutationResolvers {
       args: ArgsAddMember,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"AddMemberPayloadParent\\"];
+    ) => T[\\"AddMemberPayloadParent\\"] | Promise<T[\\"AddMemberPayloadParent\\"]>;
   }
 }
 
@@ -133,35 +133,35 @@ export namespace QueryResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string;
+  ) => string | Promise<string>;
 
   export type Custom_requiredResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"];
+  ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
 
   export type Custom_nullableResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"] | null;
+  ) => T[\\"NumberParent\\"] | null | Promise<T[\\"NumberParent\\"] | null>;
 
   export type Custom_array_nullableResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"][] | null;
+  ) => T[\\"NumberParent\\"][] | null | Promise<T[\\"NumberParent\\"][] | null>;
 
   export type Custom_array_requiredResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"][];
+  ) => T[\\"NumberParent\\"][] | Promise<T[\\"NumberParent\\"][]>;
 
   export interface ArgsCustom_with_arg {
     id: number;
@@ -172,7 +172,7 @@ export namespace QueryResolvers {
     args: ArgsCustom_with_arg,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"];
+  ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
 
   export interface ArgsCustom_with_custom_arg {
     id: T[\\"NumberParent\\"];
@@ -183,35 +183,35 @@ export namespace QueryResolvers {
     args: ArgsCustom_with_custom_arg,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"NumberParent\\"];
+  ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
 
   export type Scalar_requiredResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean;
+  ) => boolean | Promise<boolean>;
 
   export type Scalar_nullableResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean | null;
+  ) => boolean | null | Promise<boolean | null>;
 
   export type Scalar_array_nullableResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean[] | null;
+  ) => boolean[] | null | Promise<boolean[] | null>;
 
   export type Scalar_array_requiredResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean[];
+  ) => boolean[] | Promise<boolean[]>;
 
   export interface ArgsScalar_with_arg {
     id: number;
@@ -222,7 +222,7 @@ export namespace QueryResolvers {
     args: ArgsScalar_with_arg,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean;
+  ) => boolean | Promise<boolean>;
 
   export interface ArgsScalar_with_custom_arg {
     id: T[\\"NumberParent\\"];
@@ -233,7 +233,7 @@ export namespace QueryResolvers {
     args: ArgsScalar_with_custom_arg,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => boolean;
+  ) => boolean | Promise<boolean>;
 
   export interface Type<T extends ITypeMap> {
     id: (
@@ -241,79 +241,79 @@ export namespace QueryResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string;
+    ) => string | Promise<string>;
     custom_required: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"];
+    ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
     custom_nullable: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"] | null;
+    ) => T[\\"NumberParent\\"] | null | Promise<T[\\"NumberParent\\"] | null>;
     custom_array_nullable: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"][] | null;
+    ) => T[\\"NumberParent\\"][] | null | Promise<T[\\"NumberParent\\"][] | null>;
     custom_array_required: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"][];
+    ) => T[\\"NumberParent\\"][] | Promise<T[\\"NumberParent\\"][]>;
     custom_with_arg: (
       parent: T[\\"QueryParent\\"],
       args: ArgsCustom_with_arg,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"];
+    ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
     custom_with_custom_arg: (
       parent: T[\\"QueryParent\\"],
       args: ArgsCustom_with_custom_arg,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"NumberParent\\"];
+    ) => T[\\"NumberParent\\"] | Promise<T[\\"NumberParent\\"]>;
     scalar_required: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean;
+    ) => boolean | Promise<boolean>;
     scalar_nullable: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean | null;
+    ) => boolean | null | Promise<boolean | null>;
     scalar_array_nullable: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean[] | null;
+    ) => boolean[] | null | Promise<boolean[] | null>;
     scalar_array_required: (
       parent: T[\\"QueryParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean[];
+    ) => boolean[] | Promise<boolean[]>;
     scalar_with_arg: (
       parent: T[\\"QueryParent\\"],
       args: ArgsScalar_with_arg,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean;
+    ) => boolean | Promise<boolean>;
     scalar_with_custom_arg: (
       parent: T[\\"QueryParent\\"],
       args: ArgsScalar_with_custom_arg,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => boolean;
+    ) => boolean | Promise<boolean>;
   }
 }
 
@@ -323,14 +323,14 @@ export namespace NumberResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string | null;
+  ) => string | null | Promise<string | null>;
 
   export type ValueResolver<T extends ITypeMap> = (
     parent: T[\\"NumberParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => number | null;
+  ) => number | null | Promise<number | null>;
 
   export interface Type<T extends ITypeMap> {
     id: (
@@ -338,13 +338,13 @@ export namespace NumberResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string | null;
+    ) => string | null | Promise<string | null>;
     value: (
       parent: T[\\"NumberParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => number | null;
+    ) => number | null | Promise<number | null>;
   }
 }
 
@@ -373,21 +373,21 @@ export namespace UserResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string;
+  ) => string | Promise<string>;
 
   export type NameResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string;
+  ) => string | Promise<string>;
 
   export type TypeResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"UserType\\"];
+  ) => T[\\"UserType\\"] | Promise<T[\\"UserType\\"]>;
 
   export interface Type<T extends ITypeMap> {
     id: (
@@ -395,19 +395,19 @@ export namespace UserResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string;
+    ) => string | Promise<string>;
     name: (
       parent: T[\\"UserParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string;
+    ) => string | Promise<string>;
     type: (
       parent: T[\\"UserParent\\"],
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"UserType\\"];
+    ) => T[\\"UserType\\"] | Promise<T[\\"UserType\\"]>;
   }
 }
 
@@ -417,7 +417,7 @@ export namespace StudentResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => number;
+  ) => number | Promise<number>;
 
   export interface Type<T extends ITypeMap> {
     age: (
@@ -425,7 +425,7 @@ export namespace StudentResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => number;
+    ) => number | Promise<number>;
   }
 }
 
@@ -435,7 +435,7 @@ export namespace ProfessorResolvers {
     args: {},
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => string | null;
+  ) => string | null | Promise<string | null>;
 
   export interface Type<T extends ITypeMap> {
     degree: (
@@ -443,7 +443,7 @@ export namespace ProfessorResolvers {
       args: {},
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => string | null;
+    ) => string | null | Promise<string | null>;
   }
 }
 

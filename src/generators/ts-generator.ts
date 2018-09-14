@@ -98,7 +98,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
     },
     ctx: T['Context'],
     info: GraphQLResolveInfo,
-  ) => ${printFieldLikeType(field)}
+  ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>
   `
     )
     .join(os.EOL)}
@@ -115,7 +115,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(os.EOL)}
       },
       ctx: T['Context'],
       info: GraphQLResolveInfo,
-    ) => ${printFieldLikeType(field)}`
+    ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>`
     )
     .join(os.EOL)}
   }
