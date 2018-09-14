@@ -147,34 +147,53 @@ function extractTypeFields(
   node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode
 ) {
   const fields: GraphQLTypeField[] = [];
-  visit(node, {
-    FieldDefinition(fieldNode: FieldDefinitionNode) {
-      const fieldType: GraphQLType = extractTypeLike(schema, fieldNode);
+  if (node.kind === "ObjectTypeDefinition") {
+    visit(node, {
+      FieldDefinition(fieldNode: FieldDefinitionNode) {
+        const fieldType: GraphQLType = extractTypeLike(schema, fieldNode);
 
-      const fieldArguments: GraphQLTypeArgument[] = [];
-      visit(fieldNode, {
-        InputValueDefinition(
-          inputValueDefinitionNode: InputValueDefinitionNode
-        ) {
-          const argumentType: GraphQLType = extractTypeLike(
-            schema,
-            inputValueDefinitionNode
-          );
+        const fieldArguments: GraphQLTypeArgument[] = [];
+        visit(fieldNode, {
+          InputValueDefinition(
+            inputValueDefinitionNode: InputValueDefinitionNode
+          ) {
+            const argumentType: GraphQLType = extractTypeLike(
+              schema,
+              inputValueDefinitionNode
+            );
 
-          fieldArguments.push({
-            name: inputValueDefinitionNode.name.value,
-            type: argumentType
-          });
-        }
-      });
+            fieldArguments.push({
+              name: inputValueDefinitionNode.name.value,
+              type: argumentType
+            });
+          }
+        });
 
-      fields.push({
-        name: fieldNode.name.value,
-        type: fieldType,
-        arguments: fieldArguments
-      });
-    }
-  });
+        fields.push({
+          name: fieldNode.name.value,
+          type: fieldType,
+          arguments: fieldArguments
+        });
+      }
+    });
+  } else {
+    // Is input type based on current code/types!
+    visit(node, {
+      InputValueDefinition(inputValueDefinitionNode: InputValueDefinitionNode) {
+        const argumentType: GraphQLType = extractTypeLike(
+          schema,
+          inputValueDefinitionNode
+        );
+
+        fields.push({
+          name: inputValueDefinitionNode.name.value,
+          type: argumentType,
+          arguments: []
+        });
+      }
+    });
+  }
+
   return fields;
 }
 

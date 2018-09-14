@@ -3,13 +3,11 @@ import * as capitalize from "capitalize";
 import * as prettier from "prettier";
 
 import { GenerateArgs } from "./generator-interface";
-import { GraphQLScalarType, GraphQLTypeField } from "../source-helper";
+import { GraphQLTypeField } from "../source-helper";
 
 type SpecificGraphQLScalarType = "boolean" | "number" | "string";
 
-function getTypeFromGraphQLType(
-  type: GraphQLScalarType
-): SpecificGraphQLScalarType {
+function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
   if (type === "Int" || type === "Float") {
     return "number";
   }
@@ -43,9 +41,15 @@ export function printFieldLikeType(
   lookupType: boolean = true
 ) {
   if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
+    return `${getTypeFromGraphQLType(field.type.name)}${
       field.type.isArray ? "[]" : ""
     }${!field.type.isRequired ? "| null" : ""}`;
+  }
+
+  if (field.type.isInput) {
+    return `${field.type.name}${field.type.isArray ? "[]" : ""}${
+      !field.type.isRequired ? "| null" : ""
+    }`;
   }
 
   return lookupType
@@ -74,6 +78,17 @@ ${args.types
     .map(type => `${type.name}Parent: any`)
     .join(os.EOL)}
 }
+
+  ${args.types
+    .filter(type => type.type.isInput)
+    .map(
+      type => `export interface ${type.name} {
+    ${type.fields.map(
+      field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
+    )}
+  }`
+    )
+    .join(os.EOL)}
 
   ${args.types
     .filter(type => type.type.isObject)
