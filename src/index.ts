@@ -26,19 +26,26 @@ import {
   generate as generateReason,
   format as formatReason
 } from "./generators/reason-generator";
+import {
+  generate as generateFlow,
+  format as formatFlow
+} from "./generators/flow-generator";
 
 import { generate as scaffoldTS } from "./generators/ts-scaffolder";
 import { generate as scaffoldReason } from "./generators/reason-scaffolder";
+import { generate as scaffoldFlow } from "./generators/flow-scaffolder";
 
 import { importSchema } from "graphql-import";
 
-type GeneratorType = "typescript" | "reason";
+type GeneratorType = "typescript" | "reason" | "flow";
 
 type ActualGeneratorType =
   | "interfaces-typescript"
   | "interfaces-reason"
+  | "interfaces-flow"
   | "scaffold-typescript"
-  | "scaffold-reason";
+  | "scaffold-reason"
+  | "scaffold-flow";
 
 type CLIArgs = {
   command: string;
@@ -65,6 +72,12 @@ export type GenerateCodeArgs = {
 };
 
 function getGenerator(generator: ActualGeneratorType): IGenerator {
+  if (generator === "interfaces-flow") {
+    return { generate: generateFlow, format: formatFlow };
+  }
+  if (generator === "scaffold-flow") {
+    return { generate: scaffoldFlow, format: formatFlow };
+  }
   if (generator === "interfaces-reason") {
     return { generate: generateReason, format: formatReason };
   }
