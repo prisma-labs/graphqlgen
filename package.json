@@ -1,6 +1,6 @@
 {
   "name": "graphql-resolver-codegen",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "bin": {
