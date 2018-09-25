@@ -21,13 +21,13 @@ export const User: UserResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "User.ts",
+    "path": "User.js",
   },
   Object {
     "code": "export interface Context {}
 ",
     "force": false,
-    "path": "types/Context.ts",
+    "path": "types/Context.js",
   },
   Object {
     "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
@@ -42,7 +42,7 @@ export interface TypeMap extends ITypeMap {
 }
 ",
     "force": true,
-    "path": "types/TypeMap.ts",
+    "path": "types/TypeMap.js",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -55,7 +55,7 @@ export const resolvers: IResolvers<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "index.ts",
+    "path": "index.js",
   },
 ]
 `;
@@ -75,7 +75,24 @@ export const AddMemberPayload: AddMemberPayloadResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "AddMemberPayload.ts",
+    "path": "AddMemberPayload.js",
+  },
+  Object {
+    "code": "import { AddMemberDataResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface AddMemberDataParent {
+  email: string;
+  projects: string[];
+}
+
+export const AddMemberData: AddMemberDataResolvers.Type<TypeMap> = {
+  email: parent => parent.email,
+  projects: parent => parent.projects
+};
+",
+    "force": false,
+    "path": "AddMemberData.js",
   },
   Object {
     "code": "import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -90,18 +107,19 @@ export const Mutation: MutationResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "Mutation.ts",
+    "path": "Mutation.js",
   },
   Object {
     "code": "export interface Context {}
 ",
     "force": false,
-    "path": "types/Context.ts",
+    "path": "types/Context.js",
   },
   Object {
     "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { AddMemberPayloadParent } from \\"../AddMemberPayload\\";
+import { AddMemberDataParent } from \\"../AddMemberData\\";
 import { MutationParent } from \\"../Mutation\\";
 
 import { Context } from \\"./context\\";
@@ -109,26 +127,29 @@ import { Context } from \\"./context\\";
 export interface TypeMap extends ITypeMap {
   Context: Context;
   AddMemberPayloadParent: AddMemberPayloadParent;
+  AddMemberDataParent: AddMemberDataParent;
   MutationParent: MutationParent;
 }
 ",
     "force": true,
-    "path": "types/TypeMap.ts",
+    "path": "types/TypeMap.js",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { AddMemberPayload } from \\"./AddMemberPayload\\";
+import { AddMemberData } from \\"./AddMemberData\\";
 import { Mutation } from \\"./Mutation\\";
 
 export const resolvers: IResolvers<TypeMap> = {
   AddMemberPayload,
+  AddMemberData,
   Mutation
 };
 ",
     "force": false,
-    "path": "index.ts",
+    "path": "index.js",
   },
 ]
 `;
@@ -150,7 +171,7 @@ export const Number: NumberResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "Number.ts",
+    "path": "Number.js",
   },
   Object {
     "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -183,13 +204,13 @@ export const Query: QueryResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "Query.ts",
+    "path": "Query.js",
   },
   Object {
     "code": "export interface Context {}
 ",
     "force": false,
-    "path": "types/Context.ts",
+    "path": "types/Context.js",
   },
   Object {
     "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
@@ -206,7 +227,7 @@ export interface TypeMap extends ITypeMap {
 }
 ",
     "force": true,
-    "path": "types/TypeMap.ts",
+    "path": "types/TypeMap.js",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -221,7 +242,7 @@ export const resolvers: IResolvers<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "index.ts",
+    "path": "index.js",
   },
 ]
 `;
@@ -250,7 +271,7 @@ export const User: UserResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "User.ts",
+    "path": "User.js",
   },
   Object {
     "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -265,7 +286,7 @@ export const Student: StudentResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "Student.ts",
+    "path": "Student.js",
   },
   Object {
     "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -280,13 +301,13 @@ export const Professor: ProfessorResolvers.Type<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "Professor.ts",
+    "path": "Professor.js",
   },
   Object {
     "code": "export interface Context {}
 ",
     "force": false,
-    "path": "types/Context.ts",
+    "path": "types/Context.js",
   },
   Object {
     "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
@@ -305,7 +326,7 @@ export interface TypeMap extends ITypeMap {
 }
 ",
     "force": true,
-    "path": "types/TypeMap.ts",
+    "path": "types/TypeMap.js",
   },
   Object {
     "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -322,7 +343,7 @@ export const resolvers: IResolvers<TypeMap> = {
 };
 ",
     "force": false,
-    "path": "index.ts",
+    "path": "index.js",
   },
 ]
 `;

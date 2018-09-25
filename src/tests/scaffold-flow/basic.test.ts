@@ -56,5 +56,5 @@ test("basic scalar", async () => {
     generator: "scaffold-flow"
   });
   expect(code).toMatchSnapshot();
-  expect(code.length).toBe(5);
+  expect(code.length).toBe(6);
 });
