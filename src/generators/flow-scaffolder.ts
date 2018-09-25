@@ -134,7 +134,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       }
       `;
       return {
-        path: `${type.name}.ts`,
+        path: `${type.name}.js`,
         force: false,
         code
       };
@@ -142,7 +142,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   );
 
   files.push({
-    path: "types/Context.ts",
+    path: "types/Context.js",
     force: false,
     code: `
     export interface Context { }
@@ -150,7 +150,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   });
 
   files.push({
-    path: "types/TypeMap.ts",
+    path: "types/TypeMap.js",
     force: true,
     code: `
 import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
@@ -162,7 +162,7 @@ ${args.types
 import { Context } from './context'
 
 export interface TypeMap extends ITypeMap {
-  Context: Context
+  Context: Context;
   ${args.types
     .map(
       type =>
@@ -176,7 +176,7 @@ export interface TypeMap extends ITypeMap {
   });
 
   files.push({
-    path: "index.ts",
+    path: "index.js",
     force: false,
     code: `
     import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
