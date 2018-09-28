@@ -43,12 +43,12 @@ export function printFieldLikeType(
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name)}${
       field.type.isArray ? "[]" : ""
-    }${!field.type.isRequired ? "| null" : ""}`;
+    }${!field.type.isRequired ? "| undefined" : ""}`;
   }
 
   if (field.type.isInput) {
     return `${field.type.name}${field.type.isArray ? "[]" : ""}${
-      !field.type.isRequired ? "| null" : ""
+      !field.type.isRequired ? "| undefined" : ""
     }`;
   }
 
@@ -56,12 +56,12 @@ export function printFieldLikeType(
     ? `T['${field.type.name}${
         field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }']${field.type.isArray ? "[]" : ""}${
-        !field.type.isRequired ? "| null" : ""
+        !field.type.isRequired ? "| undefined" : ""
       }`
     : `${field.type.name}${
         field.type.isEnum || field.type.isUnion ? "" : "Parent"
       }${field.type.isArray ? "[]" : ""}${
-        !field.type.isRequired ? "| null" : ""
+        !field.type.isRequired ? "| undefined" : ""
       }`;
 }
 
