@@ -67,7 +67,7 @@ Array [
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberPayloadParent {
-  json?: string;
+  json: string | null;
 }
 
 export const AddMemberPayload: AddMemberPayloadResolvers.Type<TypeMap> = {
@@ -140,8 +140,8 @@ Array [
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface NumberParent {
-  id?: string;
-  value?: number;
+  id: string | null;
+  value: number | null;
 }
 
 export const Number: NumberResolvers.Type<TypeMap> = {
@@ -272,7 +272,7 @@ export const Student: StudentResolvers.Type<TypeMap> = {
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface ProfessorParent {
-  degree?: string;
+  degree: string | null;
 }
 
 export const Professor: ProfessorResolvers.Type<TypeMap> = {
