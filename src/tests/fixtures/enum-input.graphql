@@ -1,0 +1,12 @@
+type User {
+    name: String!
+}
+
+enum UsersOrderByInput {
+    name_ASC
+    name_DESC
+}
+
+type Query {
+    users(orderBy: UsersOrderByInput): [User!]!
+}

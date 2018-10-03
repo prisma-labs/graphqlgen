@@ -121,10 +121,10 @@ ${args.types
         }` : ``}  
 
   ${type.fields
-    .map(
-      field => `${
-        field.arguments.length > 0
-          ? `export interface Args${capitalize(field.name)} {
+        .map(
+          field => `${
+            field.arguments.length > 0
+              ? `export interface Args${capitalize(field.name)}<T extends ITypeMap> {
       ${field.arguments
         .map(
           arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)}`,
@@ -139,8 +139,8 @@ ${args.types
         type.type.isEnum || type.type.isUnion ? '' : 'Parent'
       }'],
     args: ${
-      field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
-    },
+            field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
+            },
     ctx: T['Context'],
     info: GraphQLResolveInfo,
   ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>
@@ -156,8 +156,8 @@ ${args.types
         type.type.isEnum || type.type.isUnion ? '' : 'Parent'
       }'],
       args: ${
-        field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
-      },
+            field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
+            },
       ctx: T['Context'],
       info: GraphQLResolveInfo,
     ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>`,

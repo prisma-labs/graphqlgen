@@ -2,6 +2,7 @@ import { generateCode } from "../../";
 import * as fs from "fs";
 import { parse } from "graphql";
 import { join } from "path";
+import { isValidTypescript } from "../validate-typescript";
 
 test("basic schema", async () => {
   const schema = fs.readFileSync(
@@ -10,6 +11,7 @@ test("basic schema", async () => {
   );
   const parsedSchema = parse(schema);
   const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
   expect(code).toMatchSnapshot();
 });
 
@@ -20,6 +22,7 @@ test("basic enum", async () => {
   );
   const parsedSchema = parse(schema);
   const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
   expect(code).toMatchSnapshot();
 });
 
@@ -30,6 +33,7 @@ test("basic union", async () => {
   );
   const parsedSchema = parse(schema);
   const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
   expect(code).toMatchSnapshot();
 });
 
@@ -40,6 +44,7 @@ test("basic scalar", async () => {
   );
   const parsedSchema = parse(schema);
   const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
   expect(code).toMatchSnapshot();
 });
 
@@ -50,5 +55,17 @@ test("basic input", async () => {
   );
   const parsedSchema = parse(schema);
   const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
+  expect(code).toMatchSnapshot();
+});
+
+test("basic enum input", async () => {
+  const schema = fs.readFileSync(
+    join(__dirname, "../fixtures/enum-input.graphql"),
+    "utf-8"
+  );
+  const parsedSchema = parse(schema);
+  const code = generateCode({ schema: parsedSchema });
+  expect(isValidTypescript(code)).toBeTruthy();
   expect(code).toMatchSnapshot();
 });
