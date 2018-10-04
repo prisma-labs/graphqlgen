@@ -11,5 +11,8 @@
     "noUnusedParameters": true,
     "strict": true
   },
+  "include": [
+    "./src/**/*.ts"
+  ],
   "exclude": ["node_modules", "generated", "example", "examples"]
 }
