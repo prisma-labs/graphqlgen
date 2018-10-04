@@ -80,63 +80,68 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
 
   ${args.types
     .map(
-      type => `declare module "${type.name}Resolvers" {
+      type => `
+      
+      ${type.fields.map(field => {
+        return `
+
+        ${
+          field.arguments.length > 0
+            ? `// Type for argument
+            export type ${type.name}_Args${capitalize(field.name)} = {
+          ${field.arguments
+            .map(
+              arg =>
+                `${arg.name}: ${printFieldLikeType(
+                  arg as GraphQLTypeField
+                )},`
+            )
+            .join(`${os.EOL}`)}
+        }`
+            : ``
+        }
+
+          export type ${type.name}_${capitalize(field.name)}Type<T> = (
+            parent: $PropertyType<T & ITypeMap, '${type.name}${
+            type.type.isEnum || type.type.isUnion ? "" : "Parent"
+          }'>,
+            args: ${
+              field.arguments.length > 0
+                ? `${type.name}_Args${capitalize(field.name)}`
+                : "{}"
+            },
+            ctx: $PropertyType<T & ITypeMap, 'Context'>,
+            info: GraphQLResolveInfo,
+          ) => ${printFieldLikeType(field)}
+        `
+      }).join(os.EOL)}
+
+      export type ${type.name}Resolvers<T> = {
 
         ${type.fields
           .map(field => {
-            return `${
-              field.arguments.length > 0
-                ? `// Type for argument
-                declare type Args${capitalize(field.name)} = {
-              ${field.arguments
-                .map(
-                  arg =>
-                    `${arg.name}: ${printFieldLikeType(
-                      arg as GraphQLTypeField
-                    )},`
-                )
-                .join(os.EOL)}
-            }`
-                : ``
-            }
+            return `
             
             
             // Type for GraphQL type
-            declare type ${capitalize(field.name)}Type<T> = (
-              parent: $PropertyType<T & ITypeMap, '${type.name}${
-              type.type.isEnum || type.type.isUnion ? "" : "Parent"
-            }'>,
-              args: ${
-                field.arguments.length > 0
-                  ? `Args${capitalize(field.name)}`
-                  : "{}"
-              },
-              ctx: $PropertyType<T & ITypeMap, 'Context'>,
-              info: GraphQLResolveInfo,
-            ) => ${printFieldLikeType(field)}
+            ${capitalize(field.name)}Type: ${type.name}_${capitalize(field.name)}Type<T>,
             `;
           })
-          .join(os.EOL)}
+          .join(`${os.EOL}`)}
 
-          declare type Type = {
+          Type: {
             ${type.fields
-              .map(field => `${field.name}: ${capitalize(field.name)}Type,`)
-              .join(os.EOL)}
+              .map(field => `${field.name}: ${type.name}_${capitalize(field.name)}Type<T>,`)
+              .join(`${os.EOL}`)}
             }
-
-        declare module.exports: {
-  ${type.fields
-    .map(field => `${field.name}: ${capitalize(field.name)}Type,`)
-    .join(os.EOL)}
-  }
 }
 `
     )
     .join(os.EOL)}
 
-declare type IResolvers<T> = {
+export type IResolvers<T> = {
   ${args.types
-    .map(type => `${type.name}: ${type.name}Resolvers.Type<T & ITypeMap>,`)
+    .map(type => `${type.name}: $PropertyType<${type.name}Resolvers<T>, 'Type'>,`)
     .join(os.EOL)}
 }
 

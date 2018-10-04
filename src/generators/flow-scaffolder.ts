@@ -99,7 +99,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         .join(";")}
     }
 
-    export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
+    export const ${type.name}: $PropertyType<${type.name}Resolvers<TypeMap>, 'Type'> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -124,7 +124,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
+      export const ${type.name}: $PropertyType<${type.name}Resolvers<TypeMap>, 'Type'> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${

@@ -14,7 +14,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: UserResolvers.Type<TypeMap> = {
+export const User: $PropertyType<UserResolvers<TypeMap>, \\"Type\\"> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -70,7 +70,10 @@ export interface AddMemberPayloadParent {
   json?: string;
 }
 
-export const AddMemberPayload: AddMemberPayloadResolvers.Type<TypeMap> = {
+export const AddMemberPayload: $PropertyType<
+  AddMemberPayloadResolvers<TypeMap>,
+  \\"Type\\"
+> = {
   json: parent => parent.json
 };
 ",
@@ -86,7 +89,10 @@ export interface AddMemberDataParent {
   projects: string[];
 }
 
-export const AddMemberData: AddMemberDataResolvers.Type<TypeMap> = {
+export const AddMemberData: $PropertyType<
+  AddMemberDataResolvers<TypeMap>,
+  \\"Type\\"
+> = {
   email: parent => parent.email,
   projects: parent => parent.projects
 };
@@ -100,7 +106,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
 
-export const Mutation: MutationResolvers.Type<TypeMap> = {
+export const Mutation: $PropertyType<MutationResolvers<TypeMap>, \\"Type\\"> = {
   addMember: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
   }
@@ -165,7 +171,7 @@ export interface NumberParent {
   value?: number;
 }
 
-export const Number: NumberResolvers.Type<TypeMap> = {
+export const Number: $PropertyType<NumberResolvers<TypeMap>, \\"Type\\"> = {
   id: parent => parent.id,
   value: parent => parent.value
 };
@@ -179,7 +185,7 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
 
-export const Query: QueryResolvers.Type<TypeMap> = {
+export const Query: $PropertyType<QueryResolvers<TypeMap>, \\"Type\\"> = {
   id: parent => null,
   custom_required: parent => {
     throw new Error(\\"Resolver not implemented\\");
@@ -264,7 +270,7 @@ export interface UserParent {
   type: UserType;
 }
 
-export const User: UserResolvers.Type<TypeMap> = {
+export const User: $PropertyType<UserResolvers<TypeMap>, \\"Type\\"> = {
   id: parent => parent.id,
   name: parent => parent.name,
   type: parent => parent.type
@@ -281,7 +287,7 @@ export interface StudentParent {
   age: number;
 }
 
-export const Student: StudentResolvers.Type<TypeMap> = {
+export const Student: $PropertyType<StudentResolvers<TypeMap>, \\"Type\\"> = {
   age: parent => parent.age
 };
 ",
@@ -296,7 +302,7 @@ export interface ProfessorParent {
   degree?: string;
 }
 
-export const Professor: ProfessorResolvers.Type<TypeMap> = {
+export const Professor: $PropertyType<ProfessorResolvers<TypeMap>, \\"Type\\"> = {
   degree: parent => parent.degree
 };
 ",
