@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum 1`] = `
+Array [
+  Object {
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+
+export interface UserParent {
+  id: string;
+  name: string;
+  type: UserType;
+}
+
+export const User: User_Type<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
+};
+",
+    "force": false,
+    "path": "User.js",
+  },
+  Object {
+    "code": "export interface Context {}
+",
+    "force": false,
+    "path": "types/Context.js",
+  },
+  Object {
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserParent } from \\"../User\\";
+
+import { Context } from \\"./context\\";
+
+export interface TypeMap extends ITypeMap {
+  Context: Context;
+  UserParent: UserParent;
+}
+",
+    "force": true,
+    "path": "types/TypeMap.js",
+  },
+  Object {
+    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+import { User } from \\"./User\\";
+
+export const resolvers: IResolvers<TypeMap> = {
+  User
+};
+",
+    "force": false,
+    "path": "index.js",
+  },
+]
+`;
+
+exports[`basic scalar 1`] = `
+Array [
+  Object {
+    "code": "import { AddMemberPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface AddMemberPayloadParent {
+  json?: string;
+}
+
+export const AddMemberPayload: AddMemberPayload_Type<TypeMap> = {
+  json: parent => parent.json
+};
+",
+    "force": false,
+    "path": "AddMemberPayload.js",
+  },
+  Object {
+    "code": "import { AddMemberDataResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface AddMemberDataParent {
+  email: string;
+  projects: string[];
+}
+
+export const AddMemberData: AddMemberData_Type<TypeMap> = {
+  email: parent => parent.email,
+  projects: parent => parent.projects
+};
+",
+    "force": false,
+    "path": "AddMemberData.js",
+  },
+  Object {
+    "code": "import { Mutation_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface MutationParent {}
+
+export const Mutation: Mutation_Type<TypeMap> = {
+  addMember: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
+",
+    "force": false,
+    "path": "Mutation.js",
+  },
+  Object {
+    "code": "export interface Context {}
+",
+    "force": false,
+    "path": "types/Context.js",
+  },
+  Object {
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+
+import { AddMemberPayloadParent } from \\"../AddMemberPayload\\";
+import { AddMemberDataParent } from \\"../AddMemberData\\";
+import { MutationParent } from \\"../Mutation\\";
+
+import { Context } from \\"./context\\";
+
+export interface TypeMap extends ITypeMap {
+  Context: Context;
+  AddMemberPayloadParent: AddMemberPayloadParent;
+  AddMemberDataParent: AddMemberDataParent;
+  MutationParent: MutationParent;
+}
+",
+    "force": true,
+    "path": "types/TypeMap.js",
+  },
+  Object {
+    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+import { AddMemberPayload } from \\"./AddMemberPayload\\";
+import { AddMemberData } from \\"./AddMemberData\\";
+import { Mutation } from \\"./Mutation\\";
+
+export const resolvers: IResolvers<TypeMap> = {
+  AddMemberPayload,
+  AddMemberData,
+  Mutation
+};
+",
+    "force": false,
+    "path": "index.js",
+  },
+]
+`;
+
+exports[`basic schema 1`] = `
+Array [
+  Object {
+    "code": "import { NumberResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface NumberParent {
+  id?: string;
+  value?: number;
+}
+
+export const Number: Number_Type<TypeMap> = {
+  id: parent => parent.id,
+  value: parent => parent.value
+};
+",
+    "force": false,
+    "path": "Number.js",
+  },
+  Object {
+    "code": "import { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface QueryParent {}
+
+export const Query: Query_Type<TypeMap> = {
+  id: parent => null,
+  custom_required: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_nullable: parent => null,
+  custom_array_nullable: parent => null,
+  custom_array_required: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_arg: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_custom_arg: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_required: parent => false,
+  scalar_nullable: parent => null,
+  scalar_array_nullable: parent => null,
+  scalar_array_required: parent => [],
+  scalar_with_arg: (parent, args) => false,
+  scalar_with_custom_arg: (parent, args) => false
+};
+",
+    "force": false,
+    "path": "Query.js",
+  },
+  Object {
+    "code": "export interface Context {}
+",
+    "force": false,
+    "path": "types/Context.js",
+  },
+  Object {
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+
+import { QueryParent } from \\"../Query\\";
+import { NumberParent } from \\"../Number\\";
+
+import { Context } from \\"./context\\";
+
+export interface TypeMap extends ITypeMap {
+  Context: Context;
+  QueryParent: QueryParent;
+  NumberParent: NumberParent;
+}
+",
+    "force": true,
+    "path": "types/TypeMap.js",
+  },
+  Object {
+    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+import { Query } from \\"./Query\\";
+import { Number } from \\"./Number\\";
+
+export const resolvers: IResolvers<TypeMap> = {
+  Query,
+  Number
+};
+",
+    "force": false,
+    "path": "index.js",
+  },
+]
+`;
+
+exports[`basic union 1`] = `
+Array [
+  Object {
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+import { StudentParent } from \\"./Student\\";
+import { ProfessorParent } from \\"./Professor\\";
+
+export type UserType = StudentParent | ProfessorParent;
+
+export interface UserParent {
+  id: string;
+  name: string;
+  type: UserType;
+}
+
+export const User: User_Type<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  type: parent => parent.type
+};
+",
+    "force": false,
+    "path": "User.js",
+  },
+  Object {
+    "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface StudentParent {
+  age: number;
+}
+
+export const Student: Student_Type<TypeMap> = {
+  age: parent => parent.age
+};
+",
+    "force": false,
+    "path": "Student.js",
+  },
+  Object {
+    "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface ProfessorParent {
+  degree?: string;
+}
+
+export const Professor: Professor_Type<TypeMap> = {
+  degree: parent => parent.degree
+};
+",
+    "force": false,
+    "path": "Professor.js",
+  },
+  Object {
+    "code": "export interface Context {}
+",
+    "force": false,
+    "path": "types/Context.js",
+  },
+  Object {
+    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+
+import { UserParent } from \\"../User\\";
+import { StudentParent } from \\"../Student\\";
+import { ProfessorParent } from \\"../Professor\\";
+
+import { Context } from \\"./context\\";
+
+export interface TypeMap extends ITypeMap {
+  Context: Context;
+  UserParent: UserParent;
+  StudentParent: StudentParent;
+  ProfessorParent: ProfessorParent;
+}
+",
+    "force": true,
+    "path": "types/TypeMap.js",
+  },
+  Object {
+    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+import { User } from \\"./User\\";
+import { Student } from \\"./Student\\";
+import { Professor } from \\"./Professor\\";
+
+export const resolvers: IResolvers<TypeMap> = {
+  User,
+  Student,
+  Professor
+};
+",
+    "force": false,
+    "path": "index.js",
+  },
+]
+`;

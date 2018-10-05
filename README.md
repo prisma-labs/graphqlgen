@@ -23,7 +23,7 @@ Options:
   -s, --schema-path  GraphQL schema file path                         [required]
   -o, --output       Output file/folder path [default:
                      ./generated/resolvers[.ts]]
-  -g, --generator    Generator to use [default: typescript, options: reason]
+  -g, --generator    Generator to use [default: typescript, options: reason, flow]
   -i, --interfaces   Path to the interfaces folder used for scaffolding
   -f, --force        Force write files when there is a clash while scaffolding
 
