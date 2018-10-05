@@ -99,7 +99,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         .join(";")}
     }
 
-    export const ${type.name}: $PropertyType<${type.name}Resolvers<TypeMap>, 'Type'> = {
+    export const ${type.name}: ${type.name}_Type<TypeMap> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -119,12 +119,12 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files = files.concat(
     args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `
-      import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+      import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: $PropertyType<${type.name}Resolvers<TypeMap>, 'Type'> = {
+      export const ${type.name}: ${type.name}_Type<TypeMap> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${

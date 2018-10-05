@@ -1,64 +1,64 @@
-import * as os from "os";
-import * as capitalize from "capitalize";
-import * as prettier from "prettier";
+import * as os from 'os'
+import * as capitalize from 'capitalize'
+import * as prettier from 'prettier'
 
-import { GenerateArgs } from "./generator-interface";
-import { GraphQLScalarType, GraphQLTypeField } from "../source-helper";
+import { GenerateArgs } from './generator-interface'
+import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
 
-type SpecificGraphQLScalarType = "boolean" | "number" | "string";
+type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
 function getTypeFromGraphQLType(
-  type: GraphQLScalarType
+  type: GraphQLScalarType,
 ): SpecificGraphQLScalarType {
-  if (type === "Int" || type === "Float") {
-    return "number";
+  if (type === 'Int' || type === 'Float') {
+    return 'number'
   }
-  if (type === "Boolean") {
-    return "boolean";
+  if (type === 'Boolean') {
+    return 'boolean'
   }
-  if (type === "String" || type === "ID" || type === "DateTime") {
-    return "string";
+  if (type === 'String' || type === 'ID' || type === 'DateTime') {
+    return 'string'
   }
-  return "string";
+  return 'string'
 }
 
 export function format(code: string, options: prettier.Options = {}) {
   try {
     return prettier.format(code, {
       ...options,
-      parser: "flow"
-    });
+      parser: 'flow',
+    })
   } catch (e) {
     console.log(
       `There is a syntax error in generated code, unformatted code printed, error: ${JSON.stringify(
-        e
-      )}`
-    );
-    return code;
+        e,
+      )}`,
+    )
+    return code
   }
 }
 
 export function printFieldLikeType(
   field: GraphQLTypeField,
-  lookupType: boolean = true
+  lookupType: boolean = true,
 ) {
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
-      field.type.isArray ? "[]" : ""
-    }${!field.type.isRequired ? "| null" : ""}`;
+      field.type.isArray ? '[]' : ''
+    }${!field.type.isRequired ? '| null' : ''}`
   }
 
   return lookupType
     ? `$PropertyType<T & ITypeMap, '${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Parent"
-      }'>${field.type.isArray ? "[]" : ""}${
-        !field.type.isRequired ? "| null" : ""
+        field.type.isEnum || field.type.isUnion ? '' : 'Parent'
+      }'>${field.type.isArray ? '[]' : ''}${
+        !field.type.isRequired ? '| null' : ''
       }`
     : `${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? "" : "Parent"
-      }${field.type.isArray ? "[]" : ""}${
-        !field.type.isRequired ? "| null" : ""
-      }`;
+        field.type.isEnum || field.type.isUnion ? '' : 'Parent'
+      }${field.type.isArray ? '[]' : ''}${
+        !field.type.isRequired ? '| null' : ''
+      }`
 }
 
 export function generate(args: GenerateArgs) {
@@ -82,68 +82,69 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
     .map(
       type => `
       
-      ${type.fields.map(field => {
-        return `
+      ${type.fields
+        .map(field => {
+          return `
 
         ${
           field.arguments.length > 0
             ? `// Type for argument
-            export type ${type.name}_Args${capitalize(field.name)} = {
+            export type ${type.name}_${capitalize(field.name)}_Args = {
           ${field.arguments
             .map(
               arg =>
-                `${arg.name}: ${printFieldLikeType(
-                  arg as GraphQLTypeField
-                )},`
+                `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)},`,
             )
             .join(`${os.EOL}`)}
         }`
             : ``
         }
 
-          export type ${type.name}_${capitalize(field.name)}Type<T> = (
+          export type ${type.name}_${capitalize(field.name)}_Resolver<T> = (
             parent: $PropertyType<T & ITypeMap, '${type.name}${
-            type.type.isEnum || type.type.isUnion ? "" : "Parent"
+            type.type.isEnum || type.type.isUnion ? '' : 'Parent'
           }'>,
             args: ${
               field.arguments.length > 0
-                ? `${type.name}_Args${capitalize(field.name)}`
-                : "{}"
+                ? `${type.name}_${capitalize(field.name)}_Args`
+                : '{}'
             },
             ctx: $PropertyType<T & ITypeMap, 'Context'>,
             info: GraphQLResolveInfo,
           ) => ${printFieldLikeType(field)}
         `
-      }).join(os.EOL)}
+        })
+        .join(os.EOL)}
 
-      export type ${type.name}Resolvers<T> = {
-
+      export type ${type.name}_Type<T> = {
         ${type.fields
-          .map(field => {
-            return `
-            
-            
-            // Type for GraphQL type
-            ${capitalize(field.name)}Type: ${type.name}_${capitalize(field.name)}Type<T>,
-            `;
-          })
+          .map(
+            field => `${field.name}: (
+            parent: $PropertyType<T & ITypeMap, '${type.name}${
+              type.type.isEnum || type.type.isUnion ? '' : 'Parent'
+            }'>,
+            args: ${
+              field.arguments.length > 0
+                ? `${type.name}_${capitalize(field.name)}_Args`
+                : '{}'
+            },
+            ctx: $PropertyType<T & ITypeMap, 'Context'>,
+            info: GraphQLResolveInfo,
+          ) => ${printFieldLikeType(field)},`,
+          )
           .join(`${os.EOL}`)}
-
-          Type: {
-            ${type.fields
-              .map(field => `${field.name}: ${type.name}_${capitalize(field.name)}Type<T>,`)
-              .join(`${os.EOL}`)}
-            }
-}
-`
+      }
+`,
     )
     .join(os.EOL)}
 
 export type IResolvers<T> = {
   ${args.types
-    .map(type => `${type.name}: $PropertyType<${type.name}Resolvers<T>, 'Type'>,`)
+    .map(
+      type => `${type.name}: ${type.name}_Type<T>,`,
+    )
     .join(os.EOL)}
 }
 
-  `;
+  `
 }
