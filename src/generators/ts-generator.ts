@@ -95,7 +95,6 @@ export function generate(args: GenerateArgs) {
         ) as any)
       }
     }, {})
-  console.log(inputTypesMap, typeToInputTypeAssociation)
 
   return `
 import { GraphQLResolveInfo } from 'graphql'
