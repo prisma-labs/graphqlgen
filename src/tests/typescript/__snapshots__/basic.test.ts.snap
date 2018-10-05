@@ -72,7 +72,7 @@ export interface ITypeMap {
 }
 
 export namespace UserResolvers {
-  export type NameType<T extends ITypeMap> = (
+  export type NameResolver<T extends ITypeMap> = (
     parent: T[\\"UserParent\\"],
     args: {},
     ctx: T[\\"Context\\"],
@@ -94,7 +94,7 @@ export namespace QueryResolvers {
     orderBy: T[\\"UsersOrderByInput\\"] | null;
   }
 
-  export type UsersType<T extends ITypeMap> = (
+  export type UsersResolver<T extends ITypeMap> = (
     parent: T[\\"QueryParent\\"],
     args: ArgsUsers<T>,
     ctx: T[\\"Context\\"],
@@ -160,12 +160,12 @@ export namespace AddMemberPayloadResolvers {
 }
 
 export namespace MutationResolvers {
-  export interface AddMemberData<T extends ITypeMap> {
+  export interface AddMemberData {
     email: string;
     projects: string;
   }
 
-  export interface ArgsAddMember {
+  export interface ArgsAddMember<T extends ITypeMap> {
     data: AddMemberData;
   }
 
