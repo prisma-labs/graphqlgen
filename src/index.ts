@@ -150,7 +150,7 @@ async function run() {
     .alias("g", "generator")
     .describe(
       "g",
-      `Generator to use [default: ${defaults.generator}, options: reason]`
+      `Generator to use [default: ${defaults.generator}, options: reason, flow]`
     )
     .describe("i", `Path to the interfaces folder used for scaffolding`)
     .alias("i", "interfaces") // TODO: Make this option only be used with scaffold command
