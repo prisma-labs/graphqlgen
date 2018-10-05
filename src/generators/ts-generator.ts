@@ -80,20 +80,22 @@ ${args.types
 }
 
   ${args.types
-    .filter(type => type.type.isInput)
-    .map(
-      type => `export interface ${type.name} {
-    ${type.fields.map(
-      field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
-    )}
-  }`
-    )
-    .join(os.EOL)}
-
-  ${args.types
     .filter(type => type.type.isObject)
     .map(
       type => `export namespace ${type.name}Resolvers {
+
+        ${args.types
+          .filter(type => type.type.isInput)
+          .map(
+            type => ` // Input type
+            export interface ${type.name} {
+          ${type.fields.map(
+            field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
+          )}
+        }`
+          )
+          .join(os.EOL)}
+
   ${type.fields
     .map(
       field => `${

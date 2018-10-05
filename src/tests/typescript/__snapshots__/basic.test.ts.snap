@@ -70,12 +70,13 @@ export interface ITypeMap {
   MutationParent: any;
 }
 
-export interface AddMemberData {
-  email: string;
-  projects: string;
-}
-
 export namespace AddMemberPayloadResolvers {
+  // Input type
+  export interface AddMemberData {
+    email: string;
+    projects: string;
+  }
+
   export type NewUserIdResolver<T extends ITypeMap> = (
     parent: T[\\"AddMemberPayloadParent\\"],
     args: {},
@@ -107,6 +108,12 @@ export namespace AddMemberPayloadResolvers {
 }
 
 export namespace MutationResolvers {
+  // Input type
+  export interface AddMemberData {
+    email: string;
+    projects: string;
+  }
+
   export interface ArgsAddMember {
     data: AddMemberData;
   }
@@ -145,12 +152,13 @@ export interface ITypeMap {
   MutationParent: any;
 }
 
-export interface AddMemberData {
-  email: string;
-  projects: string;
-}
-
 export namespace AddMemberPayloadResolvers {
+  // Input type
+  export interface AddMemberData {
+    email: string;
+    projects: string;
+  }
+
   export type JsonResolver<T extends ITypeMap> = (
     parent: T[\\"AddMemberPayloadParent\\"],
     args: {},
@@ -169,6 +177,12 @@ export namespace AddMemberPayloadResolvers {
 }
 
 export namespace MutationResolvers {
+  // Input type
+  export interface AddMemberData {
+    email: string;
+    projects: string;
+  }
+
   export interface ArgsAddMember {
     data: AddMemberData;
   }
