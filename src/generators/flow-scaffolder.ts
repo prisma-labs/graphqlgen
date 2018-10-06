@@ -48,7 +48,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .filter(type => !isParentType(type.name))
     .map(type => {
       const code = `
-    import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${Array.from(
       new Set(

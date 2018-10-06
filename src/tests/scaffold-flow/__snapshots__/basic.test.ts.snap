@@ -3,7 +3,7 @@
 exports[`basic enum 1`] = `
 Array [
   Object {
-    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
@@ -63,7 +63,7 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic scalar 1`] = `
 Array [
   Object {
-    "code": "import { AddMemberPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { AddMemberPayload_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberPayloadParent {
@@ -78,7 +78,7 @@ export const AddMemberPayload: AddMemberPayload_Type<TypeMap> = {
     "path": "AddMemberPayload.js",
   },
   Object {
-    "code": "import { AddMemberDataResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { AddMemberData_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberDataParent {
@@ -157,7 +157,7 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic schema 1`] = `
 Array [
   Object {
-    "code": "import { NumberResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { Number_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface NumberParent {
@@ -250,7 +250,7 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic union 1`] = `
 Array [
   Object {
-    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { StudentParent } from \\"./Student\\";
@@ -274,7 +274,7 @@ export const User: User_Type<TypeMap> = {
     "path": "User.js",
   },
   Object {
-    "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { Student_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface StudentParent {
@@ -289,7 +289,7 @@ export const Student: Student_Type<TypeMap> = {
     "path": "Student.js",
   },
   Object {
-    "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "import { Professor_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface ProfessorParent {
