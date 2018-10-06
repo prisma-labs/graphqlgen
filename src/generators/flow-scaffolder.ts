@@ -48,7 +48,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .filter(type => !isParentType(type.name))
     .map(type => {
       const code = `/* @flow */
-    import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
+    import type { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${Array.from(
       new Set(
@@ -119,7 +119,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files = files.concat(
     args.types.filter(type => isParentType(type.name)).map(type => {
       const code = `/* @flow */
-      import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
+      import type { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
       export interface ${type.name}Parent { }
@@ -179,7 +179,7 @@ export interface TypeMap extends ITypeMap {
     path: "index.js",
     force: false,
     code: `/* @flow */
-    import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    import type { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${args.types
       .map(
