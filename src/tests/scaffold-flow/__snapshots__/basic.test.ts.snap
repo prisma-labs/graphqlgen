@@ -3,7 +3,8 @@
 exports[`basic enum 1`] = `
 Array [
   Object {
-    "code": "import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
@@ -24,13 +25,15 @@ export const User: User_Type<TypeMap> = {
     "path": "User.js",
   },
   Object {
-    "code": "export interface Context {}
+    "code": "/* @flow */
+export interface Context {}
 ",
     "force": false,
     "path": "types/Context.js",
   },
   Object {
-    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserParent } from \\"../User\\";
 
@@ -45,7 +48,8 @@ export interface TypeMap extends ITypeMap {
     "path": "types/TypeMap.js",
   },
   Object {
-    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
@@ -63,7 +67,8 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic scalar 1`] = `
 Array [
   Object {
-    "code": "import { AddMemberPayload_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { AddMemberPayload_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberPayloadParent {
@@ -78,7 +83,8 @@ export const AddMemberPayload: AddMemberPayload_Type<TypeMap> = {
     "path": "AddMemberPayload.js",
   },
   Object {
-    "code": "import { AddMemberData_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { AddMemberData_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberDataParent {
@@ -95,7 +101,8 @@ export const AddMemberData: AddMemberData_Type<TypeMap> = {
     "path": "AddMemberData.js",
   },
   Object {
-    "code": "import { Mutation_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { Mutation_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
@@ -110,13 +117,15 @@ export const Mutation: Mutation_Type<TypeMap> = {
     "path": "Mutation.js",
   },
   Object {
-    "code": "export interface Context {}
+    "code": "/* @flow */
+export interface Context {}
 ",
     "force": false,
     "path": "types/Context.js",
   },
   Object {
-    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { AddMemberPayloadParent } from \\"../AddMemberPayload\\";
 import { AddMemberDataParent } from \\"../AddMemberData\\";
@@ -135,7 +144,8 @@ export interface TypeMap extends ITypeMap {
     "path": "types/TypeMap.js",
   },
   Object {
-    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { AddMemberPayload } from \\"./AddMemberPayload\\";
@@ -157,7 +167,8 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic schema 1`] = `
 Array [
   Object {
-    "code": "import { Number_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { Number_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface NumberParent {
@@ -174,7 +185,8 @@ export const Number: Number_Type<TypeMap> = {
     "path": "Number.js",
   },
   Object {
-    "code": "import { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
@@ -207,13 +219,15 @@ export const Query: Query_Type<TypeMap> = {
     "path": "Query.js",
   },
   Object {
-    "code": "export interface Context {}
+    "code": "/* @flow */
+export interface Context {}
 ",
     "force": false,
     "path": "types/Context.js",
   },
   Object {
-    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { QueryParent } from \\"../Query\\";
 import { NumberParent } from \\"../Number\\";
@@ -230,7 +244,8 @@ export interface TypeMap extends ITypeMap {
     "path": "types/TypeMap.js",
   },
   Object {
-    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
@@ -250,7 +265,8 @@ export const resolvers: IResolvers<TypeMap> = {
 exports[`basic union 1`] = `
 Array [
   Object {
-    "code": "import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { StudentParent } from \\"./Student\\";
@@ -274,7 +290,8 @@ export const User: User_Type<TypeMap> = {
     "path": "User.js",
   },
   Object {
-    "code": "import { Student_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { Student_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface StudentParent {
@@ -289,7 +306,8 @@ export const Student: Student_Type<TypeMap> = {
     "path": "Student.js",
   },
   Object {
-    "code": "import { Professor_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { Professor_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface ProfessorParent {
@@ -304,13 +322,15 @@ export const Professor: Professor_Type<TypeMap> = {
     "path": "Professor.js",
   },
   Object {
-    "code": "export interface Context {}
+    "code": "/* @flow */
+export interface Context {}
 ",
     "force": false,
     "path": "types/Context.js",
   },
   Object {
-    "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserParent } from \\"../User\\";
 import { StudentParent } from \\"../Student\\";
@@ -329,7 +349,8 @@ export interface TypeMap extends ITypeMap {
     "path": "types/TypeMap.js",
   },
   Object {
-    "code": "import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+    "code": "/* @flow */
+import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";

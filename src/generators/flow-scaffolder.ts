@@ -47,7 +47,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
     .filter(type => !isParentType(type.name))
     .map(type => {
-      const code = `
+      const code = `/* @flow */
     import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${Array.from(
@@ -118,7 +118,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
 
   files = files.concat(
     args.types.filter(type => isParentType(type.name)).map(type => {
-      const code = `
+      const code = `/* @flow */
       import { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
@@ -144,7 +144,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files.push({
     path: "types/Context.js",
     force: false,
-    code: `
+    code: `/* @flow */
     export interface Context { }
     `
   });
@@ -152,7 +152,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files.push({
     path: "types/TypeMap.js",
     force: true,
-    code: `
+    code: `/* @flow */
 import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
@@ -178,7 +178,7 @@ export interface TypeMap extends ITypeMap {
   files.push({
     path: "index.js",
     force: false,
-    code: `
+    code: `/* @flow */
     import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${args.types
