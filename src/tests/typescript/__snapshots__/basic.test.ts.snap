@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`basic enum 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;
@@ -61,7 +62,8 @@ export interface IResolvers<T extends ITypeMap> {
 `;
 
 exports[`basic input 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;
@@ -136,7 +138,8 @@ export interface IResolvers<T extends ITypeMap> {
 `;
 
 exports[`basic scalar 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;
@@ -198,7 +201,8 @@ export interface IResolvers<T extends ITypeMap> {
 `;
 
 exports[`basic schema 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;
@@ -436,7 +440,8 @@ export interface IResolvers<T extends ITypeMap> {
 `;
 
 exports[`basic union 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;

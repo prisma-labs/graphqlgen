@@ -97,6 +97,7 @@ export function generate(args: GenerateArgs) {
     }, {})
 
   return `
+/* DO NOT EDIT! */
 import { GraphQLResolveInfo } from 'graphql'
 
 export interface ITypeMap {
