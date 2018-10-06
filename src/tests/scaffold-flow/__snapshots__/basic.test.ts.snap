@@ -4,7 +4,7 @@ exports[`basic enum 1`] = `
 Array [
   Object {
     "code": "/* @flow */
-import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
@@ -49,7 +49,7 @@ export interface TypeMap extends ITypeMap {
   },
   Object {
     "code": "/* @flow */
-import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
@@ -68,7 +68,7 @@ exports[`basic scalar 1`] = `
 Array [
   Object {
     "code": "/* @flow */
-import { AddMemberPayload_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { AddMemberPayload_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberPayloadParent {
@@ -84,7 +84,7 @@ export const AddMemberPayload: AddMemberPayload_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
-import { AddMemberData_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { AddMemberData_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface AddMemberDataParent {
@@ -102,7 +102,7 @@ export const AddMemberData: AddMemberData_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
-import { Mutation_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { Mutation_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface MutationParent {}
@@ -145,7 +145,7 @@ export interface TypeMap extends ITypeMap {
   },
   Object {
     "code": "/* @flow */
-import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { AddMemberPayload } from \\"./AddMemberPayload\\";
@@ -168,7 +168,7 @@ exports[`basic schema 1`] = `
 Array [
   Object {
     "code": "/* @flow */
-import { Number_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { Number_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface NumberParent {
@@ -186,7 +186,7 @@ export const Number: Number_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
-import { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface QueryParent {}
@@ -245,7 +245,7 @@ export interface TypeMap extends ITypeMap {
   },
   Object {
     "code": "/* @flow */
-import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
@@ -266,7 +266,7 @@ exports[`basic union 1`] = `
 Array [
   Object {
     "code": "/* @flow */
-import { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { User_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { StudentParent } from \\"./Student\\";
@@ -291,7 +291,7 @@ export const User: User_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
-import { Student_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { Student_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface StudentParent {
@@ -307,7 +307,7 @@ export const Student: Student_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
-import { Professor_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { Professor_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface ProfessorParent {
@@ -350,7 +350,7 @@ export interface TypeMap extends ITypeMap {
   },
   Object {
     "code": "/* @flow */
-import { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import type { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";

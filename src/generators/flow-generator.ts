@@ -63,7 +63,7 @@ export function printFieldLikeType(
 
 export function generate(args: GenerateArgs) {
   return `/* @flow */
-import { GraphQLResolveInfo } from 'graphql'
+import type { GraphQLResolveInfo } from 'graphql'
 
 export interface ITypeMap {
 Context: any,
