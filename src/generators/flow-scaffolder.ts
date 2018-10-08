@@ -159,7 +159,7 @@ ${args.types
       .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
       .join(";")}
 
-import { Context } from './context'
+import { Context } from './Context'
 
 export interface TypeMap extends ITypeMap {
   Context: Context;

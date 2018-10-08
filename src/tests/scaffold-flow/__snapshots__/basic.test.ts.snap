@@ -37,7 +37,7 @@ import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserParent } from \\"../User\\";
 
-import { Context } from \\"./context\\";
+import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
@@ -131,7 +131,7 @@ import { AddMemberPayloadParent } from \\"../AddMemberPayload\\";
 import { AddMemberDataParent } from \\"../AddMemberData\\";
 import { MutationParent } from \\"../Mutation\\";
 
-import { Context } from \\"./context\\";
+import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
@@ -232,7 +232,7 @@ import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 import { QueryParent } from \\"../Query\\";
 import { NumberParent } from \\"../Number\\";
 
-import { Context } from \\"./context\\";
+import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
@@ -336,7 +336,7 @@ import { UserParent } from \\"../User\\";
 import { StudentParent } from \\"../Student\\";
 import { ProfessorParent } from \\"../Professor\\";
 
-import { Context } from \\"./context\\";
+import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
