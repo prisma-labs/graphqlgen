@@ -54,7 +54,7 @@ Note: while using `scaffold`, typemap.ts will always be generated irrespective o
 
 Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
 
-To see an example in action, please open the [`example`](https://github.com/prisma/graphql-resolver-codegen/tree/master/example) directory.
+To see an example in action, please open the [`examples`](https://github.com/prisma/graphql-resolver-codegen/tree/master/examples) directory.
 
 ### Design Decisions
 
