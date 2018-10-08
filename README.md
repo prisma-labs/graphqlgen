@@ -4,6 +4,11 @@
 
 Generate TS Resolvers
 
+### Support
+[Create a feature request](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=feature_request.md&labels=enhancement)
+
+[Create a bug report](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=bug_report.md&labels=bug)
+
 ### Feature
 
 1. Autogenerate resolver types
