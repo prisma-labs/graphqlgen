@@ -1,0 +1,579 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum 1`] = `
+"/* @flow */
+import type { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+  UserType: any;
+
+  UserParent: any;
+}
+
+export type User_Id_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type User_Name_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type User_Type_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
+
+export type User_Type<T> = {
+  id: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  name: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  type: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"UserType\\">
+};
+
+export type IResolvers<T> = {
+  User: User_Type<T>
+};
+"
+`;
+
+exports[`basic input 1`] = `
+"/* @flow */
+import type { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  AddMemberPayloadParent: any;
+  AddMemberDataParent: any;
+  MutationParent: any;
+}
+
+export type AddMemberPayload_NewUserId_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string | null>;
+
+export type AddMemberPayload_ExistingUserInviteSent_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean | null>;
+
+export type AddMemberPayload_Type<T> = {
+  newUserId: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string | null,
+  existingUserInviteSent: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean | null
+};
+
+export type AddMemberData_Email_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type AddMemberData_Projects_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string[]>;
+
+export type AddMemberData_Type<T> = {
+  email: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  projects: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string[]
+};
+
+// Type for argument
+export type Mutation_AddMember_Args = {
+  data: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">
+};
+
+export type Mutation_AddMember_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+  args: Mutation_AddMember_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
+
+export type Mutation_Type<T> = {
+  addMember: (
+    parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+    args: Mutation_AddMember_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
+};
+
+export type IResolvers<T> = {
+  AddMemberPayload: AddMemberPayload_Type<T>,
+  AddMemberData: AddMemberData_Type<T>,
+  Mutation: Mutation_Type<T>
+};
+"
+`;
+
+exports[`basic scalar 1`] = `
+"/* @flow */
+import type { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  AddMemberPayloadParent: any;
+  AddMemberDataParent: any;
+  MutationParent: any;
+}
+
+export type AddMemberPayload_Json_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string | null>;
+
+export type AddMemberPayload_Type<T> = {
+  json: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string | null
+};
+
+export type AddMemberData_Email_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type AddMemberData_Projects_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string[]>;
+
+export type AddMemberData_Type<T> = {
+  email: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  projects: (
+    parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string[]
+};
+
+// Type for argument
+export type Mutation_AddMember_Args = {
+  data: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">
+};
+
+export type Mutation_AddMember_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+  args: Mutation_AddMember_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
+
+export type Mutation_Type<T> = {
+  addMember: (
+    parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+    args: Mutation_AddMember_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
+};
+
+export type IResolvers<T> = {
+  AddMemberPayload: AddMemberPayload_Type<T>,
+  AddMemberData: AddMemberData_Type<T>,
+  Mutation: Mutation_Type<T>
+};
+"
+`;
+
+exports[`basic schema 1`] = `
+"/* @flow */
+import type { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  QueryParent: any;
+  NumberParent: any;
+}
+
+export type Query_Id_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type Query_Custom_required_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+
+export type Query_Custom_nullable_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\"> | null>;
+
+export type Query_Custom_array_nullable_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[] | null>;
+
+export type Query_Custom_array_required_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[]>;
+
+// Type for argument
+export type Query_Custom_with_arg_Args = {
+  id: number
+};
+
+export type Query_Custom_with_arg_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: Query_Custom_with_arg_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+
+// Type for argument
+export type Query_Custom_with_custom_arg_Args = {
+  id: $PropertyType<T & ITypeMap, \\"NumberParent\\">
+};
+
+export type Query_Custom_with_custom_arg_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: Query_Custom_with_custom_arg_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+
+export type Query_Scalar_required_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean>;
+
+export type Query_Scalar_nullable_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean | null>;
+
+export type Query_Scalar_array_nullable_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean[] | null>;
+
+export type Query_Scalar_array_required_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean[]>;
+
+// Type for argument
+export type Query_Scalar_with_arg_Args = {
+  id: number
+};
+
+export type Query_Scalar_with_arg_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: Query_Scalar_with_arg_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean>;
+
+// Type for argument
+export type Query_Scalar_with_custom_arg_Args = {
+  id: $PropertyType<T & ITypeMap, \\"NumberParent\\">
+};
+
+export type Query_Scalar_with_custom_arg_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: Query_Scalar_with_custom_arg_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<boolean>;
+
+export type Query_Type<T> = {
+  id: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  custom_required: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+  custom_nullable: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\"> | null,
+  custom_array_nullable: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\">[] | null,
+  custom_array_required: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\">[],
+  custom_with_arg: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: Query_Custom_with_arg_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+  custom_with_custom_arg: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: Query_Custom_with_custom_arg_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+  scalar_required: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean,
+  scalar_nullable: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean | null,
+  scalar_array_nullable: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean[] | null,
+  scalar_array_required: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean[],
+  scalar_with_arg: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: Query_Scalar_with_arg_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean,
+  scalar_with_custom_arg: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: Query_Scalar_with_custom_arg_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => boolean
+};
+
+export type Number_Id_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string | null>;
+
+export type Number_Value_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<number | null>;
+
+export type Number_Type<T> = {
+  id: (
+    parent: $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string | null,
+  value: (
+    parent: $PropertyType<T & ITypeMap, \\"NumberParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => number | null
+};
+
+export type IResolvers<T> = {
+  Query: Query_Type<T>,
+  Number: Number_Type<T>
+};
+"
+`;
+
+exports[`basic union 1`] = `
+"/* @flow */
+import type { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  UserType: any;
+  UserParent: any;
+  StudentParent: any;
+  ProfessorParent: any;
+}
+
+export type User_Id_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type User_Name_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string>;
+
+export type User_Type_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
+
+export type User_Type<T> = {
+  id: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  name: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  type: (
+    parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"UserType\\">
+};
+
+export type Student_Age_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"StudentParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<number>;
+
+export type Student_Type<T> = {
+  age: (
+    parent: $PropertyType<T & ITypeMap, \\"StudentParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => number
+};
+
+export type Professor_Degree_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"ProfessorParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => Promise<string | null>;
+
+export type Professor_Type<T> = {
+  degree: (
+    parent: $PropertyType<T & ITypeMap, \\"ProfessorParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string | null
+};
+
+export type IResolvers<T> = {
+  User: User_Type<T>,
+  Student: Student_Type<T>,
+  Professor: Professor_Type<T>
+};
+"
+`;

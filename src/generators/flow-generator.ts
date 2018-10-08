@@ -109,7 +109,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
             },
             ctx: $PropertyType<T & ITypeMap, 'Context'>,
             info: GraphQLResolveInfo,
-          ) => ${printFieldLikeType(field)}
+          ) => Promise<${printFieldLikeType(field)}>
         `
         })
         .join(os.EOL)}
