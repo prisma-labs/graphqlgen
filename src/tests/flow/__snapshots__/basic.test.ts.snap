@@ -16,21 +16,23 @@ export type User_Id_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type User_Name_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type User_Type_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"UserType\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
 
 export type User_Type<T> = {
   id: (
@@ -76,14 +78,14 @@ export type AddMemberPayload_NewUserId_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string | null>;
+) => string | null | Promise<string | null>;
 
 export type AddMemberPayload_ExistingUserInviteSent_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean | null>;
+) => boolean | null | Promise<boolean | null>;
 
 export type AddMemberPayload_Type<T> = {
   newUserId: (
@@ -105,14 +107,14 @@ export type AddMemberData_Email_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type AddMemberData_Projects_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string[]>;
+) => string[] | Promise<string[]>;
 
 export type AddMemberData_Type<T> = {
   email: (
@@ -139,7 +141,9 @@ export type Mutation_AddMember_Resolver<T> = (
   args: Mutation_AddMember_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
 
 export type Mutation_Type<T> = {
   addMember: (
@@ -175,7 +179,7 @@ export type AddMemberPayload_Json_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string | null>;
+) => string | null | Promise<string | null>;
 
 export type AddMemberPayload_Type<T> = {
   json: (
@@ -191,14 +195,14 @@ export type AddMemberData_Email_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type AddMemberData_Projects_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string[]>;
+) => string[] | Promise<string[]>;
 
 export type AddMemberData_Type<T> = {
   email: (
@@ -225,7 +229,9 @@ export type Mutation_AddMember_Resolver<T> = (
   args: Mutation_AddMember_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
 
 export type Mutation_Type<T> = {
   addMember: (
@@ -260,35 +266,45 @@ export type Query_Id_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type Query_Custom_required_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
 
 export type Query_Custom_nullable_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\"> | null>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">
+  | null
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\"> | null>;
 
 export type Query_Custom_array_nullable_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[] | null>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">[]
+  | null
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[] | null>;
 
 export type Query_Custom_array_required_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[]>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">[]
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">[]>;
 
 // Type for argument
 export type Query_Custom_with_arg_Args = {
@@ -300,7 +316,9 @@ export type Query_Custom_with_arg_Resolver<T> = (
   args: Query_Custom_with_arg_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
 
 // Type for argument
 export type Query_Custom_with_custom_arg_Args = {
@@ -312,35 +330,37 @@ export type Query_Custom_with_custom_arg_Resolver<T> = (
   args: Query_Custom_with_custom_arg_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"NumberParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"NumberParent\\">>;
 
 export type Query_Scalar_required_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean>;
+) => boolean | Promise<boolean>;
 
 export type Query_Scalar_nullable_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean | null>;
+) => boolean | null | Promise<boolean | null>;
 
 export type Query_Scalar_array_nullable_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean[] | null>;
+) => boolean[] | null | Promise<boolean[] | null>;
 
 export type Query_Scalar_array_required_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean[]>;
+) => boolean[] | Promise<boolean[]>;
 
 // Type for argument
 export type Query_Scalar_with_arg_Args = {
@@ -352,7 +372,7 @@ export type Query_Scalar_with_arg_Resolver<T> = (
   args: Query_Scalar_with_arg_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean>;
+) => boolean | Promise<boolean>;
 
 // Type for argument
 export type Query_Scalar_with_custom_arg_Args = {
@@ -364,7 +384,7 @@ export type Query_Scalar_with_custom_arg_Resolver<T> = (
   args: Query_Scalar_with_custom_arg_Args,
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<boolean>;
+) => boolean | Promise<boolean>;
 
 export type Query_Type<T> = {
   id: (
@@ -452,14 +472,14 @@ export type Number_Id_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string | null>;
+) => string | null | Promise<string | null>;
 
 export type Number_Value_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"NumberParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<number | null>;
+) => number | null | Promise<number | null>;
 
 export type Number_Type<T> = {
   id: (
@@ -501,21 +521,23 @@ export type User_Id_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type User_Name_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string>;
+) => string | Promise<string>;
 
 export type User_Type_Resolver<T> = (
   parent: $PropertyType<T & ITypeMap, \\"UserParent\\">,
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
+) =>
+  | $PropertyType<T & ITypeMap, \\"UserType\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"UserType\\">>;
 
 export type User_Type<T> = {
   id: (
@@ -543,7 +565,7 @@ export type Student_Age_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<number>;
+) => number | Promise<number>;
 
 export type Student_Type<T> = {
   age: (
@@ -559,7 +581,7 @@ export type Professor_Degree_Resolver<T> = (
   args: {},
   ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
   info: GraphQLResolveInfo
-) => Promise<string | null>;
+) => string | null | Promise<string | null>;
 
 export type Professor_Type<T> = {
   degree: (
