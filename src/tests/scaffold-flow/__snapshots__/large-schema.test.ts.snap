@@ -967,7 +967,7 @@ import { PoliciesParent } from \\"../Policies\\";
 import { HouseRulesParent } from \\"../HouseRules\\";
 import { AmenitiesParent } from \\"../Amenities\\";
 
-import { Context } from \\"./context\\";
+import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
