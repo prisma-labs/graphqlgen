@@ -1,9 +1,9 @@
 import * as os from "os";
 import { GenerateArgs, CodeFileLike } from "./generator-interface";
-import { printFieldLikeType } from "./ts-generator";
+import { printFieldLikeType } from "./flow-generator";
 import { GraphQLTypeField } from "../source-helper";
 
-export { format } from "./ts-generator";
+export { format } from "./flow-generator";
 
 function printFieldLikeTypeEmptyCase(field: GraphQLTypeField) {
   if (!field.type.isRequired || field.type.name === "ID") {
@@ -45,11 +45,10 @@ function isParentType(name: string) {
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
-    .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
     .map(type => {
-      const code = `
-    import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+      const code = `/* @flow */
+    import type { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${Array.from(
       new Set(
@@ -91,16 +90,16 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
       ${type.fields
         .map(
           field => `
-      ${field.name}: ${printFieldLikeType(
+      ${field.name}${!field.type.isRequired ? "?" : ""}: ${printFieldLikeType(
             field,
             false
-          )}
+          ).replace("| null", "")}
       `
         )
         .join(";")}
     }
 
-    export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
+    export const ${type.name}: ${type.name}_Type<TypeMap> = {
       ${type.fields.map(
         field => `
         ${field.name}: (parent${
@@ -111,24 +110,21 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     }
     `;
       return {
-        path: `${type.name}.ts`,
+        path: `${type.name}.js`,
         force: false,
         code
       };
     });
 
   files = files.concat(
-    args.types
-      .filter(type => type.type.isObject)
-      .filter(type => isParentType(type.name))
-      .map(type => {
-        const code = `
-      import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    args.types.filter(type => isParentType(type.name)).map(type => {
+      const code = `/* @flow */
+      import type { ${type.name}_Type } from '[TEMPLATE-INTERFACES-PATH]'
       import { TypeMap } from './types/TypeMap'
 
       export interface ${type.name}Parent { }
       
-      export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
+      export const ${type.name}: ${type.name}_Type<TypeMap> = {
         ${type.fields.map(
           field =>
             `${field.name}: (parent${
@@ -137,39 +133,37 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         )}
       }
       `;
-        return {
-          path: `${type.name}.ts`,
-          force: false,
-          code
-        };
-      })
+      return {
+        path: `${type.name}.js`,
+        force: false,
+        code
+      };
+    })
   );
 
   files.push({
-    path: "types/Context.ts",
+    path: "types/Context.js",
     force: false,
-    code: `
+    code: `/* @flow */
     export interface Context { }
     `
   });
 
   files.push({
-    path: "types/TypeMap.ts",
+    path: "types/TypeMap.js",
     force: true,
-    code: `
+    code: `/* @flow */
 import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
 
 ${args.types
-      .filter(type => type.type.isObject)
       .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
       .join(";")}
 
 import { Context } from './Context'
 
 export interface TypeMap extends ITypeMap {
-  Context: Context
+  Context: Context;
   ${args.types
-    .filter(type => type.type.isObject)
     .map(
       type =>
         `${type.name}${
@@ -182,13 +176,12 @@ export interface TypeMap extends ITypeMap {
   });
 
   files.push({
-    path: "index.ts",
+    path: "index.js",
     force: false,
-    code: `
-    import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    code: `/* @flow */
+    import type { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
     import { TypeMap } from './types/TypeMap'
     ${args.types
-      .filter(type => type.type.isObject)
       .map(
         type => `
       import { ${type.name} } from './${type.name}'
@@ -197,10 +190,7 @@ export interface TypeMap extends ITypeMap {
       .join(";")}
 
     export const resolvers: IResolvers<TypeMap> = {
-      ${args.types
-        .filter(type => type.type.isObject)
-        .map(type => `${type.name}`)
-        .join(",")}
+      ${args.types.map(type => `${type.name}`).join(",")}   
     }
     `
   });

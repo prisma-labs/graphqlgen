@@ -80,10 +80,10 @@ import { PictureParent } from \\"./Picture\\";
 
 export interface HomeParent {
   id: string;
-  name: string | null;
+  name?: string;
   description: string;
   numRatings: number;
-  avgRating: number | null;
+  avgRating?: number;
   pictures: PictureParent[];
   perNight: number;
 }
@@ -142,7 +142,7 @@ import { PictureParent } from \\"./Picture\\";
 
 export interface ExperienceParent {
   id: string;
-  category: ExperienceCategoryParent | null;
+  category?: ExperienceCategoryParent;
   title: string;
   location: LocationParent;
   pricePerPerson: number;
@@ -209,7 +209,7 @@ export interface NeighbourhoodParent {
   id: string;
   name: string;
   slug: string;
-  homePreview: PictureParent | null;
+  homePreview?: PictureParent;
   city: CityParent;
   featured: boolean;
   popularity: number;
@@ -236,8 +236,8 @@ export interface LocationParent {
   id: string;
   lat: number;
   lng: number;
-  address: string | null;
-  directions: string | null;
+  address?: string;
+  directions?: string;
 }
 
 export const Location: LocationResolvers.Type<TypeMap> = {
@@ -294,7 +294,7 @@ export interface ExperienceCategoryParent {
   id: string;
   mainColor: string;
   name: string;
-  experience: ExperienceParent | null;
+  experience?: ExperienceParent;
 }
 
 export const ExperienceCategory: ExperienceCategoryResolvers.Type<TypeMap> = {
@@ -334,10 +334,10 @@ export interface UserParent {
   ownedPlaces: PlaceParent[];
   paymentAccount: PaymentAccountParent[];
   phone: string;
-  profilePicture: PictureParent | null;
+  profilePicture?: PictureParent;
   receivedMessages: MessageParent[];
-  responseRate: number | null;
-  responseTime: number | null;
+  responseRate?: number;
+  responseTime?: number;
   sentMessages: MessageParent[];
   updatedAt: DateTimeParent;
   token: string;
@@ -382,11 +382,11 @@ import { CreditCardInformationParent } from \\"./CreditCardInformation\\";
 export interface PaymentAccountParent {
   id: string;
   createdAt: DateTimeParent;
-  type: PAYMENT_PROVIDERParent | null;
+  type?: PAYMENT_PROVIDERParent;
   user: UserParent;
   payments: PaymentParent[];
-  paypal: PaypalInformationParent | null;
-  creditcard: CreditCardInformationParent | null;
+  paypal?: PaypalInformationParent;
+  creditcard?: CreditCardInformationParent;
 }
 
 export const PaymentAccount: PaymentAccountResolvers.Type<TypeMap> = {
@@ -420,8 +420,8 @@ import { PictureParent } from \\"./Picture\\";
 
 export interface PlaceParent {
   id: string;
-  name: string | null;
-  size: PLACE_SIZESParent | null;
+  name?: string;
+  size?: PLACE_SIZESParent;
   shortDescription: string;
   description: string;
   slug: string;
@@ -435,9 +435,9 @@ export interface PlaceParent {
   pricing: PricingParent;
   location: LocationParent;
   views: PlaceViewsParent;
-  guestRequirements: GuestRequirementsParent | null;
-  policies: PoliciesParent | null;
-  houseRules: HouseRulesParent | null;
+  guestRequirements?: GuestRequirementsParent;
+  policies?: PoliciesParent;
+  houseRules?: HouseRulesParent;
   bookings: BookingParent[];
   pictures: PictureParent[];
   popularity: number;
@@ -514,7 +514,7 @@ export interface NotificationParent {
   id: string;
   link: string;
   readDate: DateTimeParent;
-  type: NOTIFICATION_TYPEParent | null;
+  type?: NOTIFICATION_TYPEParent;
   user: UserParent;
 }
 
@@ -594,7 +594,7 @@ export interface CreditCardInformationParent {
   firstName: string;
   id: string;
   lastName: string;
-  paymentAccount: PaymentAccountParent | null;
+  paymentAccount?: PaymentAccountParent;
   postalCode: string;
   securityCode: string;
 }
@@ -649,16 +649,16 @@ export interface PricingParent {
   averageMonthly: number;
   averageWeekly: number;
   basePrice: number;
-  cleaningFee: number | null;
-  currency: CURRENCYParent | null;
-  extraGuests: number | null;
+  cleaningFee?: number;
+  currency?: CURRENCYParent;
+  extraGuests?: number;
   id: string;
-  monthlyDiscount: number | null;
+  monthlyDiscount?: number;
   perNight: number;
-  securityDeposit: number | null;
+  securityDeposit?: number;
   smartPricing: boolean;
-  weekendPricing: number | null;
-  weeklyDiscount: number | null;
+  weekendPricing?: number;
+  weeklyDiscount?: number;
 }
 
 export const Pricing: PricingResolvers.Type<TypeMap> = {
@@ -750,14 +750,14 @@ import { TypeMap } from \\"./types/TypeMap\\";
 import { DateTimeParent } from \\"./DateTime\\";
 
 export interface HouseRulesParent {
-  additionalRules: string | null;
+  additionalRules?: string;
   createdAt: DateTimeParent;
   id: string;
-  partiesAndEventsAllowed: boolean | null;
-  petsAllowed: boolean | null;
-  smokingAllowed: boolean | null;
-  suitableForChildren: boolean | null;
-  suitableForInfants: boolean | null;
+  partiesAndEventsAllowed?: boolean;
+  petsAllowed?: boolean;
+  smokingAllowed?: boolean;
+  suitableForChildren?: boolean;
+  suitableForInfants?: boolean;
   updatedAt: DateTimeParent;
 }
 

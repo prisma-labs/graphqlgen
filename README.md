@@ -4,6 +4,11 @@
 
 Generate TS Resolvers
 
+### Support
+[Create a feature request](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=feature_request.md&labels=enhancement)
+
+[Create a bug report](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=bug_report.md&labels=bug)
+
 ### Feature
 
 1. Autogenerate resolver types
@@ -23,7 +28,7 @@ Options:
   -s, --schema-path  GraphQL schema file path                         [required]
   -o, --output       Output file/folder path [default:
                      ./generated/resolvers[.ts]]
-  -g, --generator    Generator to use [default: typescript, options: reason]
+  -g, --generator    Generator to use [default: typescript, options: reason, flow]
   -i, --interfaces   Path to the interfaces folder used for scaffolding
   -f, --force        Force write files when there is a clash while scaffolding
 
@@ -49,7 +54,7 @@ Note: while using `scaffold`, typemap.ts will always be generated irrespective o
 
 Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
 
-To see an example in action, please open the [`example`](https://github.com/prisma/graphql-resolver-codegen/tree/master/example) directory.
+To see an example in action, please open the [`examples`](https://github.com/prisma/graphql-resolver-codegen/tree/master/examples) directory.
 
 ### Design Decisions
 
