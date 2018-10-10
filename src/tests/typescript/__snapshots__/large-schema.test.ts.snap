@@ -9,6 +9,8 @@ export interface ITypeMap {
 
   QueryParent: any;
   MutationParent: any;
+  FollowUserPayloadParent: any;
+  UnfollowUserPayloadParent: any;
   ViewerParent: any;
   AuthPayloadParent: any;
   MutationResultParent: any;
@@ -160,6 +162,13 @@ export namespace QueryResolvers {
 }
 
 export namespace MutationResolvers {
+  export interface FollowUserInput {
+    userId: string;
+  }
+  export interface UnfollowUserInput {
+    userId: string;
+  }
+
   export interface ArgsSignup<T extends ITypeMap> {
     email: string;
     password: string;
@@ -219,6 +228,34 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => T[\\"MutationResultParent\\"] | Promise<T[\\"MutationResultParent\\"]>;
 
+  export interface ArgsFollowUser<T extends ITypeMap> {
+    input: FollowUserInput;
+  }
+
+  export type FollowUserResolver<T extends ITypeMap> = (
+    parent: T[\\"MutationParent\\"],
+    args: ArgsFollowUser<T>,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) =>
+    | T[\\"FollowUserPayloadParent\\"]
+    | null
+    | Promise<T[\\"FollowUserPayloadParent\\"] | null>;
+
+  export interface ArgsUnfollowUser<T extends ITypeMap> {
+    input: UnfollowUserInput;
+  }
+
+  export type UnfollowUserResolver<T extends ITypeMap> = (
+    parent: T[\\"MutationParent\\"],
+    args: ArgsUnfollowUser<T>,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) =>
+    | T[\\"UnfollowUserPayloadParent\\"]
+    | null
+    | Promise<T[\\"UnfollowUserPayloadParent\\"] | null>;
+
   export interface Type<T extends ITypeMap> {
     signup: (
       parent: T[\\"MutationParent\\"],
@@ -244,6 +281,60 @@ export namespace MutationResolvers {
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
     ) => T[\\"MutationResultParent\\"] | Promise<T[\\"MutationResultParent\\"]>;
+    followUser: (
+      parent: T[\\"MutationParent\\"],
+      args: ArgsFollowUser<T>,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) =>
+      | T[\\"FollowUserPayloadParent\\"]
+      | null
+      | Promise<T[\\"FollowUserPayloadParent\\"] | null>;
+    unfollowUser: (
+      parent: T[\\"MutationParent\\"],
+      args: ArgsUnfollowUser<T>,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) =>
+      | T[\\"UnfollowUserPayloadParent\\"]
+      | null
+      | Promise<T[\\"UnfollowUserPayloadParent\\"] | null>;
+  }
+}
+
+export namespace FollowUserPayloadResolvers {
+  export type UserResolver<T extends ITypeMap> = (
+    parent: T[\\"FollowUserPayloadParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"UserParent\\"] | null | Promise<T[\\"UserParent\\"] | null>;
+
+  export interface Type<T extends ITypeMap> {
+    user: (
+      parent: T[\\"FollowUserPayloadParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"UserParent\\"] | null | Promise<T[\\"UserParent\\"] | null>;
+  }
+}
+
+export namespace UnfollowUserPayloadResolvers {
+  export type UserResolver<T extends ITypeMap> = (
+    parent: T[\\"UnfollowUserPayloadParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => T[\\"UserParent\\"] | null | Promise<T[\\"UserParent\\"] | null>;
+
+  export interface Type<T extends ITypeMap> {
+    user: (
+      parent: T[\\"UnfollowUserPayloadParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => T[\\"UserParent\\"] | null | Promise<T[\\"UserParent\\"] | null>;
   }
 }
 
@@ -3309,6 +3400,8 @@ export namespace AmenitiesResolvers {
 export interface IResolvers<T extends ITypeMap> {
   Query: QueryResolvers.Type<T>;
   Mutation: MutationResolvers.Type<T>;
+  FollowUserPayload: FollowUserPayloadResolvers.Type<T>;
+  UnfollowUserPayload: UnfollowUserPayloadResolvers.Type<T>;
   Viewer: ViewerResolvers.Type<T>;
   AuthPayload: AuthPayloadResolvers.Type<T>;
   MutationResult: MutationResultResolvers.Type<T>;

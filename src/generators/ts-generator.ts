@@ -77,7 +77,7 @@ export function generate(args: GenerateArgs) {
     }, {})
 
   // TODO: Type this
-  const typeToInputTypeAssociation: {[s: string]: any} = args.types
+  const typeToInputTypeAssociation: {[s: string]: string[]} = args.types
     .filter(
       type =>
         type.type.isObject &&
@@ -115,11 +115,13 @@ ${args.types
     .map(
       type => `export namespace ${type.name}Resolvers {
 
-        ${typeToInputTypeAssociation[type.name] ? `export interface ${inputTypesMap[typeToInputTypeAssociation[type.name]].name} {
-          ${inputTypesMap[typeToInputTypeAssociation[type.name]].fields.map(
-            field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
-          )}
-        }` : ``}  
+        ${typeToInputTypeAssociation[type.name] ? typeToInputTypeAssociation[type.name].map(typeAssociation => {
+          return `export interface ${inputTypesMap[typeAssociation].name} {
+            ${inputTypesMap[typeAssociation].fields.map(
+              field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
+            )}
+          }`
+        }).join(os.EOL) : ``}
 
   ${type.fields
     .map(
