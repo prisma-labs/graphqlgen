@@ -6,7 +6,7 @@
     "rootDir": "./src",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["es2015", "esnext.asynciterable"],
+    "lib": ["es2016", "esnext.asynciterable"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true
