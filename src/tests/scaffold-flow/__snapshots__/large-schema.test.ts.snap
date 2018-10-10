@@ -3,6 +3,38 @@
 exports[`large schema 1`] = `
 Array [
   Object {
+    "code": "import { FollowUserPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { UserParent } from \\"./User\\";
+
+export interface FollowUserPayloadParent {
+  user?: UserParent;
+}
+
+export const FollowUserPayload: FollowUserPayloadResolvers.Type<TypeMap> = {
+  user: parent => parent.user
+};
+",
+    "force": false,
+    "path": "FollowUserPayload.ts",
+  },
+  Object {
+    "code": "import { UnfollowUserPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+import { UserParent } from \\"./User\\";
+
+export interface UnfollowUserPayloadParent {
+  user?: UserParent;
+}
+
+export const UnfollowUserPayload: UnfollowUserPayloadResolvers.Type<TypeMap> = {
+  user: parent => parent.user
+};
+",
+    "force": false,
+    "path": "UnfollowUserPayload.ts",
+  },
+  Object {
     "code": "import { ViewerResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 import { UserParent } from \\"./User\\";
@@ -921,7 +953,9 @@ export const Mutation: MutationResolvers.Type<TypeMap> = {
   },
   book: (parent, args) => {
     throw new Error(\\"Resolver not implemented\\");
-  }
+  },
+  followUser: (parent, args) => null,
+  unfollowUser: (parent, args) => null
 };
 ",
     "force": false,
@@ -938,6 +972,8 @@ export const Mutation: MutationResolvers.Type<TypeMap> = {
 
 import { QueryParent } from \\"../Query\\";
 import { MutationParent } from \\"../Mutation\\";
+import { FollowUserPayloadParent } from \\"../FollowUserPayload\\";
+import { UnfollowUserPayloadParent } from \\"../UnfollowUserPayload\\";
 import { ViewerParent } from \\"../Viewer\\";
 import { AuthPayloadParent } from \\"../AuthPayload\\";
 import { MutationResultParent } from \\"../MutationResult\\";
@@ -973,6 +1009,8 @@ export interface TypeMap extends ITypeMap {
   Context: Context;
   QueryParent: QueryParent;
   MutationParent: MutationParent;
+  FollowUserPayloadParent: FollowUserPayloadParent;
+  UnfollowUserPayloadParent: UnfollowUserPayloadParent;
   ViewerParent: ViewerParent;
   AuthPayloadParent: AuthPayloadParent;
   MutationResultParent: MutationResultParent;
@@ -1012,6 +1050,8 @@ import { TypeMap } from \\"./types/TypeMap\\";
 
 import { Query } from \\"./Query\\";
 import { Mutation } from \\"./Mutation\\";
+import { FollowUserPayload } from \\"./FollowUserPayload\\";
+import { UnfollowUserPayload } from \\"./UnfollowUserPayload\\";
 import { Viewer } from \\"./Viewer\\";
 import { AuthPayload } from \\"./AuthPayload\\";
 import { MutationResult } from \\"./MutationResult\\";
@@ -1044,6 +1084,8 @@ import { Amenities } from \\"./Amenities\\";
 export const resolvers: IResolvers<TypeMap> = {
   Query,
   Mutation,
+  FollowUserPayload,
+  UnfollowUserPayload,
   Viewer,
   AuthPayload,
   MutationResult,

@@ -6,6 +6,14 @@ exports[`large schema 1`] = `
 
   type mutation = {.};
 
+  type followUserInput = {. \\"userId\\": string};
+
+  type followUserPayload = {.};
+
+  type unfollowUserInput = {. \\"userId\\": string};
+
+  type unfollowUserPayload = {.};
+
   type viewer = {.};
 
   type authPayload = {. \\"token\\": string};
@@ -352,6 +360,10 @@ module Mutation = {
     \\"numGuests\\": Data.mutationResult,
   };
 
+  type followUserArgument = {. \\"input\\": Data.followUserPayload};
+
+  type unfollowUserArgument = {. \\"input\\": Data.unfollowUserPayload};
+
   type parent;
   type args;
   type context;
@@ -364,7 +376,47 @@ module Mutation = {
     \\"addPaymentMethod\\":
       (parent, addPaymentMethodArgument, context, info) => Data.mutationResult,
     \\"book\\": (parent, bookArgument, context, info) => Data.mutationResult,
+    \\"followUser\\":
+      (parent, followUserArgument, context, info) => Data.followUserPayload,
+    \\"unfollowUser\\":
+      (parent, unfollowUserArgument, context, info) => Data.unfollowUserPayload,
   };
+};
+
+module FollowUserInput = {
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module FollowUserPayload = {
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {. \\"user\\": (parent, args, context, info) => Data.user};
+};
+
+module UnfollowUserInput = {
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module UnfollowUserPayload = {
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {. \\"user\\": (parent, args, context, info) => Data.user};
 };
 
 module Viewer = {

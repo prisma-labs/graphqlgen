@@ -36,6 +36,25 @@ type Mutation {
     checkOut: String!
     numGuests: Int!
   ): MutationResult!
+
+  followUser(input: FollowUserInput!): FollowUserPayload
+  unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload
+}
+
+input FollowUserInput {
+  userId: ID!
+}
+
+type FollowUserPayload {
+  user: User
+}
+
+input UnfollowUserInput {
+  userId: ID!
+}
+
+type UnfollowUserPayload {
+  user: User
 }
 
 type Viewer {
