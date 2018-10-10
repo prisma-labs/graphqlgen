@@ -10,7 +10,8 @@ import * as os from "os";
 import {
   extractGraphQLTypes,
   extractGraphQLEnums,
-  extractGraphQLUnions
+  extractGraphQLUnions,
+  extractGraphQLInterfaces
 } from "./source-helper";
 import {
   IGenerator,
@@ -106,7 +107,8 @@ export function generateCode({
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(schema!),
     enums: extractGraphQLEnums(schema!),
-    unions: extractGraphQLUnions(schema!)
+    unions: extractGraphQLUnions(schema!),
+    interfaces: extractGraphQLInterfaces(schema!)
   };
   const generatorFn: IGenerator = getGenerator(generator);
   const code = generatorFn.generate(generateArgs);

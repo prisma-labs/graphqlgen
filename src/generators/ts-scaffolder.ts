@@ -44,6 +44,14 @@ function isParentType(name: string) {
 }
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
+  const interfacesMap: { [s: string]: string[] } = args.interfaces
+    .reduce((interfaces, int) => {
+      return {
+        ...interfaces,
+        [int.name]: int.types.map(type => type.name)
+      }
+    }, {});
+
   let files: CodeFileLike[] = args.types
     .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
@@ -93,6 +101,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
           field => `
       ${field.name}${!field.type.isRequired ? "?" : ""}: ${printFieldLikeType(
             field,
+            interfacesMap,
             false
           ).replace("| null", "")}
       `

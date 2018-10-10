@@ -76,7 +76,7 @@ export const ExperiencesByCity: ExperiencesByCityResolvers.Type<TypeMap> = {
   Object {
     "code": "import { HomeResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
-import { PictureParent } from \\"./Picture\\";
+import { MediaParent } from \\"./Media\\";
 
 export interface HomeParent {
   id: string;
@@ -84,7 +84,7 @@ export interface HomeParent {
   description: string;
   numRatings: number;
   avgRating?: number;
-  pictures: PictureParent[];
+  media: Array<VideoParent | PictureParent>;
   perNight: number;
 }
 
@@ -94,7 +94,7 @@ export const Home: HomeResolvers.Type<TypeMap> = {
   description: parent => parent.description,
   numRatings: parent => parent.numRatings,
   avgRating: parent => parent.avgRating,
-  pictures: (parent, args) => parent.pictures,
+  media: (parent, args) => parent.media,
   perNight: parent => parent.perNight
 };
 ",
@@ -252,17 +252,40 @@ export const Location: LocationResolvers.Type<TypeMap> = {
     "path": "Location.ts",
   },
   Object {
+    "code": "import { VideoResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface VideoParent {
+  id: string;
+  name: string;
+  duration: number;
+}
+
+export const Video: VideoResolvers.Type<TypeMap> = {
+  id: parent => parent.id,
+  name: parent => parent.name,
+  duration: parent => parent.duration
+};
+",
+    "force": false,
+    "path": "Video.ts",
+  },
+  Object {
     "code": "import { PictureResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 export interface PictureParent {
   id: string;
   url: string;
+  width: number;
+  height: number;
 }
 
 export const Picture: PictureResolvers.Type<TypeMap> = {
   id: parent => parent.id,
-  url: parent => parent.url
+  url: parent => parent.url,
+  width: parent => parent.width,
+  height: parent => parent.height
 };
 ",
     "force": false,
@@ -948,6 +971,7 @@ import { ExperienceParent } from \\"../Experience\\";
 import { ReviewParent } from \\"../Review\\";
 import { NeighbourhoodParent } from \\"../Neighbourhood\\";
 import { LocationParent } from \\"../Location\\";
+import { VideoParent } from \\"../Video\\";
 import { PictureParent } from \\"../Picture\\";
 import { CityParent } from \\"../City\\";
 import { ExperienceCategoryParent } from \\"../ExperienceCategory\\";
@@ -983,6 +1007,7 @@ export interface TypeMap extends ITypeMap {
   ReviewParent: ReviewParent;
   NeighbourhoodParent: NeighbourhoodParent;
   LocationParent: LocationParent;
+  VideoParent: VideoParent;
   PictureParent: PictureParent;
   CityParent: CityParent;
   ExperienceCategoryParent: ExperienceCategoryParent;
@@ -1022,6 +1047,7 @@ import { Experience } from \\"./Experience\\";
 import { Review } from \\"./Review\\";
 import { Neighbourhood } from \\"./Neighbourhood\\";
 import { Location } from \\"./Location\\";
+import { Video } from \\"./Video\\";
 import { Picture } from \\"./Picture\\";
 import { City } from \\"./City\\";
 import { ExperienceCategory } from \\"./ExperienceCategory\\";
@@ -1054,6 +1080,7 @@ export const resolvers: IResolvers<TypeMap> = {
   Review,
   Neighbourhood,
   Location,
+  Video,
   Picture,
   City,
   ExperienceCategory,

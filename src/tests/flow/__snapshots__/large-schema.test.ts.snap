@@ -19,6 +19,7 @@ export interface ITypeMap {
   ReviewParent: any;
   NeighbourhoodParent: any;
   LocationParent: any;
+  VideoParent: any;
   PictureParent: any;
   CityParent: any;
   ExperienceCategoryParent: any;
@@ -394,16 +395,18 @@ export namespace HomeResolvers {
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
-  export interface ArgsPictures<T extends ITypeMap> {
+  export interface ArgsMedia<T extends ITypeMap> {
     first: number | null;
   }
 
-  export type PicturesResolver<T extends ITypeMap> = (
+  export type MediaResolver<T extends ITypeMap> = (
     parent: T[\\"HomeParent\\"],
-    args: ArgsPictures<T>,
+    args: ArgsMedia<T>,
     ctx: T[\\"Context\\"],
     info: GraphQLResolveInfo
-  ) => T[\\"PictureParent\\"][] | Promise<T[\\"PictureParent\\"][]>;
+  ) =>
+    | Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>
+    | Promise<Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>>;
 
   export type PerNightResolver<T extends ITypeMap> = (
     parent: T[\\"HomeParent\\"],
@@ -443,12 +446,14 @@ export namespace HomeResolvers {
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
-    pictures: (
+    media: (
       parent: T[\\"HomeParent\\"],
-      args: ArgsPictures<T>,
+      args: ArgsMedia<T>,
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
-    ) => T[\\"PictureParent\\"][] | Promise<T[\\"PictureParent\\"][]>;
+    ) =>
+      | Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>
+      | Promise<Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>>;
     perNight: (
       parent: T[\\"HomeParent\\"],
       args: {},
@@ -983,6 +988,50 @@ export namespace LocationResolvers {
   }
 }
 
+export namespace VideoResolvers {
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type DurationResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export interface Type<T extends ITypeMap> {
+    id: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    name: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    duration: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+  }
+}
+
 export namespace PictureResolvers {
   export type IdResolver<T extends ITypeMap> = (
     parent: T[\\"PictureParent\\"],
@@ -998,6 +1047,20 @@ export namespace PictureResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
+  export type WidthResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type HeightResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
   export interface Type<T extends ITypeMap> {
     id: (
       parent: T[\\"PictureParent\\"],
@@ -1011,6 +1074,18 @@ export namespace PictureResolvers {
       ctx: T[\\"Context\\"],
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
+    width: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+    height: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
   }
 }
 
@@ -3319,6 +3394,7 @@ export interface IResolvers<T extends ITypeMap> {
   Review: ReviewResolvers.Type<T>;
   Neighbourhood: NeighbourhoodResolvers.Type<T>;
   Location: LocationResolvers.Type<T>;
+  Video: VideoResolvers.Type<T>;
   Picture: PictureResolvers.Type<T>;
   City: CityResolvers.Type<T>;
   ExperienceCategory: ExperienceCategoryResolvers.Type<T>;

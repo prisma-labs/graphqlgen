@@ -2,13 +2,15 @@ import * as prettier from "prettier";
 import {
   GraphQLTypeObject,
   GraphQLEnumObject,
-  GraphQLUnionObject
+  GraphQLUnionObject,
+  GraphQLInterfaceObject
 } from "../source-helper";
 
 export type GenerateArgs = {
   types: GraphQLTypeObject[];
   enums: GraphQLEnumObject[];
   unions: GraphQLUnionObject[];
+  interfaces: GraphQLInterfaceObject[];
 };
 
 export interface CodeFileLike {

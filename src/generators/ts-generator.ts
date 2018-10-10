@@ -38,6 +38,7 @@ export function format(code: string, options: prettier.Options = {}) {
 
 export function printFieldLikeType(
   field: GraphQLTypeField,
+  interfacesMap: { [interfaceName: string]: string[] },
   lookupType: boolean = true,
 ) {
   if (field.type.isScalar) {
@@ -48,6 +49,19 @@ export function printFieldLikeType(
 
   if (field.type.isInput) {
     return `${field.type.name}${field.type.isArray ? '[]' : ''}${
+      !field.type.isRequired ? '| null' : ''
+    }`
+  }
+
+  if (field.type.isInterface) {
+    let types = interfacesMap[field.type.name].map(
+      type => lookupType ? `T['${type}Parent']` : `${type}Parent`
+    ).join(' | ');
+    if (field.type.isArray) {
+      types = `Array<${types}>`;
+    }
+
+    return `${types}${
       !field.type.isRequired ? '| null' : ''
     }`
   }
@@ -96,6 +110,14 @@ export function generate(args: GenerateArgs) {
       }
     }, {})
 
+  const interfacesMap: { [s: string]: string[] } = args.interfaces
+    .reduce((interfaces, int) => {
+      return {
+        ...interfaces,
+        [int.name]: int.types.map(type => type.name)
+      }
+    }, {})
+
   return `
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from 'graphql'
@@ -128,7 +150,7 @@ ${args.types
           ? `export interface Args${capitalize(field.name)}<T extends ITypeMap> {
       ${field.arguments
         .map(
-          arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)}`,
+          arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField, interfacesMap)}`,
         )
         .join(os.EOL)}
     }`
@@ -144,7 +166,7 @@ ${args.types
     },
     ctx: T['Context'],
     info: GraphQLResolveInfo,
-  ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>
+  ) => ${printFieldLikeType(field, interfacesMap)} | Promise<${printFieldLikeType(field, interfacesMap)}>
   `,
     )
     .join(os.EOL)}
@@ -161,7 +183,7 @@ ${args.types
       },
       ctx: T['Context'],
       info: GraphQLResolveInfo,
-    ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>`,
+    ) => ${printFieldLikeType(field, interfacesMap)} | Promise<${printFieldLikeType(field, interfacesMap)}>`,
     )
     .join(os.EOL)}
   }

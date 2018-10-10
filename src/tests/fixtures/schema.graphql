@@ -63,7 +63,7 @@ type Home {
   description: String!
   numRatings: Int!
   avgRating: Float
-  pictures(first: Int): [Picture!]!
+  media(first: Int): [Media!]!
   perNight: Int!
 }
 
@@ -120,9 +120,22 @@ type Location {
   directions: String
 }
 
-type Picture {
+interface Media {
   id: ID!
   url: String!
+}
+
+type Video implements Media {
+  id: ID!
+  name: String!
+  duration: Int!
+}
+
+type Picture implements Media {
+  id: ID!
+  url: String!
+  width: Int!
+  height: Int!
 }
 
 type City {

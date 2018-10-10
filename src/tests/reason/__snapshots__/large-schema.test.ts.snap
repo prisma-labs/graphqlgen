@@ -74,10 +74,19 @@ exports[`large schema 1`] = `
     \\"directions\\": string,
   };
 
+  type video = {
+    .
+    \\"id\\": string,
+    \\"name\\": string,
+    \\"duration\\": int,
+  };
+
   type picture = {
     .
     \\"id\\": string,
     \\"url\\": string,
+    \\"width\\": int,
+    \\"height\\": int,
   };
 
   type city = {
@@ -413,7 +422,7 @@ module ExperiencesByCity = {
 };
 
 module Home = {
-  type picturesArgument = {. \\"first\\": Js.Array.t(Data.picture)};
+  type mediaArgument = {. \\"first\\": Js.Array.t(Data.media)};
 
   type parent;
   type args;
@@ -422,8 +431,7 @@ module Home = {
 
   type resolvers = {
     .
-    \\"pictures\\":
-      (parent, picturesArgument, context, info) => Js.Array.t(Data.picture),
+    \\"media\\": (parent, mediaArgument, context, info) => Js.Array.t(Data.media),
   };
 };
 
@@ -478,6 +486,15 @@ module Neighbourhood = {
 };
 
 module Location = {
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {.};
+};
+
+module Video = {
   type parent;
   type args;
   type context;
