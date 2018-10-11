@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`large schema 1`] = `
-"import { GraphQLResolveInfo } from \\"graphql\\";
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
 
 export interface ITypeMap {
   Context: any;
