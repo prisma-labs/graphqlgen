@@ -28,7 +28,7 @@ test("basic enum", async () => {
     generator: "scaffold-flow"
   });
   expect(code).toMatchSnapshot();
-  expect(code.length).toBe(4);
+  expect(code.length).toBe(5);
 });
 
 test("basic union", async () => {

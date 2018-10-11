@@ -24,6 +24,19 @@ export const User: UserResolvers.Type<TypeMap> = {
     "path": "User.ts",
   },
   Object {
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface QueryParent {}
+
+export const Query: QueryResolvers.Type<TypeMap> = {
+  createUser: (parent, args) => null
+};
+",
+    "force": false,
+    "path": "Query.ts",
+  },
+  Object {
     "code": "export interface Context {}
 ",
     "force": false,
@@ -33,12 +46,14 @@ export const User: UserResolvers.Type<TypeMap> = {
     "code": "import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserParent } from \\"../User\\";
+import { QueryParent } from \\"../Query\\";
 
 import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
   UserParent: UserParent;
+  QueryParent: QueryParent;
 }
 ",
     "force": true,
@@ -49,9 +64,11 @@ export interface TypeMap extends ITypeMap {
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
+import { Query } from \\"./Query\\";
 
 export const resolvers: IResolvers<TypeMap> = {
-  User
+  User,
+  Query
 };
 ",
     "force": false,
