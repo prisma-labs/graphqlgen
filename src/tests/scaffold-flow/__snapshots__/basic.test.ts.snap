@@ -26,6 +26,20 @@ export const User: User_Type<TypeMap> = {
   },
   Object {
     "code": "/* @flow */
+import type { Query_Type } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+import { TypeMap } from \\"./types/TypeMap\\";
+
+export interface QueryParent {}
+
+export const Query: Query_Type<TypeMap> = {
+  createUser: (parent, args) => null
+};
+",
+    "force": false,
+    "path": "Query.js",
+  },
+  Object {
+    "code": "/* @flow */
 export interface Context {}
 ",
     "force": false,
@@ -36,12 +50,14 @@ export interface Context {}
 import { ITypeMap } from \\"../[TEMPLATE-INTERFACES-PATH]\\";
 
 import { UserParent } from \\"../User\\";
+import { QueryParent } from \\"../Query\\";
 
 import { Context } from \\"./Context\\";
 
 export interface TypeMap extends ITypeMap {
   Context: Context;
   UserParent: UserParent;
+  QueryParent: QueryParent;
 }
 ",
     "force": true,
@@ -53,9 +69,11 @@ import type { IResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import { TypeMap } from \\"./types/TypeMap\\";
 
 import { User } from \\"./User\\";
+import { Query } from \\"./Query\\";
 
 export const resolvers: IResolvers<TypeMap> = {
-  User
+  User,
+  Query
 };
 ",
     "force": false,

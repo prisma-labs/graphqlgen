@@ -8,6 +8,8 @@ exports[`basic enum to reason 1`] = `
     \\"name\\": string,
   };
 
+  type query = {.};
+
   type userType =
     | ADMIN
     | EDITOR
@@ -21,6 +23,24 @@ module User = {
   type info;
 
   type resolvers = {. \\"type\\": (parent, args, context, info) => Data.userType};
+};
+
+module Query = {
+  type createUserArgument = {
+    .
+    \\"name\\": Data.user,
+    \\"type\\": Data.user,
+  };
+
+  type parent;
+  type args;
+  type context;
+  type info;
+
+  type resolvers = {
+    .
+    \\"createUser\\": (parent, createUserArgument, context, info) => Data.user,
+  };
 };
 "
 `;
