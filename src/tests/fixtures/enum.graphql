@@ -9,3 +9,7 @@ enum UserType {
   EDITOR
   COLLABORATOR
 }
+
+type Query {
+  createUser(name: String!, type: UserType!): User
+}

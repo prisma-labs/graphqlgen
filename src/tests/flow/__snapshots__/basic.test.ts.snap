@@ -9,6 +9,7 @@ export interface ITypeMap {
   UserType: any;
 
   UserParent: any;
+  QueryParent: any;
 }
 
 export type User_Id_Resolver<T> = (
@@ -55,8 +56,34 @@ export type User_Type<T> = {
   ) => $PropertyType<T & ITypeMap, \\"UserType\\">
 };
 
+// Type for argument
+export type Query_CreateUser_Args = {
+  name: string,
+  type: $PropertyType<T & ITypeMap, \\"UserType\\">
+};
+
+export type Query_CreateUser_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+  args: Query_CreateUser_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) =>
+  | $PropertyType<T & ITypeMap, \\"UserParent\\">
+  | null
+  | Promise<$PropertyType<T & ITypeMap, \\"UserParent\\"> | null>;
+
+export type Query_Type<T> = {
+  createUser: (
+    parent: $PropertyType<T & ITypeMap, \\"QueryParent\\">,
+    args: Query_CreateUser_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"UserParent\\"> | null
+};
+
 export type IResolvers<T> = {
-  User: User_Type<T>
+  User: User_Type<T>,
+  Query: Query_Type<T>
 };
 "
 `;
