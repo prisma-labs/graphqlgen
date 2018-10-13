@@ -135,7 +135,7 @@ export function generate(args: GenerateArgs) {
   
   return `
 /* DO NOT EDIT! */
-import { GraphQLResolveInfo } from 'graphql'
+import { GraphQLResolveInfo, GraphQLTypeResolver, GraphQLIsTypeOfFn } from 'graphql'
 
 export interface ITypeMap {
 Context: any
@@ -191,9 +191,9 @@ ${args.types
     )
     .join(os.EOL)}
 
-  export interface Type<T extends ITypeMap> ${
+  export interface ${isInterfaceObject(type) ? 'Interface' : 'Type'}<T extends ITypeMap> ${
     isTypeObject(type) && type.interfaces && type.interfaces.length
-     ? `extends ${type.interfaces.map(typeInterface => `${typeInterface}Resolvers.Type<T>`).join(', ')}`
+     ? `extends ${type.interfaces.map(typeInterface => `${typeInterface}Resolvers.Interface<T>`).join(', ')}`
      : ''
     } {
   ${type.fields
@@ -217,15 +217,31 @@ ${args.types
     )
     .join(os.EOL)}
   }
+
+  ${isInterfaceObject(type)
+    ? `
+    export interface Type<T extends ITypeMap> {
+      __resolveType?: GraphQLTypeResolver<${type.types.map(
+        interfaceType => `T['${interfaceType.name}Parent']`
+      ).join(' | ')}, T['Context']>;
+      __isTypeOf?: GraphQLIsTypeOfFn<${type.types.map(
+        interfaceType => `T['${interfaceType.name}Parent']`
+      ).join(' | ')}, T['Context']>;
+    }
+    `
+    : ''
+  }
 }
 `,
     )
     .join(os.EOL)}
 
 export interface IResolvers<T extends ITypeMap> {
-  ${args.types
-    .filter(type => type.type.isObject)
+  ${args.types.filter(isTypeObject)
     .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`)
+    .join(os.EOL)}
+  ${args.interfaces.filter(isInterfaceObject)
+    .map(type => `${type.name}?: ${type.name}Resolvers.Type<T>`)
     .join(os.EOL)}
 }
 
