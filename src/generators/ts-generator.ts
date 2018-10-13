@@ -65,9 +65,17 @@ export function printFieldLikeType(
       }`
 }
 
-export function generate(args: GenerateArgs) {
+interface InputTypesMap {
+  [s: string]: GraphQLTypeObject
+}
+
+interface TypeToInputTypeAssociation {
+  [s: string]: any
+}
+
+export function generate(args: GenerateArgs): string {
   // TODO: Maybe move this to source helper
-  const inputTypesMap: { [s: string]: GraphQLTypeObject } = args.types
+  const inputTypesMap: InputTypesMap = args.types
     .filter(type => type.type.isInput)
     .reduce((inputTypes, type) => {
       return {
@@ -77,7 +85,7 @@ export function generate(args: GenerateArgs) {
     }, {})
 
   // TODO: Type this
-  const typeToInputTypeAssociation: {[s: string]: any} = args.types
+  const typeToInputTypeAssociation: TypeToInputTypeAssociation = args.types
     .filter(
       type =>
         type.type.isObject &&
@@ -88,94 +96,152 @@ export function generate(args: GenerateArgs) {
     .reduce((types, type) => {
       return {
         ...types,
-        [`${type.name}`]: [].concat(...type.fields.map(field =>
-          field.arguments
-            .filter(arg => arg.type.isInput)
-            .map(arg => arg.type.name),
-        ) as any)
+        [`${type.name}`]: [].concat(
+          ...(type.fields.map(field =>
+            field.arguments
+              .filter(arg => arg.type.isInput)
+              .map(arg => arg.type.name),
+          ) as any),
+        ),
       }
     }, {})
+
+  return `\
+  ${renderHeader(args)}
+
+  ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
+
+  ${renderIResolvers(args)}
+
+  `
+}
+
+function renderHeader(args: GenerateArgs): string {
+  const modelArray = Object.keys(args.models).map(k => args.models[k])
+  const modelImports = modelArray
+    .map(m => `import { ${m.modelTypeName} } from '${m.path}'`)
+    .join(os.EOL)
 
   return `
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from 'graphql'
-
-export interface ITypeMap {
-Context: any
-${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
-${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
-${args.types
-    .filter(type => type.type.isObject)
-    .map(type => `${type.name}Parent: any`)
-    .join(os.EOL)}
+import { Context } from '${args.contextPath}'
+${modelImports}
+  `
 }
 
-  ${args.types
+function renderNamespaces(
+  args: GenerateArgs,
+  typeToInputTypeAssociation: TypeToInputTypeAssociation,
+  inputTypesMap: InputTypesMap,
+): string {
+  return args.types
     .filter(type => type.type.isObject)
-    .map(
-      type => `export namespace ${type.name}Resolvers {
+    .map(type =>
+      renderNamespace(type, typeToInputTypeAssociation, inputTypesMap),
+    )
+    .join(os.EOL)
+}
 
-        ${typeToInputTypeAssociation[type.name] ? `export interface ${inputTypesMap[typeToInputTypeAssociation[type.name]].name} {
-          ${inputTypesMap[typeToInputTypeAssociation[type.name]].fields.map(
-            field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
-          )}
-        }` : ``}  
+function renderNamespace(
+  type: GraphQLTypeObject,
+  typeToInputTypeAssociation: TypeToInputTypeAssociation,
+  inputTypesMap: InputTypesMap,
+): string {
+  return `\
+    export namespace ${type.name}Resolvers {
 
-  ${type.fields
-    .map(
-      field => `${
-        field.arguments.length > 0
-          ? `export interface Args${capitalize(field.name)}<T extends ITypeMap> {
-      ${field.arguments
-        .map(
-          arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)}`,
-        )
-        .join(os.EOL)}
+    ${
+      typeToInputTypeAssociation[type.name]
+        ? `export interface ${
+            inputTypesMap[typeToInputTypeAssociation[type.name]].name
+          } {
+      ${inputTypesMap[typeToInputTypeAssociation[type.name]].fields.map(
+        field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`,
+      )}
     }`
-          : ''
-      }
+        : ``
+    }  
 
-  export type ${capitalize(field.name)}Resolver<T extends ITypeMap> = (
+    ${renderInputArgInterfaces(type)}
+
+    ${renderResolverFunctionInterfaces(type)}
+
+    ${renderResolverTypeInterface(type)}
+  }
+  `
+}
+
+function renderInputArgInterfaces(type: GraphQLTypeObject): string {
+  return type.fields.map(renderInputArgInterface).join(os.EOL)
+}
+
+function renderInputArgInterface(field: GraphQLTypeField): string {
+  if (field.arguments.length === 0) {
+    return ''
+  }
+
+  return `
+  export interface Args${capitalize(field.name)} {
+    ${field.arguments
+      .map(arg => `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)}`)
+      .join(os.EOL)}
+  }
+  `
+}
+
+function renderResolverFunctionInterfaces(type: GraphQLTypeObject): string {
+  return type.fields
+    .map(field => renderResolverFunctionInterface(field, type))
+    .join(os.EOL)
+}
+
+function renderResolverFunctionInterface(
+  field: GraphQLTypeField,
+  type: GraphQLTypeObject,
+): string {
+  return `
+  export type ${capitalize(field.name)}Resolver = (
     parent: T['${type.name}${
-        type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-      }'],
+    type.type.isEnum || type.type.isUnion ? '' : 'Parent'
+  }'],
     args: ${
-      field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
+      field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
     },
-    ctx: T['Context'],
+    ctx: Context,
     info: GraphQLResolveInfo,
   ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>
-  `,
-    )
-    .join(os.EOL)}
+  `
+}
 
-  export interface Type<T extends ITypeMap> {
-  ${type.fields
-    .map(
-      field => `${field.name}: (
+function renderResolverTypeInterface(type: GraphQLTypeObject): string {
+  return `
+  export interface Type {
+    ${type.fields
+      .map(
+        field => `${field.name}: (
       parent: T['${type.name}${
-        type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-      }'],
+          type.type.isEnum || type.type.isUnion ? '' : 'Parent'
+        }'],
       args: ${
-        field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
+        field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
       },
-      ctx: T['Context'],
+      ctx: Context,
       info: GraphQLResolveInfo,
     ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>`,
-    )
-    .join(os.EOL)}
+      )
+      .join(os.EOL)}
   }
+  `
 }
-`,
-    )
-    .join(os.EOL)}
 
-export interface IResolvers<T extends ITypeMap> {
+function renderIResolvers(args: GenerateArgs): string {
+  return `
+export interface IResolvers {
   ${args.types
     .filter(type => type.type.isObject)
-    .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`)
+    .map(type => `${type.name}: ${type.name}Resolvers.Type`)
     .join(os.EOL)}
 }
-
   `
 }

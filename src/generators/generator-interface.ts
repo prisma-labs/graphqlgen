@@ -9,6 +9,7 @@ export type GenerateArgs = {
   types: GraphQLTypeObject[]
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]
+  contextPath: string
   models: ModelMap
 }
 

@@ -113,6 +113,7 @@ export function generateCode({
     types: extractGraphQLTypes(schema!),
     enums: extractGraphQLEnums(schema!),
     unions: extractGraphQLUnions(schema!),
+    contextPath: '../resolvers/types/Context',
     models: models,
   };
   const generatorFn: IGenerator = getGenerator(generator);
