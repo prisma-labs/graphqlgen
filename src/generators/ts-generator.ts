@@ -58,7 +58,7 @@ export function printFieldLikeType(
       type => lookupType ? `T['${type}Parent']` : `${type}Parent`
     ).join(' | ');
     if (field.type.isArray) {
-      types = `Array<${types}>`;
+      types = `Array<${types}>`
     }
 
     return `${types}${
@@ -80,7 +80,11 @@ export function printFieldLikeType(
 }
 
 function isInterfaceObject(obj: GraphQLInterfaceObject | GraphQLTypeObject): obj is GraphQLInterfaceObject {
-  return obj.type.isInterface;
+  return obj.type.isInterface
+}
+
+function isTypeObject(obj: GraphQLInterfaceObject | GraphQLTypeObject): obj is GraphQLTypeObject {
+  return obj.type.isObject
 }
 
 export function generate(args: GenerateArgs) {
@@ -138,7 +142,7 @@ Context: any
 ${args.enums.map(e => `${e.name}: any`).join(os.EOL)}
 ${args.unions.map(union => `${union.name}: any`).join(os.EOL)}
 ${args.types
-    .filter(type => type.type.isObject)
+    .filter(isTypeObject)
     .map(type => `${type.name}Parent: any`)
     .join(os.EOL)}
 }
@@ -187,7 +191,11 @@ ${args.types
     )
     .join(os.EOL)}
 
-  export interface Type<T extends ITypeMap> {
+  export interface Type<T extends ITypeMap> ${
+    isTypeObject(type) && type.interfaces && type.interfaces.length
+     ? `extends ${type.interfaces.map(typeInterface => `${typeInterface}Resolvers.Type<T>`).join(', ')}`
+     : ''
+    } {
   ${type.fields
     .map(
       field => `${field.name}: (

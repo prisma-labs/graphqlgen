@@ -227,7 +227,7 @@ export namespace VideoResolvers {
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
-  export interface Type<T extends ITypeMap> {
+  export interface Type<T extends ITypeMap> extends MediaResolvers.Type<T> {
     id: (
       parent: T[\\"VideoParent\\"],
       args: {},
@@ -278,7 +278,7 @@ export namespace PictureResolvers {
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
-  export interface Type<T extends ITypeMap> {
+  export interface Type<T extends ITypeMap> extends MediaResolvers.Type<T> {
     id: (
       parent: T[\\"PictureParent\\"],
       args: {},
