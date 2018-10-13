@@ -1,0 +1,27 @@
+interface Media {
+  id: ID!
+  url: String!
+}
+
+type Video implements Media {
+  id: ID!
+  name: String!
+  duration: Int!
+}
+
+type Picture implements Media {
+  id: ID!
+  url: String!
+  width: Int!
+  height: Int!
+}
+
+type Home {
+  id: ID!
+  name: String
+  description: String!
+  numRatings: Int!
+  avgRating: Float
+  media(first: Int): [Media!]!
+  perNight: Int!
+}

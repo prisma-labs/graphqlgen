@@ -52,3 +52,16 @@ test("basic input", async () => {
   const code = generateCode({ schema: parsedSchema });
   expect(code).toMatchSnapshot();
 });
+
+test("basic interface", async () => {
+  const schema = fs.readFileSync(
+    join(__dirname, "../fixtures/interface.graphql"),
+    "utf-8"
+  );
+  const parsedSchema = parse(schema);
+  const code = generateCode({ schema: parsedSchema });
+
+  fs.writeFileSync('./resolvers.ts', code)
+
+  expect(code).toMatchSnapshot();
+});

@@ -162,6 +162,231 @@ export interface IResolvers<T extends ITypeMap> {
 "
 `;
 
+exports[`basic interface 1`] = `
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
+
+export interface ITypeMap {
+  Context: any;
+
+  VideoParent: any;
+  PictureParent: any;
+  HomeParent: any;
+}
+
+export namespace VideoResolvers {
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type DurationResolver<T extends ITypeMap> = (
+    parent: T[\\"VideoParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export interface Type<T extends ITypeMap> {
+    id: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    name: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    duration: (
+      parent: T[\\"VideoParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+  }
+}
+
+export namespace PictureResolvers {
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type UrlResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type WidthResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type HeightResolver<T extends ITypeMap> = (
+    parent: T[\\"PictureParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export interface Type<T extends ITypeMap> {
+    id: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    url: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    width: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+    height: (
+      parent: T[\\"PictureParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+  }
+}
+
+export namespace HomeResolvers {
+  export type IdResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export type DescriptionResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NumRatingsResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type AvgRatingResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export interface ArgsMedia<T extends ITypeMap> {
+    first: number | null;
+  }
+
+  export type MediaResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: ArgsMedia<T>,
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) =>
+    | Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>
+    | Promise<Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>>;
+
+  export type PerNightResolver<T extends ITypeMap> = (
+    parent: T[\\"HomeParent\\"],
+    args: {},
+    ctx: T[\\"Context\\"],
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export interface Type<T extends ITypeMap> {
+    id: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    name: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+    description: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+    numRatings: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+    avgRating: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+    media: (
+      parent: T[\\"HomeParent\\"],
+      args: ArgsMedia<T>,
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) =>
+      | Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>
+      | Promise<Array<T[\\"VideoParent\\"] | T[\\"PictureParent\\"]>>;
+    perNight: (
+      parent: T[\\"HomeParent\\"],
+      args: {},
+      ctx: T[\\"Context\\"],
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+  }
+}
+
+export interface IResolvers<T extends ITypeMap> {
+  Video: VideoResolvers.Type<T>;
+  Picture: PictureResolvers.Type<T>;
+  Home: HomeResolvers.Type<T>;
+}
+"
+`;
+
 exports[`basic scalar 1`] = `
 "/* DO NOT EDIT! */
 import { GraphQLResolveInfo } from \\"graphql\\";
