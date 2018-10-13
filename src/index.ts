@@ -15,7 +15,8 @@ import {
 import {
   IGenerator,
   GenerateArgs,
-  CodeFileLike
+  CodeFileLike,
+  ModelMap
 } from "./generators/generator-interface";
 import { resolve, join, dirname } from "path";
 import {
@@ -93,6 +94,11 @@ function getGenerator(generator: ActualGeneratorType): IGenerator {
   return { generate: generateTS, format: formatTS };
 }
 
+const models: ModelMap = {
+  Post: { modelTypeName: 'PostNode', path: './prisma-client' },
+  User: { modelTypeName: 'UserNode', path: './prisma-client' },
+}
+
 export function generateCode({
   schema = undefined,
   prettify = true,
@@ -106,7 +112,8 @@ export function generateCode({
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(schema!),
     enums: extractGraphQLEnums(schema!),
-    unions: extractGraphQLUnions(schema!)
+    unions: extractGraphQLUnions(schema!),
+    models: models,
   };
   const generatorFn: IGenerator = getGenerator(generator);
   const code = generatorFn.generate(generateArgs);
