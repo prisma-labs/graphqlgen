@@ -61,6 +61,7 @@ export type GraphQLUnionObject = {
 export type GraphQLInterfaceObject = {
   name: string;
   type: GraphQLTypeDefinition;
+  fields: GraphQLTypeField[];
   types: GraphQLTypeObject[];
 };
 
@@ -151,10 +152,10 @@ function extractTypeLike(
 
 function extractTypeFields(
   schema: DocumentNode,
-  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode
+  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode | InterfaceTypeDefinitionNode
 ) {
   const fields: GraphQLTypeField[] = [];
-  if (node.kind === "ObjectTypeDefinition") {
+  if (node.kind === "ObjectTypeDefinition" || node.kind === "InterfaceTypeDefinition") {
     visit(node, {
       FieldDefinition(fieldNode: FieldDefinitionNode) {
         const fieldType: GraphQLType = extractTypeLike(schema, fieldNode);
@@ -320,6 +321,7 @@ export function extractGraphQLInterfaces(schema: DocumentNode) {
 
   visit(schema, {
     InterfaceTypeDefinition(node: InterfaceTypeDefinitionNode) {
+      const fields: GraphQLTypeField[] = extractTypeFields(schema, node);
       interfaces.push({
         name: node.name.value,
         type: {
@@ -329,11 +331,12 @@ export function extractGraphQLInterfaces(schema: DocumentNode) {
           isEnum: false,
           isUnion: true,
           isScalar: false,
-          isInterface: false
+          isInterface: true
         },
         types: allTypes
           .filter(type => !!type.interfaces)
-          .filter(type => type.interfaces!.includes(node.name.value))
+          .filter(type => type.interfaces!.includes(node.name.value)),
+        fields: fields
       });
     }
   });

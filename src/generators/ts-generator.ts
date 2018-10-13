@@ -3,7 +3,7 @@ import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 
 import { GenerateArgs } from './generator-interface'
-import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import { GraphQLTypeField, GraphQLTypeObject, GraphQLInterfaceObject } from '../source-helper'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -79,6 +79,10 @@ export function printFieldLikeType(
       }`
 }
 
+function isInterfaceObject(obj: GraphQLInterfaceObject | GraphQLTypeObject): obj is GraphQLInterfaceObject {
+  return obj.type.isInterface;
+}
+
 export function generate(args: GenerateArgs) {
   // TODO: Maybe move this to source helper
   const inputTypesMap: { [s: string]: GraphQLTypeObject } = args.types
@@ -118,6 +122,13 @@ export function generate(args: GenerateArgs) {
       }
     }, {})
 
+  const allTypes: Array<GraphQLInterfaceObject | GraphQLTypeObject> = [
+    ...args.interfaces,
+    ...args.types
+  ].filter(
+    type => type.type.isInterface || type.type.isObject
+  )
+  
   return `
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from 'graphql'
@@ -132,8 +143,7 @@ ${args.types
     .join(os.EOL)}
 }
 
-  ${args.types
-    .filter(type => type.type.isObject)
+  ${allTypes
     .map(
       type => `export namespace ${type.name}Resolvers {
 
@@ -141,7 +151,7 @@ ${args.types
           ${inputTypesMap[typeToInputTypeAssociation[type.name]].fields.map(
             field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
           )}
-        }` : ``}  
+        }` : ``}
 
   ${type.fields
     .map(
@@ -158,9 +168,15 @@ ${args.types
       }
 
   export type ${capitalize(field.name)}Resolver<T extends ITypeMap> = (
-    parent: T['${type.name}${
-        type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-      }'],
+    parent: ${
+      isInterfaceObject(type)
+        ? type.types.map(
+            interfaceType => `T['${interfaceType.name}Parent']`
+          ).join(' | ')
+        : `T['${type.name}${
+            type.type.isEnum || type.type.isUnion ? '' : 'Parent'
+          }']`
+      },
     args: ${
       field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
     },
@@ -175,9 +191,15 @@ ${args.types
   ${type.fields
     .map(
       field => `${field.name}: (
-      parent: T['${type.name}${
-        type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-      }'],
+      parent: ${
+        isInterfaceObject(type)
+          ? type.types.map(
+              interfaceType => `T['${interfaceType.name}Parent']`
+            ).join(' | ')
+          : `T['${type.name}${
+              type.type.isEnum || type.type.isUnion ? '' : 'Parent'
+            }']`
+        },
       args: ${
         field.arguments.length > 0 ? `Args${capitalize(field.name)}<T>` : '{}'
       },
