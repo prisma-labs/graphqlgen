@@ -97,6 +97,8 @@ export interface ITypeMap {
 
   AddMemberPayloadParent: any;
   AddMemberDataParent: any;
+  RemoveMemberPayloadParent: any;
+  RemoveMemberDataParent: any;
   MutationParent: any;
 }
 
@@ -158,6 +160,51 @@ export type AddMemberData_Type<T> = {
   ) => string[]
 };
 
+export type RemoveMemberPayload_UserId_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"RemoveMemberPayloadParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => string | Promise<string>;
+
+export type RemoveMemberPayload_Type<T> = {
+  userId: (
+    parent: $PropertyType<T & ITypeMap, \\"RemoveMemberPayloadParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string
+};
+
+export type RemoveMemberData_Email_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"RemoveMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => string | Promise<string>;
+
+export type RemoveMemberData_Projects_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"RemoveMemberDataParent\\">,
+  args: {},
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) => string[] | Promise<string[]>;
+
+export type RemoveMemberData_Type<T> = {
+  email: (
+    parent: $PropertyType<T & ITypeMap, \\"RemoveMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string,
+  projects: (
+    parent: $PropertyType<T & ITypeMap, \\"RemoveMemberDataParent\\">,
+    args: {},
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => string[]
+};
+
 // Type for argument
 export type Mutation_AddMember_Args = {
   data: $PropertyType<T & ITypeMap, \\"AddMemberDataParent\\">
@@ -172,18 +219,40 @@ export type Mutation_AddMember_Resolver<T> = (
   | $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
   | Promise<$PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">>;
 
+// Type for argument
+export type Mutation_RemoveMember_Args = {
+  data: $PropertyType<T & ITypeMap, \\"RemoveMemberDataParent\\">
+};
+
+export type Mutation_RemoveMember_Resolver<T> = (
+  parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+  args: Mutation_RemoveMember_Args,
+  ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+  info: GraphQLResolveInfo
+) =>
+  | $PropertyType<T & ITypeMap, \\"RemoveMemberPayloadParent\\">
+  | Promise<$PropertyType<T & ITypeMap, \\"RemoveMemberPayloadParent\\">>;
+
 export type Mutation_Type<T> = {
   addMember: (
     parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
     args: Mutation_AddMember_Args,
     ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
     info: GraphQLResolveInfo
-  ) => $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">
+  ) => $PropertyType<T & ITypeMap, \\"AddMemberPayloadParent\\">,
+  removeMember: (
+    parent: $PropertyType<T & ITypeMap, \\"MutationParent\\">,
+    args: Mutation_RemoveMember_Args,
+    ctx: $PropertyType<T & ITypeMap, \\"Context\\">,
+    info: GraphQLResolveInfo
+  ) => $PropertyType<T & ITypeMap, \\"RemoveMemberPayloadParent\\">
 };
 
 export type IResolvers<T> = {
   AddMemberPayload: AddMemberPayload_Type<T>,
   AddMemberData: AddMemberData_Type<T>,
+  RemoveMemberPayload: RemoveMemberPayload_Type<T>,
+  RemoveMemberData: RemoveMemberData_Type<T>,
   Mutation: Mutation_Type<T>
 };
 "

@@ -8,6 +8,16 @@ input AddMemberData {
   projects: [ID!]!
 }
 
+type RemoveMemberPayload {
+  userId: ID!
+}
+
+input RemoveMemberData {
+  email: String!
+  projects: [ID!]!
+}
+
 type Mutation {
   addMember(data: AddMemberData!): AddMemberPayload!
+  removeMember(data: RemoveMemberData!): RemoveMemberPayload!
 }
