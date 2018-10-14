@@ -851,10 +851,24 @@ export namespace ProfessorResolvers {
   }
 }
 
+export namespace UserTypeResolvers {
+  export interface Type<T extends ITypeMap> {
+    __resolveType?: GraphQLTypeResolver<
+      T[\\"StudentParent\\"] | T[\\"ProfessorParent\\"],
+      T[\\"Context\\"]
+    >;
+    __isTypeOf?: GraphQLIsTypeOfFn<
+      T[\\"StudentParent\\"] | T[\\"ProfessorParent\\"],
+      T[\\"Context\\"]
+    >;
+  }
+}
+
 export interface IResolvers<T extends ITypeMap> {
   User: UserResolvers.Type<T>;
   Student: StudentResolvers.Type<T>;
   Professor: ProfessorResolvers.Type<T>;
+  UserType?: UserTypeResolvers.Type<T>;
 }
 "
 `;

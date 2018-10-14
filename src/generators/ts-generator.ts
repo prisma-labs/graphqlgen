@@ -3,7 +3,7 @@ import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 
 import { GenerateArgs } from './generator-interface'
-import { GraphQLTypeField, GraphQLTypeObject, GraphQLInterfaceObject } from '../source-helper'
+import { GraphQLTypeField, GraphQLTypeObject, GraphQLInterfaceObject, GraphQLUnionObject } from '../source-helper'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -83,7 +83,7 @@ function isInterfaceObject(obj: GraphQLInterfaceObject | GraphQLTypeObject): obj
   return obj.type.isInterface
 }
 
-function isTypeObject(obj: GraphQLInterfaceObject | GraphQLTypeObject): obj is GraphQLTypeObject {
+function isTypeObject(obj: GraphQLInterfaceObject | GraphQLUnionObject | GraphQLTypeObject): obj is GraphQLTypeObject {
   return obj.type.isObject
 }
 
@@ -98,7 +98,6 @@ export function generate(args: GenerateArgs) {
       }
     }, {})
 
-  // TODO: Type this
   const typeToInputTypeAssociation: {[s: string]: any} = args.types
     .filter(
       type =>
@@ -236,13 +235,32 @@ ${args.types
     )
     .join(os.EOL)}
 
+  ${args.unions.map(union => `
+    export namespace ${union.name}Resolvers {
+      export interface Type<T extends ITypeMap> {
+        __resolveType?: GraphQLTypeResolver<${
+          union.types.map(type => `T['${type.name}Parent']`).join(' | ')
+        },
+          T['Context']
+        >;
+        __isTypeOf?: GraphQLIsTypeOfFn<${
+          union.types.map(type => `T['${type.name}Parent']`).join(' | ')
+        },
+          T['Context']
+        >;
+      }
+    }
+  `)}
+
 export interface IResolvers<T extends ITypeMap> {
-  ${args.types.filter(isTypeObject)
-    .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`)
-    .join(os.EOL)}
-  ${args.interfaces.filter(isInterfaceObject)
-    .map(type => `${type.name}?: ${type.name}Resolvers.Type<T>`)
-    .join(os.EOL)}
+  ${[
+    ...args.types.filter(isTypeObject)
+      .map(type => `${type.name}: ${type.name}Resolvers.Type<T>`),
+    ...args.interfaces.filter(isInterfaceObject)
+      .map(type => `${type.name}?: ${type.name}Resolvers.Type<T>`),
+    ...args.unions
+      .map(type => `${type.name}?: ${type.name}Resolvers.Type<T>`)
+  ].join(';')}
 }
 
   `
