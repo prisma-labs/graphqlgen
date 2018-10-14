@@ -1,6 +1,6 @@
-import * as os from 'os'
+//import * as os from 'os'
 import { GenerateArgs, CodeFileLike } from './types'
-import { GraphQLTypeField } from '../source-helper'
+import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 
 export { format } from './ts-generator'
 
@@ -42,140 +42,47 @@ function isParentType(name: string) {
   return parentTypes.indexOf(name) > -1
 }
 
-export function generate(args: GenerateArgs): CodeFileLike[] {
-  let files: CodeFileLike[] = args.types
-    .filter(type => type.type.isObject)
-    .filter(type => !isParentType(type.name))
-    .map(type => {
-      const code = `
-    import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
-    import { TypeMap } from './types/TypeMap'
-    ${Array.from(
-      new Set(
-        type.fields
-          .filter(field => !field.type.isEnum && !field.type.isUnion)
-          .filter(field => !field.type.isScalar)
-          .map(
-            field => `import { ${field.type.name}Parent } from './${
-              field.type.name
-            }'
-  `,
-          ),
-      ),
-    ).join(';')}
-      ${args.unions
-        .filter(u => type.fields.map(f => f.type.name).indexOf(u.name) > -1)
-        .map(
-          u => `${u.types
-            .map(type => `import { ${type.name}Parent } from './${type.name}'`)
-            .join(';')}
-        
-            export type ${u.name} = ${u.types
-            .map(type => `${type.name}Parent`)
-            .join('|')}
-        `,
-        )
-        .join(os.EOL)}
+export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
+  const code = `
+  import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
-        ${args.enums
-          .filter(e => type.fields.map(f => f.type.name).indexOf(e.name) > -1)
-          .map(
-            e => `
-        export type ${e.name} = ${e.values.map(v => `"${v}"`).join('|')}
-        `,
-          )
-          .join(os.EOL)}
-
-    export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
-      ${type.fields.map(
-        field => `
-        ${field.name}: (parent${
-          field.arguments.length > 0 ? ', args' : ''
-        }) => parent.${field.name}
-      `,
-      )}
-    }
-    `
-      return {
-        path: `${type.name}.ts`,
-        force: false,
-        code,
+  export const ${type.name}: ${type.name}Resolvers.Type = {
+    ...${type.name}Resolvers.scalars,
+    ${type.fields.filter(field => !field.type.isScalar).map(
+      field => `
+      ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {
+        throw new Error('Resolver not implemented')
       }
-    })
-
-  files = files.concat(
-    args.types
-      .filter(type => type.type.isObject)
-      .filter(type => isParentType(type.name))
-      .map(type => {
-        const code = `
-      import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
-      import { TypeMap } from './types/TypeMap'
-
-      export interface ${type.name}Parent { }
-      
-      export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
-        ${type.fields.map(
-          field =>
-            `${field.name}: (parent${
-              field.arguments.length > 0 ? ', args' : ''
-            }) => ${printFieldLikeTypeEmptyCase(field)}`,
-        )}
-      }
-      `
-        return {
-          path: `${type.name}.ts`,
-          force: false,
-          code,
-        }
-      }),
-  )
-
-  files.push({
-    path: 'types/Context.ts',
-    force: false,
-    code: `
-    export interface Context { }
     `,
-  })
-
-  files.push({
-    path: 'types/TypeMap.ts',
-    force: true,
-    code: `
-import { ITypeMap } from '../[TEMPLATE-INTERFACES-PATH]'
-
-${args.types
-      .filter(type => type.type.isObject)
-      .map(type => `import { ${type.name}Parent } from '../${type.name}'`)
-      .join(';')}
-
-import { Context } from './Context'
-
-export interface TypeMap extends ITypeMap {
-  Context: Context
-  ${args.types
-    .filter(type => type.type.isObject)
-    .map(
-      type =>
-        `${type.name}${
-          type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-        }: ${type.name}${
-          type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-        }`,
-    )
-    .join(';')}
+    )}
+  }`
+  return { path: `${type.name}.ts`, force: false, code }
 }
-    `,
-  })
 
-  files.push({
-    path: 'index.ts',
+export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
+  const code = `
+  import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+  
+  export const ${type.name}: ${type.name}Resolvers.Type = {
+    ...${type.name}Resolvers.scalars,
+    ${type.fields.map(
+      field =>
+        `${field.name}: (parent${
+          field.arguments.length > 0 ? ', args' : ''
+        }) => ${printFieldLikeTypeEmptyCase(field)}`,
+    )}
+  }
+      `
+  return {
+    path: `${type.name}.ts`,
     force: false,
-    code: `
-    import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
-    import { TypeMap } from './types/TypeMap'
-    ${args.types
+    code,
+  }
+}
+
+export function renderExports(types: GraphQLTypeObject[]): string {
+  return `import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    ${types
       .filter(type => type.type.isObject)
       .map(
         type => `
@@ -184,13 +91,37 @@ export interface TypeMap extends ITypeMap {
       )
       .join(';')}
 
-    export const resolvers: IResolvers<TypeMap> = {
-      ${args.types
+    export const resolvers: IResolvers = {
+      ${types
         .filter(type => type.type.isObject)
         .map(type => `${type.name}`)
         .join(',')}
-    }
-    `,
+    }`
+}
+
+export function generate(args: GenerateArgs): CodeFileLike[] {
+  let files: CodeFileLike[] = args.types
+    .filter(type => type.type.isObject)
+    .filter(type => !isParentType(type.name))
+    .map(renderResolvers)
+
+  files = files.concat(
+    args.types
+      .filter(type => type.type.isObject)
+      .filter(type => isParentType(type.name))
+      .map(renderParentResolvers),
+  )
+
+  files.push({
+    path: 'types/Context.ts',
+    force: false,
+    code: `export interface Context { }`
+  })
+
+  files.push({
+    path: 'index.ts',
+    force: false,
+    code: renderExports(args.types),
   })
 
   return files

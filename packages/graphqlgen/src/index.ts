@@ -79,7 +79,7 @@ function getGenerator(generator: ActualGeneratorType): IGenerator {
   switch (generator) {
     case 'interfaces-typescript':
       return { generate: generateTS, format: formatTS }
-    case 'interfaces-typescript':
+    case 'scaffold-typescript':
       return { generate: scaffoldTS, format: formatTS }
     case 'interfaces-flow':
       return { generate: generateFlow, format: formatFlow }
@@ -306,12 +306,17 @@ async function run() {
 
   const config = yaml.safeLoad(fs.readFileSync('factory.yml', 'utf-8'))
 
-  if (!config.models) {
+  if (!config.input) {
+    console.error(`No input found in factory.yml`)
+    process.exit(1)
+  }
+
+  if (!config.input.models) {
     console.error(`No models found in factory.yml`)
     process.exit(1)
   }
 
-  const modelMap = buildModelMap(config.models, path.dirname(args.output))
+  const modelMap = buildModelMap(config.input.models, path.dirname(args.output))
 
   const code = generateCode({
     schema: parsedSchema!,
