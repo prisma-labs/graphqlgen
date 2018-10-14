@@ -2,7 +2,7 @@ import * as os from 'os'
 import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 
-import { GenerateArgs } from './generator-interface'
+import { GenerateArgs } from './types'
 import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'

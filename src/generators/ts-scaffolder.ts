@@ -1,5 +1,5 @@
 import * as os from "os";
-import { GenerateArgs, CodeFileLike } from "./generator-interface";
+import { GenerateArgs, CodeFileLike } from "./types";
 import { GraphQLTypeField } from "../source-helper";
 
 export { format } from "./ts-generator";

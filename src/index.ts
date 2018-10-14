@@ -19,7 +19,7 @@ import {
   GenerateArgs,
   CodeFileLike,
   ModelMap,
-} from './generators/generator-interface'
+} from './generators/types'
 import { resolve, join, dirname } from 'path'
 import {
   generate as generateTS,
