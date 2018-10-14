@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/prisma/graphqlgen#readme",
   "dependencies": {
+    "ajv": "^6.5.4",
     "camelcase": "5.0.0",
     "capitalize": "1.0.0",
     "chalk": "2.4.1",
