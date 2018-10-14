@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prismagraphql/graphql-resolver-codegen.git"
+    "url": "git+https://github.com/prisma/graphqlgen.git"
   },
   "author": "Prisma",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prismagraphql/graphql-resolver-codegen/issues"
+    "url": "https://github.com/prisma/graphqlgen/issues"
   },
-  "homepage": "https://github.com/prismagraphql/graphql-resolver-codegen#readme",
+  "homepage": "https://github.com/prisma/graphqlgen#readme",
   "dependencies": {
     "camelcase": "5.0.0",
     "capitalize": "1.0.0",
