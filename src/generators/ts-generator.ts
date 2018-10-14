@@ -5,7 +5,7 @@ import * as ts from 'typescript'
 import * as path from 'path'
 import * as fs from 'fs'
 
-import { GenerateArgs, ModelMap } from './generator-interface'
+import { GenerateArgs, ModelMap } from './types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
