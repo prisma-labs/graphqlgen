@@ -11,7 +11,7 @@ test('basic schema', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'interfaces-flow',
+    language: 'flow',
   })
   expect(code).toMatchSnapshot()
 })
@@ -24,7 +24,7 @@ test('basic enum', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'interfaces-flow',
+    language: 'flow',
   })
   expect(code).toMatchSnapshot()
 })
@@ -37,7 +37,7 @@ test('basic union', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'interfaces-flow',
+    language: 'flow',
   })
   expect(code).toMatchSnapshot()
 })
@@ -50,7 +50,7 @@ test('basic scalar', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'interfaces-flow',
+    language: 'flow',
   })
   expect(code).toMatchSnapshot()
 })
@@ -63,7 +63,7 @@ test('basic input', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'interfaces-flow',
+    language: 'flow',
   })
   expect(code).toMatchSnapshot()
 })

@@ -9,6 +9,6 @@ test('large schema', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })

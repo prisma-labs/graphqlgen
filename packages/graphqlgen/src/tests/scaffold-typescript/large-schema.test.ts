@@ -11,8 +11,8 @@ test('large schema', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'scaffold-typescript',
-  })
+    language: 'typescript',
+  }).generatedResolvers
   expect(code).toMatchSnapshot()
   expect(code.length).toBe(33)
 })

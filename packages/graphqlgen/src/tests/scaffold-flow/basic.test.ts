@@ -11,8 +11,8 @@ test('basic schema', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'scaffold-flow',
-  })
+    language: 'flow',
+  }).generatedResolvers
   expect(code).toMatchSnapshot()
   expect(code.length).toBe(5)
 })
@@ -25,8 +25,8 @@ test('basic enum', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'scaffold-flow',
-  })
+    language: 'flow',
+  }).generatedResolvers
   expect(code).toMatchSnapshot()
   expect(code.length).toBe(5)
 })
@@ -39,8 +39,8 @@ test('basic union', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'scaffold-flow',
-  })
+    language: 'flow',
+  }).generatedResolvers
   expect(code).toMatchSnapshot()
   expect(code.length).toBe(6)
 })
@@ -53,8 +53,8 @@ test('basic scalar', async () => {
   const parsedSchema = parse(schema)
   const code = generateCode({
     schema: parsedSchema,
-    generator: 'scaffold-flow',
-  })
+    language: 'flow',
+  }).generatedResolvers
   expect(code).toMatchSnapshot()
   expect(code.length).toBe(6)
 })

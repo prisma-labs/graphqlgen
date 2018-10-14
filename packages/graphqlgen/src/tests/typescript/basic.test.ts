@@ -9,7 +9,7 @@ test('basic schema', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })
 
@@ -19,7 +19,7 @@ test('basic enum', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })
 
@@ -29,7 +29,7 @@ test('basic union', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })
 
@@ -39,7 +39,7 @@ test('basic scalar', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })
 
@@ -49,6 +49,6 @@ test('basic input', async () => {
     'utf-8',
   )
   const parsedSchema = parse(schema)
-  const code = generateCode({ schema: parsedSchema })
+  const code = generateCode({ schema: parsedSchema }).generatedTypes
   expect(code).toMatchSnapshot()
 })
