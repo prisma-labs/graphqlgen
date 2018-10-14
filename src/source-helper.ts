@@ -10,65 +10,65 @@ import {
   UnionTypeDefinitionNode,
   ScalarTypeDefinitionNode,
   InterfaceTypeDefinitionNode,
-  InputObjectTypeDefinitionNode
-} from "graphql";
+  InputObjectTypeDefinitionNode,
+} from 'graphql'
 
 type GraphQLTypeDefinition = {
-  name: string;
-  isScalar: boolean;
-  isEnum: boolean;
-  isUnion: boolean;
-  isInput: boolean;
-  isObject: boolean;
-  isInterface: boolean;
-};
+  name: string
+  isScalar: boolean
+  isEnum: boolean
+  isUnion: boolean
+  isInput: boolean
+  isObject: boolean
+  isInterface: boolean
+}
 
 type GraphQLType = GraphQLTypeDefinition & {
-  isArray: boolean;
-  isRequired: boolean;
-};
+  isArray: boolean
+  isRequired: boolean
+}
 
 type GraphQLTypeArgument = {
-  name: string;
-  type: GraphQLType;
-};
+  name: string
+  type: GraphQLType
+}
 
 export type GraphQLTypeField = {
-  name: string;
-  type: GraphQLType;
-  arguments: GraphQLTypeArgument[];
-};
+  name: string
+  type: GraphQLType
+  arguments: GraphQLTypeArgument[]
+}
 
 export type GraphQLTypeObject = {
-  name: string;
-  type: GraphQLTypeDefinition;
-  fields: GraphQLTypeField[];
-};
+  name: string
+  type: GraphQLTypeDefinition
+  fields: GraphQLTypeField[]
+}
 
 export type GraphQLEnumObject = {
-  name: string;
-  type: GraphQLTypeDefinition;
-  values: string[];
-};
+  name: string
+  type: GraphQLTypeDefinition
+  values: string[]
+}
 
 export type GraphQLUnionObject = {
-  name: string;
-  type: GraphQLTypeDefinition;
-  types: GraphQLTypeObject[];
-};
+  name: string
+  type: GraphQLTypeDefinition
+  types: GraphQLTypeObject[]
+}
 
 export const GraphQLScalarTypeArray = [
-  "Boolean",
-  "Int",
-  "Float",
-  "String",
-  "ID"
-];
-export type GraphQLScalarType = "Boolean" | "Float" | "Int" | "String" | "ID";
+  'Boolean',
+  'Int',
+  'Float',
+  'String',
+  'ID',
+]
+export type GraphQLScalarType = 'Boolean' | 'Float' | 'Int' | 'String' | 'ID'
 
 function extractTypeDefinition(
   schema: DocumentNode,
-  fromNode: GraphQLType
+  fromNode: GraphQLType,
 ): GraphQLTypeDefinition {
   let typeLike: GraphQLTypeDefinition = {
     isObject: false,
@@ -76,132 +76,132 @@ function extractTypeDefinition(
     isEnum: false,
     isUnion: false,
     isScalar: false,
-    isInterface: false
-  } as GraphQLTypeDefinition;
+    isInterface: false,
+  } as GraphQLTypeDefinition
   visit(schema, {
     ObjectTypeDefinition(node: ObjectTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isObject = true;
+        typeLike.isObject = true
       }
     },
     InputObjectTypeDefinition(node: InputObjectTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isInput = true;
+        typeLike.isInput = true
       }
     },
     EnumTypeDefinition(node: EnumTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isEnum = true;
+        typeLike.isEnum = true
       }
     },
     UnionTypeDefinition(node: UnionTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isUnion = true;
+        typeLike.isUnion = true
       }
     },
     ScalarTypeDefinition(node: ScalarTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isScalar = true;
+        typeLike.isScalar = true
       }
     },
     InterfaceTypeDefinition(node: InterfaceTypeDefinitionNode) {
       if (fromNode.name === node.name.value) {
-        typeLike.isInterface = true;
+        typeLike.isInterface = true
       }
-    }
-  });
+    },
+  })
   // Handle built-in scalars
   if (GraphQLScalarTypeArray.indexOf(fromNode.name) > -1) {
-    typeLike.isScalar = true;
+    typeLike.isScalar = true
   }
-  return typeLike;
+  return typeLike
 }
 
 function extractTypeLike(
   schema: DocumentNode,
-  node: FieldDefinitionNode | InputValueDefinitionNode
+  node: FieldDefinitionNode | InputValueDefinitionNode,
 ) {
-  const typeLike: GraphQLType = {} as GraphQLType;
+  const typeLike: GraphQLType = {} as GraphQLType
   visit(node.type, {
     NonNullType() {
-      typeLike.isRequired = true;
+      typeLike.isRequired = true
     },
     ListType() {
-      typeLike.isArray = true;
+      typeLike.isArray = true
     },
     NamedType(namedTypeNode: NamedTypeNode) {
-      typeLike.name = namedTypeNode.name.value;
-    }
-  });
+      typeLike.name = namedTypeNode.name.value
+    },
+  })
 
-  const typeDefinitionLike = extractTypeDefinition(schema, typeLike);
+  const typeDefinitionLike = extractTypeDefinition(schema, typeLike)
 
   return {
     ...typeLike,
-    ...typeDefinitionLike
-  };
+    ...typeDefinitionLike,
+  }
 }
 
 function extractTypeFields(
   schema: DocumentNode,
-  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode
+  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode,
 ) {
-  const fields: GraphQLTypeField[] = [];
-  if (node.kind === "ObjectTypeDefinition") {
+  const fields: GraphQLTypeField[] = []
+  if (node.kind === 'ObjectTypeDefinition') {
     visit(node, {
       FieldDefinition(fieldNode: FieldDefinitionNode) {
-        const fieldType: GraphQLType = extractTypeLike(schema, fieldNode);
+        const fieldType: GraphQLType = extractTypeLike(schema, fieldNode)
 
-        const fieldArguments: GraphQLTypeArgument[] = [];
+        const fieldArguments: GraphQLTypeArgument[] = []
         visit(fieldNode, {
           InputValueDefinition(
-            inputValueDefinitionNode: InputValueDefinitionNode
+            inputValueDefinitionNode: InputValueDefinitionNode,
           ) {
             const argumentType: GraphQLType = extractTypeLike(
               schema,
-              inputValueDefinitionNode
-            );
+              inputValueDefinitionNode,
+            )
 
             fieldArguments.push({
               name: inputValueDefinitionNode.name.value,
-              type: argumentType
-            });
-          }
-        });
+              type: argumentType,
+            })
+          },
+        })
 
         fields.push({
           name: fieldNode.name.value,
           type: fieldType,
-          arguments: fieldArguments
-        });
-      }
-    });
+          arguments: fieldArguments,
+        })
+      },
+    })
   } else {
     // Is input type based on current code/types!
     visit(node, {
       InputValueDefinition(inputValueDefinitionNode: InputValueDefinitionNode) {
         const argumentType: GraphQLType = extractTypeLike(
           schema,
-          inputValueDefinitionNode
-        );
+          inputValueDefinitionNode,
+        )
 
         fields.push({
           name: inputValueDefinitionNode.name.value,
           type: argumentType,
-          arguments: []
-        });
-      }
-    });
+          arguments: [],
+        })
+      },
+    })
   }
 
-  return fields;
+  return fields
 }
 
 export function extractGraphQLTypes(schema: DocumentNode) {
-  const types: GraphQLTypeObject[] = [];
+  const types: GraphQLTypeObject[] = []
   visit(schema, {
     ObjectTypeDefinition(node: ObjectTypeDefinitionNode) {
-      const fields: GraphQLTypeField[] = extractTypeFields(schema, node);
+      const fields: GraphQLTypeField[] = extractTypeFields(schema, node)
       types.push({
         name: node.name.value,
         type: {
@@ -211,13 +211,13 @@ export function extractGraphQLTypes(schema: DocumentNode) {
           isEnum: false,
           isUnion: false,
           isScalar: false,
-          isInterface: false
+          isInterface: false,
         },
-        fields: fields
-      });
+        fields: fields,
+      })
     },
     InputObjectTypeDefinition(node: InputObjectTypeDefinitionNode) {
-      const fields: GraphQLTypeField[] = extractTypeFields(schema, node);
+      const fields: GraphQLTypeField[] = extractTypeFields(schema, node)
       types.push({
         name: node.name.value,
         type: {
@@ -227,30 +227,30 @@ export function extractGraphQLTypes(schema: DocumentNode) {
           isEnum: false,
           isUnion: false,
           isScalar: false,
-          isInterface: false
+          isInterface: false,
         },
-        fields: fields
-      });
-    }
-  });
-  return types;
+        fields: fields,
+      })
+    },
+  })
+  return types
 }
 
 function extractEnumValues(node: EnumTypeDefinitionNode) {
-  const values: string[] = [];
+  const values: string[] = []
   visit(node, {
     EnumValueDefinition(node: EnumValueDefinitionNode) {
-      values.push(node.name.value);
-    }
-  });
-  return values;
+      values.push(node.name.value)
+    },
+  })
+  return values
 }
 
 export function extractGraphQLEnums(schema: DocumentNode) {
-  const types: GraphQLEnumObject[] = [];
+  const types: GraphQLEnumObject[] = []
   visit(schema, {
     EnumTypeDefinition(node: EnumTypeDefinitionNode) {
-      const values: string[] = extractEnumValues(node);
+      const values: string[] = extractEnumValues(node)
       types.push({
         name: node.name.value,
         type: {
@@ -260,34 +260,34 @@ export function extractGraphQLEnums(schema: DocumentNode) {
           isEnum: true,
           isUnion: false,
           isScalar: false,
-          isInterface: false
+          isInterface: false,
         },
-        values: values
-      });
-    }
-  });
-  return types;
+        values: values,
+      })
+    },
+  })
+  return types
 }
 
 function extractUnionTypes(
   node: UnionTypeDefinitionNode,
-  types: GraphQLTypeObject[]
+  types: GraphQLTypeObject[],
 ) {
-  const unionTypesStrings: string[] = [];
+  const unionTypesStrings: string[] = []
   visit(node, {
     NamedType(node: NamedTypeNode) {
-      unionTypesStrings.push(node.name.value);
-    }
-  });
-  return types.filter(type => unionTypesStrings.indexOf(type.name) > -1);
+      unionTypesStrings.push(node.name.value)
+    },
+  })
+  return types.filter(type => unionTypesStrings.indexOf(type.name) > -1)
 }
 
 export function extractGraphQLUnions(schema: DocumentNode) {
-  const types: GraphQLUnionObject[] = [];
+  const types: GraphQLUnionObject[] = []
   visit(schema, {
     UnionTypeDefinition(node: UnionTypeDefinitionNode) {
-      const allTypes: GraphQLTypeObject[] = extractGraphQLTypes(schema);
-      const unionTypes: GraphQLTypeObject[] = extractUnionTypes(node, allTypes);
+      const allTypes: GraphQLTypeObject[] = extractGraphQLTypes(schema)
+      const unionTypes: GraphQLTypeObject[] = extractUnionTypes(node, allTypes)
       types.push({
         name: node.name.value,
         type: {
@@ -297,11 +297,11 @@ export function extractGraphQLUnions(schema: DocumentNode) {
           isEnum: false,
           isUnion: true,
           isScalar: false,
-          isInterface: false
+          isInterface: false,
         },
-        types: unionTypes
-      });
-    }
-  });
-  return types;
+        types: unionTypes,
+      })
+    },
+  })
+  return types
 }
