@@ -37,7 +37,7 @@
           "description": "Path to scaffolded file for missing model definitions"
         },
         "resolvers": {
-          "type": "object",
+          "type": "string",
           "description": "Path to scaffolded resolver file"
         }
       },
