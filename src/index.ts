@@ -76,25 +76,22 @@ export type GenerateCodeArgs = {
 }
 
 function getGenerator(generator: ActualGeneratorType): IGenerator {
-  if (generator === 'interfaces-flow') {
-    return { generate: generateFlow, format: formatFlow }
+  switch (generator) {
+    case 'interfaces-typescript':
+      return { generate: generateTS, format: formatTS }
+    case 'interfaces-typescript':
+      return { generate: scaffoldTS, format: formatTS }
+    case 'interfaces-flow':
+      return { generate: generateFlow, format: formatFlow }
+    case 'scaffold-flow':
+      return { generate: scaffoldFlow, format: formatFlow }
+    case 'interfaces-reason':
+      return { generate: generateReason, format: formatReason }
+    case 'scaffold-reason':
+      return { generate: scaffoldReason, format: formatReason }
   }
-  if (generator === 'scaffold-flow') {
-    return { generate: scaffoldFlow, format: formatFlow }
-  }
-  if (generator === 'interfaces-reason') {
-    return { generate: generateReason, format: formatReason }
-  }
-  if (generator === 'scaffold-reason') {
-    return { generate: scaffoldReason, format: formatReason }
-  }
-  if (generator === 'interfaces-typescript') {
-    return { generate: generateTS, format: formatTS }
-  }
-  if (generator === 'scaffold-typescript') {
-    return { generate: scaffoldTS, format: formatTS }
-  }
-  return { generate: generateTS, format: formatTS }
+
+  throw new Error(`Invalid generator: ${generator}`)
 }
 
 interface ModelsConfig {
@@ -126,6 +123,7 @@ function buildModelMap(
   }, {})
 }
 
+// TODO write test cases
 function getAbsoluteFilePath(modelPath: string): string {
   let absolutePath = path.resolve(modelPath)
 
@@ -153,6 +151,7 @@ function getAbsoluteFilePath(modelPath: string): string {
   return indexTsPath
 }
 
+// TODO write test cases
 function getImportPathRelativeToOutput(
   absolutePath: string,
   outputDir: string,
