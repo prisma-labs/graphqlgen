@@ -1,7 +1,10 @@
 export interface GraphQLGenDefinition {
+  language: Language
   input: Input
   output: Output
 }
+
+export type Language = 'typescript' | 'flow'
 
 export interface Input {
   schema: string

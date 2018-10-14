@@ -2,6 +2,10 @@
   "$schema": "http://json-schema.org/draft-06/schema#",
   "title": "JSON schema for graphqlgen.yml files",
   "properties": {
+    "language": {
+      "type": "string",
+      "oneOf": [{ "enum": ["typescript", "flow"] }]
+    },
     "input": {
       "description": "All input fields",
       "type": "object",
@@ -45,6 +49,6 @@
       "additionalProperties": false
     }
   },
-  "required": ["input"],
+  "required": ["language", "input", "output"],
   "additionalProperties": false
 }
