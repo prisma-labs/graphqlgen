@@ -1,65 +1,65 @@
-import * as os from "os";
-import * as capitalize from "capitalize";
-import * as camelCase from "camelcase";
-import * as refmt from "reason";
-import { GraphQLScalarType, GraphQLTypeField } from "../source-helper";
+import * as os from 'os'
+import * as capitalize from 'capitalize'
+import * as camelCase from 'camelcase'
+import * as refmt from 'reason'
+import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
 
-import { GenerateArgs } from "./types";
+import { GenerateArgs } from './types'
 
 type SpecificGraphQLScalarType =
-  | "bool"
-  | "int"
-  | "float"
-  | "string"
-  | "nonScalar";
+  | 'bool'
+  | 'int'
+  | 'float'
+  | 'string'
+  | 'nonScalar'
 
 function getTypeFromGraphQLType(
-  type: GraphQLScalarType
+  type: GraphQLScalarType,
 ): SpecificGraphQLScalarType {
-  if (type === "Int") {
-    return "int";
+  if (type === 'Int') {
+    return 'int'
   }
-  if (type === "Float") {
-    return "float";
+  if (type === 'Float') {
+    return 'float'
   }
-  if (type === "Boolean") {
-    return "bool";
+  if (type === 'Boolean') {
+    return 'bool'
   }
-  if (type === "String" || type === "ID" || type === "DateTime") {
-    return "string";
+  if (type === 'String' || type === 'ID' || type === 'DateTime') {
+    return 'string'
   }
-  return "nonScalar";
+  return 'nonScalar'
 }
 
 export function format(code: string) {
   try {
-    return refmt.printRE(refmt.parseRE(code));
+    return refmt.printRE(refmt.parseRE(code))
   } catch (e) {
     console.log(
       `There is a syntax error in generated code, unformatted code printed, error: ${JSON.stringify(
-        e
-      )}`
-    );
-    return code;
+        e,
+      )}`,
+    )
+    return code
   }
 }
 
 function printFieldLikeType(field: GraphQLTypeField) {
   if (
-    getTypeFromGraphQLType(field.type.name as GraphQLScalarType) !== "nonScalar"
+    getTypeFromGraphQLType(field.type.name as GraphQLScalarType) !== 'nonScalar'
   ) {
-    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)},`;
+    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)},`
   }
 
   if (field.type.isArray) {
-    return `Js.Array.t(Data.${camelCase(field.type.name)}),`;
+    return `Js.Array.t(Data.${camelCase(field.type.name)}),`
   }
 
-  return `Data.${camelCase(field.type.name)},`;
+  return `Data.${camelCase(field.type.name)},`
 }
 
 export function generate(args: GenerateArgs) {
-  console.log(`Reason binding is experimental`);
+  console.log(`Reason binding is experimental`)
   return `
   module Data = {
     ${args.types
@@ -71,16 +71,16 @@ export function generate(args: GenerateArgs) {
           .filter(
             field =>
               getTypeFromGraphQLType(field.type.name as GraphQLScalarType) !==
-              "nonScalar"
+              'nonScalar',
           )
           .map(
             field => `
           "${field.name}": ${printFieldLikeType(field)}
-        `
+        `,
           )
           .join(os.EOL)}
       }
-    `
+    `,
       )
       .join(os.EOL)}
 
@@ -89,7 +89,7 @@ export function generate(args: GenerateArgs) {
           union => `
         type ${camelCase(union.name)} =
           ${union.types.map(t => `| ${t.name}`).join(os.EOL)}  
-      `
+      `,
         )
         .join(os.EOL)}
 
@@ -98,7 +98,7 @@ export function generate(args: GenerateArgs) {
           e => `
         type ${camelCase(e.name)} =
           ${e.values.map(v => `| ${v}`).join(os.EOL)}  
-      `
+      `,
         )
         .join(os.EOL)}
   };
@@ -119,11 +119,11 @@ export function generate(args: GenerateArgs) {
               .map(
                 arg => `
               "${arg.name}": ${printFieldLikeType(field)}
-            `
+            `,
               )
               .join(os.EOL)}
           }
-        `
+        `,
         )
         .join(os.EOL)}
 
@@ -138,21 +138,21 @@ export function generate(args: GenerateArgs) {
           .filter(
             field =>
               getTypeFromGraphQLType(field.type.name as GraphQLScalarType) ===
-              "nonScalar"
+              'nonScalar',
           )
           .map(
             field => `
           "${field.name}": (parent, ${
               field.arguments.length > 0 ? `${field.name}Argument` : `args`
             }, context, info) => ${printFieldLikeType(field)}
-        `
+        `,
           )
           .join(os.EOL)}
       }
     }
-  `
+  `,
     )
     .join(os.EOL)}
 
-  `;
+  `
 }

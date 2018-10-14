@@ -1,10 +1,10 @@
-import { GenerateArgs } from "./types";
+import { GenerateArgs } from './types'
 
-export { format } from "./reason-generator";
+export { format } from './reason-generator'
 
-const noop = (s: string) => s;
+const noop = (s: string) => s
 
 export function generate(args: GenerateArgs) {
-  noop(JSON.stringify(args));
-  return "Reason code scaffolder is not yet implmented";
+  noop(JSON.stringify(args))
+  return 'Reason code scaffolder is not yet implmented'
 }

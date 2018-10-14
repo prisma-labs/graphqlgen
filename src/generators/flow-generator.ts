@@ -109,7 +109,9 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
             },
             ctx: $PropertyType<T & ITypeMap, 'Context'>,
             info: GraphQLResolveInfo,
-          ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(field)}>
+          ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(
+            field,
+          )}>
         `
         })
         .join(os.EOL)}
@@ -137,11 +139,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
     .join(os.EOL)}
 
 export type IResolvers<T> = {
-  ${args.types
-    .map(
-      type => `${type.name}: ${type.name}_Type<T>,`,
-    )
-    .join(os.EOL)}
+  ${args.types.map(type => `${type.name}: ${type.name}_Type<T>,`).join(os.EOL)}
 }
 
   `
