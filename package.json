@@ -1,10 +1,12 @@
 {
-  "name": "graphql-resolver-codegen",
+  "name": "graphqlgen",
   "version": "0.3.1",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "bin": {
-    "graphql-resolver-codegen": "dist/index.js"
+    "graphql-resolver-codegen": "dist/index.js",
+    "graphqlgen": "dist/index.js",
+    "gg": "dist/index.js"
   },
   "scripts": {
     "prepublish": "rm -rf example/node_modules && npm run build",
