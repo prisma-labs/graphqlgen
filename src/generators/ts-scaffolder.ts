@@ -1,6 +1,5 @@
 import * as os from "os";
 import { GenerateArgs, CodeFileLike } from "./generator-interface";
-import { printFieldLikeType } from "./ts-generator";
 import { GraphQLTypeField } from "../source-helper";
 
 export { format } from "./ts-generator";
@@ -86,19 +85,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
         `
           )
           .join(os.EOL)}
-
-    export interface ${type.name}Parent {
-      ${type.fields
-        .map(
-          field => `
-      ${field.name}${!field.type.isRequired ? "?" : ""}: ${printFieldLikeType(
-            field,
-            false
-          ).replace("| null", "")}
-      `
-        )
-        .join(";")}
-    }
 
     export const ${type.name}: ${type.name}Resolvers.Type<TypeMap> = {
       ${type.fields.map(

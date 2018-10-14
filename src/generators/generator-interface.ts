@@ -10,7 +10,7 @@ export type GenerateArgs = {
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]
   contextPath: string
-  models: ModelMap
+  modelMap: ModelMap
 }
 
 export interface ModelMap {
@@ -18,7 +18,8 @@ export interface ModelMap {
 }
 
 export interface Model {
-  path: string
+  absoluteFilePath: string
+  importPathRelativeToOutput: string
   modelTypeName: string
 }
 
