@@ -47,7 +47,7 @@ export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
   export const ${type.name}: ${type.name}Resolvers.Type = {
-    ...${type.name}Resolvers.scalars,
+    ...${type.name}Resolvers.defaultResolvers,
     ${type.fields.filter(field => !field.type.isScalar).map(
       field => `
       ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {
@@ -64,7 +64,7 @@ export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
   
   export const ${type.name}: ${type.name}Resolvers.Type = {
-    ...${type.name}Resolvers.scalars,
+    ...${type.name}Resolvers.defaultResolvers,
     ${type.fields.map(
       field =>
         `${field.name}: (parent${

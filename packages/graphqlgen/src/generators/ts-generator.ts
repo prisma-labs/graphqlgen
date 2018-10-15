@@ -151,7 +151,7 @@ function renderScalarResolvers(
   const model = modelMap[type.name]
 
   if (model === undefined) {
-    return `export const scalars = {}`
+    return `export const defaultResolvers = {}`
   }
 
   const filePath = model.absoluteFilePath
@@ -186,7 +186,7 @@ function renderScalarResolvers(
     childNodes.push(childNode)
   })
 
-  return `export const scalars = {
+  return `export const defaultResolvers = {
     ${childNodes
       .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
       .map(childNode => renderScalarResolver(childNode))
