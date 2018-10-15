@@ -13,13 +13,13 @@ const ajv = new Ajv().addMetaSchema(
 const validateYaml = ajv.compile(schema)
 
 export function parseConfig() {
-  if (!fs.existsSync('factory.yml')) {
+  if (!fs.existsSync('graphqlgen.yml')) {
     console.error(chalk.default.red(`No factory.yml found`))
     process.exit(1)
   }
 
   const config = yaml.safeLoad(
-    fs.readFileSync('factory.yml', 'utf-8'),
+    fs.readFileSync('graphqlgen.yml', 'utf-8'),
   ) as GraphQLGenDefinition
 
   //TODO: Provide better errors

@@ -41,10 +41,11 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 import { generate as scaffoldFlow } from './generators/flow-scaffolder'
 // import { generate as scaffoldReason } from './generators/reason-scaffolder'
 
-import { parseConfig } from './yaml';
+import { parseConfig } from './yaml'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
+  config?: GraphQLGenDefinition
   modelMap?: ModelMap
   prettify?: boolean
   prettifyOptions?: prettier.Options
@@ -121,7 +122,9 @@ function generateResolvers(
   generateArgs: GenerateArgs,
   generateCodeArgs: GenerateCodeArgs,
 ): CodeFileLike[] {
-  const generatorFn: IGenerator = getResolversGenerator(generateCodeArgs.language!)
+  const generatorFn: IGenerator = getResolversGenerator(
+    generateCodeArgs.language!,
+  )
   const generatedResolvers = generatorFn.generate(
     generateArgs,
   ) as CodeFileLike[]
@@ -140,11 +143,15 @@ function generateResolvers(
 export function generateCode(
   generateCodeArgs: GenerateCodeArgs,
 ): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
+  const contextPath = getImportPathRelativeToOutput(
+    generateCodeArgs.config!.input.context.split(':')[0].replace(/\.ts$/, ''),
+    generateCodeArgs.config!.output.types,
+  )
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(generateCodeArgs.schema!),
     enums: extractGraphQLEnums(generateCodeArgs.schema!),
     unions: extractGraphQLUnions(generateCodeArgs.schema!),
-    contextPath: '../resolvers/types/Context', //TODO: use contextPath from graphqlgen.yml
+    contextPath, // TODO: use contextPath from graphqlgen.yml
     modelMap: generateCodeArgs.modelMap!,
   }
   const generatedTypes = generateTypes(generateArgs, generateCodeArgs)
@@ -288,6 +295,7 @@ async function run() {
     language: config.language,
     prettify: true,
     prettifyOptions: options,
+    config,
     modelMap,
   })
 
