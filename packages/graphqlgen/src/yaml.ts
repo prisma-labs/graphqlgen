@@ -14,7 +14,7 @@ const validateYaml = ajv.compile(schema)
 
 export function parseConfig() {
   if (!fs.existsSync('graphqlgen.yml')) {
-    console.error(chalk.default.red(`No factory.yml found`))
+    console.error(chalk.default.red(`No graphqlgen.yml found`))
     process.exit(1)
   }
 

@@ -81,7 +81,7 @@ export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
 }
 
 export function renderExports(types: GraphQLTypeObject[]): string {
-  return `import { IResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+  return `import { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
     ${types
       .filter(type => type.type.isObject)
       .map(
@@ -91,7 +91,7 @@ export function renderExports(types: GraphQLTypeObject[]): string {
       )
       .join(';')}
 
-    export const resolvers: IResolvers = {
+    export const resolvers: Resolvers = {
       ${types
         .filter(type => type.type.isObject)
         .map(type => `${type.name}`)

@@ -72,7 +72,7 @@ export function generate(args: GenerateArgs): string {
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
-  ${renderIResolvers(args)}
+  ${renderResolvers(args)}
 
   `
 }
@@ -299,9 +299,9 @@ function renderResolverTypeInterface(
   `
 }
 
-function renderIResolvers(args: GenerateArgs): string {
+function renderResolvers(args: GenerateArgs): string {
   return `
-export interface IResolvers {
+export interface Resolvers {
   ${args.types
     .filter(type => type.type.isObject)
     .map(type => `${type.name}: ${type.name}Resolvers.Type`)
