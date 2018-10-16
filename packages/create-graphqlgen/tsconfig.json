@@ -7,8 +7,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["dom", "es2017", "esnext.asynciterable"],
-    "experimentalDecorators": true
+    "lib": ["dom", "es2017", "esnext.asynciterable"]
   },
   "exclude": ["node_modules", "dist"]
 }

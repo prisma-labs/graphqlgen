@@ -2,8 +2,10 @@ import * as Zip from 'adm-zip'
 import * as tmp from 'tmp'
 import * as github from 'parse-github-url'
 import * as fs from 'fs'
+import * as ora from 'ora'
 import * as request from 'request'
 import * as execa from 'execa'
+import chalk from 'chalk'
 
 import { Starter } from './starters'
 
@@ -22,10 +24,10 @@ export async function loadGraphQLGenStarter(
   await extractGraphQLGenStarterFromRepository(tmp, zip, output)
 
   if (options.installDependencies) {
-    return installGraphQLGenStarter(output)
-  } else {
-    return
+    await installGraphQLGenStarter(output)
   }
+
+  printFinalMessage()
 }
 
 interface StarterRepositoryZipInformation {
@@ -48,13 +50,19 @@ function getGraphQLGenStarterRepositoryZipInformation(
 async function downloadRepository(
   zip: StarterRepositoryZipInformation,
 ): Promise<string> {
-  const tmpPath = tmp.fileSync()
+  const spinner = ora(`Downloading starter from ${chalk.cyan(zip.uri)}`).start()
+
+  const tmpPath = tmp.fileSync({
+    postfix: '.zip',
+  })
 
   await new Promise(resolve => {
     request(zip.uri)
       .pipe(fs.createWriteStream(tmpPath.name))
       .on('close', resolve)
   })
+
+  spinner.succeed()
 
   return tmpPath.name
 }
@@ -65,24 +73,50 @@ async function extractGraphQLGenStarterFromRepository(
   output: string,
 ): Promise<boolean> {
   return new Promise<boolean>((resolve, reject) => {
+    const spinner = ora(`Extracting content to ${chalk.magenta(output)}`)
+
     try {
       const zip = new Zip(tmp)
-      const extract = zip.extractEntryTo(repo.path, output, false)
+      const extract = zip.extractEntryTo(repo.path, output, false, true)
+
+      spinner.succeed()
 
       resolve(extract)
     } catch (err) {
+      spinner.fail()
+
       reject(err)
     }
   })
 }
 
-async function installGraphQLGenStarter(path: string): Promise<any> {
+async function installGraphQLGenStarter(path: string): Promise<void> {
+  const spinner = ora(`Installing dependencies 📦`).start()
   process.chdir(path)
 
+  if (await isYarnInstalled()) {
+    await execa.sync('yarnpkg install', { stdin: 'inherit' })
+  } else {
+    await execa.sync('npm install', { stdin: 'inherit' })
+  }
+
+  spinner.stop()
+}
+
+const isYarnInstalled = async () => {
   try {
-    await execa(`yarnpkg`, [`--version`], { stdio: `ignore` })
-    return execa('yarnpkg')
+    await execa(`yarnpkg --version`, { stdio: `ignore` })
+    return true
   } catch (err) {
-    return execa('npm install')
+    return false
   }
 }
+
+function printFinalMessage() {
+  console.log(`
+
+  Your ${chalk.blueBright(`GraphQL server`)} has been successfully set up! 🎉
+  `)
+}
+
+execa(`yarnpkg --version`, { stdio: `ignore` })
