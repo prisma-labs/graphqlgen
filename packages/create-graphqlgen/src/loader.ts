@@ -1,95 +1,80 @@
 import * as Zip from 'adm-zip'
-import * as github from 'parse-github-url'
 import * as tmp from 'tmp'
+import * as github from 'parse-github-url'
 import * as fs from 'fs'
-import * as rimraf from 'rimraf'
 import * as request from 'request'
 import * as execa from 'execa'
 
-interface StarterOptions {
-  repo: string
-  outputDir: string
+import { Starter } from './starters'
+
+interface LoadOptions {
+  installDependencies: boolean
 }
 
-export function loadGraphQLGenStarter(starter: StarterOptions): void {
-  const uri = getStarterURI(starter.repo)
-}
+export async function loadGraphQLGenStarter(
+  starter: Starter,
+  output: string,
+  options: LoadOptions,
+): Promise<void> {
+  const zip = getGraphQLGenStarterRepositoryZipInformation(starter)
+  const tmp = await downloadRepository(zip)
 
-function getStarterURI(starter: string): string | null {
-  const meta = github(starter)
+  await extractGraphQLGenStarterFromRepository(tmp, zip, output)
 
-  if (meta.host && meta.owner && meta.repo && meta.branch) {
-    return `https://${meta.host}/${meta.owner}/tree/${meta.branch}`
-  } else if (meta.host && meta.owner && meta.repo) {
-    return `https://${meta.host}/${meta.owner}`
+  if (options.installDependencies) {
+    return installGraphQLGenStarter()
   } else {
-    return null
+    return
   }
 }
 
-async function downloadRepositoryTo(
-  repo: RepoZipInformation,
-  outputDir: string,
+interface StarterRepositoryZipInformation {
+  uri: string
+  path: string
+}
+
+function getGraphQLGenStarterRepositoryZipInformation(
+  starter: Starter,
+): StarterRepositoryZipInformation {
+  const meta = github(starter.repo.uri)
+
+  const uri = `${starter.repo.uri}/archive/${starter.repo.branch}.zip`
+  const normalizedBranch = starter.repo.branch.replace('/', '-')
+  const path = `${meta.name}-${normalizedBranch}/${starter.repo.path}`
+
+  return { uri, path }
+}
+
+async function downloadRepository(
+  zip: StarterRepositoryZipInformation,
 ): Promise<string> {
-  const { url } = repo
   const tmpPath = tmp.fileSync()
 
   await new Promise(resolve => {
-    request(url)
+    request(zip.uri)
       .pipe(fs.createWriteStream(tmpPath.name))
       .on('close', resolve)
   })
 
-  const zip = new Zip(tmpPath.name)
-  zip.extractEntryTo(repo.path, outputDir, false)
-  tmpPath.removeCallback()
-
-  return 
-  
-function installStarterDependencies() {
-  const yarnExists: boolean = cmdExists('yarn')
-
-  if (yarnExists) {
-
-  }
-
+  return tmpPath.name
 }
 
-export interface RepoZipInformation {
-  url: string
-  path: string
+function extractGraphQLGenStarterFromRepository(
+  tmp: string,
+  repo: StarterRepositoryZipInformation,
+  output: string,
+): boolean {
+  const zip = new Zip(tmp)
+  const extract = zip.extractEntryTo(repo.path, output, false, true)
+
+  return extract
 }
 
-function getRepoZipInformation(starter: string): RepoZipInformation | null {
-  const meta = github(starter)
-
-  let baseUrl = ''
-  let branch = 'master'
-  let subDir = ''
-
-  const branchMatches = ''.match(/^(.*)\/tree\/([a-zA-Z-_0-9]*)\/?(.*)$/)
-  if (branchMatches) {
-    baseUrl = branchMatches[1]
-    branch = branchMatches[2]
-    subDir = branchMatches[3]
+async function installGraphQLGenStarter(): Promise<any> {
+  try {
+    await execa(`yarnpkg`, [`--version`], { stdio: `ignore` })
+    return execa('yarnpkg')
+  } catch (err) {
+    return execa('npm install')
   }
-
-  if (subDir === undefined) {
-    subDir = ''
-  }
-
-  if (!subDir.startsWith('/')) {
-    subDir = '/' + subDir
-  }
-  if (!subDir.endsWith('/')) {
-    subDir = subDir + '/'
-  }
-
-  const nameMatches = baseUrl.match(/github\.com\/(.*)\/(.*)$/)
-  const repoName = nameMatches![2]
-
-  const url = `${baseUrl}/archive/${branch}.zip`
-  const path = `${repoName}-${branch}${subDir}`
-
-  return { url, path }
 }
