@@ -1,0 +1,13 @@
+language: typescript
+
+input:
+  schema: ./src/schema.graphql
+  # context: ./src/types.ts:Context
+  models:
+    Product: ./src/models.ts:Product
+    Basket: ./src/models.ts:Basket
+
+output:
+  types: ./src/generated/graphqlgen.ts
+  models: ./src/tmp/models.ts
+  resolvers: ./src/tmp/resolvers.ts
