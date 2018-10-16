@@ -116,5 +116,12 @@ function printFinalMessage() {
   console.log(`
 
 Your ${chalk.blueBright(`GraphQL server`)} has been successfully set up! 🎉
+
+Try:
+  - ${chalk.yellow(`yarn start`)}
+     Start GraphQL server.
+
+  - ${chalk.greenBright(`yarn generate`)}
+     Generate type safe interfaces from your schema.
   `)
 }
