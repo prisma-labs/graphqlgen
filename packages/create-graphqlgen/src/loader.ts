@@ -22,7 +22,7 @@ export async function loadGraphQLGenStarter(
   await extractGraphQLGenStarterFromRepository(tmp, zip, output)
 
   if (options.installDependencies) {
-    return installGraphQLGenStarter()
+    return installGraphQLGenStarter(output)
   } else {
     return
   }
@@ -40,7 +40,7 @@ function getGraphQLGenStarterRepositoryZipInformation(
 
   const uri = `${starter.repo.uri}/archive/${starter.repo.branch}.zip`
   const normalizedBranch = starter.repo.branch.replace('/', '-')
-  const path = `${meta.name}-${normalizedBranch}/${starter.repo.path}`
+  const path = `${meta.name}-${normalizedBranch}/${starter.repo.path}/`
 
   return { uri, path }
 }
@@ -59,18 +59,26 @@ async function downloadRepository(
   return tmpPath.name
 }
 
-function extractGraphQLGenStarterFromRepository(
+async function extractGraphQLGenStarterFromRepository(
   tmp: string,
   repo: StarterRepositoryZipInformation,
   output: string,
-): boolean {
-  const zip = new Zip(tmp)
-  const extract = zip.extractEntryTo(repo.path, output, false, true)
+): Promise<boolean> {
+  return new Promise<boolean>((resolve, reject) => {
+    try {
+      const zip = new Zip(tmp)
+      const extract = zip.extractEntryTo(repo.path, output, false)
 
-  return extract
+      resolve(extract)
+    } catch (err) {
+      reject(err)
+    }
+  })
 }
 
-async function installGraphQLGenStarter(): Promise<any> {
+async function installGraphQLGenStarter(path: string): Promise<any> {
+  process.chdir(path)
+
   try {
     await execa(`yarnpkg`, [`--version`], { stdio: `ignore` })
     return execa('yarnpkg')
