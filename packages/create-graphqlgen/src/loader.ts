@@ -73,7 +73,7 @@ async function extractGraphQLGenStarterFromRepository(
   output: string,
 ): Promise<boolean> {
   return new Promise<boolean>((resolve, reject) => {
-    const spinner = ora(`Extracting content to ${chalk.magenta(output)}`)
+    const spinner = ora(`Extracting content to ${chalk.cyan(output)}`)
 
     try {
       const zip = new Zip(tmp)
@@ -95,17 +95,17 @@ async function installGraphQLGenStarter(path: string): Promise<void> {
   process.chdir(path)
 
   if (await isYarnInstalled()) {
-    await execa.sync('yarnpkg install', { stdin: 'inherit' })
+    await execa.shellSync('yarnpkg install', { stdio: `inherit` })
   } else {
-    await execa.sync('npm install', { stdin: 'inherit' })
+    await execa.shellSync('npm install', { stdio: `inherit` })
   }
 
-  spinner.stop()
+  spinner.succeed()
 }
 
 const isYarnInstalled = async () => {
   try {
-    await execa(`yarnpkg --version`, { stdio: `ignore` })
+    await execa.shell(`yarnpkg --version`, { stdio: `ignore` })
     return true
   } catch (err) {
     return false
@@ -115,8 +115,6 @@ const isYarnInstalled = async () => {
 function printFinalMessage() {
   console.log(`
 
-  Your ${chalk.blueBright(`GraphQL server`)} has been successfully set up! 🎉
+Your ${chalk.blueBright(`GraphQL server`)} has been successfully set up! 🎉
   `)
 }
-
-execa(`yarnpkg --version`, { stdio: `ignore` })
