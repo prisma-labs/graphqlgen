@@ -4,9 +4,9 @@
 
 There are three major flows supported by `graphqlgen`:
 
-- **Generation** of type definitions and _default_ resolver implementations
-- **Scaffolding** resolver implementations (optional)
-- **Bootstrapping** a GraphQL server based on a [template](packages/graphqlgen-templates/). (optional)
+- [**Generation**](#generation) of type definitions and _default_ resolver implementations
+- [**Scaffolding**](#scaffolding) resolver implementations (optional)
+- [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](packages/graphqlgen-templates/) (optional)
 
 ## Install
 
@@ -68,6 +68,12 @@ Models represent domain objects in TypeScript:
 > When starting a new project, it is often the case that models look _very_ similar to database structures as well as to the types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from its underlying database structure.
 
 Consider an example where you have a `User` table in your database that has a `password` column. The `password` field most likely wouldn't be represented on the `User` instance you want to work with in your TypeScript code since you don't want to expose that. In that case, the model differs from the database representation and might similarly differ from its definition in the GraphQL schema.
+
+## Generation
+
+## Scaffolding
+
+## Bootstrapping
 
 ## Features
 
