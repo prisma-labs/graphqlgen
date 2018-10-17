@@ -1,11 +1,9 @@
-import { UserResolvers } from "../generated/graphqlgen";
-import { Context } from "../types";
+import { UserResolvers } from '../generated/graphqlgen'
 
 export const User: UserResolvers.Type = {
   ...UserResolvers.defaultResolvers,
 
-  posts: (parent, args, ctx: Context) => {
-    const { postIDs } = parent
-    return ctx.data.posts.filter(post => postIDs.includes(post.id) )
-  }
-};
+  posts: ({ postIDs }, args, ctx) => {
+    return ctx.data.posts.filter(post => postIDs.includes(post.id))
+  },
+}

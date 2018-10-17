@@ -1,7 +1,23 @@
-import { PostsAndUsers } from "./data";
-
 export interface Context {
-  data: PostsAndUsers
-  userIdProvider: () => string
-  postIdProvider: () => string
+  data: Data
+}
+
+export interface User {
+  id: string
+  name: string
+  postIDs: string[]
+}
+
+export interface Post {
+  id: string
+  title: string
+  content: string
+  published: boolean
+  authorId: string
+}
+
+export interface Data {
+  posts: Post[]
+  users: User[]
+  idProvider: () => string
 }

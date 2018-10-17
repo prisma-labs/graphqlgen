@@ -1,13 +1,19 @@
 language: typescript
 
-input:
-  schema: ./src/schema.graphql        # GraphQL schema
-  context: ./src/types.ts:Context     # Defines the context object passed through the resolver chain
-  models:                             # Model types from the `schema` mapped to TS definitions
-    User: ./src/models.ts:User
-    Post: ./src/models.ts:Post
+# GraphQL schema
+schema: ./src/schema.graphql
 
-output:
-  types: ./src/generated/graphqlgen.ts
-  models: ./src/tmp/models.ts
-  resolvers: ./src/tmp/resolvers.ts
+# Defines the context object passed through the resolver chain
+context: ./src/types.ts:Context
+
+# Model types from the `schema` mapped to TS definitions
+models:
+  User: ./src/types.ts:User
+  Post: ./src/types.ts:Post
+
+output: ./src/generated/graphqlgen.ts
+
+resolver-scaffolding:
+  output: ./src/tmp/resolvers.ts
+  layout: file-per-type
+

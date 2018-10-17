@@ -1,8 +1,8 @@
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from "graphql";
 import { Context } from "../types";
-import { User } from "../models";
-import { Post } from "../models";
+import { User } from "../types";
+import { Post } from "../types";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -142,6 +142,7 @@ export namespace PostResolvers {
     title: parent => parent.title,
     content: parent => parent.content,
     published: parent => parent.published,
+    authorId: parent => parent.authorId
   };
 
   export type IdResolver = (
@@ -220,7 +221,8 @@ export namespace PostResolvers {
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: parent => parent.id,
-    name: parent => parent.name
+    name: parent => parent.name,
+    postIDs: parent => parent.postIDs
   };
 
   export type IdResolver = (

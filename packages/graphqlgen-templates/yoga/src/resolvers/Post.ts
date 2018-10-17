@@ -1,10 +1,9 @@
-import { PostResolvers } from "../generated/graphqlgen";
-import { Context } from "../types";
+import { PostResolvers } from '../generated/graphqlgen'
 
 export const Post: PostResolvers.Type = {
   ...PostResolvers.defaultResolvers,
 
-  author: (parent, args, ctx: Context) => {
+  author: (parent, args, ctx) => {
     return ctx.data.users.find(user => user.id === parent.id)
-  }
-};
+  },
+}
