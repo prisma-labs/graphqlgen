@@ -7,7 +7,7 @@ import * as path from 'path'
 import * as chalk from 'chalk'
 import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
-import * as os from 'os'
+import * as rimraf from 'rimraf'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import {
   extractGraphQLTypes,
@@ -32,13 +32,13 @@ import {
 //   generate as generateReason,
 //   format as formatReason,
 // } from './generators/reason-generator'
-import {
-  generate as generateFlow,
-  format as formatFlow,
-} from './generators/flow-generator'
+// import {
+//   generate as generateFlow,
+//   format as formatFlow,
+// } from './generators/flow-generator'
 
 import { generate as scaffoldTS } from './generators/ts-scaffolder'
-import { generate as scaffoldFlow } from './generators/flow-scaffolder'
+// import { generate as scaffoldFlow } from './generators/flow-scaffolder'
 // import { generate as scaffoldReason } from './generators/reason-scaffolder'
 
 import { parseConfig } from './yaml'
@@ -56,8 +56,8 @@ function getTypesGenerator(language: Language): IGenerator {
   switch (language) {
     case 'typescript':
       return { generate: generateTS, format: formatTS }
-    case 'flow':
-      return { generate: generateFlow, format: formatFlow }
+    // case 'flow':
+    //   return { generate: generateFlow, format: formatFlow }
   }
 
   //TODO: This should never be reached as we validate the yaml before
@@ -68,8 +68,8 @@ function getResolversGenerator(language: Language): IGenerator {
   switch (language) {
     case 'typescript':
       return { generate: scaffoldTS, format: formatTS }
-    case 'flow':
-      return { generate: scaffoldFlow, format: formatFlow }
+    // case 'flow':
+    //   return { generate: scaffoldFlow, format: formatFlow }
   }
 
   //TODO: This should never be reached as we validate the yaml before
@@ -179,7 +179,9 @@ function writeTypes(types: string, config: GraphQLGenDefinition): void {
   }
   console.log(
     chalk.default.green(
-      `Types and scalars resolvers generated at ${config.output}`,
+      `Resolver interface definitons & default resolvers generated at ${
+        config.output
+      }`,
     ),
   )
 }
@@ -188,28 +190,15 @@ function writeResolversScaffolding(
   resolvers: CodeFileLike[],
   config: GraphQLGenDefinition,
 ) {
+  if (!config['resolver-scaffolding']) {
+    return
+  }
   const outputResolversDir = config['resolver-scaffolding'].output
-  // Create generation target folder, if it does not exist
-  // TODO: Error handling around this
-  mkdirp.sync(path.dirname(outputResolversDir))
 
-  let didWarn = false
+  rimraf.sync(outputResolversDir)
 
   resolvers.forEach(f => {
     const writePath = path.join(outputResolversDir, f.path)
-    if (
-      fs.existsSync(writePath) ||
-      (path.resolve(path.dirname(writePath)) !==
-        path.resolve(outputResolversDir) &&
-        fs.existsSync(path.dirname(writePath)))
-    ) {
-      didWarn = true
-      console.log(
-        chalk.default.yellow(`Warning: file (${writePath}) already exists.`),
-      )
-      return
-    }
-
     mkdirp.sync(path.dirname(writePath))
     try {
       fs.writeFileSync(
@@ -227,17 +216,10 @@ function writeResolversScaffolding(
       )
       process.exit(1)
     }
-    console.log(chalk.default.green(`Code generated at ${writePath}`))
   })
-  if (didWarn) {
-    console.log(
-      chalk.default.yellow(
-        `${
-          os.EOL
-        }Please us the force flag (-f, --force) to overwrite the files.`,
-      ),
-    )
-  }
+
+  console.log(chalk.default.green(`Resolvers scaffolded at ${outputResolversDir}`))
+
   process.exit(0)
 }
 

@@ -4,12 +4,12 @@ export interface GraphQLGenDefinition {
   context?: string
   models: { [typeName: string]: string }
   output: string
-  ['resolver-scaffolding']: ResolverScaffolding
+  ['resolver-scaffolding']?: ResolverScaffolding
 }
 
-export type Language = 'typescript' | 'flow'
+export type Language = 'typescript'
 
 export interface ResolverScaffolding {
   output: string
-  layout?: string
+  layout: string
 }

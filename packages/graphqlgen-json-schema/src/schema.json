@@ -34,10 +34,10 @@
         },
         "layout": {
           "type": "string",
-          "oneOf": [{ "enum": ["file-per-type", "single-file"] }]
+          "oneOf": [{ "enum": ["file-per-type"] }]
         }
       },
-      "required": ["output"],
+      "required": ["output", "layout"],
       "additionalProperties": false
     }
   },
@@ -45,8 +45,7 @@
     "language",
     "schema",
     "models",
-    "output",
-    "resolver-scaffolding"
+    "output"
   ],
   "additionalProperties": false
 }

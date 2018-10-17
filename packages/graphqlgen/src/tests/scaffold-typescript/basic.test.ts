@@ -15,6 +15,7 @@ test('basic schema', async () => {
     output: relative('./generated/basic/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/basic/'),
+      layout: 'file-per-type',
     },
   }
   const schema = parseSchema(config.schema)
@@ -41,6 +42,7 @@ test('basic enum', async () => {
     output: relative('./generated/enum/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/enum/'),
+      layout: 'file-per-type',
     },
   }
   const schema = parseSchema(config.schema)
@@ -67,6 +69,7 @@ test('basic union', async () => {
     output: relative('./generated/union/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/union/'),
+      layout: 'file-per-type',
     },
   }
   const schema = parseSchema(config.schema)
@@ -93,6 +96,7 @@ test('basic scalar', async () => {
     output: relative('./generated/scalar/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
+      layout: 'file-per-type',
     },
   }
   const schema = parseSchema(config.schema)
