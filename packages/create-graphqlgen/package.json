@@ -1,7 +1,7 @@
 {
   "name": "create-graphqlgen",
-  "version": "0.0.2",
-  "main": "index.js",
+  "version": "0.0.3",
+  "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
     "build": "rimraf dist && tsc -d",
@@ -13,6 +13,10 @@
   "bin": {
     "create-graphqlgen": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "adm-zip": "0.4.7",
     "chalk": "^2.4.1",

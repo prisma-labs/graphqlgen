@@ -11,6 +11,7 @@ import { Starter } from './starters'
 
 interface LoadOptions {
   installDependencies: boolean
+  generateModels: boolean
 }
 
 export async function loadGraphQLGenStarter(
@@ -27,7 +28,11 @@ export async function loadGraphQLGenStarter(
     await installGraphQLGenStarter(output)
   }
 
-  printFinalMessage()
+  if (options.generateModels) {
+    await generateGraphQLGenStarterModels(output)
+  }
+
+  printHelpMessage()
 }
 
 interface StarterRepositoryZipInformation {
@@ -91,19 +96,42 @@ async function extractGraphQLGenStarterFromRepository(
 }
 
 async function installGraphQLGenStarter(path: string): Promise<void> {
-  const spinner = ora(`Installing dependencies 📦`).start()
+  const spinner = ora(`Installing dependencies 👩‍🚀`).start()
+
   process.chdir(path)
 
-  if (await isYarnInstalled()) {
-    await execa.shellSync('yarnpkg install', { stdio: `inherit` })
-  } else {
-    await execa.shellSync('npm install', { stdio: `inherit` })
-  }
+  try {
+    if (await isYarnInstalled()) {
+      await execa.shellSync('yarnpkg install', { stdio: `ignore` })
+    } else {
+      await execa.shellSync('npm install', { stdio: `ignore` })
+    }
 
-  spinner.succeed()
+    spinner.succeed()
+  } catch (err) {
+    spinner.fail()
+  }
 }
 
-const isYarnInstalled = async () => {
+async function generateGraphQLGenStarterModels(path: string): Promise<void> {
+  const spinner = ora(`Generating models 👷‍`).start()
+
+  process.chdir(path)
+
+  try {
+    if (await isYarnInstalled()) {
+      await execa.shellSync('yarn generate', { stdio: `ignore` })
+    } else {
+      await execa.shellSync('npm run generate', { stdio: `ignore` })
+    }
+
+    spinner.succeed()
+  } catch (err) {
+    spinner.fail()
+  }
+}
+
+async function isYarnInstalled(): Promise<boolean> {
   try {
     await execa.shell(`yarnpkg --version`, { stdio: `ignore` })
     return true
@@ -112,16 +140,17 @@ const isYarnInstalled = async () => {
   }
 }
 
-function printFinalMessage() {
-  console.log(`
+function printHelpMessage(): void {
+  const message = `
+Your GraphQL server has been successfully set up!
 
-Your ${chalk.blueBright(`GraphQL server`)} has been successfully set up! 🎉
-
-Try:
+Try running the following commands:
   - ${chalk.yellow(`yarn start`)}
-     Start GraphQL server.
+     Starts the GraphQL server.
 
   - ${chalk.greenBright(`yarn generate`)}
-     Generate type safe interfaces from your schema.
-  `)
+     Generates type safe interfaces from your schema.
+`
+
+  console.log(message)
 }

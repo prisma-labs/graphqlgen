@@ -16,11 +16,16 @@ const cli = meow(
 
     Options:
       --no-install Skips dependency installation.
+      --no-generate Skips model generation.
       --force (-f) Overwrites existing files.
 `,
   {
     flags: {
       'no-install': {
+        type: 'boolean',
+        default: false,
+      },
+      'no-generate': {
         type: 'boolean',
         default: false,
       },
@@ -72,5 +77,6 @@ async function main(cli: meow.Result) {
 
   loadGraphQLGenStarter(defaultStarter, path.resolve(output), {
     installDependencies: !cli.flags['no-install'],
+    generateModels: !cli.flags['no-generate'],
   })
 }
