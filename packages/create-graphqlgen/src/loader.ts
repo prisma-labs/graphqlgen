@@ -9,7 +9,7 @@ import chalk from 'chalk'
 
 import { Starter } from './starters'
 
-interface LoadOptions {
+export interface LoadOptions {
   installDependencies: boolean
   generateModels: boolean
 }

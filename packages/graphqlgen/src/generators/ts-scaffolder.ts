@@ -113,12 +113,6 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   )
 
   files.push({
-    path: 'types/Context.ts',
-    force: false,
-    code: `export interface Context { }`
-  })
-
-  files.push({
     path: 'index.ts',
     force: false,
     code: renderExports(args.types),
