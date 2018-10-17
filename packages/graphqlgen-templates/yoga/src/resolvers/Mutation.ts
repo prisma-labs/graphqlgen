@@ -16,7 +16,7 @@ export const Mutation: MutationResolvers.Type = {
     const id = ctx.data.idProvider()
     const newDraft = { id, title, content, authorId, published: false }
     ctx.data.posts.push(newDraft)
-    author.postIDs.push(id)
+    author!.postIDs.push(id)
     return newDraft
   },
 
@@ -31,7 +31,7 @@ export const Mutation: MutationResolvers.Type = {
 
   publish: (parent, { id }, ctx) => {
     const post = ctx.data.posts.find(post => post.id === id)
-    post.published = true
-    return post
+    post!.published = true
+    return post!
   },
 }

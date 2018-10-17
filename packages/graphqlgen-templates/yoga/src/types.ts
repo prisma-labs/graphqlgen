@@ -4,7 +4,7 @@ export interface Context {
 
 export interface User {
   id: string
-  name: string
+  name: string | null
   postIDs: string[]
 }
 

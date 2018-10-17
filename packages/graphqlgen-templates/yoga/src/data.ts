@@ -1,7 +1,7 @@
 import { Data } from './types'
 
 const users = [
-  { id: '1', name: 'Alice', postIDs: ['1', '2'] },
+  { id: '1', name: 'Alice', postIDs: ['3', '4'] },
   { id: '2', name: 'Bob', postIDs: [] },
 ]
 

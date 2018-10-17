@@ -10,6 +10,6 @@ export const Query: QueryResolvers.Type = {
   },
 
   post: (parent, args, ctx) => {
-    return ctx.data.posts.find(post => post.id === args.id)
+    return ctx.data.posts.find(post => post.id === args.id)!
   },
 }
