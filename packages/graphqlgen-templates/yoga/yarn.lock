@@ -653,9 +653,9 @@ graphqlgen-json-schema@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.3.tgz#4fdab437c69a46de79724f1030e252caac0e3f5c"
 
-graphqlgen@^0.2.0-beta8:
-  version "0.2.0-beta8"
-  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.0-beta8.tgz#e065224b0a988a2238d76d84ee945e00fd163227"
+graphqlgen@^0.2.0-beta9:
+  version "0.2.0-beta9"
+  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.0-beta9.tgz#d4b38bdfde33625521fd4885e887deab9b8c8199"
   dependencies:
     ajv "^6.5.4"
     camelcase "5.0.0"
