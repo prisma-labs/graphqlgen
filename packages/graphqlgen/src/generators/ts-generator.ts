@@ -89,9 +89,18 @@ function renderHeader(args: GenerateArgs): string {
   return `
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from 'graphql'
-import { Context } from '${args.contextPath}'
+${renderContext(args.contextPath)}
 ${modelImports}
   `
+}
+
+function renderContext(contextPath?: string) {
+  if (contextPath) {
+    // TODO: Don't hard code Context! It could also be named differently
+    return `import { Context } from '${contextPath}'`
+  }
+
+  return `type Context = any`
 }
 
 function renderNamespaces(

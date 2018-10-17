@@ -143,10 +143,12 @@ function generateResolvers(
 export function generateCode(
   generateCodeArgs: GenerateCodeArgs,
 ): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
-  const contextPath = getImportPathRelativeToOutput(
-    generateCodeArgs.config!.context.split(':')[0].replace(/\.ts$/, ''),
-    generateCodeArgs.config!.output,
-  )
+  const contextPath = generateCodeArgs.config.context
+    ? getImportPathRelativeToOutput(
+        generateCodeArgs.config.context!.split(':')[0].replace(/\.ts$/, ''),
+        generateCodeArgs.config!.output,
+      )
+    : undefined
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(generateCodeArgs.schema!),
     enums: extractGraphQLEnums(generateCodeArgs.schema!),

@@ -22,11 +22,22 @@ export function parseConfig() {
     fs.readFileSync('graphqlgen.yml', 'utf-8'),
   ) as GraphQLGenDefinition
 
-  //TODO: Provide better errors
   if (!validateYaml(config)) {
     console.error(chalk.default.red(`Invalid graphqlgen.yml file`))
+    console.error(chalk.default.red(printErrors(validateYaml.errors!)))
     process.exit(1)
   }
 
   return config
+}
+
+function printErrors(errors: any[]) {
+  return errors
+    .map(e => {
+      const params = Object.keys(e.params)
+        .map(key => `${key}: ${e.params[key]}`)
+        .join(', ')
+      return `${e.dataPath} ${e.message}. ${params}`
+    })
+    .join('\n')
 }

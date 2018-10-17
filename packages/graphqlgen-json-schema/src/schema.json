@@ -28,19 +28,22 @@
       "description": "All output fields",
       "type": "object",
       "properties": {
-        "layout": {
+        "output": {
           "type": "string",
           "description": "Path to scaffolded file for missing model definitions"
+        },
+        "layout": {
+          "type": "string",
+          "oneOf": [{ "enum": ["file-per-type", "single-file"] }]
         }
       },
-      "required": ["types"],
+      "required": ["output"],
       "additionalProperties": false
     }
   },
   "required": [
     "language",
     "schema",
-    "context",
     "models",
     "output",
     "resolver-scaffolding"

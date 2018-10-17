@@ -1,7 +1,7 @@
 export interface GraphQLGenDefinition {
   language: Language
   schema: string
-  context: string
+  context?: string
   models: { [typeName: string]: string }
   output: string
   ['resolver-scaffolding']: ResolverScaffolding
