@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'fs'
 import * as path from 'path'
 
 // TODO write test cases
@@ -9,16 +9,16 @@ export function getAbsoluteFilePath(modelPath: string): string {
     absolutePath += '.ts'
   }
 
+  if (!fs.existsSync(absolutePath)) {
+    throw new Error(`${absolutePath} not found`)
+  }
+
   if (!fs.lstatSync(absolutePath).isDirectory()) {
     if (path.extname(absolutePath) !== '.ts') {
       throw new Error(`${absolutePath} has to be a .ts file`)
     }
 
     return absolutePath
-  }
-
-  if (!fs.existsSync(absolutePath)) {
-    throw new Error(`${absolutePath} not found`)
   }
 
   const indexTsPath = path.join(absolutePath, 'index.ts')

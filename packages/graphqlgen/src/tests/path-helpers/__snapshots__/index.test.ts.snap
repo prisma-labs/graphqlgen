@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`valid path 1`] = `
+Array [
+  "tests",
+  "fixtures",
+  "basic",
+  "types.ts",
+]
+`;
