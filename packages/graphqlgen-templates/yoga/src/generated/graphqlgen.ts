@@ -1,8 +1,8 @@
 /* DO NOT EDIT! */
 import { GraphQLResolveInfo } from "graphql";
 import { Context } from "../types";
-import { Product } from "../models";
-import { Basket } from "../models";
+import { User } from "../types";
+import { Post } from "../types";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -16,21 +16,21 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {}[] | Promise<{}[]>;
+  ) => Post[] | Promise<Post[]>;
 
   export type DraftsResolver = (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {}[] | Promise<{}[]>;
+  ) => Post[] | Promise<Post[]>;
 
   export type PostResolver = (
     parent: {},
     args: ArgsPost,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {} | null | Promise<{} | null>;
+  ) => Post | null | Promise<Post | null>;
 
   export interface Type {
     feed: (
@@ -38,31 +38,35 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {}[] | Promise<{}[]>;
+    ) => Post[] | Promise<Post[]>;
 
     drafts: (
       parent: {},
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {}[] | Promise<{}[]>;
+    ) => Post[] | Promise<Post[]>;
 
     post: (
       parent: {},
       args: ArgsPost,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {} | null | Promise<{} | null>;
+    ) => Post | null | Promise<Post | null>;
   }
 }
 
 export namespace MutationResolvers {
   export const defaultResolvers = {};
 
+  export interface ArgsCreateUser {
+    name: string | null;
+  }
+
   export interface ArgsCreateDraft {
     title: string;
     content: string;
-    authorEmail: string;
+    authorId: string;
   }
 
   export interface ArgsDeletePost {
@@ -73,276 +77,196 @@ export namespace MutationResolvers {
     id: string;
   }
 
+  export type CreateUserResolver = (
+    parent: {},
+    args: ArgsCreateUser,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
+
   export type CreateDraftResolver = (
     parent: {},
     args: ArgsCreateDraft,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {} | Promise<{}>;
+  ) => Post | Promise<Post>;
 
   export type DeletePostResolver = (
     parent: {},
     args: ArgsDeletePost,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {} | null | Promise<{} | null>;
+  ) => Post | null | Promise<Post | null>;
 
   export type PublishResolver = (
     parent: {},
     args: ArgsPublish,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {} | null | Promise<{} | null>;
+  ) => Post | null | Promise<Post | null>;
 
   export interface Type {
+    createUser: (
+      parent: {},
+      args: ArgsCreateUser,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
+
     createDraft: (
       parent: {},
       args: ArgsCreateDraft,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {} | Promise<{}>;
+    ) => Post | Promise<Post>;
 
     deletePost: (
       parent: {},
       args: ArgsDeletePost,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {} | null | Promise<{} | null>;
+    ) => Post | null | Promise<Post | null>;
 
     publish: (
       parent: {},
       args: ArgsPublish,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {} | null | Promise<{} | null>;
+    ) => Post | null | Promise<Post | null>;
   }
 }
 
 export namespace PostResolvers {
-  export const defaultResolvers = {};
+  export const defaultResolvers = {
+    id: parent => parent.id,
+    title: parent => parent.title,
+    content: parent => parent.content,
+    published: parent => parent.published,
+    authorId: parent => parent.authorId
+  };
 
   export type IdResolver = (
-    parent: {},
+    parent: Post,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
-
-  export type CreatedAtResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type UpdatedAtResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type IsPublishedResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => boolean | Promise<boolean>;
 
   export type TitleResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type BigCountResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => number | Promise<number>;
-
-  export type MyNewFieldResolver = (
-    parent: {},
+    parent: Post,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ContentResolver = (
-    parent: {},
+    parent: Post,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
-  export type AuthorResolver = (
-    parent: {},
+  export type PublishedResolver = (
+    parent: Post,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {} | Promise<{}>;
+  ) => boolean | Promise<boolean>;
+
+  export type AuthorResolver = (
+    parent: Post,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
 
   export interface Type {
     id: (
-      parent: {},
+      parent: Post,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
-
-    createdAt: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    updatedAt: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    isPublished: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => boolean | Promise<boolean>;
 
     title: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    bigCount: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => number | Promise<number>;
-
-    myNewField: (
-      parent: {},
+      parent: Post,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     content: (
-      parent: {},
+      parent: Post,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
-    author: (
-      parent: {},
+    published: (
+      parent: Post,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {} | Promise<{}>;
+    ) => boolean | Promise<boolean>;
+
+    author: (
+      parent: Post,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
   }
 }
 
 export namespace UserResolvers {
-  export const defaultResolvers = {};
+  export const defaultResolvers = {
+    id: parent => parent.id,
+    name: parent => parent.name,
+    postIDs: parent => parent.postIDs
+  };
 
   export type IdResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type EmailResolver = (
-    parent: {},
+    parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
-    parent: {},
+    parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | Promise<string>;
+  ) => string | null | Promise<string | null>;
 
   export type PostsResolver = (
-    parent: {},
+    parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => {}[] | Promise<{}[]>;
+  ) => Post[] | Promise<Post[]>;
 
   export interface Type {
     id: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    email: (
-      parent: {},
+      parent: User,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
-      parent: {},
+      parent: User,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => string | Promise<string>;
+    ) => string | null | Promise<string | null>;
 
     posts: (
-      parent: {},
+      parent: User,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => {}[] | Promise<{}[]>;
-  }
-}
-
-export namespace CommentResolvers {
-  export const defaultResolvers = {};
-
-  export type IdResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type TextResolver = (
-    parent: {},
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export interface Type {
-    id: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    text: (
-      parent: {},
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
+    ) => Post[] | Promise<Post[]>;
   }
 }
 
@@ -351,5 +275,4 @@ export interface Resolvers {
   Mutation: MutationResolvers.Type;
   Post: PostResolvers.Type;
   User: UserResolvers.Type;
-  Comment: CommentResolvers.Type;
 }
