@@ -141,8 +141,7 @@ export namespace PostResolvers {
     id: parent => parent.id,
     title: parent => parent.title,
     content: parent => parent.content,
-    published: parent => parent.published,
-    authorId: parent => parent.authorId
+    published: parent => parent.published
   };
 
   export type IdResolver = (
@@ -221,8 +220,7 @@ export namespace PostResolvers {
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: parent => parent.id,
-    name: parent => parent.name,
-    postIDs: parent => parent.postIDs
+    name: parent => parent.name
   };
 
   export type IdResolver = (

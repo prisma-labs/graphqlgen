@@ -199,14 +199,19 @@ function renderScalarResolvers(
   return `export const defaultResolvers = {
     ${childNodes
       .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
-      .map(childNode => renderScalarResolver(childNode))
+      .map(childNode => {
+        const childNodeProperty = childNode as ts.PropertySignature
+        const fieldName = (childNodeProperty.name as ts.Identifier).text
+
+        return fieldName
+      })
+      .filter(fieldName => type.fields.some(field => field.name === fieldName))
+      .map(renderScalarResolver)
       .join(os.EOL)}
   }`
 }
 
-function renderScalarResolver(childNode: ts.Node): string {
-  const childNodeProperty = childNode as ts.PropertySignature
-  const fieldName = (childNodeProperty.name as ts.Identifier).text
+function renderScalarResolver(fieldName: string): string {
   // const typeName = (childNodeProperty.type! as ts.TypeReferenceNode).typeName
   return `${fieldName}: parent => parent.${fieldName},`
 }
