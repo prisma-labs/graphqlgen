@@ -1,6 +1,6 @@
 ## Introduction
 
-`graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages witll be added soon).
+`graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon).
 
 There are three major flows supported by `graphqlgen`:
 
