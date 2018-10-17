@@ -45,11 +45,11 @@ import { parseConfig } from './yaml'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
-  config?: GraphQLGenDefinition
-  modelMap?: ModelMap
+  config: GraphQLGenDefinition
+  modelMap: ModelMap
   prettify?: boolean
   prettifyOptions?: prettier.Options
-  language?: Language
+  language: Language
 }
 
 function getTypesGenerator(language: Language): IGenerator {
@@ -80,7 +80,7 @@ interface ModelsConfig {
   [typeName: string]: string
 }
 
-function buildModelMap(
+export function buildModelMap(
   modelsConfig: ModelsConfig,
   outputDir: string,
 ): ModelMap {
@@ -144,8 +144,8 @@ export function generateCode(
   generateCodeArgs: GenerateCodeArgs,
 ): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
   const contextPath = getImportPathRelativeToOutput(
-    generateCodeArgs.config!.input.context.split(':')[0].replace(/\.ts$/, ''),
-    generateCodeArgs.config!.output.types,
+    generateCodeArgs.config!.context.split(':')[0].replace(/\.ts$/, ''),
+    generateCodeArgs.config!.output,
   )
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(generateCodeArgs.schema!),
@@ -164,29 +164,29 @@ export function generateCode(
 function writeTypes(types: string, config: GraphQLGenDefinition): void {
   // Create generation target folder, if it does not exist
   // TODO: Error handling around this
-  mkdirp.sync(path.dirname(config.output.types))
+  mkdirp.sync(path.dirname(config.output))
   try {
-    fs.writeFileSync(config.output.types, types, { encoding: 'utf-8' })
+    fs.writeFileSync(config.output, types, { encoding: 'utf-8' })
   } catch (e) {
     console.error(
       chalk.default.red(
-        `Failed to write the file at ${config.output.types}, error: ${e}`,
+        `Failed to write the file at ${config.output}, error: ${e}`,
       ),
     )
     process.exit(1)
   }
   console.log(
     chalk.default.green(
-      `Types and scalars resolvers generated at ${config.output.types}`,
+      `Types and scalars resolvers generated at ${config.output}`,
     ),
   )
 }
 
-function writeResolvers(
+function writeResolversScaffolding(
   resolvers: CodeFileLike[],
   config: GraphQLGenDefinition,
 ) {
-  const outputResolversDir = config.output.resolvers!
+  const outputResolversDir = config['resolver-scaffolding'].output
   // Create generation target folder, if it does not exist
   // TODO: Error handling around this
   mkdirp.sync(path.dirname(outputResolversDir))
@@ -212,7 +212,7 @@ function writeResolvers(
     try {
       fs.writeFileSync(
         writePath,
-        f.code.replace('[TEMPLATE-INTERFACES-PATH]', config.output.types),
+        f.code.replace('[TEMPLATE-INTERFACES-PATH]', config.output),
         {
           encoding: 'utf-8',
         },
@@ -239,7 +239,7 @@ function writeResolvers(
   process.exit(0)
 }
 
-function parseSchema(schemaPath: string): DocumentNode {
+export function parseSchema(schemaPath: string): DocumentNode {
   if (!fs.existsSync(schemaPath)) {
     console.error(
       chalk.default.red(`The schema file ${schemaPath} does not exist`),
@@ -280,7 +280,7 @@ async function run() {
   // }
 
   const config = parseConfig()
-  const parsedSchema = parseSchema(config.input.schema)
+  const parsedSchema = parseSchema(config.schema)
 
   const options = (await prettier.resolveConfig(process.cwd())) || {} // TODO: Abstract this TS specific behavior better
   if (JSON.stringify(options) !== '{}') {
@@ -288,7 +288,7 @@ async function run() {
   }
 
   //TODO: Should we provide a default in case `config.output.types` is not defined?
-  const modelMap = buildModelMap(config.input.models, config.output.types)
+  const modelMap = buildModelMap(config.models, config.output)
 
   const { generatedTypes, generatedResolvers } = generateCode({
     schema: parsedSchema!,
@@ -300,7 +300,7 @@ async function run() {
   })
 
   writeTypes(generatedTypes, config)
-  writeResolvers(generatedResolvers, config)
+  writeResolversScaffolding(generatedResolvers, config)
   /* writeModels(generatedResolvers, config); */
 }
 

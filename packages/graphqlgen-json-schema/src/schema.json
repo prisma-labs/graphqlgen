@@ -6,49 +6,44 @@
       "type": "string",
       "oneOf": [{ "enum": ["typescript", "flow"] }]
     },
-    "input": {
-      "description": "All input fields",
+    "schema": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "models": {
       "type": "object",
-      "properties": {
-        "schema": {
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
           "type": "string"
-        },
-        "context": {
-          "type": "string"
-        },
-        "models": {
-          "type": "object",
-          "patternProperties": {
-            "^[a-zA-Z0-9]*$": {
-              "type": "string"
-            }
-          }
         }
-      },
-      "required": ["schema", "context", "models"],
-      "additionalProperties": false
+      }
     },
     "output": {
+      "type": "string",
+      "description": "Path to main output file"
+    },
+    "resolver-scaffolding": {
       "description": "All output fields",
       "type": "object",
       "properties": {
-        "types": {
-          "type": "string",
-          "description": "Path to main output file"
-        },
-        "models": {
+        "layout": {
           "type": "string",
           "description": "Path to scaffolded file for missing model definitions"
-        },
-        "resolvers": {
-          "type": "string",
-          "description": "Path to scaffolded resolver file"
         }
       },
       "required": ["types"],
       "additionalProperties": false
     }
   },
-  "required": ["language", "input", "output"],
+  "required": [
+    "language",
+    "schema",
+    "context",
+    "models",
+    "output",
+    "resolver-scaffolding"
+  ],
   "additionalProperties": false
 }

@@ -1,9 +1,9 @@
 import * as Ajv from 'ajv'
-import * as chalk from 'chalk';
-import * as fs from 'fs';
+import * as chalk from 'chalk'
+import * as fs from 'fs'
 import * as yaml from 'js-yaml'
 
-import { GraphQLGenDefinition } from 'graphqlgen-json-schema';
+import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
 
 import schema = require('graphqlgen-json-schema/dist/schema.json')
 

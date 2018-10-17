@@ -1,60 +1,109 @@
-import { generateCode } from '../../'
-import * as fs from 'fs'
-import { parse } from 'graphql'
+import { generateCode, buildModelMap, parseSchema } from '../../'
 import { join } from 'path'
+import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
+
+const relative = (p: string) => join(__dirname, p)
 
 test('basic schema', async () => {
-  const schema = fs.readFileSync(
-    join(__dirname, '../fixtures/basic.graphql'),
-    'utf-8',
-  )
-  const parsedSchema = parse(schema)
-  const code = generateCode({
-    schema: parsedSchema,
+  const config: GraphQLGenDefinition = {
     language: 'typescript',
-  }).generatedResolvers
-  expect(code).toMatchSnapshot()
-  expect(code.length).toBe(5)
+    schema: relative('../fixtures/basic/schema.graphql'),
+    context: relative('../fixtures/basic/types.ts:Context'),
+    models: {
+      Number: relative('../fixtures/basic/types.ts:Number'),
+    },
+    output: relative('./generated/basic/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/basic/'),
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = buildModelMap(config.models, config.output)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language: 'typescript',
+    config,
+    modelMap,
+    prettify: true,
+  })
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic enum', async () => {
-  const schema = fs.readFileSync(
-    join(__dirname, '../fixtures/enum.graphql'),
-    'utf-8',
-  )
-  const parsedSchema = parse(schema)
-  const code = generateCode({
-    schema: parsedSchema,
+  const config: GraphQLGenDefinition = {
     language: 'typescript',
-  }).generatedResolvers
-  expect(code).toMatchSnapshot()
-  expect(code.length).toBe(5)
+    schema: relative('../fixtures/enum/schema.graphql'),
+    context: relative('../fixtures/enum/types.ts:Context'),
+    models: {
+      Number: relative('../fixtures/enum/types.ts:Number'),
+    },
+    output: relative('./generated/enum/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/enum/'),
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = buildModelMap(config.models, config.output)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language: 'typescript',
+    config,
+    modelMap,
+    prettify: true,
+  })
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic union', async () => {
-  const schema = fs.readFileSync(
-    join(__dirname, '../fixtures/union.graphql'),
-    'utf-8',
-  )
-  const parsedSchema = parse(schema)
-  const code = generateCode({
-    schema: parsedSchema,
+  const config: GraphQLGenDefinition = {
     language: 'typescript',
-  }).generatedResolvers
-  expect(code).toMatchSnapshot()
-  expect(code.length).toBe(6)
+    schema: relative('../fixtures/union/schema.graphql'),
+    context: relative('../fixtures/union/types.ts:Context'),
+    models: {
+      Number: relative('../fixtures/union/types.ts:Number'),
+    },
+    output: relative('./generated/union/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/union/'),
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = buildModelMap(config.models, config.output)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language: 'typescript',
+    config,
+    modelMap,
+    prettify: true,
+  })
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic scalar', async () => {
-  const schema = fs.readFileSync(
-    join(__dirname, '../fixtures/scalar.graphql'),
-    'utf-8',
-  )
-  const parsedSchema = parse(schema)
-  const code = generateCode({
-    schema: parsedSchema,
+  const config: GraphQLGenDefinition = {
     language: 'typescript',
-  }).generatedResolvers
-  expect(code).toMatchSnapshot()
-  expect(code.length).toBe(5)
+    schema: relative('../fixtures/scalar/schema.graphql'),
+    context: relative('../fixtures/scalar/types.ts:Context'),
+    models: {
+      Number: relative('../fixtures/scalar/types.ts:Number'),
+    },
+    output: relative('./generated/scalar/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/scalar/'),
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = buildModelMap(config.models, config.output)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language: 'typescript',
+    config,
+    modelMap,
+    prettify: true,
+  })
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
 })
