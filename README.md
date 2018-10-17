@@ -86,6 +86,11 @@ Consider an example where you have a `User` table in your database that has a `p
 
 There are four layouts that can be applied when scaffolding resolver skeletons:
 
+- `single-file`: Generates _all_ resolvers in a single file.
+- `file-per-type`: Generates one file per SDL type and puts the corresponding resolvers into it. 
+- `single-file-classes`: Same as `single-file` but generates resolvers as TypeScript classes instead of plain objects.
+- `file-per-type-classes`: Same as `file-per-type` but generates resolvers as TypeScript classes instead of plain objects.
+
 ## Generation
 
 ## Scaffolding
