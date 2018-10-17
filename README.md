@@ -69,6 +69,8 @@ Models represent domain objects in TypeScript:
 
 Consider an example where you have a `User` table in your database that has a `password` column. The `password` field most likely wouldn't be represented on the `User` instance you want to work with in your TypeScript code since you don't want to expose that. In that case, the model differs from the database representation and might similarly differ from its definition in the GraphQL schema.
 
+### Layouts
+
 ## Generation
 
 ## Scaffolding
