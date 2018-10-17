@@ -8,9 +8,9 @@ test('basic schema', async () => {
   const config: GraphQLGenDefinition = {
     language: 'typescript',
     schema: relative('../fixtures/basic/schema.graphql'),
-    context: relative('../fixtures/basic/types.ts:Context'),
+    context: relative('../fixtures/basic:Context'),
     models: {
-      Number: relative('../fixtures/basic/types.ts:Number'),
+      Number: relative('../fixtures/basic/index.ts:Number'),
     },
     output: relative('./generated/basic/graphqlgen.ts'),
     ['resolver-scaffolding']: {

@@ -249,8 +249,8 @@ export const resolvers: Resolvers = {
 exports[`basic schema 1`] = `
 "/* DO NOT EDIT! */
 import { GraphQLResolveInfo } from \\"graphql\\";
-import { Context } from \\"../../../fixtures/basic/types\\";
-import { Number } from \\"../../../fixtures/basic/types\\";
+import { Context } from \\"../../../fixtures/basic\\";
+import { Number } from \\"../../../fixtures/basic\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
