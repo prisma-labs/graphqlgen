@@ -1,65 +1,111 @@
-> **Note:** This project is still WIP.
+## Introduction
 
-### Introduction
+`graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon).
 
-Generate TS Resolvers
+These are the main benefits provided by   graphqlgen`:
 
-### Support
-[Create a feature request](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=feature_request.md&labels=enhancement)
+- Map GraphQL schema to resolver implementation
+- Type-safe data flow inside of resolvers (resolver return value and `parent` value)
+- Auto-completion & error-catching on resolver arguments as well as on return & `parent` values
 
-[Create a bug report](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=bug_report.md&labels=bug)
+## Features
 
-### Feature
+There are three major features supported by `graphqlgen`:
 
-1. Autogenerate resolver types
-1. Supports `graphql-import`
-1. Suports `prettier` i.e. code is generated following the code styling practices of your project.
+- [**Generation**](#generation) of type definitions and _default_ resolver implementations
+- [**Scaffolding**](#scaffolding) resolver sceletons (optional)
+- [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](packages/graphqlgen-templates/) (optional)
 
-### Usage
+More features are:
 
-```bash
-graphql-resolver-codegen --help
-Usage: graphql-resolver-codegen <command> -s [schema-path] -o [output-path] -g [generator] -i
-[interfaces]
+- Supports `graphql-import`
+- Suports `prettier` (code is generated following the code styling practices of your project)
 
-Options:
-  --help             Show help                                         [boolean]
-  --version          Show version number                               [boolean]
-  -s, --schema-path  GraphQL schema file path                         [required]
-  -o, --output       Output file/folder path [default:
-                     ./generated/resolvers[.ts]]
-  -g, --generator    Generator to use [default: typescript, options: reason, flow]
-  -i, --interfaces   Path to the interfaces folder used for scaffolding
-  -f, --force        Force write files when there is a clash while scaffolding
+## Install
 
-  Possible commands: scaffold, interfaces
+You can install the `graphqlgen` CLI with the following command: 
+
+```
+npm install -g graphqlgen
 ```
 
-### Commands
+## Usage
 
-| Command    | Description                                                                                   | Flag -s              | Flag -o                                 | Flag -g    | Flag -i                               | Flag -f                                                                  |
-| ---------- | --------------------------------------------------------------------------------------------- | -------------------- | --------------------------------------- | ---------- | ------------------------------------- | ------------------------------------------------------------------------ |
-| interfaces | Generate type safe interfaces for resolvers based on your schema.                              | Path to input schema | Path to generate interfaces file at     | typescript | NA                                    | NA                                                                       |
-| scaffold   | Scaffold resolvers based on your schema that rely on the generated interface for type safety. | Path to input schema | Path to folder for generating resolvers | typescript | Path to the generated interfaces file | Force write resolver files when there is a collision with existing files |
+Once installed, you can invoke the CLI as follows:
 
-Note: while using `scaffold`, typemap.ts will always be generated irrespective of `-f` flag.
+```
+graphqlgen
+```
 
-### Example
+The invocation of the command depends on a configuration file called `graphqlgen.yml` which **must be located in same the directory where `graphqlgen` is invoked**. Here is an example:
 
-##### To generate both resolvers and typings for a given GraphQL schema, run the following commands
+```yml
+language: typescript
 
-1. Run `graphql-resolver-codegen interfaces -s <schema-path> -o <output-path>/generated/resolvers.ts -g typescript`
+schema: ./src/schema.graphql
+context: ./src/types.ts:Context
+models:
+  User: ./src/generated/prisma-client/index.ts:UserNode
+  Post: ./src/generated/prisma-client/index.ts:PostNode
 
-1. Run `graphql-resolver-codegen scaffold -s <schema-path> -o <output-path> -g typescript -i <output-path>/generated/resolvers.ts`
+output: ./src/generated/graphqlgen.ts
 
-Not the `scaffold` command take an additional argument `i` which adds import for generated `interfaces` in scaffolded code.
+resolver-scaffolding:
+  output: ./src/tmp-resolvers/
+  layout: single-file
+```
 
-To see an example in action, please open the [`examples`](https://github.com/prisma/graphql-resolver-codegen/tree/master/examples) directory.
+## Configuration: `graphqlgen.yml`
 
-### Design Decisions
+### Name
+
+The configuration file must be called **`graphqlgen.yml`**.
+
+### Reference
+
+- `language`: The target programming language for the generated code. Popssible values: `typescript`.
+- `schema`: The file path pointing to your GraphQL schema file.
+- `models`: An object mapping types from your GraphQL schema to the models defined in your programming language. Learn more about [models](#models).
+- `output`: Specifies where the generated type definitions and _default_ resolver implementations should be located. Muist point to a **single file**.
+- `resolver-scaffolding`: An object with two properties
+  - `output`: Specifies where the scaffolded resolvers should be located. Must point to a **directory**.
+  - `layout`: Specifies the _layout_ for the generated files. Possible values: `single-file`, `file-per-type`, `single-file-classes`, `file-per-type-classes`. 
+
+### Models
+
+Models represent domain objects in TypeScript:
+
+- Models are **not** necessarily 1-to-1 mappings to your database structures, but can be.
+- Models are **not** necessarily the types from your GraphQL schema, but can be.
+
+> When starting a new project, it is often the case that models look _very_ similar to database structures as well as to the types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from its underlying database structure.
+
+Consider an example where you have a `User` table in your database that has a `password` column. The `password` field most likely wouldn't be represented on the `User` instance you want to work with in your TypeScript code since you don't want to expose that. In that case, the model differs from the database representation and might similarly differ from its definition in the GraphQL schema.
+
+### Layouts
+
+There are four layouts that can be applied when scaffolding resolver skeletons:
+
+- `single-file`: Generates _all_ resolvers in a single file.
+- `file-per-type`: Generates one file per SDL type and puts the corresponding resolvers into it. 
+- `single-file-classes`: Same as `single-file` but generates resolvers as TypeScript classes instead of plain objects.
+- `file-per-type-classes`: Same as `file-per-type` but generates resolvers as TypeScript classes instead of plain objects.
+
+## Generation
+
+## Scaffolding
+
+The 
+
+## Bootstrapping
+
+## Design Decisions
 
 1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `typemap.ts`.
-
 1. Interface for `Context` is generated in a separate file called `Context.ts`.
-
 1. The command `scaffold` always writes the `typemap.ts` file, irrespective of the `-f` flag.
+
+## Support
+
+- [Create a feature request](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=feature_request.md&labels=enhancement)
+- [Create a bug report](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=bug_report.md&labels=bug)
