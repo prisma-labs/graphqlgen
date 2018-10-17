@@ -21,7 +21,6 @@ More features are:
 - Supports `graphql-import`
 - Suports `prettier` (code is generated following the code styling practices of your project)
 
-
 ## Install
 
 You can install the `graphqlgen` CLI with the following command: 
