@@ -1,11 +1,11 @@
 language: typescript
 
 input:
-  schema: ./src/schema.graphql
-  context: ./src/types.ts:Context
-  models:
-    Product: ./src/models.ts:Product
-    Basket: ./src/models.ts:Basket
+  schema: ./src/schema.graphql        # GraphQL schema
+  context: ./src/types.ts:Context     # Defines the context object passed through the resolver chain
+  models:                             # Model types from the `schema` mapped to TS definitions
+    User: ./src/models.ts:User
+    Post: ./src/models.ts:Post
 
 output:
   types: ./src/generated/graphqlgen.ts

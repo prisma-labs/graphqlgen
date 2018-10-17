@@ -1,5 +1,3 @@
-scalar DateTime
-
 type Query {
   feed: [Post!]!
   drafts: [Post!]!
@@ -7,31 +5,22 @@ type Query {
 }
 
 type Mutation {
-  createDraft(title: String!, content: String!, authorEmail: String!): Post!
+  createUser(name: String): User!
+  createDraft(title: String!, content: String!, authorId: ID!): Post!
   deletePost(id: ID!): Post
   publish(id: ID!): Post
 }
 
 type Post {
   id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean!
   title: String!
-  bigCount: Int!
-  myNewField: String!
   content: String!
+  published: Boolean!
   author: User!
 }
 
 type User {
   id: ID!
-  email: String!
-  name: String!
+  name: String
   posts: [Post!]!
-}
-
-type Comment {
-  id: String!
-  text: String!
 }

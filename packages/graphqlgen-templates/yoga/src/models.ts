@@ -1,9 +1,13 @@
-interface Product {
+export interface User {
   id: string
   name: string
-  price: string
+  postIDs: string[]
 }
 
-interface Basket {
-  id: string 
+export interface Post {
+  id: string
+  title: string
+  content: string
+  published: boolean
+  authorId: string
 }
