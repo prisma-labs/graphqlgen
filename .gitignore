@@ -3,4 +3,5 @@
 node_modules/
 dist/
 tmp/
+package-lock.json
 *.log

@@ -124,6 +124,7 @@ function renderNamespace(
     ${renderScalarResolvers(type, modelMap)}
 
     ${
+      // TODO refactor
       typeToInputTypeAssociation[type.name]
         ? `export interface ${
             inputTypesMap[typeToInputTypeAssociation[type.name]].name
