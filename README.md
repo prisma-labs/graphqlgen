@@ -2,11 +2,25 @@
 
 `graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon).
 
-There are three major flows supported by `graphqlgen`:
+These are the main benefits provided by   graphqlgen`:
+
+- Map GraphQL schema to resolver implementation
+- Type-safe data flow inside of resolvers (resolver return value and `parent` value)
+- Auto-completion & error-catching on resolver arguments as well as on return & `parent` values
+
+## Features
+
+There are three major features supported by `graphqlgen`:
 
 - [**Generation**](#generation) of type definitions and _default_ resolver implementations
-- [**Scaffolding**](#scaffolding) resolver implementations (optional)
+- [**Scaffolding**](#scaffolding) resolver sceletons (optional)
 - [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](packages/graphqlgen-templates/) (optional)
+
+More features are:
+
+- Supports `graphql-import`
+- Suports `prettier` (code is generated following the code styling practices of your project)
+
 
 ## Install
 
@@ -71,16 +85,15 @@ Consider an example where you have a `User` table in your database that has a `p
 
 ### Layouts
 
+There are four layouts that can be applied when scaffolding resolver skeletons:
+
 ## Generation
 
 ## Scaffolding
 
+The 
+
 ## Bootstrapping
-
-## Features
-
-- Supports `graphql-import`
-- Suports `prettier` (code is generated following the code styling practices of your project)
 
 ## Design Decisions
 
