@@ -206,14 +206,16 @@ function renderScalarResolvers(
         return fieldName
       })
       .filter(fieldName => type.fields.some(field => field.name === fieldName))
-      .map(renderScalarResolver)
+      .map(fieldName => renderScalarResolver(fieldName, type.name))
       .join(os.EOL)}
   }`
 }
 
-function renderScalarResolver(fieldName: string): string {
-  // const typeName = (childNodeProperty.type! as ts.TypeReferenceNode).typeName
-  return `${fieldName}: parent => parent.${fieldName},`
+function renderScalarResolver(
+  fieldName: string,
+  parentTypeName: string,
+): string {
+  return `${fieldName}: (parent: ${parentTypeName}) => parent.${fieldName},`
 }
 
 function renderInputArgInterfaces(

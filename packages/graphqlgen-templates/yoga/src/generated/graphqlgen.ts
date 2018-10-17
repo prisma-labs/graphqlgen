@@ -138,10 +138,10 @@ export namespace MutationResolvers {
 
 export namespace PostResolvers {
   export const defaultResolvers = {
-    id: parent => parent.id,
-    title: parent => parent.title,
-    content: parent => parent.content,
-    published: parent => parent.published
+    id: (parent: Post) => parent.id,
+    title: (parent: Post) => parent.title,
+    content: (parent: Post) => parent.content,
+    published: (parent: Post) => parent.published
   };
 
   export type IdResolver = (
@@ -219,8 +219,8 @@ export namespace PostResolvers {
 
 export namespace UserResolvers {
   export const defaultResolvers = {
-    id: parent => parent.id,
-    name: parent => parent.name
+    id: (parent: User) => parent.id,
+    name: (parent: User) => parent.name
   };
 
   export type IdResolver = (
