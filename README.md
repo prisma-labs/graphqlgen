@@ -20,9 +20,9 @@ Using `graphqlgen` you'll gain:
 ## Features
 
 - ⚒ [**Generates**](#generation) type definitions and _default_ resolver implementations,
-- 🏗 [**Scaffoldes**](#scaffolding) resolver sceletons so you don't have to,
+- 🏗 [**Scaffoldes**](#scaffolding) resolver skeletons so you don't have to,
 - 🚀 [**Bootstraps**](#bootstrapping) a GraphQL server based on a [template](./packages/graphqlgen-templates/) of your choice,
-- 💅 **Prettier** code style following the code styling practices of your project.
+- 💅 [**Prettier**](#) code style following the code styling practices of your project.
 
 #### Supported languages:
 
