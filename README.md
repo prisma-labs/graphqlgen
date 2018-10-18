@@ -58,7 +58,7 @@ models:
 output: ./src/generated/graphqlgen.ts
 
 resolver-scaffolding:
-  output: ./src/tmp-resolvers/
+  output: ./src/generated/tmp-resolvers/
   layout: single-file
 ```
 
