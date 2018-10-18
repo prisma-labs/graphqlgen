@@ -117,6 +117,8 @@ The relevant properties from `graphqlgen.yml` for the Generation feature are:
 - `context` (optional)
 - `output` (required)
 
+### Example
+
 <Details>
   <Summary>See full example</Summary>
 
@@ -153,61 +155,12 @@ schema: ./src/schema.graphql
 models:
   User: ./src/models.ts:User
 output: ./src/generated/graphqlgen.ts
+resolver-scaffolding:
+  output: ./src/tmp/
+  layout: file-per-type
 ```
 
-After running `$ graphqlgen` in your terminal, the following code will be generated into **`./src/generated/graphqlgen.ts`**:
-
-```ts
-import { GraphQLResolveInfo } from "graphql";
-type Context = any;
-import { User } from "../models";
-
-export namespace UserResolvers {
-  export const defaultResolvers = {
-    id: (parent: User) => parent.id,
-    name: (parent: User) => parent.name
-  };
-
-  export type IdResolver = (
-    parent: User,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type NameResolver = (
-    parent: User,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | null | Promise<string | null>;
-
-  export interface Type {
-    id: (
-      parent: User,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    name: (
-      parent: User,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | null | Promise<string | null>;
-  }
-}
-
-export interface Resolvers {
-  User: UserResolvers.Type;
-}
-```
-
-Note the following:
-
-- The `email` field is not part of the generated default resolvers because it only exists in the TypeScript definitions.
-- Because we didn't provide a `context` property in `graphqlgen.yml`, `Context` is typed to `any`.
+After running `$ graphqlgen` in your terminal, the following ...:
 
 </Details>
 
@@ -275,6 +228,8 @@ The relevant properties from `graphqlgen.yml` for the Generation feature are:
 - `context` (optional)
 - `output` (required)
 - `resolver-scaffolding` (required)
+
+### Example
 
 <Details>
   <Summary>See full example</Summary>
