@@ -8,7 +8,7 @@ These are the main benefits provided by `graphqlgen`:
 - Type-safe data flow inside of resolvers
 - Auto-completion & error-catching on resolver arguments (including `parent`) and return values 
 
-Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write through code generation.**
+Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write boilerplate through code generation.**
 
 ## Features
 
@@ -67,11 +67,11 @@ The configuration file must be called **`graphqlgen.yml`**.
 
 - `language`: The target programming language for the generated code. Popssible values: `typescript`.
 - `schema`: The file path pointing to your GraphQL schema file.
-- `models`: An object mapping types from your GraphQL schema to the models defined in your programming language. Learn more about [models](#models).
+- `models`: An object mapping types from your GraphQL schema to the models defined in your programming language. Learn more about [_models_](#models).
 - `output`: Specifies where the generated type definitions and _default_ resolver implementations should be located. Muist point to a **single file**.
 - `resolver-scaffolding`: An object with two properties
   - `output`: Specifies where the scaffolded resolvers should be located. Must point to a **directory**.
-  - `layout`: Specifies the _layout_ for the generated files. Possible values: `single-file`, `file-per-type`, `single-file-classes`, `file-per-type-classes`. 
+  - `layout`: Specifies the [_layout_](#layouts) for the generated files. Possible values: `single-file`, `file-per-type`, `single-file-classes`, `file-per-type-classes`. 
 
 ### Models
 
@@ -80,9 +80,9 @@ Models represent domain objects in TypeScript:
 - Models are **not** necessarily 1-to-1 mappings to your database structures, but can be.
 - Models are **not** necessarily the types from your GraphQL schema, but can be.
 
-> When starting a new project, it is often the case that models look _very_ similar to database structures as well as to the types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from its underlying database structure.
+When starting a new project, it is often the case that models look _very_ similar to database structures as well as to the types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from its underlying database structure.
 
-Consider an example where you have a `User` table in your database that has a `password` column. The `password` field most likely wouldn't be represented on the `User` instance you want to work with in your TypeScript code since you don't want to expose that. In that case, the model differs from the database representation and might similarly differ from its definition in the GraphQL schema.
+Consider an example where you have a `User` table in your database that has a `password` column. The `password` field most likely wouldn't be represented on the `User` instance you want to work with in your TypeScript code because this information should not be exposed. In that case, the model differs from the database representation (and might similarly differ from its definition in the GraphQL schema).
 
 ### Layouts
 
