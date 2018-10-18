@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "test": "cd packages/graphqlgen && npm test"
+    "build": "cd packages/graphqlgen-json-schema && yarn build && cd ../graphqlgen && yarn build",
+    "test": "yarn build && cd packages/graphqlgen && yarn test"
   },
   "workspaces": [
     "packages/*"
