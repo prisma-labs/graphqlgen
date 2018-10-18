@@ -14,7 +14,10 @@ import {
   extractGraphQLEnums,
   extractGraphQLUnions,
 } from './source-helper'
-import { getImportPathRelativeToOutput } from './path-helpers'
+import {
+  getImportPathRelativeToOutput,
+  getAbsoluteFilePath,
+} from './path-helpers'
 import { IGenerator, GenerateArgs, CodeFileLike, ModelMap } from './types'
 import {
   generate as generateTS,
@@ -170,7 +173,13 @@ function writeResolversScaffolding(
     try {
       fs.writeFileSync(
         writePath,
-        f.code.replace('[TEMPLATE-INTERFACES-PATH]', config.output),
+        f.code.replace(
+          '[TEMPLATE-INTERFACES-PATH]',
+          getImportPathRelativeToOutput(
+            getAbsoluteFilePath(config.output, config.language),
+            writePath,
+          ),
+        ),
         {
           encoding: 'utf-8',
         },
