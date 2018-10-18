@@ -1,6 +1,6 @@
 {
   "name": "create-graphqlgen",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
@@ -18,7 +18,7 @@
     "README.md"
   ],
   "dependencies": {
-    "adm-zip": "0.4.11",
+    "adm-zip": "0.4.7",
     "chalk": "^2.4.1",
     "execa": "^1.0.0",
     "inquirer": "^6.2.0",
