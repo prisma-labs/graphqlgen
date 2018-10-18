@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon -e ts,graphql -x ts-node src/index.ts",
+    "start": "nodemon -x ts-node --no-cache src/index.ts",
     "generate": "graphqlgen"
   },
   "dependencies": {
