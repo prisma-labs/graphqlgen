@@ -1,4 +1,4 @@
-## Introduction
+## graphqlgen
 
 `graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon). 
 
