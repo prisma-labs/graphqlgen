@@ -16,7 +16,7 @@ type Definition = {
   typeName: string
   rawDefinition: string
   filePath?: string
-  interfaceDefinition?: string
+  modelName?: string
 }
 
 type ValidatedDefinition = {
@@ -29,11 +29,11 @@ type ValidatedDefinition = {
 // Check whether the model definition exists in typescript/flow file
 function interfaceDefinitionExistsInFile(
   filePath: string,
-  interfaceDefinition: string,
+  modelName: string,
   language: Language,
 ): boolean {
   filePath
-  interfaceDefinition
+  modelName
   language
   return true
 }
@@ -61,17 +61,17 @@ function validateDefinition(
     return validation
   }
 
-  const [filePath, interfaceDefinition] = definition.split(':')
+  const [filePath, modelName] = definition.split(':')
 
   validation.definition.filePath = filePath
-  validation.definition.interfaceDefinition = interfaceDefinition
+  validation.definition.modelName = modelName
 
   if (!existsSync(filePath)) {
     validation.fileExists = false
   }
 
   if (
-    !interfaceDefinitionExistsInFile(filePath, interfaceDefinition, language)
+    !interfaceDefinitionExistsInFile(filePath, modelName, language)
   ) {
     validation.interfaceExists = false
   }
@@ -98,7 +98,7 @@ ${chalk.default.bold(
         def =>
           `${def.definition.typeName}: ${chalk.default.redBright(
             def.definition.filePath!,
-          )}:${def.definition.interfaceDefinition}`,
+          )}:${def.definition.modelName}`,
       )
       .join(os.EOL)}
 
@@ -120,7 +120,7 @@ ${chalk.default.bold(
   ${chalk.default.cyan(
     `(Correct syntax: ${chalk.default.bold('<typeName>')}: ${chalk.default.bold(
       '<filePath>',
-    )}:${chalk.default.bold('<interfaceDefinition>')})`,
+    )}:${chalk.default.bold('<modelName>')})`,
   )}
 
   models:
@@ -178,7 +178,7 @@ export function buildModelMap(
 
   return Object.keys(modelsConfig).reduce((acc, typeName) => {
     const modelConfig = modelsConfig[typeName]
-    const [filePath, interfaceDefinition] = modelConfig.split(':')
+    const [filePath, modelName] = modelConfig.split(':')
     const absoluteFilePath = getAbsoluteFilePath(filePath)
     const importPathRelativeToOutput = getImportPathRelativeToOutput(
       absoluteFilePath,
@@ -189,7 +189,7 @@ export function buildModelMap(
       [typeName]: {
         absoluteFilePath,
         importPathRelativeToOutput,
-        modelTypeName: interfaceDefinition,
+        modelTypeName: modelName,
       },
     }
   }, {})
