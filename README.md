@@ -16,7 +16,7 @@ There are three major features supported by `graphqlgen`:
 
 - [**Generation**](#generation) of type definitions and _default_ resolver implementations
 - [**Scaffolding**](#scaffolding) resolver sceletons (optional)
-- [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](packages/graphqlgen-templates/) (optional)
+- [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](./packages/graphqlgen-templates/) (optional)
 
 More features are:
 
@@ -243,6 +243,10 @@ type Query {
   user(id: ID!): User
 }
 
+type Mutation {
+  createUser(name: String): User!
+}
+
 type User {
   id: ID!
   name: String
@@ -268,72 +272,75 @@ models:
   User: ./src/models.ts:User
 output: ./src/generated/graphqlgen.ts
 resolver-scaffolding:
-  - 
+  output: ./src/tmp/
+  layout: file-per-type
 ```
 
-After running `$ graphqlgen` in your terminal, the following code will be generated into **`./src/generated/graphqlgen.ts`**:
+After running `$ graphqlgen` in your terminal, the following code will be generated into **`./src/tmp/`**:
+
+**`./tmp/User.ts`**
 
 ```ts
-import { GraphQLResolveInfo } from "graphql";
-type Context = any;
-import { User } from "../models";
+import { UserResolvers } from "./src/generated/graphqlgen.ts";
 
-export namespace UserResolvers {
-  export const defaultResolvers = {
-    id: (parent: User) => parent.id,
-    name: (parent: User) => parent.name
-  };
+export const User: UserResolvers.Type = {
+  ...UserResolvers.defaultResolvers
+};
+```
 
-  export type IdResolver = (
-    parent: User,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
+**`./tmp/Query.ts`**
 
-  export type NameResolver = (
-    parent: User,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | null | Promise<string | null>;
+```ts
+import { QueryResolvers } from "./src/generated/graphqlgen.ts";
 
-  export interface Type {
-    id: (
-      parent: User,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
+export const Query: QueryResolvers.Type = {
+  ...QueryResolvers.defaultResolvers,
+  user: (parent, args) => null
+};
+```
 
-    name: (
-      parent: User,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | null | Promise<string | null>;
+**`./tmp/Mutation.ts`**
+
+```ts
+import { MutationResolvers } from "./src/generated/graphqlgen.ts";
+
+export const Mutation: MutationResolvers.Type = {
+  ...MutationResolvers.defaultResolvers,
+  createUser: (parent, args) => {
+    throw new Error("Resolver not implemented");
   }
-}
+};
+```
 
-export interface Resolvers {
-  User: UserResolvers.Type;
-}
+**`./tmp/index.ts`**
+
+```ts
+import { Resolvers } from "./src/generated/graphqlgen.ts";
+
+import { Query } from "./Query";
+import { Mutation } from "./Mutation";
+import { User } from "./User";
+
+export const resolvers: Resolvers = {
+  Query,
+  Mutation,
+  User
+};
 ```
 
 Note the following:
 
-- The `email` field is not part of the generated default resolvers because it only exists in the TypeScript definitions.
-- Because we didn't provide a `context` property in `graphqlgen.yml`, `Context` is typed to `any`.
+- The paths in the `import` statements will likely need to be adjusted depending on your file structure. 
 
 </Details>
 
 ## Bootstrapping
 
-## Design Decisions
+You can bootstrap an entire GraphQL server based on one of the available [templates]((./packages/graphqlgen-templates/)) using [`npm init`](https://docs.npmjs.com/cli/init):
 
-1. Code generator imports all the generated types interfaces and exports a collective `Types` interface in `typemap.ts`.
-1. Interface for `Context` is generated in a separate file called `Context.ts`.
-1. The command `scaffold` always writes the `typemap.ts` file, irrespective of the `-f` flag.
+```
+npm init graphqlgen ./my-graphql-server
+```
 
 ## Support
 
