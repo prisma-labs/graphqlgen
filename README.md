@@ -100,6 +100,8 @@ There are four layouts that can be applied when scaffolding resolver skeletons:
 
 ## Generation
 
+> **IMPORTANT**: The generated typings and default resolver implementations are all stored in a single file which should never be edited!
+
 The goal of this feature is to make your resolvers type-safe! Without a tool like `graphqlgen`, type-safe resolvers would require you to write huge amounts of boilerplate to keep your GraphQL schema in sync with your TypeScript type definitions, which is a cumbersome and error-prone process.
 
 For each model, `graphqlgen` generates the following:
@@ -114,14 +116,6 @@ The relevant properties from `graphqlgen.yml` for the Generation feature are:
 - `models` (required)
 - `context` (optional)
 - `output` (required)
-
-### Type Definitions
-
-This is required to make your resolvers type safe. Type definitions are generated for the resolvers' return values as well as for the first three resolver arguments:
-
-1. `parent`: The return value of the previous resolver execution level. [Learn more](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e/).
-1. `args`: The query parameters provided by the client who submitted the query.
-1. `context`: An object to be passed through the GraphQL resolver chain. 
 
 <Details>
   <Summary>See full example</Summary>
@@ -217,6 +211,14 @@ Note the following:
 
 </Details>
 
+### Type Definitions
+
+This is required to make your resolvers type safe. Type definitions are generated for the resolvers' return values as well as for the first three resolver arguments:
+
+1. `parent`: The return value of the previous resolver execution level. [Learn more](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e/).
+1. `args`: The query parameters provided by the client who submitted the query.
+1. `context`: An object to be passed through the GraphQL resolver chain. 
+
 ### Default resolvers
 
 Default resolvers are trivial resolver implementations where the fields from the `parent` arguments are immediately returned. Consider for the example the following `User` type in a GraphQL schema:
@@ -240,6 +242,8 @@ export const defaultResolvers = {
 Note that the default resolvers can be omitted in the vanilla JavaScript version of GraphQL, they're only required when using TypeScript! [Learn more](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e/).
 
 ## Scaffolding Resolvers
+
+> **IMPORTANT**: Scaffolded resolvers are typically generated into a _temporary_ directory and manually copied over into your actual source files. After the generated resolver sceletons have been copied over, the generated files can be deleted.
 
 This feature increases your productivity by generating the boilerplate resolver sceletons for those fields that are not [default resolvers](#default-resolvers). A great example for this are the resolvers for your [_root types_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e/): `Query`, `Mutation` and `Subscription`.
 
@@ -309,7 +313,7 @@ models:
   User: ./src/models.ts:User
 output: ./src/generated/graphqlgen.ts
 resolver-scaffolding:
-  -
+  - 
 ```
 
 After running `$ graphqlgen` in your terminal, the following code will be generated into **`./src/generated/graphqlgen.ts`**:
