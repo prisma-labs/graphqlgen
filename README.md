@@ -8,7 +8,7 @@ These are the main benefits provided by `graphqlgen`:
 - Type-safe data flow inside of resolvers
 - Auto-completion & error-catching on resolver arguments (including `parent`) and return values 
 
-Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. `graphql` leverages the strongly typed GraphQL schema with the goal making your API layer type-safe while reducing the need to write through code generation. 
+Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write through code generation.**
 
 ## Features
 
