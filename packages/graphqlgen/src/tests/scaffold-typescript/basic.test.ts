@@ -6,8 +6,9 @@ import { buildModelMap } from '../../modelmap'
 const relative = (p: string) => join(__dirname, p)
 
 test('basic schema', async () => {
+  const language = 'typescript';
   const config: GraphQLGenDefinition = {
-    language: 'typescript',
+    language,
     schema: relative('../fixtures/basic/schema.graphql'),
     context: relative('../fixtures/basic:Context'),
     models: {
@@ -20,10 +21,10 @@ test('basic schema', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output)
+  const modelMap = buildModelMap(config.models, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
-    language: 'typescript',
+    language,
     config,
     modelMap,
     prettify: true,
@@ -33,8 +34,9 @@ test('basic schema', async () => {
 })
 
 test('basic enum', async () => {
+  const language = 'typescript';
   const config: GraphQLGenDefinition = {
-    language: 'typescript',
+    language,
     schema: relative('../fixtures/enum/schema.graphql'),
     context: relative('../fixtures/enum/types.ts:Context'),
     models: {
@@ -47,10 +49,10 @@ test('basic enum', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output)
+  const modelMap = buildModelMap(config.models, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
-    language: 'typescript',
+    language,
     config,
     modelMap,
     prettify: true,
@@ -60,8 +62,9 @@ test('basic enum', async () => {
 })
 
 test('basic union', async () => {
+  const language = 'typescript';
   const config: GraphQLGenDefinition = {
-    language: 'typescript',
+    language,
     schema: relative('../fixtures/union/schema.graphql'),
     context: relative('../fixtures/union/types.ts:Context'),
     models: {
@@ -74,10 +77,10 @@ test('basic union', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output)
+  const modelMap = buildModelMap(config.models, config.output, language)  
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
-    language: 'typescript',
+    language,
     config,
     modelMap,
     prettify: true,
@@ -87,8 +90,9 @@ test('basic union', async () => {
 })
 
 test('basic scalar', async () => {
+  const language = 'typescript';
   const config: GraphQLGenDefinition = {
-    language: 'typescript',
+    language,
     schema: relative('../fixtures/scalar/schema.graphql'),
     context: relative('../fixtures/scalar/types.ts:Context'),
     models: {
@@ -101,10 +105,10 @@ test('basic scalar', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output)
+  const modelMap = buildModelMap(config.models, config.output, language)  
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
-    language: 'typescript',
+    language,
     config,
     modelMap,
     prettify: true,

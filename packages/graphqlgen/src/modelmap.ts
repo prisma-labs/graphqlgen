@@ -1,12 +1,16 @@
+import * as chalk from 'chalk'
+import * as path from 'path'
+import * as os from 'os'
+import * as ts from 'typescript'
+import { existsSync, readFileSync } from 'fs'
+import { Language } from 'graphqlgen-json-schema'
+
 import { ModelMap } from './types'
 import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
+  getExtNameFromLanguage,
 } from './path-helpers'
-import { existsSync } from 'fs'
-import * as chalk from 'chalk'
-import * as os from 'os'
-import { Language } from 'graphqlgen-json-schema'
 
 interface ModelsConfig {
   [typeName: string]: string
@@ -26,16 +30,61 @@ type ValidatedDefinition = {
   interfaceExists: boolean
 }
 
+function hasInterfaceInTypescriptFile(
+  filePath: string,
+  interfaceName: string,
+): boolean {
+  const fileName = path.basename(filePath)
+
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    readFileSync(filePath).toString(),
+    ts.ScriptTarget.ES2015,
+  )
+
+  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
+  const nodes: ts.Node[] = []
+  sourceFile.forEachChild(node => {
+    nodes.push(node)
+  })
+
+  const node = nodes.find(
+    node =>
+      node.kind === ts.SyntaxKind.InterfaceDeclaration &&
+      (node as ts.InterfaceDeclaration).name.escapedText === interfaceName,
+  )
+
+  return !!node
+}
+
 // Check whether the model definition exists in typescript/flow file
 function interfaceDefinitionExistsInFile(
   filePath: string,
   modelName: string,
   language: Language,
 ): boolean {
-  filePath
-  modelName
-  language
-  return true
+  switch (language) {
+    case 'typescript':
+      return hasInterfaceInTypescriptFile(filePath, modelName)
+  }
+}
+
+/**
+ * Support for different path notation
+ *
+ * './path/to/index.ts' => './path/to/index.ts'
+ * './path/to' => './path/to/index.ts'
+ * './path/to/' => './path/to/index.ts'
+ */
+
+function normalizeFilePath(filePath: string, language: Language) {
+  const ext = getExtNameFromLanguage(language);
+
+  if (path.extname(filePath) !== ext) {
+    return path.join(filePath, 'index' + ext)
+  }
+
+  return filePath
 }
 
 function validateDefinition(
@@ -66,12 +115,17 @@ function validateDefinition(
   validation.definition.filePath = filePath
   validation.definition.modelName = modelName
 
-  if (!existsSync(filePath)) {
+  const normalizedFilePath = normalizeFilePath(filePath, language)
+
+  if (!existsSync(normalizedFilePath)) {
     validation.fileExists = false
+    validation.interfaceExists = false;
+
+    return validation;
   }
 
   if (
-    !interfaceDefinitionExistsInFile(filePath, modelName, language)
+    !interfaceDefinitionExistsInFile(normalizedFilePath, modelName, language)
   ) {
     validation.interfaceExists = false
   }
@@ -139,10 +193,26 @@ ${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
 function outputInterfaceDefinitionsNotFound(
   validatedDefinitions: ValidatedDefinition[],
 ) {
-  throw new Error('not implemented yet')
+  const invalidDefinitions = validatedDefinitions.filter(
+    validation => !validation.interfaceExists,
+  )
+
+  console.log(`❌ Some model definitions defined in your graphqlgen.yml were not found
+  
+${chalk.default.bold(
+    'Step 1',
+  )}: Make sure each of these model definitions are defined in the following files
+
+  models:
+    ${invalidDefinitions
+      .map(def => `${def.definition.typeName}: ${def.definition.filePath}: ${chalk.default.redBright(def.definition.modelName!)}`)
+      .join(os.EOL)}
+
+${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
+  process.exit(1)
 }
 
-function validateDefinitions(
+export function validateModelMap(
   modelsConfig: ModelsConfig,
   language: Language,
 ): void {
@@ -165,21 +235,18 @@ function validateDefinitions(
   }
 }
 
-/* export function parseDefinition(definition: string) {
-  return { filePath,  interfaceDefinition}
-} */
-
 export function buildModelMap(
   modelsConfig: ModelsConfig,
   outputDir: string,
-  language: Language,
+  language: Language
 ): ModelMap {
-  validateDefinitions(modelsConfig, language)
+  // Exit if any errors
+  validateModelMap(modelsConfig, language);
 
   return Object.keys(modelsConfig).reduce((acc, typeName) => {
     const modelConfig = modelsConfig[typeName]
     const [filePath, modelName] = modelConfig.split(':')
-    const absoluteFilePath = getAbsoluteFilePath(filePath)
+    const absoluteFilePath = getAbsoluteFilePath(filePath, language)
     const importPathRelativeToOutput = getImportPathRelativeToOutput(
       absoluteFilePath,
       outputDir,

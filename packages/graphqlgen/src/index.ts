@@ -238,7 +238,6 @@ async function run() {
   if (JSON.stringify(options) !== '{}') {
     console.log(chalk.default.blue(`Found a prettier configuration to use`))
   }
-
   //TODO: Should we provide a default in case `config.output.types` is not defined?
   const modelMap = buildModelMap(config.models, config.output, config.language)
 

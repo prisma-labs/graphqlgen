@@ -1,12 +1,23 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import { Language } from 'graphqlgen-json-schema';
+
+export function getExtNameFromLanguage(language: Language) {
+  const extNames = {
+    typescript: '.ts',
+    /* flow: '.js' */
+  };
+
+  return extNames[language];
+}
 
 // TODO write test cases
-export function getAbsoluteFilePath(modelPath: string): string {
+export function getAbsoluteFilePath(modelPath: string, language: Language): string {
   let absolutePath = path.resolve(modelPath)
-
-  if (!fs.existsSync(absolutePath) && fs.existsSync(`${absolutePath}.ts`)) {
-    absolutePath += '.ts'
+  const extName = getExtNameFromLanguage(language);
+  
+  if (!fs.existsSync(absolutePath) && fs.existsSync(`${absolutePath}${extName}`)) {
+    absolutePath += extName
   }
 
   if (!fs.existsSync(absolutePath)) {
@@ -14,19 +25,19 @@ export function getAbsoluteFilePath(modelPath: string): string {
   }
 
   if (!fs.lstatSync(absolutePath).isDirectory()) {
-    if (path.extname(absolutePath) !== '.ts') {
-      throw new Error(`${absolutePath} has to be a .ts file`)
+    if (path.extname(absolutePath) !== extName) {
+      throw new Error(`${absolutePath} has to be a ${extName} file`)
     }
 
     return absolutePath
   }
 
-  const indexTsPath = path.join(absolutePath, 'index.ts')
-  if (!fs.existsSync(indexTsPath)) {
-    throw new Error(`No index.ts file found in directory: ${absolutePath}`)
+  const indexPath = path.join(absolutePath, 'index' + extName)
+  if (!fs.existsSync(indexPath)) {
+    throw new Error(`No index${extName} file found in directory: ${absolutePath}`)
   }
 
-  return indexTsPath
+  return indexPath
 }
 
 // TODO write test cases
