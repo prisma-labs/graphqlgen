@@ -82,6 +82,8 @@ function normalizeFilePath(filePath: string, language: Language) {
   return filePath
 }
 
+//TODO: Typescript validation duplicated from ts-generator.ts
+// See https://github.com/prisma/graphqlgen/issues/138
 function hasInterfaceInTypescriptFile(
   filePath: string,
   interfaceName: string,
