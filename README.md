@@ -59,7 +59,7 @@ resolver-scaffolding:
 
 ## Configuration: `graphqlgen.yml`
 
-> The `graphqlgen.yml` is only required for [Generation](#generation) and [Resolver scaffolding](#scaffolding). [Bootstrapping](#bootstrapping) a GraphQL server is done via `npm init graphqlgen` and doesn't require the `graphqlgen` CLI to be installed. 
+> The `graphqlgen.yml`configuration file  is only required for [Generation](#generation) and [Resolver scaffolding](#scaffolding). [Bootstrapping](#bootstrapping) a GraphQL server is done via `npm init graphqlgen` and doesn't require the `graphqlgen` CLI to be installed. 
 
 ### Name
 
