@@ -32,7 +32,7 @@
     "camelcase": "5.0.0",
     "capitalize": "1.0.0",
     "chalk": "2.4.1",
-    "graphql": "0.13.2",
+    "graphql": "14.0.2",
     "graphql-import": "0.6.0",
     "graphqlgen-json-schema": "0.2.4",
     "js-yaml": "^3.12.0",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/camelcase": "4.1.0",
     "@types/capitalize": "1.0.1",
-    "@types/graphql": "0.13.4",
+    "@types/graphql": "14.0.3",
     "@types/jest": "23.3.1",
     "@types/js-yaml": "^3.11.2",
     "@types/mkdirp": "0.5.2",
