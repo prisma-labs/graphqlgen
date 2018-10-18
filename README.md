@@ -1,12 +1,14 @@
 ## Introduction
 
-`graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon).
+`graphqlgen` is a CLI that translate GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon). 
 
-These are the main benefits provided by   graphqlgen`:
+These are the main benefits provided by `graphqlgen`:
 
-- Map GraphQL schema to resolver implementation
-- Type-safe data flow inside of resolvers (resolver return value and `parent` value)
-- Auto-completion & error-catching on resolver arguments as well as on return & `parent` values
+- Automated mapping from GraphQL schema to resolver implementation
+- Type-safe data flow inside of resolvers
+- Auto-completion & error-catching on resolver arguments (including `parent`) and return values 
+
+Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. `graphql` leverages the strongly typed GraphQL schema with the goal making your API layer type-safe while reducing the need to write through code generation. 
 
 ## Features
 
@@ -18,8 +20,8 @@ There are three major features supported by `graphqlgen`:
 
 More features are:
 
-- Supports `graphql-import`
 - Suports `prettier` (code is generated following the code styling practices of your project)
+- Supports `graphql-import`
 
 ## Install
 
