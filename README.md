@@ -105,6 +105,14 @@ For each model, `graphqlgen` generates the following:
 - Type definitions for resolver arguments and return value 
 - Default resolver implementations
 
+The relevant properties from `graphqlgen.yml` for the Generation feature are:
+
+- `language` (required)
+- `schema` (required)
+- `models` (required)
+- `context` (optional)
+- `output` (required)
+
 ### Type Definitions
 
 This is required to make your resolvers type safe. Type definitions are generated for the resolvers' return values as well as for the first three resolver arguments:
@@ -229,8 +237,7 @@ Note the following:
 - The `email` field is not part of the generated default resolvers because it only exists in the TypeScript definitions.
 - Because we didn't provide a `context` property in `graphqlgen.yml`, `Context` is typed to `any`.
 
-
-</Detail>
+</Details>
 
 ## Scaffolding Resolvers
 
