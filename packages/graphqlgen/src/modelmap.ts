@@ -1,21 +1,24 @@
+import { Language } from 'graphqlgen-json-schema'
+
 import { ModelMap } from './types'
 import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
 
-interface ModelsConfig {
+export interface ModelsConfig {
   [typeName: string]: string
 }
 
 export function buildModelMap(
   modelsConfig: ModelsConfig,
   outputDir: string,
+  language: Language,
 ): ModelMap {
   return Object.keys(modelsConfig).reduce((acc, typeName) => {
     const modelConfig = modelsConfig[typeName]
-    const [modelPath, modelTypeName] = modelConfig.split(':')
-    const absoluteFilePath = getAbsoluteFilePath(modelPath)
+    const [filePath, modelName] = modelConfig.split(':')
+    const absoluteFilePath = getAbsoluteFilePath(filePath, language)
     const importPathRelativeToOutput = getImportPathRelativeToOutput(
       absoluteFilePath,
       outputDir,
@@ -25,7 +28,7 @@ export function buildModelMap(
       [typeName]: {
         absoluteFilePath,
         importPathRelativeToOutput,
-        modelTypeName,
+        modelTypeName: modelName,
       },
     }
   }, {})

@@ -35,6 +35,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 
 import { parseConfig } from './yaml'
 import { buildModelMap } from './modelmap'
+import { validateModelMap, validateContext } from './validation'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -221,6 +222,13 @@ export function parseSchema(schemaPath: string): DocumentNode {
   return parsedSchema!
 }
 
+function validateConfig(config: GraphQLGenDefinition) {
+  const language = config.language
+
+  validateContext(config.context!, language)
+  validateModelMap(config.models, language)
+}
+
 async function run() {
   //TODO: Define proper defaults
   // const defaults: DefaultOptions = {
@@ -239,8 +247,10 @@ async function run() {
     console.log(chalk.default.blue(`Found a prettier configuration to use`))
   }
 
+  validateConfig(config)
+
   //TODO: Should we provide a default in case `config.output.types` is not defined?
-  const modelMap = buildModelMap(config.models, config.output)
+  const modelMap = buildModelMap(config.models, config.output, config.language)
 
   const { generatedTypes, generatedResolvers } = generateCode({
     schema: parsedSchema!,
