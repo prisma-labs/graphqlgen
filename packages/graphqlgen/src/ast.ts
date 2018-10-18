@@ -2,7 +2,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as ts from 'typescript'
 
-export function getChildrenNodes(source: ts.Node | ts.SourceFile) {
+export function getChildrenNodes(source: ts.Node | ts.SourceFile): ts.Node[] {
   const nodes: ts.Node[] = []
 
   source.forEachChild(node => {
