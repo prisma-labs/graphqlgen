@@ -43,7 +43,7 @@ function isParentType(name: string) {
 }
 
 export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
-  const code = `
+  const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
 
@@ -63,7 +63,10 @@ export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
 }
 
 export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
-  const code = `
+  const code = `\
+  // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+  // Please do not import this file directly but copy & paste to your application code.
+
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
   
   export const ${type.name}: ${type.name}Resolvers.Type = {
@@ -84,7 +87,11 @@ export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
 }
 
 export function renderExports(types: GraphQLTypeObject[]): string {
-  return `import { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+  return `\
+  // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+  // Please do not import this file directly but copy & paste to your application code.
+
+  import { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
     ${types
       .filter(type => type.type.isObject)
       .map(
