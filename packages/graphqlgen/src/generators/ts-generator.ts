@@ -15,7 +15,7 @@ interface InputTypesMap {
 }
 
 interface TypeToInputTypeAssociation {
-  [s: string]: any
+  [s: string]: string[]
 }
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -133,18 +133,7 @@ function renderNamespace(
 
     ${renderScalarResolvers(type, modelMap)}
 
-    ${
-      // TODO refactor
-      typeToInputTypeAssociation[type.name]
-        ? `export interface ${
-            inputTypesMap[typeToInputTypeAssociation[type.name]].name
-          } {
-      ${inputTypesMap[typeToInputTypeAssociation[type.name]].fields.map(
-        field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`,
-      )}
-    }`
-        : ``
-    }  
+    ${renderInputTypeInterfaces(typeToInputTypeAssociation, inputTypesMap, type)}
 
     ${renderInputArgInterfaces(type, modelMap)}
 
@@ -155,6 +144,19 @@ function renderNamespace(
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }
   `
+}
+
+function renderInputTypeInterfaces(typeToInputTypeAssociation: TypeToInputTypeAssociation, inputTypesMap: InputTypesMap, type: GraphQLTypeObject) {
+  if (!typeToInputTypeAssociation[type.name]) {
+    return ``
+  }
+  return typeToInputTypeAssociation[type.name].map(typeAssociation => {
+    return `export interface ${inputTypesMap[typeAssociation].name} {
+      ${inputTypesMap[typeAssociation].fields.map(
+        field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`
+      )}
+    }`
+  }).join(os.EOL)
 }
 
 function renderScalarResolvers(
