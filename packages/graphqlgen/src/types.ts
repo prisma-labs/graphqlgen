@@ -9,7 +9,7 @@ export type GenerateArgs = {
   types: GraphQLTypeObject[]
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]
-  contextPath?: string
+  context?: ContextDefinition
   modelMap: ModelMap
 }
 
@@ -21,6 +21,11 @@ export interface Model {
   absoluteFilePath: string
   importPathRelativeToOutput: string
   modelTypeName: string
+}
+
+export type ContextDefinition = {
+  contextPath: string
+  interfaceName: string
 }
 
 export interface CodeFileLike {

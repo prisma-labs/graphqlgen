@@ -35,7 +35,7 @@ export function validateConfig(
 ): boolean {
   const language = config.language
 
-  if (!validateContext(config.context!, language)) {
+  if (!validateContext(config.context, language)) {
     return false
   }
 
@@ -101,9 +101,13 @@ function validateModelMap(
 }
 
 function validateContext(
-  contextDefinition: string,
+  contextDefinition: string | undefined,
   language: Language,
 ): boolean {
+  if (!contextDefinition) {
+    return true
+  }
+
   const validatedContext = validateDefinition(
     'Context',
     contextDefinition,

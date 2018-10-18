@@ -18,7 +18,13 @@ import {
   getImportPathRelativeToOutput,
   getAbsoluteFilePath,
 } from './path-helpers'
-import { IGenerator, GenerateArgs, CodeFileLike, ModelMap } from './types'
+import {
+  IGenerator,
+  GenerateArgs,
+  CodeFileLike,
+  ModelMap,
+  ContextDefinition,
+} from './types'
 import {
   generate as generateTS,
   format as formatTS,
@@ -110,20 +116,33 @@ function generateResolvers(
   })
 }
 
+function parseContext(
+  context: string | undefined,
+  outputDir: string,
+): ContextDefinition | undefined {
+  if (!context) {
+    return undefined
+  }
+
+  const [filePath, interfaceName] = context.split(':')
+
+  return {
+    contextPath: getImportPathRelativeToOutput(filePath, outputDir),
+    interfaceName,
+  }
+}
+
 export function generateCode(
   generateCodeArgs: GenerateCodeArgs,
 ): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
-  const contextPath = generateCodeArgs.config.context
-    ? getImportPathRelativeToOutput(
-        generateCodeArgs.config.context!.split(':')[0].replace(/\.ts$/, ''),
-        generateCodeArgs.config!.output,
-      )
-    : undefined
   const generateArgs: GenerateArgs = {
     types: extractGraphQLTypes(generateCodeArgs.schema!),
     enums: extractGraphQLEnums(generateCodeArgs.schema!),
     unions: extractGraphQLUnions(generateCodeArgs.schema!),
-    contextPath, // TODO: use contextPath from graphqlgen.yml
+    context: parseContext(
+      generateCodeArgs.config.context,
+      generateCodeArgs.config.output,
+    ),
     modelMap: generateCodeArgs.modelMap!,
   }
   const generatedTypes = generateTypes(generateArgs, generateCodeArgs)
