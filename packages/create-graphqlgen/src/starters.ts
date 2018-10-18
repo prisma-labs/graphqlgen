@@ -15,7 +15,7 @@ export const defaultStarter: Starter = {
   description: 'standard starter',
   repo: {
     uri: 'https://github.com/prisma/graphqlgen',
-    branch: 'feature/models',
+    branch: 'master',
     path: 'packages/graphqlgen-templates/yoga',
   },
 }
