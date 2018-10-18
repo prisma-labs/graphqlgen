@@ -211,7 +211,7 @@ function renderScalarResolvers(
         return fieldName
       })
       .filter(fieldName => type.fields.some(field => field.name === fieldName))
-      .map(fieldName => renderScalarResolver(fieldName, type.name))
+      .map(fieldName => renderScalarResolver(fieldName, model.modelTypeName))
       .join(os.EOL)}
   }`
 }
