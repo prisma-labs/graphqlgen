@@ -13,7 +13,7 @@ export interface ModelsConfig {
 export function buildModelMap(
   modelsConfig: ModelsConfig,
   outputDir: string,
-  language: Language
+  language: Language,
 ): ModelMap {
   return Object.keys(modelsConfig).reduce((acc, typeName) => {
     const modelConfig = modelsConfig[typeName]

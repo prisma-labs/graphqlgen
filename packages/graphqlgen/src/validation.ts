@@ -47,12 +47,20 @@ export function validateModelMap(
 }
 
 export function validateContext(contextDefinition: string, language: Language) {
-  const validatedContext = validateDefinition('Context', contextDefinition, language);
+  const validatedContext = validateDefinition(
+    'Context',
+    contextDefinition,
+    language,
+  )
 
   //TODO: Provide better error messages for each case
-  if (!validatedContext.validSyntax || !validatedContext.fileExists || !validatedContext.interfaceExists) {
-    console.log(chalk.default.redBright('Invalid context'));
-    process.exit(1);
+  if (
+    !validatedContext.validSyntax ||
+    !validatedContext.fileExists ||
+    !validatedContext.interfaceExists
+  ) {
+    console.log(chalk.default.redBright('Invalid context'))
+    process.exit(1)
   }
 }
 
