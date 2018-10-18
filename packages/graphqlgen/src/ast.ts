@@ -9,10 +9,13 @@ export function getChildrenNodes(source: ts.Node | ts.SourceFile) {
     nodes.push(node)
   })
 
-  return nodes;
+  return nodes
 }
 
-export function findInterfaceByName(filePath: string, interfaceName: string): ts.Node | undefined {
+export function findInterfaceByName(
+  filePath: string,
+  interfaceName: string,
+): ts.Node | undefined {
   const fileName = path.basename(filePath)
 
   const sourceFile = ts.createSourceFile(

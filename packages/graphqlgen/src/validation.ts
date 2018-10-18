@@ -49,7 +49,7 @@ export function validateConfig(
 function validateSchemaToModelMapping(
   schema: DocumentNode,
   validatedDefinitions: ValidatedDefinition[],
-) {
+): boolean {
   const types = extractGraphQLTypes(schema)
   const modelNames = validatedDefinitions.map(def => def.definition.modelName!)
 
@@ -131,7 +131,7 @@ function validateContext(
  * './path/to/' => './path/to/index.ts'
  */
 
-function normalizeFilePath(filePath: string, language: Language) {
+function normalizeFilePath(filePath: string, language: Language): string {
   const ext = getExtNameFromLanguage(language)
 
   if (path.extname(filePath) !== ext) {
@@ -299,7 +299,7 @@ ${missingModels.map(renderModelFromType).join(os.EOL)}
 ${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
 }
 
-function renderModelFromType(type: GraphQLTypeObject) {
+function renderModelFromType(type: GraphQLTypeObject): string {
   return (
     `• ${chalk.default.bold(type.name)}.ts
 

@@ -35,7 +35,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 
 import { parseConfig } from './yaml'
 import { buildModelMap } from './modelmap'
-import { validateConfig } from './validation';
+import { validateConfig } from './validation'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -246,7 +246,6 @@ async function run() {
 
   //TODO: Should we provide a default in case `config.output.types` is not defined?
   const modelMap = buildModelMap(config.models, config.output, config.language)
-  
 
   const { generatedTypes, generatedResolvers } = generateCode({
     schema: parsedSchema!,

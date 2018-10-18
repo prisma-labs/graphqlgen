@@ -306,7 +306,7 @@ export function extractGraphQLUnions(schema: DocumentNode) {
   return types
 }
 
-export function graphQLToTypecriptType(type: GraphQLType) {
+export function graphQLToTypecriptType(type: GraphQLType): string {
   const graphqlToTypescript: { [key: string]: string } = {
     String: 'string',
     Boolean: 'boolean',
@@ -315,9 +315,7 @@ export function graphQLToTypecriptType(type: GraphQLType) {
     Float: 'number',
   }
 
-  let typescriptType = type.isScalar
-    ? graphqlToTypescript[type.name]
-    : 'any'
+  let typescriptType = type.isScalar ? graphqlToTypescript[type.name] : 'any'
 
   if (type.isArray) {
     typescriptType += '[]'
