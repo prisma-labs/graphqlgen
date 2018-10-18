@@ -1,3 +1,5 @@
+<p align="center"><img src="https://imgur.com/c6Y4tGw.png" width="150" /></p>
+
 ## graphqlgen
 
 
