@@ -80,8 +80,8 @@ The configuration file must be called **`graphqlgen.yml`**.
 
 Models represent domain objects in TypeScript:
 
-- Models are **not** necessarily 1-to-1 mappings to your database structures, but can be.
-- Models are **not** necessarily the types from your GraphQL schema, but can be.
+- Models are **not necessarily** 1-to-1 mappings to your database structures, **but can be**.
+- Models are **not necessarily** the types from your GraphQL schema, **but can be**.
 
 When starting a new project, it is often the case that models look _very_ similar to database structures as well as to the types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from its underlying database structure.
 
