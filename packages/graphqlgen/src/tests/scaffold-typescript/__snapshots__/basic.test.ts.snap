@@ -1,0 +1,706 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic enum 1`] = `
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
+import { Context } from \\"../../../fixtures/enum/types\\";
+import { Number } from \\"../../../fixtures/enum/types\\";
+
+export namespace QueryResolvers {
+  export const defaultResolvers = {};
+
+  export interface ArgsCreateUser {
+    name: string;
+    type: {};
+  }
+
+  export type CreateUserResolver = (
+    parent: {},
+    args: ArgsCreateUser,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => {} | null | Promise<{} | null>;
+
+  export interface Type {
+    createUser: (
+      parent: {},
+      args: ArgsCreateUser,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => {} | null | Promise<{} | null>;
+  }
+}
+
+export namespace UserResolvers {
+  export const defaultResolvers = {};
+
+  export type IdResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type TypeResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => {} | Promise<{}>;
+
+  export interface Type {
+    id: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    type: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => {} | Promise<{}>;
+  }
+}
+
+export interface Resolvers {
+  Query: QueryResolvers.Type;
+  User: UserResolvers.Type;
+}
+"
+`;
+
+exports[`basic enum 2`] = `
+Array [
+  Object {
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const User: UserResolvers.Type = {
+  ...UserResolvers.defaultResolvers,
+
+  type: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
+",
+    "force": false,
+    "path": "User.ts",
+  },
+  Object {
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Query: QueryResolvers.Type = {
+  ...QueryResolvers.defaultResolvers,
+  createUser: (parent, args) => null
+};
+",
+    "force": false,
+    "path": "Query.ts",
+  },
+  Object {
+    "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { Query } from \\"./Query\\";
+import { User } from \\"./User\\";
+
+export const resolvers: Resolvers = {
+  Query,
+  User
+};
+",
+    "force": false,
+    "path": "index.ts",
+  },
+]
+`;
+
+exports[`basic scalar 1`] = `
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
+import { Context } from \\"../../../fixtures/scalar/types\\";
+import { Number } from \\"../../../fixtures/scalar/types\\";
+
+export namespace MutationResolvers {
+  export const defaultResolvers = {};
+
+  export interface AddMemberData {
+    email: string;
+    projects: string;
+  }
+
+  export interface ArgsAddMember {
+    data: AddMemberData;
+  }
+
+  export type AddMemberResolver = (
+    parent: {},
+    args: ArgsAddMember,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => {} | Promise<{}>;
+
+  export interface Type {
+    addMember: (
+      parent: {},
+      args: ArgsAddMember,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => {} | Promise<{}>;
+  }
+}
+
+export namespace AddMemberPayloadResolvers {
+  export const defaultResolvers = {};
+
+  export type JsonResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export interface Type {
+    json: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+  }
+}
+
+export interface Resolvers {
+  Mutation: MutationResolvers.Type;
+  AddMemberPayload: AddMemberPayloadResolvers.Type;
+}
+"
+`;
+
+exports[`basic scalar 2`] = `
+Array [
+  Object {
+    "code": "import { AddMemberPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const AddMemberPayload: AddMemberPayloadResolvers.Type = {
+  ...AddMemberPayloadResolvers.defaultResolvers
+};
+",
+    "force": false,
+    "path": "AddMemberPayload.ts",
+  },
+  Object {
+    "code": "import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Mutation: MutationResolvers.Type = {
+  ...MutationResolvers.defaultResolvers,
+  addMember: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
+",
+    "force": false,
+    "path": "Mutation.ts",
+  },
+  Object {
+    "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { Mutation } from \\"./Mutation\\";
+import { AddMemberPayload } from \\"./AddMemberPayload\\";
+
+export const resolvers: Resolvers = {
+  Mutation,
+  AddMemberPayload
+};
+",
+    "force": false,
+    "path": "index.ts",
+  },
+]
+`;
+
+exports[`basic schema 1`] = `
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
+import { Context } from \\"../../../fixtures/basic\\";
+import { Number } from \\"../../../fixtures/basic\\";
+
+export namespace QueryResolvers {
+  export const defaultResolvers = {};
+
+  export interface ArgsCustom_with_arg {
+    id: number;
+  }
+
+  export interface ArgsCustom_with_custom_arg {
+    id: Number;
+  }
+
+  export interface ArgsScalar_with_arg {
+    id: number;
+  }
+
+  export interface ArgsScalar_with_custom_arg {
+    id: Number;
+  }
+
+  export type IdResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type Custom_requiredResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number | Promise<Number>;
+
+  export type Custom_nullableResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number | null | Promise<Number | null>;
+
+  export type Custom_array_nullableResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number[] | null | Promise<Number[] | null>;
+
+  export type Custom_array_requiredResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number[] | Promise<Number[]>;
+
+  export type Custom_with_argResolver = (
+    parent: {},
+    args: ArgsCustom_with_arg,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number | Promise<Number>;
+
+  export type Custom_with_custom_argResolver = (
+    parent: {},
+    args: ArgsCustom_with_custom_arg,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Number | Promise<Number>;
+
+  export type Scalar_requiredResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | Promise<boolean>;
+
+  export type Scalar_nullableResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | null | Promise<boolean | null>;
+
+  export type Scalar_array_nullableResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean[] | null | Promise<boolean[] | null>;
+
+  export type Scalar_array_requiredResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean[] | Promise<boolean[]>;
+
+  export type Scalar_with_argResolver = (
+    parent: {},
+    args: ArgsScalar_with_arg,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | Promise<boolean>;
+
+  export type Scalar_with_custom_argResolver = (
+    parent: {},
+    args: ArgsScalar_with_custom_arg,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | Promise<boolean>;
+
+  export interface Type {
+    id: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    custom_required: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number | Promise<Number>;
+
+    custom_nullable: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number | null | Promise<Number | null>;
+
+    custom_array_nullable: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number[] | null | Promise<Number[] | null>;
+
+    custom_array_required: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number[] | Promise<Number[]>;
+
+    custom_with_arg: (
+      parent: {},
+      args: ArgsCustom_with_arg,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number | Promise<Number>;
+
+    custom_with_custom_arg: (
+      parent: {},
+      args: ArgsCustom_with_custom_arg,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Number | Promise<Number>;
+
+    scalar_required: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | Promise<boolean>;
+
+    scalar_nullable: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | null | Promise<boolean | null>;
+
+    scalar_array_nullable: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean[] | null | Promise<boolean[] | null>;
+
+    scalar_array_required: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean[] | Promise<boolean[]>;
+
+    scalar_with_arg: (
+      parent: {},
+      args: ArgsScalar_with_arg,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | Promise<boolean>;
+
+    scalar_with_custom_arg: (
+      parent: {},
+      args: ArgsScalar_with_custom_arg,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | Promise<boolean>;
+  }
+}
+
+export namespace NumberResolvers {
+  export const defaultResolvers = {
+    id: (parent: Number) => parent.id,
+    value: (parent: Number) => parent.value
+  };
+
+  export type IdResolver = (
+    parent: Number,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export type ValueResolver = (
+    parent: Number,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export interface Type {
+    id: (
+      parent: Number,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+
+    value: (
+      parent: Number,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+  }
+}
+
+export interface Resolvers {
+  Query: QueryResolvers.Type;
+  Number: NumberResolvers.Type;
+}
+"
+`;
+
+exports[`basic schema 2`] = `
+Array [
+  Object {
+    "code": "import { NumberResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Number: NumberResolvers.Type = {
+  ...NumberResolvers.defaultResolvers
+};
+",
+    "force": false,
+    "path": "Number.ts",
+  },
+  Object {
+    "code": "import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Query: QueryResolvers.Type = {
+  ...QueryResolvers.defaultResolvers,
+  id: parent => null,
+  custom_required: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_nullable: parent => null,
+  custom_array_nullable: parent => null,
+  custom_array_required: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_arg: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_custom_arg: (parent, args) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_required: parent => false,
+  scalar_nullable: parent => null,
+  scalar_array_nullable: parent => null,
+  scalar_array_required: parent => [],
+  scalar_with_arg: (parent, args) => false,
+  scalar_with_custom_arg: (parent, args) => false
+};
+",
+    "force": false,
+    "path": "Query.ts",
+  },
+  Object {
+    "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { Query } from \\"./Query\\";
+import { Number } from \\"./Number\\";
+
+export const resolvers: Resolvers = {
+  Query,
+  Number
+};
+",
+    "force": false,
+    "path": "index.ts",
+  },
+]
+`;
+
+exports[`basic union 1`] = `
+"/* DO NOT EDIT! */
+import { GraphQLResolveInfo } from \\"graphql\\";
+import { Context } from \\"../../../fixtures/union/types\\";
+import { Number } from \\"../../../fixtures/union/types\\";
+
+export namespace UserResolvers {
+  export const defaultResolvers = {};
+
+  export type IdResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type TypeResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => {} | Promise<{}>;
+
+  export interface Type {
+    id: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    type: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => {} | Promise<{}>;
+  }
+}
+
+export namespace StudentResolvers {
+  export const defaultResolvers = {};
+
+  export type AgeResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export interface Type {
+    age: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+  }
+}
+
+export namespace ProfessorResolvers {
+  export const defaultResolvers = {};
+
+  export type DegreeResolver = (
+    parent: {},
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export interface Type {
+    degree: (
+      parent: {},
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+  }
+}
+
+export interface Resolvers {
+  User: UserResolvers.Type;
+  Student: StudentResolvers.Type;
+  Professor: ProfessorResolvers.Type;
+}
+"
+`;
+
+exports[`basic union 2`] = `
+Array [
+  Object {
+    "code": "import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const User: UserResolvers.Type = {
+  ...UserResolvers.defaultResolvers,
+
+  type: parent => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
+};
+",
+    "force": false,
+    "path": "User.ts",
+  },
+  Object {
+    "code": "import { StudentResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Student: StudentResolvers.Type = {
+  ...StudentResolvers.defaultResolvers
+};
+",
+    "force": false,
+    "path": "Student.ts",
+  },
+  Object {
+    "code": "import { ProfessorResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+export const Professor: ProfessorResolvers.Type = {
+  ...ProfessorResolvers.defaultResolvers
+};
+",
+    "force": false,
+    "path": "Professor.ts",
+  },
+  Object {
+    "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
+
+import { User } from \\"./User\\";
+import { Student } from \\"./Student\\";
+import { Professor } from \\"./Professor\\";
+
+export const resolvers: Resolvers = {
+  User,
+  Student,
+  Professor
+};
+",
+    "force": false,
+    "path": "index.ts",
+  },
+]
+`;

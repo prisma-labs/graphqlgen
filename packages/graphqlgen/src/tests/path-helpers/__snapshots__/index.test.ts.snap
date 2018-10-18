@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`valid directory path 1`] = `
+Array [
+  "tests",
+  "fixtures",
+  "basic",
+  "index.ts",
+]
+`;
+
+exports[`valid directory path without slash 1`] = `
+Array [
+  "tests",
+  "fixtures",
+  "basic",
+  "index.ts",
+]
+`;
+
+exports[`valid path 1`] = `
+Array [
+  "tests",
+  "fixtures",
+  "basic",
+  "index.ts",
+]
+`;

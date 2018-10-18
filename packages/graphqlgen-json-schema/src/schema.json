@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "JSON schema for graphqlgen.yml files",
+  "properties": {
+    "language": {
+      "type": "string",
+      "oneOf": [{ "enum": ["typescript", "flow"] }]
+    },
+    "schema": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "models": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "string"
+        }
+      }
+    },
+    "output": {
+      "type": "string",
+      "description": "Path to main output file"
+    },
+    "resolver-scaffolding": {
+      "description": "All output fields",
+      "type": "object",
+      "properties": {
+        "output": {
+          "type": "string",
+          "description": "Path to scaffolded file for missing model definitions"
+        },
+        "layout": {
+          "type": "string",
+          "oneOf": [{ "enum": ["file-per-type"] }]
+        }
+      },
+      "required": ["output", "layout"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "language",
+    "schema",
+    "models",
+    "output"
+  ],
+  "additionalProperties": false
+}
