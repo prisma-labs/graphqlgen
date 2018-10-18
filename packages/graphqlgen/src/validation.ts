@@ -1,13 +1,19 @@
 import * as chalk from 'chalk'
 import * as path from 'path'
 import * as os from 'os'
-import * as ts from 'typescript'
 
-import { existsSync, readFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { getExtNameFromLanguage } from './path-helpers'
 
-import { Language } from 'graphqlgen-json-schema'
+import { Language, GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import { ModelsConfig } from './modelmap'
+import { findInterfaceByName } from './ast'
+import { DocumentNode } from 'graphql'
+import {
+  extractGraphQLTypes,
+  GraphQLTypeObject,
+  graphQLToTypecriptType,
+} from './source-helper'
 
 type Definition = {
   typeName: string
@@ -23,10 +29,49 @@ type ValidatedDefinition = {
   interfaceExists: boolean
 }
 
-export function validateModelMap(
+export function validateConfig(
+  config: GraphQLGenDefinition,
+  schema: DocumentNode,
+): boolean {
+  const language = config.language
+
+  if (!validateContext(config.context!, language)) {
+    return false
+  }
+
+  if (!validateModelMap(config.models, schema, language)) {
+    return false
+  }
+
+  return true
+}
+
+function validateSchemaToModelMapping(
+  schema: DocumentNode,
+  validatedDefinitions: ValidatedDefinition[],
+): boolean {
+  const types = extractGraphQLTypes(schema)
+  const modelNames = validatedDefinitions.map(def => def.definition.modelName!)
+
+  const missingModels = types
+    .filter(
+      type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
+    )
+    .filter(type => !modelNames.find(modelName => modelName === type.name))
+
+  if (missingModels.length > 0) {
+    outputMissingModels(missingModels)
+    return false
+  }
+
+  return true
+}
+
+function validateModelMap(
   modelsConfig: ModelsConfig,
+  schema: DocumentNode,
   language: Language,
-): void {
+): boolean {
   const validatedDefinitions: ValidatedDefinition[] = Object.keys(
     modelsConfig,
   ).map(typeName =>
@@ -34,19 +79,31 @@ export function validateModelMap(
   )
 
   if (validatedDefinitions.some(validation => !validation.validSyntax)) {
-    return outputWrongSyntaxFiles(validatedDefinitions)
+    outputWrongSyntaxFiles(validatedDefinitions)
+    return false
   }
 
   if (validatedDefinitions.some(validation => !validation.fileExists)) {
-    return outputDefinitionFilesNotFound(validatedDefinitions)
+    outputDefinitionFilesNotFound(validatedDefinitions)
+    return false
   }
 
   if (validatedDefinitions.some(validation => !validation.interfaceExists)) {
-    return outputInterfaceDefinitionsNotFound(validatedDefinitions)
+    outputInterfaceDefinitionsNotFound(validatedDefinitions)
+    return false
   }
+
+  if (!validateSchemaToModelMapping(schema, validatedDefinitions)) {
+    return false
+  }
+
+  return true
 }
 
-export function validateContext(contextDefinition: string, language: Language) {
+function validateContext(
+  contextDefinition: string,
+  language: Language,
+): boolean {
   const validatedContext = validateDefinition(
     'Context',
     contextDefinition,
@@ -60,8 +117,10 @@ export function validateContext(contextDefinition: string, language: Language) {
     !validatedContext.interfaceExists
   ) {
     console.log(chalk.default.redBright('Invalid context'))
-    process.exit(1)
+    return false
   }
+
+  return true
 }
 
 /**
@@ -72,7 +131,7 @@ export function validateContext(contextDefinition: string, language: Language) {
  * './path/to/' => './path/to/index.ts'
  */
 
-function normalizeFilePath(filePath: string, language: Language) {
+function normalizeFilePath(filePath: string, language: Language): string {
   const ext = getExtNameFromLanguage(language)
 
   if (path.extname(filePath) !== ext) {
@@ -82,33 +141,11 @@ function normalizeFilePath(filePath: string, language: Language) {
   return filePath
 }
 
-//TODO: Typescript validation duplicated from ts-generator.ts
-// See https://github.com/prisma/graphqlgen/issues/138
 function hasInterfaceInTypescriptFile(
   filePath: string,
   interfaceName: string,
 ): boolean {
-  const fileName = path.basename(filePath)
-
-  const sourceFile = ts.createSourceFile(
-    fileName,
-    readFileSync(filePath).toString(),
-    ts.ScriptTarget.ES2015,
-  )
-
-  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const nodes: ts.Node[] = []
-  sourceFile.forEachChild(node => {
-    nodes.push(node)
-  })
-
-  const node = nodes.find(
-    node =>
-      node.kind === ts.SyntaxKind.InterfaceDeclaration &&
-      (node as ts.InterfaceDeclaration).name.escapedText === interfaceName,
-  )
-
-  return !!node
+  return !!findInterfaceByName(filePath, interfaceName)
 }
 
 // Check whether the model definition exists in typescript/flow file
@@ -193,7 +230,6 @@ ${chalk.default.bold(
       .join(os.EOL)}
 
   ${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
-  process.exit(1)
 }
 
 function outputWrongSyntaxFiles(validatedDefinitions: ValidatedDefinition[]) {
@@ -223,7 +259,6 @@ ${chalk.default.bold(
       .join(os.EOL)}
 
 ${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
-  process.exit(1)
 }
 
 function outputInterfaceDefinitionsNotFound(
@@ -245,10 +280,33 @@ ${chalk.default.bold(
         def =>
           `${def.definition.typeName}: ${
             def.definition.filePath
-          }: ${chalk.default.redBright(def.definition.modelName!)}`,
+          }:${chalk.default.redBright(def.definition.modelName!)}`,
       )
       .join(os.EOL)}
 
 ${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
-  process.exit(1)
+}
+
+function outputMissingModels(missingModels: GraphQLTypeObject[]) {
+  console.log(`❌ Some types from your application schema have model definitions that are not defined yet
+  
+${chalk.default.bold(
+    'Step 1',
+  )}: Copy/paste the model definitions below to your application
+
+${missingModels.map(renderModelFromType).join(os.EOL)}
+
+${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
+}
+
+function renderModelFromType(type: GraphQLTypeObject): string {
+  return (
+    `• ${chalk.default.bold(type.name)}.ts
+
+interface ${chalk.default.bold(type.name)} {
+${type.fields
+      .map(field => `  ${field.name}: ${graphQLToTypecriptType(field.type)}`)
+      .join(os.EOL)}
+}` + os.EOL
+  )
 }

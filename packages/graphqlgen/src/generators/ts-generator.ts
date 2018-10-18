@@ -2,11 +2,10 @@ import * as os from 'os'
 import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 import * as ts from 'typescript'
-import * as path from 'path'
-import * as fs from 'fs'
 
 import { GenerateArgs, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import { findInterfaceByName, getChildrenNodes } from '../ast';
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -170,39 +169,17 @@ function renderScalarResolvers(
   }
 
   const filePath = model.absoluteFilePath
-  const fileName = path.basename(filePath)
+  const interfaceNode = findInterfaceByName(filePath, model.modelTypeName);
 
-  const sourceFile = ts.createSourceFile(
-    fileName,
-    fs.readFileSync(filePath).toString(),
-    ts.ScriptTarget.ES2015,
-  )
-
-  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const nodes: ts.Node[] = []
-  sourceFile.forEachChild(node => {
-    nodes.push(node)
-  })
-
-  const node = nodes.find(
-    node =>
-      node.kind === ts.SyntaxKind.InterfaceDeclaration &&
-      (node as ts.InterfaceDeclaration).name.escapedText ===
-        model.modelTypeName,
-  )
-
-  if (!node) {
+  if (!interfaceNode) {
     throw new Error(`No interface found for name ${model.modelTypeName}`)
   }
 
   // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const childNodes: ts.Node[] = []
-  node.forEachChild(childNode => {
-    childNodes.push(childNode)
-  })
+  const interfaceChildNodes = getChildrenNodes(interfaceNode);
 
   return `export const defaultResolvers = {
-    ${childNodes
+    ${interfaceChildNodes
       .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
       .map(childNode => {
         const childNodeProperty = childNode as ts.PropertySignature

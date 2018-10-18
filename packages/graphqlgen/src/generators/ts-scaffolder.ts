@@ -1,6 +1,7 @@
-//import * as os from 'os'
-import { GenerateArgs, CodeFileLike } from '../types'
+import * as ts from 'typescript'
+import { GenerateArgs, CodeFileLike, ModelMap, Model } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import { findInterfaceByName, getChildrenNodes } from '../ast'
 
 export { format } from './ts-generator'
 
@@ -42,7 +43,33 @@ function isParentType(name: string) {
   return parentTypes.indexOf(name) > -1
 }
 
-export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
+function shouldRenderField(field: GraphQLTypeField, model: Model): boolean {
+  const filePath = model.absoluteFilePath
+  const interfaceNode = findInterfaceByName(filePath, model.modelTypeName)
+
+  if (!interfaceNode) {
+    throw new Error(`No interface found for name ${model.modelTypeName}`)
+  }
+
+  const interfaceChildNodes: ts.Node[] = getChildrenNodes(interfaceNode)
+
+  const fieldIsInModel = interfaceChildNodes
+    .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
+    .map(childNode => {
+      const childNodeProperty = childNode as ts.PropertySignature
+      const fieldName = (childNodeProperty.name as ts.Identifier).text
+
+      return fieldName
+    })
+    .some(fieldName => field.name === fieldName)
+
+  return !fieldIsInModel
+}
+
+export function renderResolvers(
+  type: GraphQLTypeObject,
+  modelMap: ModelMap,
+): CodeFileLike {
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
@@ -51,13 +78,15 @@ export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
 
   export const ${type.name}: ${type.name}Resolvers.Type = {
     ...${type.name}Resolvers.defaultResolvers,
-    ${type.fields.filter(field => !field.type.isScalar).map(
-      field => `
+    ${type.fields
+      .filter(field => shouldRenderField(field, modelMap[type.name]))
+      .map(
+        field => `
       ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {
         throw new Error('Resolver not implemented')
       }
     `,
-    )}
+      )}
   }`
   return { path: `${type.name}.ts`, force: false, code }
 }
@@ -113,7 +142,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
     .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
-    .map(renderResolvers)
+    .map(type => renderResolvers(type, args.modelMap))
 
   files = files.concat(
     args.types

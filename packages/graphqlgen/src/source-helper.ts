@@ -305,3 +305,25 @@ export function extractGraphQLUnions(schema: DocumentNode) {
   })
   return types
 }
+
+export function graphQLToTypecriptType(type: GraphQLType): string {
+  const graphqlToTypescript: { [key: string]: string } = {
+    String: 'string',
+    Boolean: 'boolean',
+    ID: 'string',
+    Int: 'number',
+    Float: 'number',
+  }
+
+  let typescriptType = type.isScalar ? graphqlToTypescript[type.name] : 'any'
+
+  if (type.isArray) {
+    typescriptType += '[]'
+  }
+
+  if (!type.isRequired) {
+    typescriptType += ' | null'
+  }
+
+  return typescriptType
+}

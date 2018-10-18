@@ -2,11 +2,12 @@ import { generateCode, parseSchema } from '../../'
 import { join } from 'path'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import { buildModelMap } from '../../modelmap'
+import { validateConfig } from '../../validation'
 
 const relative = (p: string) => join(__dirname, p)
 
 test('basic schema', async () => {
-  const language = 'typescript';
+  const language = 'typescript'
   const config: GraphQLGenDefinition = {
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
@@ -34,7 +35,7 @@ test('basic schema', async () => {
 })
 
 test('basic enum', async () => {
-  const language = 'typescript';
+  const language = 'typescript'
   const config: GraphQLGenDefinition = {
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
@@ -49,20 +50,11 @@ test('basic enum', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
-  })
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
+  expect(validateConfig(config, schema)).toBe(false)
 })
 
 test('basic union', async () => {
-  const language = 'typescript';
+  const language = 'typescript'
   const config: GraphQLGenDefinition = {
     language,
     schema: relative('../fixtures/union/schema.graphql'),
@@ -77,20 +69,11 @@ test('basic union', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output, language)  
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
-  })
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
+  expect(validateConfig(config, schema)).toBe(false)
 })
 
 test('basic scalar', async () => {
-  const language = 'typescript';
+  const language = 'typescript'
   const config: GraphQLGenDefinition = {
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
@@ -105,14 +88,5 @@ test('basic scalar', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output, language)  
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
-  })
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
+  expect(validateConfig(config, schema)).toBe(false)
 })
