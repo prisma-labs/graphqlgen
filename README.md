@@ -44,7 +44,7 @@ Once installed, you can invoke the CLI as follows:
 graphqlgen
 ```
 
-The invocation of the command depends on a configuration file called `graphqlgen.yml` which **must be located in same the directory where `graphqlgen` is invoked**. Here is an example:
+The invocation of the command depends on a configuration file called `graphqlgen.yml` which **must be located in the directory where `graphqlgen` is invoked**. Here is an example:
 
 ```yml
 language: typescript
