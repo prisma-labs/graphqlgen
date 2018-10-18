@@ -44,6 +44,9 @@ function isParentType(name: string) {
 
 export function renderResolvers(type: GraphQLTypeObject): CodeFileLike {
   const code = `
+  // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+  // Please do not import this file directly but copy & paste to your application code.
+
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
   export const ${type.name}: ${type.name}Resolvers.Type = {
