@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "test": "cd packages/graphqlgen && npm test"
+  },
   "workspaces": [
     "packages/*"
   ]
