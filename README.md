@@ -342,6 +342,13 @@ You can bootstrap an entire GraphQL server based on one of the available [templa
 npm init graphqlgen ./my-graphql-server
 ```
 
+Then start the server: 
+
+```
+cd my-graphql-server
+yarn start
+```
+
 ## Support
 
 - [Create a feature request](https://github.com/prisma/graphql-resolver-codegen/issues/new?template=feature_request.md&labels=enhancement)
