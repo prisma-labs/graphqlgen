@@ -67,6 +67,7 @@ The configuration file must be called **`graphqlgen.yml`**.
 
 - `language`: The target programming language for the generated code. Popssible values: `typescript`.
 - `schema`: The file path pointing to your GraphQL schema file.
+- `context`: Points to the definition of the `context` object that's passed through your GraphQL resolver chain.
 - `models`: An object mapping types from your GraphQL schema to the models defined in your programming language. Learn more about [_models_](#models).
 - `output`: Specifies where the generated type definitions and _default_ resolver implementations should be located. Muist point to a **single file**.
 - `resolver-scaffolding`: An object with two properties
@@ -94,6 +95,8 @@ There are four layouts that can be applied when scaffolding resolver skeletons:
 - `file-per-type-classes`: Same as `file-per-type` but generates resolvers as TypeScript classes instead of plain objects.
 
 ## Generation
+
+
 
 ## Scaffolding
 
