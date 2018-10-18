@@ -3,7 +3,7 @@ import {
   GraphQLTypeObject,
   GraphQLEnumObject,
   GraphQLUnionObject,
-} from '../source-helper'
+} from './source-helper'
 
 export type GenerateArgs = {
   types: GraphQLTypeObject[]

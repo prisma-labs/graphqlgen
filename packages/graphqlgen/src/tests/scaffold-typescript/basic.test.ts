@@ -1,6 +1,7 @@
-import { generateCode, buildModelMap, parseSchema } from '../../'
+import { generateCode, parseSchema } from '../../'
 import { join } from 'path'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
+import { buildModelMap } from '../../modelmap'
 
 const relative = (p: string) => join(__dirname, p)
 

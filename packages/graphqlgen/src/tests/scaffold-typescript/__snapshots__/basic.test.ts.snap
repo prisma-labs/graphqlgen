@@ -114,12 +114,6 @@ export const Query: QueryResolvers.Type = {
     "path": "Query.ts",
   },
   Object {
-    "code": "export interface Context {}
-",
-    "force": false,
-    "path": "types/Context.ts",
-  },
-  Object {
     "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
@@ -222,12 +216,6 @@ export const Mutation: MutationResolvers.Type = {
 ",
     "force": false,
     "path": "Mutation.ts",
-  },
-  Object {
-    "code": "export interface Context {}
-",
-    "force": false,
-    "path": "types/Context.ts",
   },
   Object {
     "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -458,8 +446,8 @@ export namespace QueryResolvers {
 
 export namespace NumberResolvers {
   export const defaultResolvers = {
-    id: parent => parent.id,
-    value: parent => parent.value
+    id: (parent: Number) => parent.id,
+    value: (parent: Number) => parent.value
   };
 
   export type IdResolver = (
@@ -542,12 +530,6 @@ export const Query: QueryResolvers.Type = {
 ",
     "force": false,
     "path": "Query.ts",
-  },
-  Object {
-    "code": "export interface Context {}
-",
-    "force": false,
-    "path": "types/Context.ts",
   },
   Object {
     "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
@@ -703,12 +685,6 @@ export const Professor: ProfessorResolvers.Type = {
 ",
     "force": false,
     "path": "Professor.ts",
-  },
-  Object {
-    "code": "export interface Context {}
-",
-    "force": false,
-    "path": "types/Context.ts",
   },
   Object {
     "code": "import { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";

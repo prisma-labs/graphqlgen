@@ -4,7 +4,7 @@ import * as camelCase from 'camelcase'
 import * as refmt from 'reason'
 import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
 
-import { GenerateArgs } from './types'
+import { GenerateArgs } from '../types'
 
 type SpecificGraphQLScalarType =
   | 'bool'

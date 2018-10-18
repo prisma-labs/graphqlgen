@@ -1,4 +1,4 @@
-import { GenerateArgs } from './types'
+import { GenerateArgs } from '../types'
 
 export { format } from './reason-generator'
 

@@ -14,16 +14,8 @@ import {
   extractGraphQLEnums,
   extractGraphQLUnions,
 } from './source-helper'
-import {
-  getAbsoluteFilePath,
-  getImportPathRelativeToOutput,
-} from './path-helpers'
-import {
-  IGenerator,
-  GenerateArgs,
-  CodeFileLike,
-  ModelMap,
-} from './generators/types'
+import { getImportPathRelativeToOutput } from './path-helpers'
+import { IGenerator, GenerateArgs, CodeFileLike, ModelMap } from './types'
 import {
   generate as generateTS,
   format as formatTS,
@@ -42,6 +34,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 // import { generate as scaffoldReason } from './generators/reason-scaffolder'
 
 import { parseConfig } from './yaml'
+import { buildModelMap } from './modelmap'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -74,33 +67,6 @@ function getResolversGenerator(language: Language): IGenerator {
 
   //TODO: This should never be reached as we validate the yaml before
   throw new Error(`Invalid language: ${language}`)
-}
-
-interface ModelsConfig {
-  [typeName: string]: string
-}
-
-export function buildModelMap(
-  modelsConfig: ModelsConfig,
-  outputDir: string,
-): ModelMap {
-  return Object.keys(modelsConfig).reduce((acc, typeName) => {
-    const modelConfig = modelsConfig[typeName]
-    const [modelPath, modelTypeName] = modelConfig.split(':')
-    const absoluteFilePath = getAbsoluteFilePath(modelPath)
-    const importPathRelativeToOutput = getImportPathRelativeToOutput(
-      absoluteFilePath,
-      outputDir,
-    )
-    return {
-      ...acc,
-      [typeName]: {
-        absoluteFilePath,
-        importPathRelativeToOutput,
-        modelTypeName,
-      },
-    }
-  }, {})
 }
 
 function generateTypes(
@@ -218,7 +184,9 @@ function writeResolversScaffolding(
     }
   })
 
-  console.log(chalk.default.green(`Resolvers scaffolded at ${outputResolversDir}`))
+  console.log(
+    chalk.default.green(`Resolvers scaffolded at ${outputResolversDir}`),
+  )
 
   process.exit(0)
 }

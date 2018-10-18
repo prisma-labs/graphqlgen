@@ -5,7 +5,7 @@ import * as ts from 'typescript'
 import * as path from 'path'
 import * as fs from 'fs'
 
-import { GenerateArgs, ModelMap } from './types'
+import { GenerateArgs, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
@@ -149,7 +149,9 @@ function renderNamespace(
 
     ${renderResolverFunctionInterfaces(type, modelMap)}
 
-    ${renderResolverTypeInterfaces(type, modelMap)}
+    ${renderResolverTypeInterface(type, modelMap)}
+
+    ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }
   `
 }
@@ -283,20 +285,20 @@ function renderResolverFunctionInterface(
   `
 }
 
-function renderResolverTypeInterfaces(
+function renderResolverTypeInterface(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
 ): string {
   return `
   export interface Type {
     ${type.fields
-      .map(field => renderResolverTypeInterface(field, type, modelMap))
+      .map(field => renderResolverTypeInterfaceFunction(field, type, modelMap))
       .join(os.EOL)}
   }
   `
 }
 
-function renderResolverTypeInterface(
+function renderResolverTypeInterfaceFunction(
   field: GraphQLTypeField,
   type: GraphQLTypeObject,
   modelMap: ModelMap,

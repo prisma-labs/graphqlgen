@@ -1,5 +1,5 @@
 import * as os from 'os'
-import { GenerateArgs, CodeFileLike } from './types'
+import { GenerateArgs, CodeFileLike } from '../types'
 import { printFieldLikeType } from './flow-generator'
 import { GraphQLTypeField } from '../source-helper'
 
