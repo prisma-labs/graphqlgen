@@ -44,6 +44,9 @@ function isParentType(name: string) {
 }
 
 function shouldRenderField(field: GraphQLTypeField, model: Model) {
+  if (model === undefined) {
+    return true
+  }
   const filePath = model.absoluteFilePath
   const interfaceNode = findInterfaceByName(filePath, model.modelTypeName)
 
@@ -70,6 +73,9 @@ export function renderResolvers(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
 ): CodeFileLike {
+  if (!modelMap[type.name]) {
+    console.warn(`No model defined for type ${type.name}`)
+  }
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
