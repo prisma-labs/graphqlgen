@@ -5,7 +5,7 @@ import * as ts from 'typescript'
 
 import { GenerateArgs, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { findInterfaceByName } from '../ast';
+import { findInterfaceByName, getChildrenNodes } from '../ast';
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -167,20 +167,17 @@ function renderScalarResolvers(
   }
 
   const filePath = model.absoluteFilePath
-  const node = findInterfaceByName(filePath, model.modelTypeName);
+  const interfaceNode = findInterfaceByName(filePath, model.modelTypeName);
 
-  if (!node) {
+  if (!interfaceNode) {
     throw new Error(`No interface found for name ${model.modelTypeName}`)
   }
 
   // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const childNodes: ts.Node[] = []
-  node.forEachChild(childNode => {
-    childNodes.push(childNode)
-  })
+  const interfaceChildNodes = getChildrenNodes(interfaceNode);
 
   return `export const defaultResolvers = {
-    ${childNodes
+    ${interfaceChildNodes
       .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
       .map(childNode => {
         const childNodeProperty = childNode as ts.PropertySignature

@@ -1,13 +1,13 @@
 import * as chalk from 'chalk'
 import * as path from 'path'
 import * as os from 'os'
-import * as ts from 'typescript'
 
-import { existsSync, readFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { getExtNameFromLanguage } from './path-helpers'
 
 import { Language } from 'graphqlgen-json-schema'
 import { ModelsConfig } from './modelmap'
+import { findInterfaceByName } from './ast'
 
 type Definition = {
   typeName: string
@@ -82,33 +82,11 @@ function normalizeFilePath(filePath: string, language: Language) {
   return filePath
 }
 
-//TODO: Typescript validation duplicated from ts-generator.ts
-// See https://github.com/prisma/graphqlgen/issues/138
 function hasInterfaceInTypescriptFile(
   filePath: string,
   interfaceName: string,
 ): boolean {
-  const fileName = path.basename(filePath)
-
-  const sourceFile = ts.createSourceFile(
-    fileName,
-    readFileSync(filePath).toString(),
-    ts.ScriptTarget.ES2015,
-  )
-
-  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const nodes: ts.Node[] = []
-  sourceFile.forEachChild(node => {
-    nodes.push(node)
-  })
-
-  const node = nodes.find(
-    node =>
-      node.kind === ts.SyntaxKind.InterfaceDeclaration &&
-      (node as ts.InterfaceDeclaration).name.escapedText === interfaceName,
-  )
-
-  return !!node
+  return !!findInterfaceByName(filePath, interfaceName)
 }
 
 // Check whether the model definition exists in typescript/flow file
