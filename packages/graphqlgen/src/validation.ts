@@ -51,13 +51,13 @@ function validateSchemaToModelMapping(
   validatedDefinitions: ValidatedDefinition[],
 ): boolean {
   const types = extractGraphQLTypes(schema)
-  const modelNames = validatedDefinitions.map(def => def.definition.modelName!)
+  const typeNames = validatedDefinitions.map(def => def.definition.typeName)
 
   const missingModels = types
     .filter(
       type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
     )
-    .filter(type => !modelNames.find(modelName => modelName === type.name))
+    .filter(type => !typeNames.find(typeName => typeName === type.name))
 
   if (missingModels.length > 0) {
     outputMissingModels(missingModels)
