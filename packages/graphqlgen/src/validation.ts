@@ -296,7 +296,16 @@ ${chalk.default.bold(
 
 ${missingModels.map(renderModelFromType).join(os.EOL)}
 
-${chalk.default.bold('Step 2')}: Re-run \`graphqlgen\``)
+${chalk.default.bold('Step 2')}: Reference the model definitions in your graphqlgen.yml file
+
+models:
+  ${missingModels.map(renderPlaceholderModels).join(os.EOL)}
+
+${chalk.default.bold('Step 3')}: Re-run \`graphqlgen\``)
+}
+
+function renderPlaceholderModels(type: GraphQLTypeObject): string {
+  return `${type.name}: <path-to-your-file.ts>: ${type.name}`;
 }
 
 function renderModelFromType(type: GraphQLTypeObject): string {
@@ -307,6 +316,6 @@ interface ${chalk.default.bold(type.name)} {
 ${type.fields
       .map(field => `  ${field.name}: ${graphQLToTypecriptType(field.type)}`)
       .join(os.EOL)}
-}` + os.EOL
+}`
   )
 }
