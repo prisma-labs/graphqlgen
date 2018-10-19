@@ -4,8 +4,7 @@ language: typescript
 # The file path pointing to your GraphQL schema
 schema: ./src/schema.graphql
 
-# Defines the context object passed through the resolver chain
-# (optional)
+# Type definition for the resolver context object
 context: ./src/types.ts:Context
 
 # Map SDL types from the GraphQL schema to TS models
@@ -14,7 +13,7 @@ models:
   Post: ./src/types.ts:Post
 
 # Generated typings for resolvers and default resolver implementations
-# THIS FILE SHOULD NOT BE EDITED
+# Please don't edit this file but just import from here
 output: ./src/generated/graphqlgen.ts
 
 # Temporary scaffolded resolvers to copy and paste in your application
