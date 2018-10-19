@@ -96,7 +96,6 @@ ${modelImports}
 
 function renderContext(context?: ContextDefinition) {
   if (context) {
-    // TODO: Don't hard code Context! It could also be named differently
     return `import { ${getContextName(context)} } from '${context.contextPath}'`
   }
 
