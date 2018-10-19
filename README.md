@@ -42,12 +42,6 @@ You can install the `graphqlgen` CLI with the following command:
 npm install -g graphqlgen
 ```
 
-Or use a shortcut with `npm init`:
-
-```bash
-npm init graphqlgen
-```
-
 ## Usage
 
 Once installed, you can invoke the CLI as follows:
