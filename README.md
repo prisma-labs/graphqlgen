@@ -27,9 +27,8 @@ Using `graphqlgen` you'll gain:
 #### Supported languages:
 
 - `TypeScript`
-- `Flow` (comming soon)
-- `Reason` (comming soon)
-- `Elm` (comming soon)
+- `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
+- `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 
 #### Also packs:
 
