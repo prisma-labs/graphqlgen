@@ -1,39 +1,51 @@
 <p align="center"><img src="https://imgur.com/c6Y4tGw.png" width="150" /></p>
 
-## graphqlgen
+# graphqlgen
 
 
 [![CircleCI](https://circleci.com/gh/prisma/graphqlgen.svg?style=shield)](https://circleci.com/gh/prisma/graphqlgen) [![npm version](https://badge.fury.io/js/graphqlgen.svg)](https://badge.fury.io/js/graphqlgen)
 
-`graphqlgen` is a CLI that translates GraphQL schemas into scaffolded resolver implementations and type definitions. It currently supports **TypeScript** (more languages will be added soon). 
+> `graphqlgen` is a CLI tool that translates GraphQL schemas into scaffolded resolver implementations and type definitions.
 
-These are the main benefits provided by `graphqlgen`:
+## Overview
 
-- Automated mapping from GraphQL schema to resolver implementation
-- Type-safe data flow inside of resolvers
-- Auto-completion & error-catching on resolver arguments (including `parent`) and return values 
+Programming in type-safe environments provides a lot of benefits and gives you confidence about your code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write boilerplate through code generation.**
 
-Programming in type-safe environments provides a lot of benefits and gives developers confidence about their code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write boilerplate through code generation.**
+Using `graphqlgen` you'll gain:
+
+- Automated mapping from GraphQL schema to resolver implementation,
+- Type-safe data flow inside of resolvers,
+- Auto-completion & error-catching on resolver arguments (including `parent`) and return values.
 
 ## Features
 
-There are three major features supported by `graphqlgen`:
+- ⚒ [**Generates**](#generation) type definitions and _default_ resolver implementations,
+- 🏗 [**Scaffoldes**](#scaffolding) resolver skeletons so you don't have to,
+- 🚀 [**Bootstraps**](#bootstrapping) a GraphQL server based on a [template](./packages/graphqlgen-templates/) of your choice,
+- 💅 [**Prettier**](#) code style following the code styling practices of your project.
 
-- [**Generation**](#generation) of type definitions and _default_ resolver implementations
-- [**Scaffolding**](#scaffolding) resolver sceletons (optional)
-- [**Bootstrapping**](#bootstrapping) a GraphQL server based on a [template](./packages/graphqlgen-templates/) (optional)
+#### Supported languages:
 
-More features are:
+- `TypeScript`
+- `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
+- `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 
-- Suports `prettier` (code is generated following the code styling practices of your project)
-- Supports `graphql-import`
+#### Also packs:
+
+- Support for `graphql-import`.
 
 ## Install
 
 You can install the `graphqlgen` CLI with the following command: 
 
-```
+```bash
 npm install -g graphqlgen
+```
+
+Or use a shortcut with `npm init`:
+
+```bash
+npm init graphqlgen
 ```
 
 ## Usage
