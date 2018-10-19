@@ -5,11 +5,11 @@ import {
   GraphQLUnionObject,
 } from './source-helper'
 
-export type GenerateArgs = {
+export interface GenerateArgs {
   types: GraphQLTypeObject[]
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]
-  contextPath?: string
+  context?: ContextDefinition
   modelMap: ModelMap
 }
 
@@ -21,6 +21,11 @@ export interface Model {
   absoluteFilePath: string
   importPathRelativeToOutput: string
   modelTypeName: string
+}
+
+export interface ContextDefinition {
+  contextPath: string
+  interfaceName: string
 }
 
 export interface CodeFileLike {
