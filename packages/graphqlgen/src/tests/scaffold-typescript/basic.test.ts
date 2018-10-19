@@ -1,8 +1,9 @@
-import { generateCode, parseSchema } from '../../'
-import { join } from 'path'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
-import { buildModelMap } from '../../modelmap'
+import { join } from 'path'
+
+import { generateCode } from '../../index'
 import { validateConfig } from '../../validation'
+import { parseSchema, parseModels } from '../../parse'
 
 const relative = (p: string) => join(__dirname, p)
 
@@ -22,7 +23,7 @@ test('basic schema', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = buildModelMap(config.models, config.output, language)
+  const modelMap = parseModels(config.models, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
     language,
