@@ -5,7 +5,7 @@ import {
   GraphQLUnionObject,
 } from './source-helper'
 
-export type GenerateArgs = {
+export interface GenerateArgs {
   types: GraphQLTypeObject[]
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]
@@ -23,7 +23,7 @@ export interface Model {
   modelTypeName: string
 }
 
-export type ContextDefinition = {
+export interface ContextDefinition {
   contextPath: string
   interfaceName: string
 }
