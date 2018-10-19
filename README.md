@@ -170,7 +170,107 @@ resolver-scaffolding:
   layout: file-per-type
 ```
 
-After running `$ graphqlgen` in your terminal, the following ...:
+After running `$ graphqlgen` in your terminal, the following:
+
+**`./src/generated/graphqlgen.ts`**
+
+```ts
+import { GraphQLResolveInfo } from "graphql";
+type Context = any;
+import { User } from "../models";
+
+export namespace QueryResolvers {
+  export const defaultResolvers = {};
+
+  export interface ArgsUser {
+    id: string;
+  }
+
+  export type UserResolver = (
+    parent: {},
+    args: ArgsUser,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | null | Promise<User | null>;
+
+  export interface Type {
+    user: (
+      parent: {},
+      args: ArgsUser,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | null | Promise<User | null>;
+  }
+}
+
+export namespace MutationResolvers {
+  export const defaultResolvers = {};
+
+  export interface ArgsCreateUser {
+    name: string | null;
+  }
+
+  export type CreateUserResolver = (
+    parent: {},
+    args: ArgsCreateUser,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
+
+  export interface Type {
+    createUser: (
+      parent: {},
+      args: ArgsCreateUser,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
+  }
+}
+
+export namespace UserResolvers {
+  export const defaultResolvers = {
+    id: (parent: User) => parent.id,
+    name: (parent: User) => parent.name
+  };
+
+  export type IdResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export interface Type {
+    id: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+  }
+}
+
+export interface Resolvers {
+  Query: QueryResolvers.Type;
+  Mutation: MutationResolvers.Type;
+  User: UserResolvers.Type;
+}
+
+```
 
 </Details>
 
