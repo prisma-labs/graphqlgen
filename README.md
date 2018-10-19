@@ -132,6 +132,8 @@ The relevant properties from `graphqlgen.yml` for the Generation feature are:
 <Details>
   <Summary>See full example</Summary>
 
+#### Setup
+
 Assume you have the following minimal setup with three files:
 
 **`./src/schema.graphql`**
@@ -169,6 +171,8 @@ resolver-scaffolding:
   output: ./src/tmp/
   layout: file-per-type
 ```
+
+#### Generated code
 
 After running `$ graphqlgen` in your terminal, the following:
 
@@ -344,6 +348,8 @@ The relevant properties from `graphqlgen.yml` for the Generation feature are:
 <Details>
   <Summary>See full example</Summary>
 
+#### Setup
+
 Assume you have the following minimal setup with three files:
 
 **`./src/schema.graphql`**
@@ -385,6 +391,8 @@ resolver-scaffolding:
   output: ./src/tmp/
   layout: file-per-type
 ```
+
+#### Generated code
 
 After running `$ graphqlgen` in your terminal, the following code will be generated into **`./src/tmp/`**:
 
