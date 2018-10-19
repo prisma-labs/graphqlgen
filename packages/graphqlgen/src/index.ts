@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-import { parse, DocumentNode } from 'graphql'
-import { importSchema } from 'graphql-import'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as chalk from 'chalk'
 import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
+import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import {
   extractGraphQLTypes,
@@ -23,7 +22,6 @@ import {
   GenerateArgs,
   CodeFileLike,
   ModelMap,
-  ContextDefinition,
 } from './types'
 import {
   generate as generateTS,
@@ -42,8 +40,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 // import { generate as scaffoldFlow } from './generators/flow-scaffolder'
 // import { generate as scaffoldReason } from './generators/reason-scaffolder'
 
-import { parseConfig } from './yaml'
-import { buildModelMap } from './modelmap'
+import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 
 export type GenerateCodeArgs = {
@@ -88,9 +85,9 @@ function generateTypes(
 
   return generateCodeArgs.prettify
     ? generatorFn.format(
-        generatedTypes as string,
-        generateCodeArgs.prettifyOptions,
-      )
+      generatedTypes as string,
+      generateCodeArgs.prettifyOptions,
+    )
     : (generatedTypes as string)
 }
 
@@ -114,22 +111,6 @@ function generateResolvers(
         : r.code,
     }
   })
-}
-
-function parseContext(
-  context: string | undefined,
-  outputDir: string,
-): ContextDefinition | undefined {
-  if (!context) {
-    return undefined
-  }
-
-  const [filePath, interfaceName] = context.split(':')
-
-  return {
-    contextPath: getImportPathRelativeToOutput(filePath, outputDir),
-    interfaceName,
-  }
 }
 
 export function generateCode(
@@ -170,7 +151,7 @@ function writeTypes(types: string, config: GraphQLGenDefinition): void {
     chalk.default.green(
       `Resolver interface definitons & default resolvers generated at ${
         config.output
-      }`,
+        }`,
     ),
   )
 }
@@ -220,36 +201,6 @@ function writeResolversScaffolding(
   process.exit(0)
 }
 
-export function parseSchema(schemaPath: string): DocumentNode {
-  if (!fs.existsSync(schemaPath)) {
-    console.error(
-      chalk.default.red(`The schema file ${schemaPath} does not exist`),
-    )
-    process.exit(1)
-  }
-
-  let schema = undefined
-  try {
-    schema = importSchema(schemaPath)
-  } catch (e) {
-    console.error(
-      chalk.default.red(`Error occurred while reading schema: ${e}`),
-    )
-    process.exit(1)
-  }
-
-  let parsedSchema = undefined
-
-  try {
-    parsedSchema = parse(schema!)
-  } catch (e) {
-    console.error(chalk.default.red(`Failed to parse schema: ${e}`))
-    process.exit(1)
-  }
-
-  return parsedSchema!
-}
-
 async function run() {
   //TODO: Define proper defaults
   // const defaults: DefaultOptions = {
@@ -273,7 +224,7 @@ async function run() {
   }
 
   //TODO: Should we provide a default in case `config.output.types` is not defined?
-  const modelMap = buildModelMap(config.models, config.output, config.language)
+  const modelMap = parseModels(config.models, config.output, config.language)
 
   const { generatedTypes, generatedResolvers } = generateCode({
     schema: parsedSchema!,
@@ -286,7 +237,6 @@ async function run() {
 
   writeTypes(generatedTypes, config)
   writeResolversScaffolding(generatedResolvers, config)
-  /* writeModels(generatedResolvers, config); */
 }
 
 // Only call run when running from CLI, not when included for tests
