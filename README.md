@@ -13,10 +13,11 @@ While `graphqlgen` is ready to be used in production, it's still in active devel
 
 ## Features
 
-- **🚀 Schema-first:**: Based on your GraphQL schema (SDL) & model definitions
+- **🚀 Schema-first:** Based on your GraphQL schema (SDL) & model definitions
 - **🤝 Type-safe:** Strong mapping between your GraphQL schema and resolvers, input arguments and models
 - **♻️ Codegen & scaffolding workflows:** Minimal resolver boilerplate & automatically generated type definitions
-- **😍 Awesome DX**: Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
+- **😍 Awesome DX:** Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
+- **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier), [graphql-import](https://github.com/prisma/graphql-import) and [graphql-config](https://github.com/prisma/graphql-config) out of the box
 
 ## Motivation
 
@@ -28,10 +29,6 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 - `TypeScript`
 - `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 - `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
-
-#### Also packs:
-
-- Support for `graphql-import`.
 
 ## Install
 
