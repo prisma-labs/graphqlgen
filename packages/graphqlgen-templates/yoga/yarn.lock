@@ -1083,7 +1083,7 @@ graphqlgen-json-schema@0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.4.tgz#7f687e97af5a98867e08949dbe0b287c08a70c5d"
 
-graphqlgen@^0.2.0-beta16:
+graphqlgen@0.2.0-beta16:
   version "0.2.0-beta16"
   resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.0-beta16.tgz#263d7c22b6c619b91beeb3136ddd103f96237be0"
   dependencies:
