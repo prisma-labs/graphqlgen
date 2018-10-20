@@ -64,7 +64,7 @@ output: ./src/generated/graphqlgen.ts
 
 resolver-scaffolding:
   output: ./src/generated/tmp-resolvers/
-  layout: single-file
+  layout: file-per-type
 ```
 
 ## Configuration: `graphqlgen.yml`
