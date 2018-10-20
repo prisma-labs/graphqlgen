@@ -1,4 +1,4 @@
-import * as chalk from 'chalk'
+import chalk from 'chalk'
 import * as path from 'path'
 import { DocumentNode } from 'graphql'
 import { existsSync } from 'fs'
@@ -6,9 +6,7 @@ import { existsSync } from 'fs'
 import { getExtNameFromLanguage } from './path-helpers'
 import { Language, GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import { findInterfaceByName } from './ast'
-import {
-  extractGraphQLTypes,
-} from './source-helper'
+import { extractGraphQLTypes } from './source-helper'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -64,10 +62,10 @@ function validateContext(
 
   if (!validatedContext.validSyntax) {
     console.log(
-      chalk.default.redBright(
-        `Invalid context: '${chalk.default.bold(
+      chalk.redBright(
+        `Invalid context: '${chalk.bold(
           validatedContext.definition.rawDefinition,
-        )}' does not follow '${chalk.default.bold(
+        )}' does not follow '${chalk.bold(
           'context: <filePath>:<interfaceName>',
         )}' syntax)`,
       ),
@@ -77,8 +75,8 @@ function validateContext(
 
   if (!validatedContext.fileExists) {
     console.log(
-      chalk.default.redBright(
-        `Invalid context: file '${chalk.default.bold(
+      chalk.redBright(
+        `Invalid context: file '${chalk.bold(
           validatedContext.definition.filePath!,
         )}' not found`,
       ),
@@ -88,10 +86,10 @@ function validateContext(
 
   if (!validatedContext.interfaceExists) {
     console.log(
-      chalk.default.redBright(
-        `Invalid context: interface '${chalk.default.bold(
+      chalk.redBright(
+        `Invalid context: interface '${chalk.bold(
           validatedContext.definition.modelName!,
-        )}' not found in file '${chalk.default.bold(
+        )}' not found in file '${chalk.bold(
           validatedContext.definition.filePath!,
         )}'`,
       ),
