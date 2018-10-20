@@ -1,19 +1,17 @@
 import chalk from 'chalk'
-import * as path from 'path'
-import { DocumentNode } from 'graphql'
 import { existsSync } from 'fs'
-
-import { getExtNameFromLanguage } from './path-helpers'
-import { Language, GraphQLGenDefinition } from 'graphqlgen-json-schema'
-import { findInterfaceByName } from './ast'
-import { extractGraphQLTypes } from './source-helper'
+import { DocumentNode } from 'graphql'
+import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
+import * as path from 'path'
+import { findInterfaceByName, interfaceNamesFromTypescriptFile } from './ast'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
   outputMissingModels,
   outputWrongSyntaxFiles,
 } from './output'
-import { ModelsConfig } from './parse'
+import { getExtNameFromLanguage } from './path-helpers'
+import { extractGraphQLTypes, GraphQLTypeObject } from './source-helper'
 
 type Definition = {
   typeName: string
@@ -39,7 +37,7 @@ export function validateConfig(
     return false
   }
 
-  if (!validateModelMap(config.models, schema, language)) {
+  if (!validateModels(config.models, schema, language)) {
     return false
   }
 
@@ -100,37 +98,77 @@ function validateContext(
   return true
 }
 
-function validateModelMap(
-  modelsConfig: ModelsConfig,
+function validateModels(
+  models: Models,
   schema: DocumentNode,
   language: Language,
 ): boolean {
-  const validatedDefinitions: ValidatedDefinition[] = Object.keys(
-    modelsConfig,
-  ).map(typeName =>
-    validateDefinition(typeName, modelsConfig[typeName], language),
-  )
+  // First test if all files are existing
+  if (models.files && models.files.length > 0) {
+    const invalidFiles = models.files.filter(filePath => !existsSync(filePath))
 
-  // Check whether the syntax in correct
-  if (validatedDefinitions.some(validation => !validation.validSyntax)) {
-    outputWrongSyntaxFiles(validatedDefinitions)
-    return false
+    invalidFiles.forEach(file => {
+      console.log(
+        chalk.redBright(
+          `Invalid model path: file '${chalk.bold(file)}' not found`,
+        ),
+      )
+    })
+
+    if (invalidFiles.length > 0) {
+      return false
+    }
   }
 
-  // Check whether the model file exist
-  if (validatedDefinitions.some(validation => !validation.fileExists)) {
-    outputDefinitionFilesNotFound(validatedDefinitions)
-    return false
+  let validatedOverridenModels: ValidatedDefinition[] = []
+
+  if (models.override) {
+    // Then tests if overriden models are all valid
+    validatedOverridenModels = models.override
+      ? Object.keys(models.override).map(typeName =>
+          validateDefinition(typeName, models.override![typeName], language),
+        )
+      : []
   }
 
-  // Check whether the interface inside the model file exist
-  if (validatedDefinitions.some(validation => !validation.interfaceExists)) {
-    outputInterfaceDefinitionsNotFound(validatedDefinitions)
+  if (!testValidatedDefinitions(validatedOverridenModels)) {
     return false
   }
 
   // Check whether there's a 1-1 mapping between schema types and models
-  if (!validateSchemaToModelMapping(schema, validatedDefinitions)) {
+  if (
+    !validateSchemaToModelMapping(
+      schema,
+      validatedOverridenModels,
+      models.files,
+    )
+  ) {
+    return false
+  }
+
+  return true
+}
+
+function testValidatedDefinitions(
+  validatedOverridenModels: ValidatedDefinition[],
+) {
+  // Check whether the syntax in correct
+  if (validatedOverridenModels.some(validation => !validation.validSyntax)) {
+    outputWrongSyntaxFiles(validatedOverridenModels)
+    return false
+  }
+
+  // Check whether the model file exist
+  if (validatedOverridenModels.some(validation => !validation.fileExists)) {
+    outputDefinitionFilesNotFound(validatedOverridenModels)
+    return false
+  }
+
+  // Check whether the interface inside the model file exist
+  if (
+    validatedOverridenModels.some(validation => !validation.interfaceExists)
+  ) {
+    outputInterfaceDefinitionsNotFound(validatedOverridenModels)
     return false
   }
 
@@ -139,16 +177,52 @@ function validateModelMap(
 
 function validateSchemaToModelMapping(
   schema: DocumentNode,
-  validatedDefinitions: ValidatedDefinition[],
+  validatedOverridenModels: ValidatedDefinition[],
+  files: string[] | undefined,
 ): boolean {
-  const types = extractGraphQLTypes(schema)
-  const typeNames = validatedDefinitions.map(def => def.definition.typeName)
-
-  const missingModels = types
+  const graphQLTypes = extractGraphQLTypes(schema)
+    .filter(type => !type.type.isInput)
     .filter(
       type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
     )
-    .filter(type => !typeNames.find(typeName => typeName === type.name))
+  const overridenTypeNames = validatedOverridenModels.map(
+    def => def.definition.typeName,
+  )
+
+  let missingModels: GraphQLTypeObject[] = []
+
+  // Then tests if all
+  if (files && files.length > 0) {
+    const pathToInterfaceNames: {
+      [key: string]: string[]
+    } = files.reduce((acc, filePath) => {
+      return {
+        ...acc,
+        [filePath]: interfaceNamesFromTypescriptFile(filePath),
+      }
+    }, {})
+
+    missingModels = graphQLTypes.filter(type => {
+      const typeHasMappingWithAFile = Object.keys(pathToInterfaceNames).some(
+        path => pathToInterfaceNames[path].indexOf(type.name) !== -1,
+      )
+
+      if (!typeHasMappingWithAFile) {
+        return !overridenTypeNames.find(typeName => typeName === type.name)
+      }
+
+      return false
+    })
+  }
+
+  if (
+    (!files || (files && files.length === 0)) &&
+    overridenTypeNames.length > 0
+  ) {
+    missingModels = graphQLTypes.filter(
+      type => !overridenTypeNames.find(typeName => typeName === type.name),
+    )
+  }
 
   if (missingModels.length > 0) {
     outputMissingModels(missingModels)

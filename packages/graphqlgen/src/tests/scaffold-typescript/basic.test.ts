@@ -14,7 +14,7 @@ test('basic schema', async () => {
     schema: relative('../fixtures/basic/schema.graphql'),
     context: relative('../fixtures/basic:Context'),
     models: {
-      Number: relative('../fixtures/basic/index.ts:Number'),
+      files: [relative('../fixtures/enum/types.ts')],
     },
     output: relative('./generated/basic/graphqlgen.ts'),
     ['resolver-scaffolding']: {
@@ -42,7 +42,7 @@ test('basic enum', async () => {
     schema: relative('../fixtures/enum/schema.graphql'),
     context: relative('../fixtures/enum/types.ts:Context'),
     models: {
-      Number: relative('../fixtures/enum/types.ts:Number'),
+      files: [relative('../fixtures/enum/types.ts')],
     },
     output: relative('./generated/enum/graphqlgen.ts'),
     ['resolver-scaffolding']: {
@@ -61,7 +61,7 @@ test('basic union', async () => {
     schema: relative('../fixtures/union/schema.graphql'),
     context: relative('../fixtures/union/types.ts:Context'),
     models: {
-      Number: relative('../fixtures/union/types.ts:Number'),
+      files: [relative('../fixtures/union/types.ts')],
     },
     output: relative('./generated/union/graphqlgen.ts'),
     ['resolver-scaffolding']: {
@@ -80,7 +80,7 @@ test('basic scalar', async () => {
     schema: relative('../fixtures/scalar/schema.graphql'),
     context: relative('../fixtures/scalar/types.ts:Context'),
     models: {
-      Number: relative('../fixtures/scalar/types.ts:Number'),
+      files: [relative('../fixtures/scalar/types.ts')],
     },
     output: relative('./generated/scalar/graphqlgen.ts'),
     ['resolver-scaffolding']: {
