@@ -6,11 +6,6 @@
 
 > Generate & scaffold type-safe resolvers based on your GraphQL Schema in TypeScript, Flow & Reason
 
-<Details>
-  <Summary>Note: Using <code>graphqlgen</code> in production</Summary>
-While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
-</Details>
-
 ## Features
 
 - **🚀 Schema-first:** Based on your GraphQL schema (SDL) & model definitions
@@ -39,6 +34,11 @@ npm install -g graphqlgen
 ```
 
 ## Usage
+
+<Details>
+  <Summary>Note: Using <code>graphqlgen</code> in production</Summary>
+While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
+</Details>
 
 Once installed, you can invoke the CLI as follows:
 
