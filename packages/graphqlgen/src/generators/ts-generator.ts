@@ -213,14 +213,20 @@ function renderScalarResolver(
   fieldOptional: boolean,
   parentTypeName: string,
 ): string {
-  const fieldGetter = `parent.${fieldName}`
-  return `${fieldName}: (parent: ${parentTypeName}) => ${
-    fieldOptional ? renderOptionalFieldGetter(fieldGetter) : fieldGetter
-  },`
+  const field = `parent.${fieldName}`
+  const fieldGetter = renderFieldGetter(field, fieldOptional)
+  return `${fieldName}: (parent: ${parentTypeName}) => ${fieldGetter},`
 }
 
-function renderOptionalFieldGetter(fieldGetter: string) {
-  return `${fieldGetter} === undefined ? null : ${fieldGetter}`
+function renderFieldGetter(
+  fieldGetter: string,
+  fieldOptional: boolean,
+): string {
+  if (fieldOptional) {
+    return `${fieldGetter} === undefined ? null : ${fieldGetter}`
+  }
+
+  return fieldGetter
 }
 
 function renderInputArgInterfaces(
