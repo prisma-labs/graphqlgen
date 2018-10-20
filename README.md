@@ -14,25 +14,14 @@ While `graphqlgen` is ready to be used in production, it's still in active devel
 ## Features
 
 - **🚀 Schema-first:**: Based on your GraphQL schema (SDL) & model definitions
-- **🤝 Type-safe:** Type-safe mapping between your GraphQL schema and resolvers, input arguments and models
-- **♻️ Codegen & scaffolding workflows:** Minimal boilerplate and easy to evolve your GraphQL schema
+- **🤝 Type-safe:** Strong mapping between your GraphQL schema and resolvers, input arguments and models
+- **♻️ Codegen & scaffolding workflows:** Minimal resolver boilerplate & automatically generated type definitions
+- **😍 Awesome DX**: Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
 
 ## Motivation
 
 Programming in type-safe environments provides a lot of benefits and gives you confidence about your code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write boilerplate through code generation.**
 
-Using `graphqlgen` you'll gain:
-
-- Automated mapping from GraphQL schema to resolver implementation
-- Type-safe data flow inside of resolvers
-- Auto-completion & error-catching on resolver arguments (including `parent`) and return values
-
-## Features
-
-- ⚒ [**Generates**](#generation) type definitions and _default_ resolver implementations,
-- 🏗 [**Scaffolds**](#scaffolding) resolver skeletons so you don't have to,
-- 🚀 [**Bootstraps**](#bootstrapping) a GraphQL server based on a [template](./packages/graphqlgen-templates/) of your choice,
-- 💅 [**Prettier**](#) code style following the code styling practices of your project.
 
 #### Supported languages:
 
