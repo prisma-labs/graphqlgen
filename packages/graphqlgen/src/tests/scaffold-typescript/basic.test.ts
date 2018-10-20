@@ -23,7 +23,7 @@ test('basic schema', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = parseModels(config.models, config.output, language)
+  const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
     language,

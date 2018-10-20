@@ -2,6 +2,10 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as ts from 'typescript'
 
+interface InterfaceNameToPath {
+  [interfaceName: string]: string
+}
+
 export function getChildrenNodes(source: ts.Node | ts.SourceFile): ts.Node[] {
   const nodes: ts.Node[] = []
 
@@ -45,4 +49,22 @@ export function interfaceNamesFromTypescriptFile(filePath: string): string[] {
   return getChildrenNodes(sourceFile)
     .filter(node => node.kind === ts.SyntaxKind.InterfaceDeclaration)
     .map(node => (node as ts.InterfaceDeclaration).name.escapedText as string)
+}
+
+/**
+ * Create a map of interface names to the path of the file in which they're defined
+ * The first evaluated interfaces are always the chosen ones
+ */
+export function getInterfaceNamesToPath(files: string[]): InterfaceNameToPath {
+  return files.reduce((acc: InterfaceNameToPath, filePath) => {
+    const interfaceNames = interfaceNamesFromTypescriptFile(filePath).filter(
+      interfaceName => !acc[interfaceName],
+    )
+
+    interfaceNames.forEach(interfaceName => {
+      acc[interfaceName] = filePath
+    })
+
+    return acc
+  }, {})
 }
