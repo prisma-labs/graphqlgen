@@ -1,6 +1,6 @@
 {
   "name": "graphqlgen",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "bin": {
