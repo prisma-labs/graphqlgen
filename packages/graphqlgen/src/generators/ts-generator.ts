@@ -195,20 +195,32 @@ function renderScalarResolvers(
       .map(childNode => {
         const childNodeProperty = childNode as ts.PropertySignature
         const fieldName = (childNodeProperty.name as ts.Identifier).text
-
-        return fieldName
+        const fieldOptional = !!childNodeProperty.questionToken
+        return { fieldName, fieldOptional }
       })
-      .filter(fieldName => type.fields.some(field => field.name === fieldName))
-      .map(fieldName => renderScalarResolver(fieldName, model.modelTypeName))
+      .filter(({ fieldName }) =>
+        type.fields.some(field => field.name === fieldName),
+      )
+      .map(({ fieldName, fieldOptional }) =>
+        renderScalarResolver(fieldName, fieldOptional, model.modelTypeName),
+      )
       .join(os.EOL)}
   }`
 }
 
 function renderScalarResolver(
   fieldName: string,
+  fieldOptional: boolean,
   parentTypeName: string,
 ): string {
-  return `${fieldName}: (parent: ${parentTypeName}) => parent.${fieldName},`
+  const fieldGetter = `parent.${fieldName}`
+  return `${fieldName}: (parent: ${parentTypeName}) => ${
+    fieldOptional ? renderOptionalFieldGetter(fieldGetter) : fieldGetter
+  },`
+}
+
+function renderOptionalFieldGetter(fieldGetter: string) {
+  return `${fieldGetter} === undefined ? null : ${fieldGetter}`
 }
 
 function renderInputArgInterfaces(
