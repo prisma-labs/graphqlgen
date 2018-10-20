@@ -4,7 +4,7 @@
 
 [![CircleCI](https://circleci.com/gh/prisma/graphqlgen.svg?style=shield)](https://circleci.com/gh/prisma/graphqlgen) [![npm version](https://badge.fury.io/js/graphqlgen.svg)](https://badge.fury.io/js/graphqlgen)
 
-> Generate & scaffold type-safe resolvers based on your GraphQL Schema
+> Generate & scaffold type-safe resolvers based on your GraphQL Schema in TypeScript, Flow & Reason
 
 <Details>
   <Summary>Note: Using <code>graphqlgen</code> in production</Summary>
