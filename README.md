@@ -4,7 +4,7 @@
 
 [![CircleCI](https://circleci.com/gh/prisma/graphqlgen.svg?style=shield)](https://circleci.com/gh/prisma/graphqlgen) [![npm version](https://badge.fury.io/js/graphqlgen.svg)](https://badge.fury.io/js/graphqlgen)
 
-> `graphqlgen` is a CLI tool that translates GraphQL schemas into scaffolded resolver implementations and type definitions.
+> Generate & scaffold type-safe resolvers based on your GraphQL Schema
 
 Note: While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
 
