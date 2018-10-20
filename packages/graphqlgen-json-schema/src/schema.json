@@ -4,7 +4,7 @@
   "properties": {
     "language": {
       "type": "string",
-      "oneOf": [{ "enum": ["typescript", "flow"] }]
+      "oneOf": [{ "enum": ["typescript"] }]
     },
     "schema": {
       "type": "string"
@@ -14,11 +14,22 @@
     },
     "models": {
       "type": "object",
-      "patternProperties": {
-        "^[a-zA-Z0-9]*$": {
-          "type": "string"
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "override": {
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "string"
+            }
+          }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "output": {
       "type": "string",
