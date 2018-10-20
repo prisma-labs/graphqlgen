@@ -15,7 +15,7 @@ While `graphqlgen` is ready to be used in production, it's still in active devel
 
 - **🚀 Schema-first:**: Based on your GraphQL schema (SDL) & model definitions
 - **🤝 Type-safe:** Type-safe mapping between your GraphQL schema and resolvers, input arguments and models
-- **♻️ Codegeneration & scaffolding workflows:** Minimal boilerplate and easy to evolve your GraphQL schema
+- **♻️ Codegen & scaffolding workflows:** Minimal boilerplate and easy to evolve your GraphQL schema
 
 ## Motivation
 
