@@ -6,6 +6,8 @@
 
 > `graphqlgen` is a CLI tool that translates GraphQL schemas into scaffolded resolver implementations and type definitions.
 
+Note: While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
+
 ## Overview
 
 Programming in type-safe environments provides a lot of benefits and gives you confidence about your code. **`graphqlgen` leverages the strongly typed GraphQL schema with the goal of making your backend type-safe while reducing the need to write boilerplate through code generation.**
