@@ -15,6 +15,7 @@ import {
 } from './path-helpers'
 import { getInterfaceNamesToPath } from './ast'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
+import { normalizeFilePath } from './utils'
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),
@@ -122,7 +123,9 @@ export function parseModels(
   language: Language,
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
-  const filePaths = !!models.files ? models.files : []
+  const filePaths = !!models.files
+    ? models.files.map(file => normalizeFilePath(file, language))
+    : []
   const overriddenModels = !!models.override ? models.override : {}
   const interfaceNamesToPath = getInterfaceNamesToPath(filePaths)
 

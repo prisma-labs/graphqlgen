@@ -2,7 +2,6 @@ import chalk from 'chalk'
 import { existsSync } from 'fs'
 import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
-import * as path from 'path'
 import { findTypescriptInterfaceByName, getInterfaceNamesToPath } from './ast'
 import {
   outputDefinitionFilesNotFound,
@@ -11,8 +10,8 @@ import {
   outputModelFilesNotFound,
   outputWrongSyntaxFiles,
 } from './output'
-import { getExtNameFromLanguage } from './path-helpers'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
+import { normalizeFilePath } from './utils'
 
 type Definition = {
   typeName: string
@@ -100,7 +99,9 @@ function validateModels(
   schema: DocumentNode,
   language: Language,
 ): boolean {
-  const filePaths = !!models.files ? models.files : []
+  const filePaths = !!models.files
+    ? models.files.map(file => normalizeFilePath(file, language))
+    : []
   const overriddenModels = !!models.override ? models.override : {}
   // First test if all files are existing
   if (filePaths.length > 0) {
@@ -188,24 +189,6 @@ function validateSchemaToModelMapping(
   }
 
   return true
-}
-
-/**
- * Support for different path notation
- *
- * './path/to/index.ts' => './path/to/index.ts'
- * './path/to' => './path/to/index.ts'
- * './path/to/' => './path/to/index.ts'
- */
-
-function normalizeFilePath(filePath: string, language: Language): string {
-  const ext = getExtNameFromLanguage(language)
-
-  if (path.extname(filePath) !== ext) {
-    return path.join(filePath, 'index' + ext)
-  }
-
-  return filePath
 }
 
 // Check whether the model definition exists in typescript/flow file
