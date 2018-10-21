@@ -74,7 +74,7 @@ The configuration file must be called **`graphqlgen.yml`**.
 
 ### Reference
 
-- `language`: The target programming language for the generated code. Popssible values: `typescript`.
+- `language`: The target programming language for the generated code. Possible values: `typescript`.
 - `schema`: The file path pointing to your GraphQL schema file.
 - `context`: Points to the definition of the `context` object that's passed through your GraphQL resolver chain.
 - `models`: An object mapping types from your GraphQL schema to the models defined in your programming language. Learn more about [_models_](#models).
