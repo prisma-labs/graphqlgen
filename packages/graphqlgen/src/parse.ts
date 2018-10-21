@@ -7,7 +7,10 @@ import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import schema = require('graphqlgen-json-schema/dist/schema.json')
 
 import { ContextDefinition, ModelMap } from './types'
-import { getAbsoluteFilePath, getImportPathRelativeToOutput } from './path-helpers'
+import {
+  getAbsoluteFilePath,
+  getImportPathRelativeToOutput,
+} from './path-helpers'
 import { DocumentNode, parse } from 'graphql'
 import { importSchema } from 'graphql-import'
 
@@ -22,7 +25,11 @@ const validateYaml = ajv.compile(schema)
 
 export function parseConfig(): GraphQLGenDefinition {
   if (!fs.existsSync('graphqlgen.yml')) {
-    console.error(chalk.default.red(`No graphqlgen.yml found`))
+    console.error(
+      chalk.default.red(
+        `No graphqlgen.yml found. Run \`graphqlgen --init\` to initialize one`,
+      ),
+    )
     process.exit(1)
   }
 
