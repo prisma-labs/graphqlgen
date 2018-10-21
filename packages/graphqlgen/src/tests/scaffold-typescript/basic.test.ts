@@ -14,7 +14,7 @@ test('basic schema', async () => {
     schema: relative('../fixtures/basic/schema.graphql'),
     context: relative('../fixtures/basic:Context'),
     models: {
-      files: [relative('../fixtures/enum/types.ts')],
+      files: [relative('../fixtures/basic/index.ts')],
     },
     output: relative('./generated/basic/graphqlgen.ts'),
     ['resolver-scaffolding']: {
@@ -51,7 +51,8 @@ test('basic enum', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  expect(validateConfig(config, schema)).toBe(false)
+
+  expect(validateConfig(config, schema)).toBe(true)
 })
 
 test('basic union', async () => {
@@ -70,7 +71,8 @@ test('basic union', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  expect(validateConfig(config, schema)).toBe(false)
+
+  expect(validateConfig(config, schema)).toBe(true)
 })
 
 test('basic scalar', async () => {
@@ -89,5 +91,6 @@ test('basic scalar', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  expect(validateConfig(config, schema)).toBe(false)
+
+  expect(validateConfig(config, schema)).toBe(true)
 })
