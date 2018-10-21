@@ -1,5 +1,4 @@
 import * as os from 'os'
-import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 import * as ts from 'typescript'
 
@@ -15,6 +14,10 @@ interface InputTypesMap {
 
 interface TypeToInputTypeAssociation {
   [s: string]: string[]
+}
+
+function upperFirst(s: string) {
+  return s.replace(/^\w/, c => c.toUpperCase())
 }
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -247,7 +250,7 @@ function renderInputArgInterface(
   }
 
   return `
-  export interface Args${capitalize(field.name)} {
+  export interface Args${upperFirst(field.name)} {
     ${field.arguments
       .map(
         arg =>
@@ -284,10 +287,10 @@ function renderResolverFunctionInterface(
   //   type.type.isEnum || type.type.isUnion ? '' : 'Parent'
   // },
   return `
-  export type ${capitalize(field.name)}Resolver = (
+  export type ${upperFirst(field.name)}Resolver = (
     parent: ${getModelName(type.name, modelMap)},
     args: ${
-      field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
+      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
@@ -324,7 +327,7 @@ function renderResolverTypeInterfaceFunction(
     ${field.name}: (
       parent: ${getModelName(type.name, modelMap)},
       args: ${
-        field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
+        field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
       },
       ctx: ${getContextName(context)},
       info: GraphQLResolveInfo,
