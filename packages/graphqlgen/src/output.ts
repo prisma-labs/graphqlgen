@@ -17,10 +17,11 @@ ${chalk.bold(
   )}: Make sure each of these model definitions point to an existing file
 
   models:
+    override:
     ${invalidDefinitions
       .map(
         def =>
-          `${def.definition.typeName}: ${chalk.redBright(
+          `  ${def.definition.typeName}: ${chalk.redBright(
             def.definition.filePath!,
           )}:${def.definition.modelName}`,
       )
@@ -49,10 +50,11 @@ ${chalk.bold(
   )}
 
   models:
+    override:
     ${invalidDefinitions
       .map(def =>
         chalk.redBright(
-          `${def.definition.typeName}: ${def.definition.rawDefinition}`,
+          `  ${def.definition.typeName}: ${def.definition.rawDefinition}`,
         ),
       )
       .join(os.EOL)}
@@ -74,10 +76,11 @@ ${chalk.bold(
   )}: Make sure each of these model definitions are defined in the following files
 
   models:
+    override:
     ${invalidDefinitions
       .map(
         def =>
-          `${def.definition.typeName}: ${
+          `  ${def.definition.typeName}: ${
             def.definition.filePath
           }:${chalk.redBright(def.definition.modelName!)}`,
       )
@@ -95,18 +98,16 @@ ${chalk.bold(
 
 ${missingModels.map(renderModelFromType).join(os.EOL)}
 
+
 ${chalk.bold('Step 2')}: Reference the model definitions in your ${chalk.bold(
     'graphqlgen.yml',
   )} file
 
 models:
-${missingModels.map(renderPlaceholderModels).join(os.EOL)}
+  files:
+    - ./path/to/your/file.ts  
 
 ${chalk.bold('Step 3')}: Re-run ${chalk.bold('`graphqlgen`')}`)
-}
-
-function renderPlaceholderModels(type: GraphQLTypeObject): string {
-  return `  ${type.name}: ./path/to/your/file.ts:${type.name}`
 }
 
 function renderModelFromType(type: GraphQLTypeObject): string {
@@ -115,6 +116,5 @@ export interface ${chalk.bold(type.name)} {
 ${type.fields
     .map(field => `  ${field.name}: ${graphQLToTypecriptType(field.type)}`)
     .join(os.EOL)}
-}
-`
+}`
 }
