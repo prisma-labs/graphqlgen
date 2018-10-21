@@ -9,8 +9,8 @@ context: ./src/types.ts:Context
 
 # Map SDL types from the GraphQL schema to TS models
 models:
-  User: ./src/types.ts:User
-  Post: ./src/types.ts:Post
+  files:
+    - ./src/types.ts
 
 # Generated typings for resolvers and default resolver implementations
 # Please don't edit this file but just import from here
@@ -20,4 +20,3 @@ output: ./src/generated/graphqlgen.ts
 resolver-scaffolding:
   output: ./src/generated/tmp-resolvers/
   layout: file-per-type
-

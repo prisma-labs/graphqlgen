@@ -2,8 +2,8 @@
 
 import { GraphQLResolveInfo } from 'graphql'
 import { Context } from '../types'
-import { User } from '../types'
 import { Post } from '../types'
+import { User } from '../types'
 
 export namespace QueryResolvers {
   export const defaultResolvers = {}
@@ -60,17 +60,17 @@ export namespace QueryResolvers {
 export namespace MutationResolvers {
   export const defaultResolvers = {}
 
-  export interface ArgsCreateUser {
+  export interface ArgsCreateuser {
     name: string | null
   }
 
-  export interface ArgsCreateDraft {
+  export interface ArgsCreatedraft {
     title: string
     content: string
     authorId: string
   }
 
-  export interface ArgsDeletePost {
+  export interface ArgsDeletepost {
     id: string
   }
 
@@ -78,23 +78,23 @@ export namespace MutationResolvers {
     id: string
   }
 
-  export type CreateUserResolver = (
+  export type CreateuserResolver = (
     parent: {},
-    args: ArgsCreateUser,
+    args: ArgsCreateuser,
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => User | Promise<User>
 
-  export type CreateDraftResolver = (
+  export type CreatedraftResolver = (
     parent: {},
-    args: ArgsCreateDraft,
+    args: ArgsCreatedraft,
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => Post | Promise<Post>
 
-  export type DeletePostResolver = (
+  export type DeletepostResolver = (
     parent: {},
-    args: ArgsDeletePost,
+    args: ArgsDeletepost,
     ctx: Context,
     info: GraphQLResolveInfo,
   ) => Post | null | Promise<Post | null>
@@ -109,21 +109,21 @@ export namespace MutationResolvers {
   export interface Type {
     createUser: (
       parent: {},
-      args: ArgsCreateUser,
+      args: ArgsCreateuser,
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => User | Promise<User>
 
     createDraft: (
       parent: {},
-      args: ArgsCreateDraft,
+      args: ArgsCreatedraft,
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => Post | Promise<Post>
 
     deletePost: (
       parent: {},
-      args: ArgsDeletePost,
+      args: ArgsDeletepost,
       ctx: Context,
       info: GraphQLResolveInfo,
     ) => Post | null | Promise<Post | null>
