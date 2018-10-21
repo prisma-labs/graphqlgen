@@ -327,3 +327,13 @@ export function graphQLToTypecriptType(type: GraphQLType): string {
 
   return typescriptType
 }
+
+export function extractGraphQLTypesWithoutRootsAndInputs(
+  schema: DocumentNode,
+): GraphQLTypeObject[] {
+  return extractGraphQLTypes(schema)
+    .filter(type => !type.type.isInput)
+    .filter(
+      type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
+    )
+}

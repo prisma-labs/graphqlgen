@@ -2,9 +2,14 @@ export interface GraphQLGenDefinition {
   language: Language
   schema: string
   context?: string
-  models: { [typeName: string]: string }
+  models: Models
   output: string
   ['resolver-scaffolding']?: ResolverScaffolding
+}
+
+export interface Models {
+  files?: string[]
+  override?: { [typeName: string]: string }
 }
 
 export type Language = 'typescript'

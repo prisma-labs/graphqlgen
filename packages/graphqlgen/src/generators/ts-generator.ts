@@ -4,7 +4,7 @@ import * as ts from 'typescript'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { findInterfaceByName, getChildrenNodes } from '../ast'
+import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
 import { upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
@@ -180,7 +180,10 @@ function renderScalarResolvers(
   }
 
   const filePath = model.absoluteFilePath
-  const interfaceNode = findInterfaceByName(filePath, model.modelTypeName)
+  const interfaceNode = findTypescriptInterfaceByName(
+    filePath,
+    model.modelTypeName,
+  )
 
   if (!interfaceNode) {
     throw new Error(`No interface found for name ${model.modelTypeName}`)
