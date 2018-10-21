@@ -472,3 +472,4 @@ yarn start
 ## Credits
 
 - [**gqlgen**](https://github.com/99designs/gqlgen) is the Golang equivalent of `graphqlgen` and served as a source of inspiration
+- [**graphql-code-generator**](https://github.com/dotansimha/graphql-code-generator) is a similar tool based on templates support both frontend & backend
