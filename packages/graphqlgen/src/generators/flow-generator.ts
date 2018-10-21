@@ -1,9 +1,9 @@
 import * as os from 'os'
-import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 
 import { GenerateArgs } from '../types'
 import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
+import { upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -87,7 +87,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
         ${
           field.arguments.length > 0
             ? `// Type for argument
-            export type ${type.name}_${capitalize(field.name)}_Args = {
+            export type ${type.name}_${upperFirst(field.name)}_Args = {
           ${field.arguments
             .map(
               arg =>
@@ -98,13 +98,13 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
             : ``
         }
 
-          export type ${type.name}_${capitalize(field.name)}_Resolver<T> = (
+          export type ${type.name}_${upperFirst(field.name)}_Resolver<T> = (
             parent: $PropertyType<T & ITypeMap, '${type.name}${
             type.type.isEnum || type.type.isUnion ? '' : 'Parent'
           }'>,
             args: ${
               field.arguments.length > 0
-                ? `${type.name}_${capitalize(field.name)}_Args`
+                ? `${type.name}_${upperFirst(field.name)}_Args`
                 : '{}'
             },
             ctx: $PropertyType<T & ITypeMap, 'Context'>,
@@ -125,7 +125,7 @@ ${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
             }'>,
             args: ${
               field.arguments.length > 0
-                ? `${type.name}_${capitalize(field.name)}_Args`
+                ? `${type.name}_${upperFirst(field.name)}_Args`
                 : '{}'
             },
             ctx: $PropertyType<T & ITypeMap, 'Context'>,

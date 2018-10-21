@@ -1,10 +1,10 @@
 import * as os from 'os'
-import * as capitalize from 'capitalize'
 import * as camelCase from 'camelcase'
 import * as refmt from 'reason'
 import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
 
 import { GenerateArgs } from '../types'
+import { upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType =
   | 'bool'
@@ -107,7 +107,7 @@ export function generate(args: GenerateArgs) {
   ${args.types
     .map(
       type => `
-    module ${capitalize(type.name)} = {
+    module ${upperFirst(type.name)} = {
       
       ${type.fields
         .filter(field => field.arguments.length > 0)

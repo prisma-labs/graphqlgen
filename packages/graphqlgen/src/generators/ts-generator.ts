@@ -1,11 +1,11 @@
 import * as os from 'os'
-import * as capitalize from 'capitalize'
 import * as prettier from 'prettier'
 import * as ts from 'typescript'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 import { findInterfaceByName, getChildrenNodes } from '../ast'
+import { upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -247,7 +247,7 @@ function renderInputArgInterface(
   }
 
   return `
-  export interface Args${capitalize(field.name)} {
+  export interface Args${upperFirst(field.name)} {
     ${field.arguments
       .map(
         arg =>
@@ -284,10 +284,10 @@ function renderResolverFunctionInterface(
   //   type.type.isEnum || type.type.isUnion ? '' : 'Parent'
   // },
   return `
-  export type ${capitalize(field.name)}Resolver = (
+  export type ${upperFirst(field.name)}Resolver = (
     parent: ${getModelName(type.name, modelMap)},
     args: ${
-      field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
+      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
@@ -324,7 +324,7 @@ function renderResolverTypeInterfaceFunction(
     ${field.name}: (
       parent: ${getModelName(type.name, modelMap)},
       args: ${
-        field.arguments.length > 0 ? `Args${capitalize(field.name)}` : '{}'
+        field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
       },
       ctx: ${getContextName(context)},
       info: GraphQLResolveInfo,
