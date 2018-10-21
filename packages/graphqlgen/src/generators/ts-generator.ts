@@ -303,8 +303,10 @@ function renderResolverTypeInterface(
   modelMap: ModelMap,
   context?: ContextDefinition,
 ): string {
+  // TODO add types for key and value
   return `
   export interface Type {
+    [key: string]: any;
     ${type.fields
       .map(field =>
         renderResolverTypeInterfaceFunction(field, type, modelMap, context),
@@ -336,12 +338,17 @@ function renderResolverTypeInterfaceFunction(
 }
 
 function renderResolvers(args: GenerateArgs): string {
+  const types = args.types.filter(type => type.type.isObject)
+  const unionOfTypes = types
+    .map(function(type) {
+      return type.name + 'Resolvers.Type'
+    })
+    .join(' | ')
+  // TODO add enum type for the key
   return `
 export interface Resolvers {
-  ${args.types
-    .filter(type => type.type.isObject)
-    .map(type => `${type.name}: ${type.name}Resolvers.Type`)
-    .join(os.EOL)}
+  [key: string]: ${unionOfTypes};
+  ${types.map(type => `${type.name}: ${type.name}Resolvers.Type`).join(os.EOL)}
 }
   `
 }

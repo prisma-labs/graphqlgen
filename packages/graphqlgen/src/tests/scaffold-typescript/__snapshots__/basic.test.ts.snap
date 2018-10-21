@@ -118,6 +118,8 @@ export namespace QueryResolvers {
   ) => boolean | Promise<boolean>;
 
   export interface Type {
+    [key: string]: any;
+
     id: (
       parent: {},
       args: {},
@@ -232,6 +234,8 @@ export namespace NumberResolvers {
   ) => number | null | Promise<number | null>;
 
   export interface Type {
+    [key: string]: any;
+
     id: (
       parent: Number,
       args: {},
@@ -249,6 +253,7 @@ export namespace NumberResolvers {
 }
 
 export interface Resolvers {
+  [key: string]: QueryResolvers.Type | NumberResolvers.Type;
   Query: QueryResolvers.Type;
   Number: NumberResolvers.Type;
 }
