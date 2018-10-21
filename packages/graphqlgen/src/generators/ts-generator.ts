@@ -5,6 +5,7 @@ import * as ts from 'typescript'
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 import { findInterfaceByName, getChildrenNodes } from '../ast'
+import { upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -14,10 +15,6 @@ interface InputTypesMap {
 
 interface TypeToInputTypeAssociation {
   [s: string]: string[]
-}
-
-function upperFirst(s: string) {
-  return s.replace(/^\w/, c => c.toUpperCase())
 }
 
 export function format(code: string, options: prettier.Options = {}) {
