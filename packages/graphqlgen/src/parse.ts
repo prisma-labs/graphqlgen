@@ -14,7 +14,7 @@ import {
   getImportPathRelativeToOutput,
 } from './path-helpers'
 import { getInterfaceNamesToPath } from './ast'
-import { extractGraphQLTypes } from './source-helper'
+import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),
@@ -121,20 +121,13 @@ export function parseModels(
   outputDir: string,
   language: Language,
 ): ModelMap {
-  const graphQLTypes = extractGraphQLTypes(schema)
-    .filter(type => !type.type.isInput)
-    .filter(
-      type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
-    )
-
-  const interfaceNamesToPath = !!models.files
-    ? getInterfaceNamesToPath(models.files)
-    : {}
+  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
+  const filePaths = !!models.files ? models.files : []
+  const overriddenModels = !!models.override ? models.override : {}
+  const interfaceNamesToPath = getInterfaceNamesToPath(filePaths)
 
   return graphQLTypes.reduce((acc, type) => {
-    const isModelOveridden = models.override && models.override[type.name]
-
-    if (isModelOveridden) {
+    if (overriddenModels[type.name]) {
       const [filePath, modelName] = models.override![type.name].split(':')
 
       return {

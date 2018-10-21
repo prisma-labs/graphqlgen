@@ -118,3 +118,15 @@ ${type.fields
     .join(os.EOL)}
 }`
 }
+
+export function outputModelFilesNotFound(filesNotFound: string[]) {
+  console.log(`❌ Some path to model definitions defined in your graphqlgen.yml were not found
+  
+${chalk.bold('Step 1')}: Make sure each of these files exist
+
+  models:
+    files:
+    ${filesNotFound.map(file => `  - ${chalk.redBright(file)}`).join(os.EOL)}
+
+${chalk.bold('Step 2')}: Re-run ${chalk.bold('`graphqlgen`')}`)
+}

@@ -2,7 +2,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as ts from 'typescript'
 
-interface InterfaceNameToPath {
+interface InterfaceNamesToPath {
   [interfaceName: string]: string
 }
 
@@ -24,7 +24,7 @@ function getSourceFile(fileName: string, filePath: string): ts.SourceFile {
   )
 }
 
-export function findInterfaceByName(
+export function findTypescriptInterfaceByName(
   filePath: string,
   interfaceName: string,
 ): ts.Node | undefined {
@@ -40,7 +40,7 @@ export function findInterfaceByName(
   )
 }
 
-export function interfaceNamesFromTypescriptFile(filePath: string): string[] {
+function interfaceNamesFromTypescriptFile(filePath: string): string[] {
   const fileName = path.basename(filePath)
 
   const sourceFile = getSourceFile(fileName, filePath)
@@ -55,8 +55,10 @@ export function interfaceNamesFromTypescriptFile(filePath: string): string[] {
  * Create a map of interface names to the path of the file in which they're defined
  * The first evaluated interfaces are always the chosen ones
  */
-export function getInterfaceNamesToPath(files: string[]): InterfaceNameToPath {
-  return files.reduce((acc: InterfaceNameToPath, filePath) => {
+export function getInterfaceNamesToPath(
+  filePaths: string[],
+): InterfaceNamesToPath {
+  return filePaths.reduce((acc: InterfaceNamesToPath, filePath) => {
     const interfaceNames = interfaceNamesFromTypescriptFile(filePath).filter(
       interfaceName => !acc[interfaceName],
     )

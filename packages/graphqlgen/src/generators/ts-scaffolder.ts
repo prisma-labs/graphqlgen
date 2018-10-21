@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import { GenerateArgs, CodeFileLike, ModelMap, Model } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { findInterfaceByName, getChildrenNodes } from '../ast'
+import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
 
 export { format } from './ts-generator'
 
@@ -45,7 +45,10 @@ function isParentType(name: string) {
 
 function shouldRenderField(field: GraphQLTypeField, model: Model): boolean {
   const filePath = model.absoluteFilePath
-  const interfaceNode = findInterfaceByName(filePath, model.modelTypeName)
+  const interfaceNode = findTypescriptInterfaceByName(
+    filePath,
+    model.modelTypeName,
+  )
 
   if (!interfaceNode) {
     throw new Error(`No interface found for name ${model.modelTypeName}`)
