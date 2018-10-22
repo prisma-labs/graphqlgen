@@ -392,10 +392,6 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
-capitalize@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/capitalize/-/capitalize-2.0.0.tgz#61859dd952aba244f03541b23e11470ada097f4b"
-
 capture-stack-trace@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz#a6c0bbe1f38f3aa0b92238ecb6ff42c344d4135d"
@@ -1067,21 +1063,20 @@ graphql-yoga@^1.16.2:
   dependencies:
     iterall "^1.2.2"
 
-graphqlgen-json-schema@0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.4.tgz#7f687e97af5a98867e08949dbe0b287c08a70c5d"
+graphqlgen-json-schema@0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.8.tgz#3f2eb4da6c20ed1070a3d1bdfc902582cf06a235"
 
-graphqlgen@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.2.tgz#8f5e30860b40ff1693c3203d7c1396a95bfff96f"
+graphqlgen@0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.8.tgz#103548a60784cca1485750d8e6350522ef166a35"
   dependencies:
     ajv "^6.5.4"
     camelcase "5.0.0"
-    capitalize "2.0.0"
     chalk "2.4.1"
     graphql "^0.13.0 || ^14.0.0"
     graphql-import "0.7.1"
-    graphqlgen-json-schema "0.2.4"
+    graphqlgen-json-schema "0.2.8"
     js-yaml "3.12.0"
     mkdirp "0.5.1"
     prettier "1.14.3"
