@@ -15,6 +15,9 @@
     "models": {
       "type": "object",
       "properties": {
+        "defaultName": {
+          "type": "string"
+        },
         "files": {
           "type": "array",
           "items": {
@@ -53,11 +56,6 @@
       "additionalProperties": false
     }
   },
-  "required": [
-    "language",
-    "schema",
-    "models",
-    "output"
-  ],
+  "required": ["language", "schema", "models", "output"],
   "additionalProperties": false
 }

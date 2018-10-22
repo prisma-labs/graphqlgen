@@ -95,6 +95,44 @@ test('basic union', async () => {
   expect(validateConfig(config, schema)).toBe(true)
 })
 
+test('defaultName', async () => {
+  const language = 'typescript'
+  const config: GraphQLGenDefinition = {
+    language,
+    schema: relative('../fixtures/defaultName/schema.graphql'),
+    context: relative('../fixtures/defaultName:Context'),
+    models: {
+      files: [relative('../fixtures/defaultName/index.ts')],
+      defaultName: '${typeName}Node',
+    },
+    output: relative('./generated/defaultName/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/scalar/'),
+      layout: 'file-per-type',
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = parseModels(
+    config.models,
+    schema,
+    config.output,
+    language,
+    '${typeName}Node',
+  )
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language,
+    config,
+    modelMap,
+    prettify: true,
+  })
+
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
+
+  expect(validateConfig(config, schema)).toBe(true)
+})
+
 test('basic scalar', async () => {
   const language = 'typescript'
   const config: GraphQLGenDefinition = {

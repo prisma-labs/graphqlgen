@@ -281,6 +281,7 @@ async function run() {
     parsedSchema,
     config.output,
     config.language,
+    config.models.defaultName,
   )
 
   const { generatedTypes, generatedResolvers } = generateCode({

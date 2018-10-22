@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import { existsSync } from 'fs'
 import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
-import { findTypescriptInterfaceByName, getInterfaceNamesToPath } from './ast'
+import { findTypescriptInterfaceByName, getTypeNamesFromPath } from './ast'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -12,6 +12,7 @@ import {
 } from './output'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
 import { normalizeFilePath } from './utils'
+import { replaceVariablesInString } from './parse'
 
 type Definition = {
   typeName: string
@@ -37,7 +38,12 @@ export function validateConfig(
     return false
   }
 
-  return validateModels(config.models, schema, language)
+  return validateModels(
+    config.models,
+    schema,
+    language,
+    config.models.defaultName,
+  )
 }
 
 function validateContext(
@@ -98,6 +104,7 @@ function validateModels(
   models: Models,
   schema: DocumentNode,
   language: Language,
+  defaultName?: string,
 ): boolean {
   const filePaths = !!models.files
     ? models.files.map(file => normalizeFilePath(file, language))
@@ -129,6 +136,7 @@ function validateModels(
     schema,
     validatedOverriddenModels,
     filePaths,
+    defaultName,
   )
 }
 
@@ -162,12 +170,13 @@ function validateSchemaToModelMapping(
   schema: DocumentNode,
   validatedOverriddenModels: ValidatedDefinition[],
   files: string[],
+  defaultName?: string,
 ): boolean {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
   const overridenTypeNames = validatedOverriddenModels.map(
     def => def.definition.typeName,
   )
-  const interfaceNamesToPath = getInterfaceNamesToPath(files)
+  const interfaceNamesToPath = getTypeNamesFromPath(files)
 
   const missingModels = graphQLTypes.filter(type => {
     // If some overridden models are mapped to a GraphQL type, consider them valid
@@ -177,7 +186,8 @@ function validateSchemaToModelMapping(
 
     // If an interface is found with the same name as a GraphQL type, consider them valid
     const typeHasMappingWithAFile = Object.keys(interfaceNamesToPath).some(
-      interfaceName => interfaceName === type.name,
+      interfaceName =>
+        interfaceName === replaceDefaultName(type.name, defaultName),
     )
 
     return !typeHasMappingWithAFile
@@ -189,6 +199,12 @@ function validateSchemaToModelMapping(
   }
 
   return true
+}
+
+function replaceDefaultName(typeName: string, defaultName?: string) {
+  return defaultName
+    ? replaceVariablesInString(defaultName, { typeName })
+    : typeName
 }
 
 // Check whether the model definition exists in typescript/flow file

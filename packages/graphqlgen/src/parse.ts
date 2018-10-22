@@ -13,7 +13,7 @@ import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
-import { getInterfaceNamesToPath } from './ast'
+import { getTypeNamesFromPath } from './ast'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
 import { normalizeFilePath } from './utils'
 
@@ -121,13 +121,14 @@ export function parseModels(
   schema: DocumentNode,
   outputDir: string,
   language: Language,
+  defaultName?: string,
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
   const filePaths = !!models.files
     ? models.files.map(file => normalizeFilePath(file, language))
     : []
   const overriddenModels = !!models.override ? models.override : {}
-  const interfaceNamesToPath = getInterfaceNamesToPath(filePaths)
+  const typesNamesFromPath = getTypeNamesFromPath(filePaths)
 
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {
@@ -139,14 +140,56 @@ export function parseModels(
       }
     }
 
+    const replacedTypeName = defaultName
+      ? replaceVariablesInString(defaultName, { typeName: type.name })
+      : type.name
+
+    const tsType = typesNamesFromPath[replacedTypeName]
+
+    if (!tsType) {
+      throw new Error(
+        `Could not find type ${replacedTypeName} in any of the provided files`,
+      )
+    }
+
     return {
       ...acc,
-      [type.name]: buildModel(
-        interfaceNamesToPath[type.name],
-        type.name,
-        outputDir,
-        language,
-      ),
+      [type.name]: buildModel(tsType, replacedTypeName, outputDir, language),
     }
   }, {})
+}
+
+interface ReplacementMap {
+  [key: string]: string
+}
+
+export function replaceVariablesInString(
+  str: string,
+  replacements: ReplacementMap,
+) {
+  const variableSyntax = RegExp(
+    '\\${([ ~:a-zA-Z0-9._\'",\\-\\/\\(\\)]+?)}',
+    'g',
+  )
+  let newStr = str
+  if (variableSyntax.test(str)) {
+    str.match(variableSyntax)!.forEach(matchedString => {
+      // strip ${} away to get the pure variable name
+      const variableName = matchedString
+        .replace(variableSyntax, (_, varName) => varName.trim())
+        .replace(/\s/g, '')
+
+      if (replacements[variableName]) {
+        newStr = replaceAll(newStr, matchedString, replacements[variableName])
+      } else {
+        throw new Error(`Variable ${variableName} is not covered by a value`)
+      }
+    })
+  }
+
+  return newStr
+}
+
+function replaceAll(str: string, search: string, replacement: string) {
+  return str.split(search).join(replacement)
 }

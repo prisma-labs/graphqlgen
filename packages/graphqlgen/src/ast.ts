@@ -59,7 +59,7 @@ function typeNamesFromTypescriptFile(filePath: string): string[] {
  * Create a map of interface names to the path of the file in which they're defined
  * The first evaluated interfaces are always the chosen ones
  */
-export function getInterfaceNamesToPath(
+export function getTypeNamesFromPath(
   filePaths: string[],
 ): InterfaceNamesToPath {
   return filePaths.reduce((acc: InterfaceNamesToPath, filePath) => {
