@@ -102,10 +102,10 @@ Consider an example where you have a `User` model with a `password` field. The `
 
 There are four layouts that can be applied when scaffolding resolver skeletons:
 
-- `single-file`: Generates _all_ resolvers in a single file.
-- `file-per-type` (coming soon): Generates one file per SDL type and puts the corresponding resolvers into it. 
-- `single-file-classes` (coming soon): Same as `single-file` but generates resolvers as TypeScript classes instead of plain objects.
+- `file-per-type`: Generates one file per SDL type and puts the corresponding resolvers into it. 
+- `single-file` (coming soon): Generates _all_ resolvers in a single file.
 - `file-per-type-classes` (coming soon): Same as `file-per-type` but generates resolvers as TypeScript classes instead of plain objects.
+- `single-file-classes` (coming soon): Same as `single-file` but generates resolvers as TypeScript classes instead of plain objects.
 
 See [this](https://github.com/prisma/graphqlgen/issues/106) issue to learn more about the upcoming layouts.
 
