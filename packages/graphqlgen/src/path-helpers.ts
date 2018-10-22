@@ -1,22 +1,28 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { Language } from 'graphqlgen-json-schema';
+import { Language } from 'graphqlgen-json-schema'
 
 export function getExtNameFromLanguage(language: Language) {
   const extNames = {
     typescript: '.ts',
     /* flow: '.js' */
-  };
+  }
 
-  return extNames[language];
+  return extNames[language]
 }
 
 // TODO write test cases
-export function getAbsoluteFilePath(modelPath: string, language: Language): string {
+export function getAbsoluteFilePath(
+  modelPath: string,
+  language: Language,
+): string {
   let absolutePath = path.resolve(modelPath)
-  const extName = getExtNameFromLanguage(language);
-  
-  if (!fs.existsSync(absolutePath) && fs.existsSync(`${absolutePath}${extName}`)) {
+  const extName = getExtNameFromLanguage(language)
+
+  if (
+    !fs.existsSync(absolutePath) &&
+    fs.existsSync(`${absolutePath}${extName}`)
+  ) {
     absolutePath += extName
   }
 
@@ -34,7 +40,9 @@ export function getAbsoluteFilePath(modelPath: string, language: Language): stri
 
   const indexPath = path.join(absolutePath, 'index' + extName)
   if (!fs.existsSync(indexPath)) {
-    throw new Error(`No index${extName} file found in directory: ${absolutePath}`)
+    throw new Error(
+      `No index${extName} file found in directory: ${absolutePath}`,
+    )
   }
 
   return indexPath

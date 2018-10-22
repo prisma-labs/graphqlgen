@@ -18,8 +18,8 @@ about: Create a report to help us improve
 
 ## Versions
 <!--
-Check your graphql-resolver-codegen by running:
-`graphql-resolver-codegen --version`
+Check your graphqlgen by running:
+`graphqlgen --version`
 -->
-- graphql-resolver-codegen:
+- graphqlgen:
 - OS name and version:

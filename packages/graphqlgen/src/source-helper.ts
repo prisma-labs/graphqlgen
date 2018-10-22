@@ -23,7 +23,7 @@ type GraphQLTypeDefinition = {
   isInterface: boolean
 }
 
-type GraphQLType = GraphQLTypeDefinition & {
+export type GraphQLType = GraphQLTypeDefinition & {
   isArray: boolean
   isRequired: boolean
 }
@@ -144,7 +144,10 @@ function extractTypeLike(
 
 function extractTypeFields(
   schema: DocumentNode,
-  node: ObjectTypeDefinitionNode | InputObjectTypeDefinitionNode,
+  node:
+    | ObjectTypeDefinitionNode
+    | InputObjectTypeDefinitionNode
+    | EnumTypeDefinitionNode,
 ) {
   const fields: GraphQLTypeField[] = []
   if (node.kind === 'ObjectTypeDefinition') {
@@ -200,6 +203,22 @@ function extractTypeFields(
 export function extractGraphQLTypes(schema: DocumentNode) {
   const types: GraphQLTypeObject[] = []
   visit(schema, {
+    EnumTypeDefinition(node: EnumTypeDefinitionNode) {
+      const fields: GraphQLTypeField[] = extractTypeFields(schema, node)
+      types.push({
+        name: node.name.value,
+        type: {
+          name: node.name.value,
+          isObject: false,
+          isInput: false,
+          isEnum: true,
+          isUnion: false,
+          isScalar: false,
+          isInterface: false,
+        },
+        fields: fields,
+      })
+    },
     ObjectTypeDefinition(node: ObjectTypeDefinitionNode) {
       const fields: GraphQLTypeField[] = extractTypeFields(schema, node)
       types.push({
