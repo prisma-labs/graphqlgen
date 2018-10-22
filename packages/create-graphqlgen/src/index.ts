@@ -6,7 +6,7 @@ import * as meow from 'meow'
 import * as inquirer from 'inquirer'
 
 import { loadGraphQLGenStarter } from './loader'
-import { defaultStarter } from './starters'
+import { defaultTemplate } from './templates'
 
 const cli = meow(
   `
@@ -75,7 +75,7 @@ async function main(cli: meow.Result) {
     fs.mkdirSync(output)
   }
 
-  loadGraphQLGenStarter(defaultStarter, path.resolve(output), {
+  loadGraphQLGenStarter(defaultTemplate, path.resolve(output), {
     installDependencies: !cli.flags['no-install'],
     generateModels: !cli.flags['no-generate'],
   })

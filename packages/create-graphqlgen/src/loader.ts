@@ -1,4 +1,4 @@
-import * as Zip from 'adm-zip'
+import * as tar from 'tar'
 import * as tmp from 'tmp'
 import * as github from 'parse-github-url'
 import * as fs from 'fs'
@@ -7,7 +7,7 @@ import * as request from 'request'
 import * as execa from 'execa'
 import chalk from 'chalk'
 
-import { Starter } from './starters'
+import { Template } from './templates'
 
 export interface LoadOptions {
   installDependencies: boolean
@@ -15,14 +15,14 @@ export interface LoadOptions {
 }
 
 export async function loadGraphQLGenStarter(
-  starter: Starter,
+  template: Template,
   output: string,
   options: LoadOptions,
 ): Promise<void> {
-  const zip = getGraphQLGenStarterRepositoryZipInformation(starter)
-  const tmp = await downloadRepository(zip)
+  const tar = getGraphQLGenTemplateRepositoryTarInformation(template)
+  const tmp = await downloadRepository(tar)
 
-  await extractGraphQLGenStarterFromRepository(tmp, zip, output)
+  await extractGraphQLGenStarterFromRepository(tmp, tar, output)
 
   if (options.installDependencies) {
     await installGraphQLGenStarter(output)
@@ -35,34 +35,41 @@ export async function loadGraphQLGenStarter(
   printHelpMessage()
 }
 
-interface StarterRepositoryZipInformation {
+interface TemplateRepositoryTarInformation {
   uri: string
-  path: string
+  files: string
 }
 
-function getGraphQLGenStarterRepositoryZipInformation(
-  starter: Starter,
-): StarterRepositoryZipInformation {
-  const meta = github(starter.repo.uri)
+function getGraphQLGenTemplateRepositoryTarInformation(
+  template: Template,
+): TemplateRepositoryTarInformation {
+  const meta = github(template.repo.uri)
 
-  const uri = `${starter.repo.uri}/archive/${starter.repo.branch}.zip`
-  const normalizedBranch = starter.repo.branch.replace('/', '-')
-  const path = `${meta.name}-${normalizedBranch}/${starter.repo.path}/`
+  const uri = [
+    `https://api.github.com/repos`,
+    meta.repo,
+    'tarball',
+    template.repo.branch,
+  ].join('/')
 
-  return { uri, path }
+  return { uri, files: template.repo.path }
 }
 
 async function downloadRepository(
-  zip: StarterRepositoryZipInformation,
+  tar: TemplateRepositoryTarInformation,
 ): Promise<string> {
-  const spinner = ora(`Downloading starter from ${chalk.cyan(zip.uri)}`).start()
+  const spinner = ora(`Downloading starter from ${chalk.cyan(tar.uri)}`).start()
 
   const tmpPath = tmp.fileSync({
-    postfix: '.zip',
+    postfix: '.tar.gz',
   })
 
   await new Promise(resolve => {
-    request(zip.uri)
+    request(tar.uri, {
+      headers: {
+        'User-Agent': 'prisma/create-graphqlgen',
+      },
+    })
       .pipe(fs.createWriteStream(tmpPath.name))
       .on('close', resolve)
   })
@@ -74,25 +81,21 @@ async function downloadRepository(
 
 async function extractGraphQLGenStarterFromRepository(
   tmp: string,
-  repo: StarterRepositoryZipInformation,
+  repo: TemplateRepositoryTarInformation,
   output: string,
-): Promise<boolean> {
-  return new Promise<boolean>((resolve, reject) => {
-    const spinner = ora(`Extracting content to ${chalk.cyan(output)}`)
+): Promise<void> {
+  const spinner = ora(`Extracting content to ${chalk.cyan(output)}`)
 
-    try {
-      const zip = new Zip(tmp)
-      const extract = zip.extractEntryTo(repo.path, output, false, true)
-
-      spinner.succeed()
-
-      resolve(extract)
-    } catch (err) {
-      spinner.fail()
-
-      reject(err)
-    }
+  await tar.extract({
+    file: tmp,
+    cwd: output,
+    filter: path => RegExp(repo.files).test(path),
+    strip: repo.files.split('/').length,
   })
+
+  spinner.succeed()
+
+  return
 }
 
 async function installGraphQLGenStarter(path: string): Promise<void> {
