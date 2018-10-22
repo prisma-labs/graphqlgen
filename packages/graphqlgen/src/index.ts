@@ -194,7 +194,8 @@ function writeResolversScaffolding(
 }
 
 function bootstrapYamlFile() {
-  const yaml = `# The target programming language for the generated code
+  const yaml = `\
+# The target programming language for the generated code
 language: typescript
 
 # The file path pointing to your GraphQL schema
@@ -205,8 +206,8 @@ context: <path-to-file>:<name-of-interface>
 
 # Map SDL types from the GraphQL schema to TS models
 models:
- files:
-  - <path-to-file>.ts
+  files:
+    - <path-to-file>.ts
 
 # Generated typings for resolvers and default resolver implementations
 # Please don't edit this file but just import from here
@@ -214,8 +215,8 @@ output: <path-to-generated-file>/graphqlgen.ts
 
 # Temporary scaffolded resolvers to copy and paste in your application
 resolver-scaffolding:
- output: <path-to-output-dir>
- layout: file-per-type
+  output: <path-to-output-dir>
+  layout: file-per-type
 `
   const outputPath = path.join(process.cwd(), 'graphqlgen.yml')
 
