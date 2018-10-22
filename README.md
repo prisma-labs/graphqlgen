@@ -107,7 +107,7 @@ There are four layouts that can be applied when scaffolding resolver skeletons:
 - `single-file-classes` (coming soon): Same as `single-file` but generates resolvers as TypeScript classes instead of plain objects.
 - `file-per-type-classes` (coming soon): Same as `file-per-type` but generates resolvers as TypeScript classes instead of plain objects.
 
-See [this]https://github.com/prisma/graphqlgen/issues/106) issue to learn more about the upcoming layouts.
+See [this](https://github.com/prisma/graphqlgen/issues/106) issue to learn more about the upcoming layouts.
 
 ## Generation
 
