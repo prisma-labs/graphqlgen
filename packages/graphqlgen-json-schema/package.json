@@ -13,7 +13,7 @@
     "t": "jest"
   },
   "devDependencies": {
-    "@types/jest": "23.3.5",
+    "@types/jest": "23.3.7",
     "ajv": "6.5.4",
     "jest": "23.6.0",
     "js-yaml": "3.12.0",
