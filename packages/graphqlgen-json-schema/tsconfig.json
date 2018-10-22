@@ -4,16 +4,9 @@
     "target": "es5",
     "outDir": "dist",
     // TODO remove all libs (somehow needed for yarn workspaces)
-    "lib": [
-      "es2015",
-      "esnext.asynciterable"
-    ]
+    "lib": ["es2015", "esnext.asynciterable"],
+    "resolveJsonModule": true
   },
-  "include": [
-    "src/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
