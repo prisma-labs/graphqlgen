@@ -3,7 +3,11 @@ import * as prettier from 'prettier'
 import * as ts from 'typescript'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
-import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import {
+  GraphQLTypeField,
+  GraphQLTypeObject,
+  GraphQLType,
+} from '../source-helper'
 import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
 import { upperFirst } from '../utils'
 
@@ -288,7 +292,7 @@ function renderResolverFunctionInterface(
   // },
   return `
   export type ${upperFirst(field.name)}Resolver = (
-    parent: ${getModelName(type.name, modelMap)},
+    parent: ${getModelName(type.type as any, modelMap)},
     args: ${
       field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
@@ -325,7 +329,7 @@ function renderResolverTypeInterfaceFunction(
 ): string {
   return `
     ${field.name}: (
-      parent: ${getModelName(type.name, modelMap)},
+      parent: ${getModelName(type.type as any, modelMap)},
       args: ${
         field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
       },
@@ -349,8 +353,12 @@ export interface Resolvers {
   `
 }
 
-function getModelName(typeName: string, modelMap: ModelMap): string {
-  const model = modelMap[typeName]
+function getModelName(type: GraphQLType, modelMap: ModelMap): string {
+  const model = modelMap[type.name]
+
+  if (type.isEnum) {
+    return type.name
+  }
 
   // NOTE if no model is found, return the empty type
   // It's usually assumed that every GraphQL type has a model associated
@@ -375,7 +383,7 @@ function printFieldLikeType(field: GraphQLTypeField, modelMap: ModelMap) {
     }`
   }
 
-  return `${getModelName(field.type.name, modelMap)}${
+  return `${getModelName(field.type, modelMap)}${
     field.type.isArray ? '[]' : ''
   }${!field.type.isRequired ? '| null' : ''}`
 }

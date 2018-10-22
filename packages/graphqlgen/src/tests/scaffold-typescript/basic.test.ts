@@ -51,7 +51,17 @@ test('basic enum', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+  const modelMap = parseModels(config.models, schema, config.output, language)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language,
+    config,
+    modelMap,
+    prettify: true,
+  })
 
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
   expect(validateConfig(config, schema)).toBe(true)
 })
 
@@ -71,7 +81,17 @@ test('basic union', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+  const modelMap = parseModels(config.models, schema, config.output, language)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language,
+    config,
+    modelMap,
+    prettify: true,
+  })
 
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
   expect(validateConfig(config, schema)).toBe(true)
 })
 
@@ -91,6 +111,17 @@ test('basic scalar', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+  const modelMap = parseModels(config.models, schema, config.output, language)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language,
+    config,
+    modelMap,
+    prettify: true,
+  })
+
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
 
   expect(validateConfig(config, schema)).toBe(true)
 })

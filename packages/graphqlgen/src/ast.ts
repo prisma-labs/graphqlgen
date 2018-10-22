@@ -40,14 +40,18 @@ export function findTypescriptInterfaceByName(
   )
 }
 
-function interfaceNamesFromTypescriptFile(filePath: string): string[] {
+function typeNamesFromTypescriptFile(filePath: string): string[] {
   const fileName = path.basename(filePath)
 
   const sourceFile = getSourceFile(fileName, filePath)
 
   // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
   return getChildrenNodes(sourceFile)
-    .filter(node => node.kind === ts.SyntaxKind.InterfaceDeclaration)
+    .filter(
+      node =>
+        node.kind === ts.SyntaxKind.InterfaceDeclaration ||
+        node.kind === ts.SyntaxKind.TypeAliasDeclaration,
+    )
     .map(node => (node as ts.InterfaceDeclaration).name.escapedText as string)
 }
 
@@ -59,7 +63,7 @@ export function getInterfaceNamesToPath(
   filePaths: string[],
 ): InterfaceNamesToPath {
   return filePaths.reduce((acc: InterfaceNamesToPath, filePath) => {
-    const interfaceNames = interfaceNamesFromTypescriptFile(filePath).filter(
+    const interfaceNames = typeNamesFromTypescriptFile(filePath).filter(
       interfaceName => !acc[interfaceName],
     )
 
