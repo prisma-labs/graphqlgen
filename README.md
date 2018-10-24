@@ -34,9 +34,10 @@ npm install -g graphqlgen
 
 ## Usage
 
-<Details>
-  <Summary>Note: Using <code>graphqlgen</code> in production</Summary>
+<Details><Summary>Note: Using <code>graphqlgen</code> in production</Summary>
+
 While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
+
 </Details>
 
 ---
@@ -55,11 +56,10 @@ language: typescript
 schema: ./src/schema.graphql
 context: ./src/types.ts:Context
 models:
-  defaultName: '${typeName}Node'
   files:
     - ./src/generated/prisma-client/index.ts
-  overrides:
-    Post: ./src/generated/prisma-client/index.ts:PostNode
+    - path: src/records.ts
+      defaultName: '${typeName}Record'
 
 output: ./src/generated/graphqlgen.ts
 
