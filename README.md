@@ -14,13 +14,6 @@
 - **😍 Awesome DX:** Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
 - **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier), [graphql-import](https://github.com/prisma/graphql-import) and [graphql-config](https://github.com/prisma/graphql-config) out of the box
 
-<Details><Summary><b>Note: Using <code>graphqlgen</code> in production</b></Summary>
-<br />
-
-While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
-
-</Details>
-
 ## Documentation
 
 You can find the docs for the `graphqlgen` CLI [here](https://oss.prisma.io/content/graphqlgen/01-overview).
@@ -100,6 +93,13 @@ Learn more about the configuration in the [docs](https://oss.prisma.io/content/g
 
 - [Create a feature request](https://github.com/prisma/graphqlgen/issues/new?template=feature_request.md&labels=enhancement)
 - [Create a bug report](https://github.com/prisma/graphqlgen/issues/new?template=bug_report.md&labels=bug)
+
+<Details><Summary><b>Note: Using <code>graphqlgen</code> in production</b></Summary>
+<br />
+
+While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
+
+</Details>
 
 ## Credits
 
