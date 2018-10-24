@@ -33,7 +33,7 @@
     "chalk": "2.4.1",
     "graphql": "^0.13.0 || ^14.0.0",
     "graphql-import": "0.7.1",
-    "graphqlgen-json-schema": "0.2.9",
+    "graphqlgen-json-schema": "0.2.11",
     "js-yaml": "3.12.0",
     "mkdirp": "0.5.1",
     "prettier": "1.14.3",
