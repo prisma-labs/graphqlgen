@@ -14,6 +14,13 @@
 - **😍 Awesome DX:** Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
 - **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier), [graphql-import](https://github.com/prisma/graphql-import) and [graphql-config](https://github.com/prisma/graphql-config) out of the box
 
+<Details><Summary><b>Note: Using <code>graphqlgen</code> in production</b></Summary>
+<br />
+
+While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
+
+</Details>
+
 ## Documentation
 
 You can find the docs for the `graphqlgen` CLI [here](https://oss.prisma.io/content/graphqlgen/01-overview).
@@ -28,7 +35,32 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 - `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 - `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 
-## Install
+## Get started
+
+### Start from scratch
+
+Bootstrap a GraphQL server based with a ready-made `graphqlen` setup: 
+
+```
+npm init graphqlgen ./my-app
+```
+
+Then start the server:
+
+```
+cd my-app
+yarn start
+```
+
+After updating the GraphQL schema in `.my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
+
+```
+graphqlgen
+```
+
+### Add to existing project
+
+#### Install
 
 You can install the `graphqlgen` CLI with the following command:
 
@@ -36,16 +68,7 @@ You can install the `graphqlgen` CLI with the following command:
 npm install -g graphqlgen
 ```
 
-## Usage
-
-<Details><Summary><b>Note: Using <code>graphqlgen</code> in production</b></Summary>
-<br />
-
-While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
-
-</Details>
-
----
+#### Usage
 
 Once installed, you can invoke the CLI as follows:
 
@@ -70,6 +93,8 @@ resolver-scaffolding:
   output: ./src/generated/tmp-resolvers/
   layout: file-per-type
 ```
+
+Learn more about the configuration in the [docs](https://oss.prisma.io/content/graphqlgen/01-Overview.html#configuration-graphqlgenyml).
 
 ## Support
 
