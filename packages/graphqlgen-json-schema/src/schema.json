@@ -18,7 +18,6 @@
         "files": {
           "type": "array",
           "items": {
-            "type": "string",
             "anyOf": [
               {
                 "type": "string"
