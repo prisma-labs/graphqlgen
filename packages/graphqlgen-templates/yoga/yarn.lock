@@ -1063,20 +1063,20 @@ graphql-yoga@^1.16.2:
   dependencies:
     iterall "^1.2.2"
 
-graphqlgen-json-schema@0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.8.tgz#3f2eb4da6c20ed1070a3d1bdfc902582cf06a235"
+graphqlgen-json-schema@0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.11.tgz#ff5f874fb99bf5acabaed0e43217f8274c55bd47"
 
-graphqlgen@0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.8.tgz#103548a60784cca1485750d8e6350522ef166a35"
+graphqlgen@0.2.12:
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.2.12.tgz#15ff00297c0d5544299076e7e555463ee4c94528"
   dependencies:
     ajv "^6.5.4"
     camelcase "5.0.0"
     chalk "2.4.1"
     graphql "^0.13.0 || ^14.0.0"
     graphql-import "0.7.1"
-    graphqlgen-json-schema "0.2.8"
+    graphqlgen-json-schema "0.2.11"
     js-yaml "3.12.0"
     mkdirp "0.5.1"
     prettier "1.14.3"
