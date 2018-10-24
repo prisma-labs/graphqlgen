@@ -14,9 +14,9 @@
 - **😍 Awesome DX:** Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
 - **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier), [graphql-import](https://github.com/prisma/graphql-import) and [graphql-config](https://github.com/prisma/graphql-config) out of the box
 
-## Docs
+## Documentation
 
-You can find the documentation for the `graphqlgen` CLI [here](https://oss.prisma.io/content/graphqlgen/01-overview).
+You can find the docs for the `graphqlgen` CLI [here](https://oss.prisma.io/content/graphqlgen/01-overview).
 
 ## Motivation
 
