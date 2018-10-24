@@ -8,10 +8,16 @@ export interface GraphQLGenDefinition {
 }
 
 export interface Models {
-  files?: string[]
+  files?: File[]
   override?: { [typeName: string]: string }
-  defaultName?: string
 }
+
+export type File =
+  | string
+  | {
+      path: string
+      defaultName?: string
+    }
 
 export type Language = 'typescript'
 

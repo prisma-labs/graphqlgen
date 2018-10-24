@@ -11,6 +11,8 @@ context: ./src/types.ts:Context
 models:
   files:
     - ./src/types.ts
+    - path: ./src/generated/client.ts
+      defaultName: ${typeName}Node
 
 # Generated typings for resolvers and default resolver implementations
 # Please don't edit this file but just import from here

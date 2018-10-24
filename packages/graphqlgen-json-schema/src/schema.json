@@ -15,13 +15,27 @@
     "models": {
       "type": "object",
       "properties": {
-        "defaultName": {
-          "type": "string"
-        },
         "files": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "defaultName": {
+                    "type": "string"
+                  }
+                },
+                "required": ["path"]
+              }
+            ]
           }
         },
         "override": {
