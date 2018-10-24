@@ -34,7 +34,8 @@ npm install -g graphqlgen
 
 ## Usage
 
-<Details><Summary>Note: Using <code>graphqlgen</code> in production</Summary>
+<Details><Summary><b>Note: Using <code>graphqlgen</code> in production</b></Summary>
+<br />
 
 While `graphqlgen` is ready to be used in production, it's still in active development and there might be breaking changes before it hits 1.0. Most changes will just affect the configuration and generated code layout but not the behaviour of the code itself.
 
