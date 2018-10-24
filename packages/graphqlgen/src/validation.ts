@@ -1,8 +1,13 @@
 import chalk from 'chalk'
 import { existsSync } from 'fs'
 import { DocumentNode } from 'graphql'
-import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
-import { findTypescriptInterfaceByName, getTypeNamesFromPath } from './ast'
+import {
+  GraphQLGenDefinition,
+  Language,
+  Models,
+  File,
+} from 'graphqlgen-json-schema'
+import { findTypescriptInterfaceByName, getTypeToFileMapping } from './ast'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -12,7 +17,7 @@ import {
 } from './output'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
 import { normalizeFilePath } from './utils'
-import { replaceVariablesInString } from './parse'
+import { replaceVariablesInString, getPath, getDefaultName } from './parse'
 
 type Definition = {
   typeName: string
@@ -38,12 +43,7 @@ export function validateConfig(
     return false
   }
 
-  return validateModels(
-    config.models,
-    schema,
-    language,
-    config.models.defaultName,
-  )
+  return validateModels(config.models, schema, language)
 }
 
 function validateContext(
@@ -104,18 +104,20 @@ function validateModels(
   models: Models,
   schema: DocumentNode,
   language: Language,
-  defaultName?: string,
 ): boolean {
   const filePaths = !!models.files
-    ? models.files.map(file => normalizeFilePath(file, language))
+    ? models.files.map(file => ({
+        defaultName: typeof file === 'object' ? file.defaultName : undefined,
+        path: normalizeFilePath(getPath(file), language),
+      }))
     : []
   const overriddenModels = !!models.override ? models.override : {}
   // First test if all files are existing
   if (filePaths.length > 0) {
-    const invalidFiles = filePaths.filter(filePath => !existsSync(filePath))
+    const invalidFiles = filePaths.filter(file => !existsSync(getPath(file)))
 
     if (invalidFiles.length > 0) {
-      outputModelFilesNotFound(invalidFiles)
+      outputModelFilesNotFound(invalidFiles.map(f => f.path))
       return false
     }
   }
@@ -136,7 +138,6 @@ function validateModels(
     schema,
     validatedOverriddenModels,
     filePaths,
-    defaultName,
   )
 }
 
@@ -169,14 +170,13 @@ function testValidatedDefinitions(
 function validateSchemaToModelMapping(
   schema: DocumentNode,
   validatedOverriddenModels: ValidatedDefinition[],
-  files: string[],
-  defaultName?: string,
+  files: File[],
 ): boolean {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
   const overridenTypeNames = validatedOverriddenModels.map(
     def => def.definition.typeName,
   )
-  const interfaceNamesToPath = getTypeNamesFromPath(files)
+  const interfaceNamesToPath = getTypeToFileMapping(files)
 
   const missingModels = graphQLTypes.filter(type => {
     // If some overridden models are mapped to a GraphQL type, consider them valid
@@ -186,8 +186,11 @@ function validateSchemaToModelMapping(
 
     // If an interface is found with the same name as a GraphQL type, consider them valid
     const typeHasMappingWithAFile = Object.keys(interfaceNamesToPath).some(
-      interfaceName =>
-        interfaceName === replaceDefaultName(type.name, defaultName),
+      interfaceName => {
+        const file = interfaceNamesToPath[interfaceName]
+        const defaultName = getDefaultName(file)
+        return interfaceName === replaceDefaultName(type.name, defaultName)
+      },
     )
 
     return !typeHasMappingWithAFile
@@ -201,7 +204,7 @@ function validateSchemaToModelMapping(
   return true
 }
 
-function replaceDefaultName(typeName: string, defaultName?: string) {
+function replaceDefaultName(typeName: string, defaultName?: string | null) {
   return defaultName
     ? replaceVariablesInString(defaultName, { typeName })
     : typeName

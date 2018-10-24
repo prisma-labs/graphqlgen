@@ -6,14 +6,12 @@
     "rootDir": "./src",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["es2015", "esnext.asynciterable"],
+    "lib": ["es2015", "esnext.asynciterable", "es2017"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
+  "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "generated", "example", "examples"]
 }

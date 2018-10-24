@@ -5,7 +5,12 @@ import * as yaml from 'js-yaml'
 import { DocumentNode, parse } from 'graphql'
 import { importSchema } from 'graphql-import'
 
-import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
+import {
+  GraphQLGenDefinition,
+  Language,
+  Models,
+  File,
+} from 'graphqlgen-json-schema'
 import schema = require('graphqlgen-json-schema/dist/schema.json')
 
 import { ContextDefinition, ModelMap } from './types'
@@ -13,7 +18,7 @@ import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
-import { getTypeNamesFromPath } from './ast'
+import { getTypeToFileMapping } from './ast'
 import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
 import { normalizeFilePath } from './utils'
 
@@ -116,19 +121,37 @@ function buildModel(
   }
 }
 
+export function getPath(file: File): string {
+  if (typeof file === 'string') {
+    return file
+  }
+
+  return file.path
+}
+
+export function getDefaultName(file: File): string | null {
+  if (typeof file === 'string') {
+    return null
+  }
+
+  return file.defaultName || null
+}
+
 export function parseModels(
   models: Models,
   schema: DocumentNode,
   outputDir: string,
   language: Language,
-  defaultName?: string,
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
   const filePaths = !!models.files
-    ? models.files.map(file => normalizeFilePath(file, language))
+    ? models.files.map(file => ({
+        defaultName: typeof file === 'object' ? file.defaultName : undefined,
+        path: normalizeFilePath(getPath(file), language),
+      }))
     : []
   const overriddenModels = !!models.override ? models.override : {}
-  const typesNamesFromPath = getTypeNamesFromPath(filePaths)
+  const typeToFileMapping = getTypeToFileMapping(filePaths)
 
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {
@@ -140,21 +163,35 @@ export function parseModels(
       }
     }
 
+    const typeFileTuple = Object.entries(typeToFileMapping).find(
+      ([typeName, file]) => {
+        const defaultName = getDefaultName(file)
+        const replacedTypeName = defaultName
+          ? replaceVariablesInString(defaultName, { typeName: type.name })
+          : type.name
+
+        return typeName === replacedTypeName
+      },
+    )
+
+    if (!typeFileTuple) {
+      throw new Error(
+        `Could not find type ${type.name} in any of the provided files`,
+      )
+    }
+
+    const file = typeFileTuple[1]
+
+    const filePath = getPath(file)
+    const defaultName = getDefaultName(file)
+
     const replacedTypeName = defaultName
       ? replaceVariablesInString(defaultName, { typeName: type.name })
       : type.name
 
-    const tsType = typesNamesFromPath[replacedTypeName]
-
-    if (!tsType) {
-      throw new Error(
-        `Could not find type ${replacedTypeName} in any of the provided files`,
-      )
-    }
-
     return {
       ...acc,
-      [type.name]: buildModel(tsType, replacedTypeName, outputDir, language),
+      [type.name]: buildModel(filePath, replacedTypeName, outputDir, language),
     }
   }, {})
 }

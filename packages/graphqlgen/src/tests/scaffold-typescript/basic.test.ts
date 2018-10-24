@@ -102,8 +102,12 @@ test('defaultName', async () => {
     schema: relative('../fixtures/defaultName/schema.graphql'),
     context: relative('../fixtures/defaultName:Context'),
     models: {
-      files: [relative('../fixtures/defaultName/index.ts')],
-      defaultName: '${typeName}Node',
+      files: [
+        {
+          path: relative('../fixtures/defaultName/index.ts'),
+          defaultName: '${typeName}Node',
+        },
+      ],
     },
     output: relative('./generated/defaultName/graphqlgen.ts'),
     ['resolver-scaffolding']: {
@@ -112,13 +116,7 @@ test('defaultName', async () => {
     },
   }
   const schema = parseSchema(config.schema)
-  const modelMap = parseModels(
-    config.models,
-    schema,
-    config.output,
-    language,
-    '${typeName}Node',
-  )
+  const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
     language,
