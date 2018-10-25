@@ -4,8 +4,8 @@ node_modules/
 dist/
 tmp/
 package-lock.json
+.idea/
 *.log
-
 # needed for gitbook
 .grunt
 _book
