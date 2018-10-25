@@ -1,26 +1,23 @@
 import * as os from 'os'
 import * as prettier from 'prettier'
 
-import { GenerateArgs } from '../types'
-import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
+import { ContextDefinition, GenerateArgs, ModelMap } from '../types'
+import {
+  GraphQLType,
+  GraphQLTypeField,
+  GraphQLTypeObject,
+} from '../source-helper'
 import { upperFirst } from '../utils'
+import { findFlowTypeByName } from '../flow-ast'
+import {
+  TypeAlias,
+  InterfaceDeclaration,
+  ObjectTypeAnnotation,
+  ObjectTypeProperty,
+  Identifier,
+} from '@babel/types'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
-
-function getTypeFromGraphQLType(
-  type: GraphQLScalarType,
-): SpecificGraphQLScalarType {
-  if (type === 'Int' || type === 'Float') {
-    return 'number'
-  }
-  if (type === 'Boolean') {
-    return 'boolean'
-  }
-  if (type === 'String' || type === 'ID' || type === 'DateTime') {
-    return 'string'
-  }
-  return 'string'
-}
 
 export function format(code: string, options: prettier.Options = {}) {
   try {
@@ -38,109 +35,272 @@ export function format(code: string, options: prettier.Options = {}) {
   }
 }
 
-export function printFieldLikeType(
-  field: GraphQLTypeField,
-  lookupType: boolean = true,
-) {
-  if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name as GraphQLScalarType)}${
-      field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
-  }
-
-  return lookupType
-    ? `$PropertyType<T & ITypeMap, '${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? '' : 'Parent'
-      }'>${field.type.isArray ? '[]' : ''}${
-        !field.type.isRequired ? '| null' : ''
-      }`
-    : `${field.type.name}${
-        field.type.isEnum || field.type.isUnion ? '' : 'Parent'
-      }${field.type.isArray ? '[]' : ''}${
-        !field.type.isRequired ? '| null' : ''
-      }`
-}
-
 export function generate(args: GenerateArgs) {
-  return `/* @flow */
-import type { GraphQLResolveInfo } from 'graphql'
-
-export interface ITypeMap {
-Context: any,
-${args.enums.map(e => `${e.name}: any`).join(`,${os.EOL}`)}${
-    args.enums.length > 0 ? `,` : ``
-  }
-${args.unions.map(union => `${union.name}: any`).join(`,${os.EOL}`)}${
-    args.unions.length > 0 ? `,` : ``
-  }
-${args.types.map(type => `${type.name}Parent: any`).join(`,${os.EOL}`)}
-}
+  return `\
+${renderHeader(args)}
 
   ${args.types
     .map(
       type => `
-      
-      ${type.fields
-        .map(field => {
-          return `
+      // Types for ${upperFirst(type.name)}
+      ${renderScalarResolvers(type, args.modelMap)} 
+      ${renderFieldsResolvers(type, args)}
+      ${renderTypeResolver(type, args)}
 
-        ${
-          field.arguments.length > 0
-            ? `// Type for argument
-            export type ${type.name}_${upperFirst(field.name)}_Args = {
-          ${field.arguments
-            .map(
-              arg =>
-                `${arg.name}: ${printFieldLikeType(arg as GraphQLTypeField)},`,
-            )
-            .join(`${os.EOL}`)}
-        }`
-            : ``
-        }
-
-          export type ${type.name}_${upperFirst(field.name)}_Resolver<T> = (
-            parent: $PropertyType<T & ITypeMap, '${type.name}${
-            type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-          }'>,
-            args: ${
-              field.arguments.length > 0
-                ? `${type.name}_${upperFirst(field.name)}_Args`
-                : '{}'
-            },
-            ctx: $PropertyType<T & ITypeMap, 'Context'>,
-            info: GraphQLResolveInfo,
-          ) => ${printFieldLikeType(field)} | Promise<${printFieldLikeType(
-            field,
-          )}>
-        `
-        })
-        .join(os.EOL)}
-
-      export type ${type.name}_Type<T> = {
-        ${type.fields
-          .map(
-            field => `${field.name}: (
-            parent: $PropertyType<T & ITypeMap, '${type.name}${
-              type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-            }'>,
-            args: ${
-              field.arguments.length > 0
-                ? `${type.name}_${upperFirst(field.name)}_Args`
-                : '{}'
-            },
-            ctx: $PropertyType<T & ITypeMap, 'Context'>,
-            info: GraphQLResolveInfo,
-          ) => ${printFieldLikeType(field)},`,
-          )
-          .join(`${os.EOL}`)}
-      }
 `,
     )
     .join(os.EOL)}
 
-export type IResolvers<T> = {
-  ${args.types.map(type => `${type.name}: ${type.name}_Type<T>,`).join(os.EOL)}
+export type IResolvers = {
+  ${args.types.map(type => `${type.name}: ${type.name}_Type,`).join(os.EOL)}
 }
 
   `
+}
+
+function renderHeader(args: GenerateArgs): string {
+  const modelArray = Object.keys(args.modelMap).map(k => args.modelMap[k])
+  const modelImports = modelArray
+    .map(
+      m =>
+        `import type { ${m.modelTypeName} } from '${
+          m.importPathRelativeToOutput
+        }'`,
+    )
+    .join(os.EOL)
+
+  return `/* @flow */
+// Code generated by github.com/prisma/graphqlgen, DO NOT EDIT.
+
+import { GraphQLResolveInfo } from 'graphql'
+${modelImports}
+${renderContext(args.context)}
+  `
+}
+
+function renderFieldsResolvers(
+  type: GraphQLTypeObject,
+  args: GenerateArgs,
+): string {
+  return type.fields
+    .map(field => {
+      return `
+          ${renderFieldInputArg(type, field, args)}
+          ${renderFieldResolver(type, field, args)}
+        `
+    })
+    .join(os.EOL)
+}
+
+function renderFieldInputArg(
+  type: GraphQLTypeObject,
+  field: GraphQLTypeField,
+  args: GenerateArgs,
+): string {
+  if (field.arguments.length <= 0) {
+    return ''
+  }
+
+  return `\
+      export type ${type.name}_${upperFirst(field.name)}_Args = {
+    ${field.arguments
+      .map(
+        arg =>
+          `${arg.name}: ${printFieldLikeType(
+            arg as GraphQLTypeField,
+            args.modelMap,
+          )},`,
+      )
+      .join(`${os.EOL}`)}
+  }`
+}
+
+function renderFieldResolver(
+  type: GraphQLTypeObject,
+  field: GraphQLTypeField,
+  args: GenerateArgs,
+) {
+  return `\
+  export type ${type.name}_${upperFirst(field.name)}_Resolver = (
+    parent: ${getModelName(type.type as any, args.modelMap)},
+    args: ${
+      field.arguments.length > 0
+        ? `${type.name}_${upperFirst(field.name)}_Args`
+        : '{}'
+    },
+    ctx: ${getContextName(args.context)},
+    info: GraphQLResolveInfo,
+  ) => ${printFieldLikeType(
+    field,
+    args.modelMap,
+  )} | Promise<${printFieldLikeType(field, args.modelMap)}>
+  `
+}
+
+function renderTypeResolver(
+  type: GraphQLTypeObject,
+  args: GenerateArgs,
+): string {
+  return `\
+  export type ${type.name}_Type = {
+    ${type.fields
+      .map(
+        field => `${field.name}: (
+        parent: ${getModelName(type.type as any, args.modelMap)},
+        args: ${
+          field.arguments.length > 0
+            ? `${type.name}_${upperFirst(field.name)}_Args`
+            : '{}'
+        },
+        ctx: ${getContextName(args.context)},
+        info: GraphQLResolveInfo,
+      ) => ${printFieldLikeType(field, args.modelMap)},`,
+      )
+      .join(`${os.EOL}`)}
+  }
+  `
+}
+
+function renderScalarResolvers(
+  type: GraphQLTypeObject,
+  modelMap: ModelMap,
+): string {
+  const model = modelMap[type.name]
+  const defaultResolversName = `${upperFirst(type.name)}_DefaultResolvers`
+
+  if (model === undefined) {
+    return `export const ${defaultResolversName} = {}`
+  }
+
+  const filePath = model.absoluteFilePath
+  const typeNode = findFlowTypeByName(filePath, model.modelTypeName)
+
+  if (!typeNode) {
+    throw new Error(`No interface found for name ${model.modelTypeName}`)
+  }
+
+  const childrenNodes =
+    typeNode.type === 'TypeAlias'
+      ? (typeNode as TypeAlias).right
+      : (typeNode as InterfaceDeclaration).body
+
+  return `export const ${defaultResolversName} = {
+    ${(childrenNodes as ObjectTypeAnnotation).properties
+      .filter(childNode => childNode.type === 'ObjectTypeProperty')
+      .map(childNode => {
+        const childNodeProperty = childNode as ObjectTypeProperty
+        const fieldName = (childNodeProperty.key as Identifier).name
+        const fieldOptional = !!childNodeProperty.optional
+        return { fieldName, fieldOptional }
+      })
+      .filter(({ fieldName, fieldOptional }) => {
+        const graphQLField = type.fields.find(field => field.name === fieldName)
+
+        if (!graphQLField) {
+          return false
+        }
+
+        // !fieldOptional && graphQLField.type.isRequired
+        // If model field is optional but GraphQL field is required, don't implement it
+        // TODO: test this
+
+        return (
+          !!graphQLField && (!fieldOptional && graphQLField.type.isRequired)
+        )
+      })
+      .map(({ fieldName, fieldOptional }) =>
+        renderScalarResolver(fieldName, fieldOptional, model.modelTypeName),
+      )
+      .join(os.EOL)}
+  }`
+}
+
+function renderScalarResolver(
+  fieldName: string,
+  fieldOptional: boolean,
+  parentTypeName: string,
+): string {
+  const field = `parent.${fieldName}`
+  const fieldGetter = renderFieldGetter(field, fieldOptional)
+  return `${fieldName}: (parent: ${parentTypeName}) => ${fieldGetter},`
+}
+
+function renderFieldGetter(
+  fieldGetter: string,
+  fieldOptional: boolean,
+): string {
+  if (fieldOptional) {
+    return `${fieldGetter} === undefined ? null : ${fieldGetter}`
+  }
+
+  return fieldGetter
+}
+
+function renderContext(context?: ContextDefinition) {
+  if (context) {
+    return `import type { ${getContextName(context)} } from '${
+      context.contextPath
+    }'`
+  }
+
+  return `type ${getContextName(context)} = any`
+}
+
+function getContextName(context?: ContextDefinition) {
+  if (!context) {
+    return 'Context'
+  }
+
+  return context.interfaceName
+}
+
+export function printFieldLikeType(
+  field: GraphQLTypeField,
+  modelMap: ModelMap,
+) {
+  if (field.type.isScalar) {
+    return `${getTypeFromGraphQLType(field.type.name)}${
+      field.type.isArray ? '[]' : ''
+    }${!field.type.isRequired ? '| null' : ''}`
+  }
+
+  if (field.type.isInput) {
+    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
+      !field.type.isRequired ? '| null' : ''
+    }`
+  }
+
+  return `${getModelName(field.type, modelMap)}${
+    field.type.isArray ? '[]' : ''
+  }${!field.type.isRequired ? '| null' : ''}`
+}
+
+function getModelName(type: GraphQLType, modelMap: ModelMap): string {
+  const model = modelMap[type.name]
+
+  if (type.isEnum) {
+    return type.name
+  }
+
+  // NOTE if no model is found, return the empty type
+  // It's usually assumed that every GraphQL type has a model associated
+  // expect for the `Query`, `Mutation` and `Subscription` type
+  if (model === undefined) {
+    return '{}'
+  }
+
+  return model.modelTypeName
+}
+
+function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
+  if (type === 'Int' || type === 'Float') {
+    return 'number'
+  }
+  if (type === 'Boolean') {
+    return 'boolean'
+  }
+  if (type === 'String' || type === 'ID' || type === 'DateTime') {
+    return 'string'
+  }
+  return 'string'
 }
