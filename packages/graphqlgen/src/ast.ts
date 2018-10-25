@@ -26,6 +26,13 @@ function getSourceFile(fileName: string, filePath: string): ts.SourceFile {
   )
 }
 
+function shouldExtractType(node: ts.Node) {
+  return (
+    node.kind === ts.SyntaxKind.InterfaceDeclaration ||
+    node.kind === ts.SyntaxKind.TypeAliasDeclaration
+  )
+}
+
 export function findTypescriptInterfaceByName(
   filePath: string,
   interfaceName: string,
@@ -37,7 +44,7 @@ export function findTypescriptInterfaceByName(
   // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
   return getChildrenNodes(sourceFile).find(
     node =>
-      node.kind === ts.SyntaxKind.InterfaceDeclaration &&
+      shouldExtractType(node) &&
       (node as ts.InterfaceDeclaration).name.escapedText === interfaceName,
   )
 }
@@ -50,10 +57,6 @@ export function typeNamesFromTypescriptFile(file: File): string[] {
 
   // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
   return getChildrenNodes(sourceFile)
-    .filter(
-      node =>
-        node.kind === ts.SyntaxKind.InterfaceDeclaration ||
-        node.kind === ts.SyntaxKind.TypeAliasDeclaration,
-    )
+    .filter(shouldExtractType)
     .map(node => (node as ts.InterfaceDeclaration).name.escapedText as string)
 }
