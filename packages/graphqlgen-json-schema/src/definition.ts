@@ -19,7 +19,7 @@ export type File =
       defaultName?: string
     }
 
-export type Language = 'typescript'
+export type Language = 'typescript' | 'flow'
 
 export interface ResolverScaffolding {
   output: string
