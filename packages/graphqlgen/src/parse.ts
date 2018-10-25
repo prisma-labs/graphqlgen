@@ -149,7 +149,7 @@ export function parseModels(
       }))
     : []
   const overriddenModels = !!models.override ? models.override : {}
-  const typeToFileMapping = getTypeToFileMapping(filePaths)
+  const typeToFileMapping = getTypeToFileMapping(filePaths, language)
 
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {

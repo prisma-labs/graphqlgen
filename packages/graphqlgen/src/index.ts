@@ -18,18 +18,13 @@ import {
   generate as generateTS,
   format as formatTS,
 } from './generators/ts-generator'
-// import {
-//   generate as generateReason,
-//   format as formatReason,
-// } from './generators/reason-generator'
-// import {
-//   generate as generateFlow,
-//   format as formatFlow,
-// } from './generators/flow-generator'
+import {
+  generate as generateFlow,
+  format as formatFlow,
+} from './generators/flow-generator'
 
 import { generate as scaffoldTS } from './generators/ts-scaffolder'
-// import { generate as scaffoldFlow } from './generators/flow-scaffolder'
-// import { generate as scaffoldReason } from './generators/reason-scaffolder'
+import { generate as scaffoldFlow } from './generators/flow-scaffolder'
 
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
@@ -48,24 +43,18 @@ function getTypesGenerator(language: Language): IGenerator {
   switch (language) {
     case 'typescript':
       return { generate: generateTS, format: formatTS }
-    // case 'flow':
-    //   return { generate: generateFlow, format: formatFlow }
+    case 'flow':
+      return { generate: generateFlow, format: formatFlow }
   }
-
-  //TODO: This should never be reached as we validate the yaml before
-  throw new Error(`Invalid language: ${language}`)
 }
 
 function getResolversGenerator(language: Language): IGenerator {
   switch (language) {
     case 'typescript':
       return { generate: scaffoldTS, format: formatTS }
-    // case 'flow':
-    //   return { generate: scaffoldFlow, format: formatFlow }
+    case 'flow':
+      return { generate: scaffoldFlow, format: formatFlow }
   }
-
-  //TODO: This should never be reached as we validate the yaml before
-  throw new Error(`Invalid language: ${language}`)
 }
 
 function generateTypes(
@@ -152,7 +141,7 @@ function writeResolversScaffolding(
   if (!config['resolver-scaffolding']) {
     return
   }
-  const outputResolversDir = config['resolver-scaffolding'].output
+  const outputResolversDir = config['resolver-scaffolding']!.output
 
   rimraf.sync(outputResolversDir)
 

@@ -1,7 +1,9 @@
 import * as path from 'path'
-import { Language } from 'graphqlgen-json-schema'
+import { Language, File } from 'graphqlgen-json-schema'
 
 import { getExtNameFromLanguage } from './path-helpers'
+import { InterfaceNamesToFile, typeNamesFromTypescriptFile } from './ast'
+import { typeNamesFromFlowFile } from './flow-ast'
 
 export function upperFirst(s: string) {
   return s.replace(/^\w/, c => c.toUpperCase())
@@ -26,6 +28,36 @@ export function normalizeFilePath(
   }
 
   return filePath
+}
+
+function typeNamesFromFile(file: File, language: Language) {
+  switch (language) {
+    case 'typescript':
+      return typeNamesFromTypescriptFile(file)
+    case 'flow':
+      return typeNamesFromFlowFile(file)
+  }
+}
+
+/**
+ * Create a map of interface names to the path of the file in which they're defined
+ * The first evaluated interfaces are always the chosen ones
+ */
+export function getTypeToFileMapping(
+  files: File[],
+  language: Language,
+): InterfaceNamesToFile {
+  return files.reduce((acc: InterfaceNamesToFile, file: File) => {
+    const interfaceNames = typeNamesFromFile(file, language).filter(
+      interfaceName => !acc[interfaceName],
+    )
+
+    interfaceNames.forEach(interfaceName => {
+      acc[interfaceName] = file
+    })
+
+    return acc
+  }, {})
 }
 
 export function flatten(a: Array<any>, b: Array<any>) {

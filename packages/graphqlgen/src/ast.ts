@@ -4,7 +4,7 @@ import * as ts from 'typescript'
 import { File } from 'graphqlgen-json-schema'
 import { getPath } from './parse'
 
-interface InterfaceNamesToFile {
+export interface InterfaceNamesToFile {
   [interfaceName: string]: File
 }
 
@@ -42,7 +42,7 @@ export function findTypescriptInterfaceByName(
   )
 }
 
-function typeNamesFromTypescriptFile(file: File): string[] {
+export function typeNamesFromTypescriptFile(file: File): string[] {
   const filePath = getPath(file)
   const fileName = path.basename(filePath)
 
@@ -56,22 +56,4 @@ function typeNamesFromTypescriptFile(file: File): string[] {
         node.kind === ts.SyntaxKind.TypeAliasDeclaration,
     )
     .map(node => (node as ts.InterfaceDeclaration).name.escapedText as string)
-}
-
-/**
- * Create a map of interface names to the path of the file in which they're defined
- * The first evaluated interfaces are always the chosen ones
- */
-export function getTypeToFileMapping(files: File[]): InterfaceNamesToFile {
-  return files.reduce((acc: InterfaceNamesToFile, file: File) => {
-    const interfaceNames = typeNamesFromTypescriptFile(file).filter(
-      interfaceName => !acc[interfaceName],
-    )
-
-    interfaceNames.forEach(interfaceName => {
-      acc[interfaceName] = file
-    })
-
-    return acc
-  }, {})
 }

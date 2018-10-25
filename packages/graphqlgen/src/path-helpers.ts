@@ -5,7 +5,7 @@ import { Language } from 'graphqlgen-json-schema'
 export function getExtNameFromLanguage(language: Language) {
   const extNames = {
     typescript: '.ts',
-    /* flow: '.js' */
+    flow: '.js'
   }
 
   return extNames[language]
