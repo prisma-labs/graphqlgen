@@ -1,0 +1,2 @@
+/* /content/:splat.html    200
+/content/*.html /:splat    301

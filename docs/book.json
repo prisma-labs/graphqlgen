@@ -1,0 +1,22 @@
+{
+  "title": "graphqlgen",
+  "plugins": ["edit-link", "github", "anchorjs", "custom-favicon"],
+  "links": {
+    "sidebar": false
+  },
+  "pluginsConfig": {
+    "favicon": "favicon.png",
+    "edit-link": {
+      "base": "https://github.com/prisma/graphqlgen/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/prisma/graphqlgen/"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "build/gitbook.css"
+      }
+    }
+  }
+}

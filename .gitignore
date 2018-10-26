@@ -5,3 +5,7 @@ dist/
 tmp/
 package-lock.json
 *.log
+
+# needed for gitbook
+.grunt
+_book
