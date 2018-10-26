@@ -16,7 +16,7 @@
 
 ## Documentation
 
-You can find the docs for the `graphqlgen` CLI [here](https://oss.prisma.io/content/graphqlgen/01-overview).
+You can find the docs for the `graphqlgen` CLI [here](https://oss.prisma.io/graphqlgen/).
 
 ## Motivation
 
@@ -87,7 +87,7 @@ resolver-scaffolding:
   layout: file-per-type
 ```
 
-Learn more about the configuration in the [docs](https://oss.prisma.io/content/graphqlgen/01-Overview.html#configuration-graphqlgenyml).
+Learn more about the configuration in the [docs](https://oss.prisma.io/graphqlgen/configuration.html).
 
 ## Support
 
