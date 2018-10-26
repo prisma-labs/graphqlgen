@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Configuration](./content/configuration.md)
-* [Generation](./content/generation.md)
-* [Scaffolding Resolvers](./content/scaffolding-resolvers.md)
-* [Bootstrapping](./content/bootstrapping.md)
+* [Configuration](./graphqlgen/configuration.md)
+* [Generation](./graphqlgen/generation.md)
+* [Scaffolding Resolvers](./graphqlgen/scaffolding-resolvers.md)
+* [Bootstrapping](./graphqlgen/bootstrapping.md)
