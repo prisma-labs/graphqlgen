@@ -7,7 +7,7 @@
   "pluginsConfig": {
     "favicon": "favicon.png",
     "edit-link": {
-      "base": "https://github.com/prisma/graphqlgen/tree/master",
+      "base": "https://github.com/prisma/graphqlgen/tree/master/docs",
       "label": "Edit This Page"
     },
     "github": {
