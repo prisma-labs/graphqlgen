@@ -17,7 +17,7 @@ import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
-import { getTypeToFileMapping } from './ast'
+import { getTypeToFileMapping, replaceAll } from './ast'
 import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
 import { normalizeFilePath } from './utils'
 
@@ -223,8 +223,4 @@ export function replaceVariablesInString(
   }
 
   return newStr
-}
-
-function replaceAll(str: string, search: string, replacement: string) {
-  return str.split(search).join(replacement)
 }

@@ -1,15 +1,11 @@
 import * as os from 'os'
 import * as prettier from 'prettier'
-import * as ts from 'typescript'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
-import {
-  GraphQLTypeField,
-  GraphQLTypeObject,
-  GraphQLType,
-} from '../source-helper'
-import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
+import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import { extractFieldsFromTypescriptType } from '../ast'
 import { flatten, uniq, upperFirst } from '../utils'
+import { renderDefaultResolvers, getContextName, getModelName } from './common'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -135,7 +131,12 @@ function renderNamespace(
   return `\
     export namespace ${type.name}Resolvers {
 
-    ${renderScalarResolvers(type, modelMap)}
+    ${renderDefaultResolvers(
+      type,
+      modelMap,
+      extractFieldsFromTypescriptType,
+      'defaultResolvers',
+    )}
 
     ${renderInputTypeInterfaces(
       typeToInputTypeAssociation,
@@ -201,69 +202,6 @@ function renderInputTypeInterfaces(
     }`
     })
     .join(os.EOL)
-}
-
-function renderScalarResolvers(
-  type: GraphQLTypeObject,
-  modelMap: ModelMap,
-): string {
-  const model = modelMap[type.name]
-
-  if (model === undefined) {
-    return `export const defaultResolvers = {}`
-  }
-
-  const filePath = model.absoluteFilePath
-  const interfaceNode = findTypescriptInterfaceByName(
-    filePath,
-    model.modelTypeName,
-  )
-
-  if (!interfaceNode) {
-    throw new Error(`No interface found for name ${model.modelTypeName}`)
-  }
-
-  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
-  const interfaceChildNodes = getChildrenNodes(interfaceNode)
-
-  return `export const defaultResolvers = {
-    ${interfaceChildNodes
-      .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
-      .map(childNode => {
-        const childNodeProperty = childNode as ts.PropertySignature
-        const fieldName = (childNodeProperty.name as ts.Identifier).text
-        const fieldOptional = !!childNodeProperty.questionToken
-        return { fieldName, fieldOptional }
-      })
-      .filter(({ fieldName }) =>
-        type.fields.some(field => field.name === fieldName),
-      )
-      .map(({ fieldName, fieldOptional }) =>
-        renderScalarResolver(fieldName, fieldOptional, model.modelTypeName),
-      )
-      .join(os.EOL)}
-  }`
-}
-
-function renderScalarResolver(
-  fieldName: string,
-  fieldOptional: boolean,
-  parentTypeName: string,
-): string {
-  const field = `parent.${fieldName}`
-  const fieldGetter = renderFieldGetter(field, fieldOptional)
-  return `${fieldName}: (parent: ${parentTypeName}) => ${fieldGetter},`
-}
-
-function renderFieldGetter(
-  fieldGetter: string,
-  fieldOptional: boolean,
-): string {
-  if (fieldOptional) {
-    return `${fieldGetter} === undefined ? null : ${fieldGetter}`
-  }
-
-  return fieldGetter
 }
 
 function renderInputArgInterfaces(
@@ -383,23 +321,6 @@ export interface Resolvers {
   `
 }
 
-function getModelName(type: GraphQLType, modelMap: ModelMap): string {
-  const model = modelMap[type.name]
-
-  if (type.isEnum) {
-    return type.name
-  }
-
-  // NOTE if no model is found, return the empty type
-  // It's usually assumed that every GraphQL type has a model associated
-  // expect for the `Query`, `Mutation` and `Subscription` type
-  if (model === undefined) {
-    return '{}'
-  }
-
-  return model.modelTypeName
-}
-
 function printFieldLikeType(field: GraphQLTypeField, modelMap: ModelMap) {
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name)}${
@@ -429,12 +350,4 @@ function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
     return 'string'
   }
   return 'string'
-}
-
-function getContextName(context?: ContextDefinition) {
-  if (!context) {
-    return 'Context'
-  }
-
-  return context.interfaceName
 }

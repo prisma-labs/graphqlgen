@@ -7,6 +7,7 @@ import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
+import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import { GraphQLTypes } from './source-helper'
 import {
@@ -29,6 +30,7 @@ import { generate as scaffoldFlow } from './generators/flow-scaffolder'
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 import { handleGlobPattern } from './glob'
+import { replaceAll } from './utils'
 
 export type GenerateCodeArgs = {
   schema: GraphQLTypes
@@ -151,16 +153,14 @@ function writeResolversScaffolding(
     try {
       fs.writeFileSync(
         writePath,
-        f.code.replace(
+        replaceAll(
+          f.code,
           '[TEMPLATE-INTERFACES-PATH]',
           getImportPathRelativeToOutput(
             getAbsoluteFilePath(config.output, config.language),
             writePath,
           ),
         ),
-        {
-          encoding: 'utf-8',
-        },
       )
     } catch (e) {
       console.error(

@@ -69,7 +69,7 @@ function shouldRenderField(field: GraphQLTypeField, model: Model): boolean {
   return !fieldIsInModel
 }
 
-export function renderResolvers(
+function renderResolvers(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
 ): CodeFileLike {
@@ -94,7 +94,7 @@ export function renderResolvers(
   return { path: `${type.name}.ts`, force: false, code }
 }
 
-export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
+function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
@@ -118,7 +118,7 @@ export function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   }
 }
 
-export function renderExports(types: GraphQLTypeObject[]): string {
+function renderExports(types: GraphQLTypeObject[]): string {
   return `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.

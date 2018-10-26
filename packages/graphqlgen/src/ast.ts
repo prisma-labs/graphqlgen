@@ -3,9 +3,15 @@ import * as fs from 'fs'
 import * as ts from 'typescript'
 import { File } from 'graphqlgen-json-schema'
 import { getPath } from './parse'
+import { Model } from './types'
 
 export interface InterfaceNamesToFile {
   [interfaceName: string]: File
+}
+
+export interface ModelField {
+  fieldName: string
+  fieldOptional: boolean
 }
 
 export function getChildrenNodes(source: ts.Node | ts.SourceFile): ts.Node[] {
@@ -59,4 +65,46 @@ export function typeNamesFromTypescriptFile(file: File): string[] {
   return getChildrenNodes(sourceFile)
     .filter(shouldExtractType)
     .map(node => (node as ts.InterfaceDeclaration).name.escapedText as string)
+}
+
+// TODO: Check TS ast to evaluate union types and null
+// TODO: Check out tmp.json file and see `types` for `name` property
+function isFieldOptional(node: ts.PropertySignature) {
+  if (!!node.questionToken) {
+    return true
+  }
+
+  if (node.type && node.type.kind === ts.SyntaxKind.NullKeyword) {
+    return true
+  }
+
+  if (node.type && node.type.kind === ts.SyntaxKind.UnionType) {
+    return (node.type as ts.UnionTypeNode).types.some(
+      unionType => unionType.kind === ts.SyntaxKind.NullKeyword,
+    )
+  }
+
+  return false
+}
+
+export function extractFieldsFromTypescriptType(model: Model): ModelField[] {
+  const filePath = model.absoluteFilePath
+  const typeNode = findTypescriptInterfaceByName(filePath, model.modelTypeName)
+
+  if (!typeNode) {
+    throw new Error(`No interface found for name ${model.modelTypeName}`)
+  }
+
+  // NOTE unfortunately using `.getChildren()` didn't work, so we had to use the `forEachChild` method
+  const interfaceChildNodes = getChildrenNodes(typeNode)
+
+  return interfaceChildNodes
+    .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
+    .map(childNode => {
+      const childNodeProperty = childNode as ts.PropertySignature
+      const fieldName = (childNodeProperty.name as ts.Identifier).text
+      const fieldOptional = isFieldOptional(childNodeProperty)
+
+      return { fieldName, fieldOptional }
+    })
 }
