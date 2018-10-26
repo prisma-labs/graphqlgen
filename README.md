@@ -12,7 +12,7 @@
 - **🤝 Type-safe:** Strong mapping between your GraphQL schema and resolvers, input arguments and models
 - **♻️ Codegen & scaffolding workflows:** Minimal resolver boilerplate & automatically generated type definitions
 - **😍 Awesome DX:** Auto-completion & Intellisense in VSCode, Webstorm, Atom, VIM & other editors
-- **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier), [graphql-import](https://github.com/prisma/graphql-import) and [graphql-config](https://github.com/prisma/graphql-config) out of the box
+- **💅 Ecosystem compatibility:** Supports [prettier](https://github.com/prettier/prettier) and [graphql-import](https://github.com/prisma/graphql-import) out of the box
 
 ## Documentation
 
