@@ -1,7 +1,7 @@
 {
   "scripts": {
     "prepare": "gitbook install && cp -a node_modules/highlight.js/. ~/.gitbook/versions/3.2.3/node_modules/highlight.js/",
-    "build": "npm run prepare && gitbook build && cp _redirects _book",
+    "build": "npm run prepare && gitbook build && cp _redirects _book && cd _book && cp -r graphqlgen graphqlgen-copy && mv graphqlgen-copy graphqlgen/graphqlgen",
     "start": "npm run prepare && gitbook serve"
   },
   "devDependencies": {
