@@ -1,7 +1,7 @@
-import * as ts from 'typescript'
-import { GenerateArgs, CodeFileLike, ModelMap, Model } from '../types'
+import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
+import { extractFieldsFromTypescriptType } from '../ast'
+import { shouldScaffoldFieldResolver } from './common'
 
 export { format } from './ts-generator'
 
@@ -43,36 +43,13 @@ function isParentType(name: string) {
   return parentTypes.indexOf(name) > -1
 }
 
-function shouldRenderField(field: GraphQLTypeField, model: Model): boolean {
-  const filePath = model.absoluteFilePath
-  const interfaceNode = findTypescriptInterfaceByName(
-    filePath,
-    model.modelTypeName,
-  )
-
-  if (!interfaceNode) {
-    throw new Error(`No interface found for name ${model.modelTypeName}`)
-  }
-
-  const interfaceChildNodes: ts.Node[] = getChildrenNodes(interfaceNode)
-
-  const fieldIsInModel = interfaceChildNodes
-    .filter(childNode => childNode.kind === ts.SyntaxKind.PropertySignature)
-    .map(childNode => {
-      const childNodeProperty = childNode as ts.PropertySignature
-      const fieldName = (childNodeProperty.name as ts.Identifier).text
-
-      return fieldName
-    })
-    .some(fieldName => field.name === fieldName)
-
-  return !fieldIsInModel
-}
-
 function renderResolvers(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
 ): CodeFileLike {
+  const model = modelMap[type.name]
+  const modelFields = extractFieldsFromTypescriptType(model)
+
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
@@ -82,7 +59,7 @@ function renderResolvers(
   export const ${type.name}: ${type.name}Resolvers.Type = {
     ...${type.name}Resolvers.defaultResolvers,
     ${type.fields
-      .filter(field => shouldRenderField(field, modelMap[type.name]))
+      .filter(field => shouldScaffoldFieldResolver(field, modelFields))
       .map(
         field => `
       ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {

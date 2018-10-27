@@ -1,8 +1,8 @@
 import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
 import { upperFirst } from '../utils'
-import { GraphQLTypeObject, GraphQLTypeField } from '../source-helper'
+import { GraphQLTypeObject } from '../source-helper'
 import { extractFieldsFromFlowType } from '../flow-ast'
-import { ModelField } from '../ast'
+import { shouldScaffoldFieldResolver } from './common'
 
 export { format } from './flow-generator'
 
@@ -30,22 +30,6 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
     code,
   }
 }
-
-function shouldRenderField(
-  graphQLField: GraphQLTypeField,
-  modelFields: ModelField[],
-): boolean {
-  const modelField = modelFields.find(
-    modelField => modelField.fieldName === graphQLField.name,
-  )
-
-  if (!modelField) {
-    return true
-  }
-
-  return modelField.fieldOptional && graphQLField.type.isRequired
-}
-
 function renderResolvers(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
@@ -63,7 +47,9 @@ import type { ${upperFirst(
 export const ${type.name}: ${upperFirst(type.name)}Resolvers = {
   ...${upperFirst(type.name)}_defaultResolvers,
   ${type.fields
-    .filter(graphQLField => shouldRenderField(graphQLField, modelFields))
+    .filter(graphQLField =>
+      shouldScaffoldFieldResolver(graphQLField, modelFields),
+    )
     .map(
       field => `
       ${field.name}: (parent, args, ctx) => {

@@ -1,6 +1,11 @@
-import { GraphQLTypeObject, GraphQLType } from '../source-helper'
-import { Model, ModelMap, ContextDefinition } from '../types'
 import * as os from 'os'
+
+import {
+  GraphQLTypeObject,
+  GraphQLType,
+  GraphQLTypeField,
+} from '../source-helper'
+import { Model, ModelMap, ContextDefinition } from '../types'
 import { ModelField } from '../ast'
 
 export function renderDefaultResolvers(
@@ -19,17 +24,7 @@ export function renderDefaultResolvers(
 
   return `export const ${variableName} = {
     ${modelFields
-      .filter(modelField => {
-        const graphQLField = type.fields.find(
-          field => field.name === modelField.fieldName,
-        )
-
-        if (!graphQLField) {
-          return false
-        }
-
-        return !(modelField.fieldOptional && graphQLField.type.isRequired)
-      })
+      .filter(modelField => shouldRenderDefaultResolver(type, modelField))
       .map(modelField =>
         renderDefaultResolver(
           modelField.fieldName,
@@ -85,4 +80,34 @@ export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
   }
 
   return model.modelTypeName
+}
+
+function shouldRenderDefaultResolver(
+  type: GraphQLTypeObject,
+  modelField: ModelField,
+) {
+  const graphQLField = type.fields.find(
+    field => field.name === modelField.fieldName,
+  )
+
+  if (!graphQLField) {
+    return false
+  }
+
+  return !(modelField.fieldOptional && graphQLField.type.isRequired)
+}
+
+export function shouldScaffoldFieldResolver(
+  graphQLField: GraphQLTypeField,
+  modelFields: ModelField[],
+): boolean {
+  const modelField = modelFields.find(
+    modelField => modelField.fieldName === graphQLField.name,
+  )
+
+  if (!modelField) {
+    return true
+  }
+
+  return modelField.fieldOptional && graphQLField.type.isRequired
 }
