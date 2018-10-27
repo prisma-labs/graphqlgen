@@ -3,7 +3,7 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromFlowType } from '../flow-ast'
+import { extractFieldsFromFlowType } from '../introspection/flow-ast'
 import { upperFirst } from '../utils'
 import { renderDefaultResolvers, getContextName, getModelName } from './common'
 

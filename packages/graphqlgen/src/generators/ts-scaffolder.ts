@@ -1,6 +1,6 @@
 import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromTypescriptType } from '../ast'
+import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
 import { shouldScaffoldFieldResolver } from './common'
 
 export { format } from './ts-generator'

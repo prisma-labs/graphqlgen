@@ -2,8 +2,8 @@ import * as path from 'path'
 import { Language, File } from 'graphqlgen-json-schema'
 
 import { getExtNameFromLanguage } from './path-helpers'
-import { InterfaceNamesToFile, typeNamesFromTypescriptFile } from './ast'
-import { typeNamesFromFlowFile } from './flow-ast'
+import { InterfaceNamesToFile, typeNamesFromTypescriptFile } from './introspection/ts-ast'
+import { typeNamesFromFlowFile } from './introspection/flow-ast'
 
 export function upperFirst(s: string) {
   return s.replace(/^\w/, c => c.toUpperCase())

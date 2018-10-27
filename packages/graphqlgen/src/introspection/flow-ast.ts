@@ -14,15 +14,15 @@ import {
 } from '@babel/types'
 import { File } from 'graphqlgen-json-schema'
 
-import { getPath } from './parse'
-import { Model } from './types'
-import { ModelField } from './ast'
+import { getPath } from '../parse'
+import { Model } from '../types'
+import { ModelField } from './ts-ast'
 
 //TODO: Add caching with { [filePath: string]: ExtractableType[] } or something
 type ExtractableType = TypeAlias | InterfaceDeclaration
 
-function getSourceFile(filePath: string) {
-  const file = fs.readFileSync(filePath).toString('utf-8')
+function getSourceFile(filePath: string): FlowFile {
+  const file = fs.readFileSync(filePath).toString()
 
   return parseFlow(file, { plugins: ['flow'] })
 }
@@ -50,7 +50,10 @@ function getFlowTypes(sourceFile: FlowFile): ExtractableType[] {
   return [...types, ...typesFromNamedExport] as ExtractableType[]
 }
 
-export function findFlowTypeByName(filePath: string, typeName: string) {
+export function findFlowTypeByName(
+  filePath: string,
+  typeName: string,
+): ExtractableType | undefined {
   const sourceFile = getSourceFile(filePath)
 
   return getFlowTypes(sourceFile).find(node => node.id.name === typeName)

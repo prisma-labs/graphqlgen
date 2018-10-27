@@ -1,7 +1,7 @@
 import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
 import { upperFirst } from '../utils'
 import { GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromFlowType } from '../flow-ast'
+import { extractFieldsFromFlowType } from '../introspection/flow-ast'
 import { shouldScaffoldFieldResolver } from './common'
 
 export { format } from './flow-generator'

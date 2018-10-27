@@ -6,7 +6,7 @@ import {
   GraphQLTypeField,
 } from '../source-helper'
 import { Model, ModelMap, ContextDefinition } from '../types'
-import { ModelField } from '../ast'
+import { ModelField } from '../introspection/ts-ast'
 
 export function renderDefaultResolvers(
   type: GraphQLTypeObject,

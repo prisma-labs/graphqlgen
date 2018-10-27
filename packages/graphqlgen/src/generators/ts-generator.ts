@@ -3,7 +3,7 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromTypescriptType } from '../ast'
+import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
 import { flatten, uniq, upperFirst } from '../utils'
 import { renderDefaultResolvers, getContextName, getModelName } from './common'
 
