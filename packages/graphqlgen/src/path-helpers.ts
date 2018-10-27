@@ -35,7 +35,7 @@ export function getAbsoluteFilePath(
       throw new Error(`${absolutePath} has to be a ${extName} file`)
     }
 
-    return absolutePath
+    return absolutePath.replace(/\\/g, '/')
   }
 
   const indexPath = path.join(absolutePath, 'index' + extName)
@@ -45,7 +45,7 @@ export function getAbsoluteFilePath(
     )
   }
 
-  return indexPath
+  return indexPath.replace(/\\/g, '/')
 }
 
 // TODO write test cases
@@ -64,6 +64,9 @@ export function getImportPathRelativeToOutput(
 
   // remove /index
   relativePath = relativePath.replace(/\/index$/, '')
+
+  // replace \ with /
+  relativePath = relativePath.replace(/\\/g, '/')
 
   return relativePath
 }
