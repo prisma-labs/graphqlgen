@@ -12,7 +12,7 @@ test('basic schema', async () => {
   const config: GraphQLGenDefinition = {
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
-    context: relative('../fixtures/basic:Context'),
+    context: relative('../fixtures/basic/types-flow.js:Context'),
     models: {
       files: [relative('../fixtures/basic/types-flow.js')],
     },
@@ -23,6 +23,9 @@ test('basic schema', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+
+  expect(validateConfig(config, schema)).toBe(true)
+
   const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
@@ -50,6 +53,9 @@ test('basic enum', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+
+  expect(validateConfig(config, schema)).toBe(true)
+
   const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
@@ -61,7 +67,6 @@ test('basic enum', async () => {
 
   expect(generatedTypes).toMatchSnapshot()
   expect(generatedResolvers).toMatchSnapshot()
-  expect(validateConfig(config, schema)).toBe(true)
 })
 
 test('basic union', async () => {
@@ -79,6 +84,9 @@ test('basic union', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+
+  expect(validateConfig(config, schema)).toBe(true)
+
   const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
@@ -90,7 +98,6 @@ test('basic union', async () => {
 
   expect(generatedTypes).toMatchSnapshot()
   expect(generatedResolvers).toMatchSnapshot()
-  expect(validateConfig(config, schema)).toBe(true)
 })
 
 test('defaultName', async () => {
@@ -113,6 +120,9 @@ test('defaultName', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+
+  expect(validateConfig(config, schema)).toBe(true)
+
   const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
@@ -124,8 +134,6 @@ test('defaultName', async () => {
 
   expect(generatedTypes).toMatchSnapshot()
   expect(generatedResolvers).toMatchSnapshot()
-
-  expect(validateConfig(config, schema)).toBe(true)
 })
 
 test('basic scalar', async () => {
@@ -143,6 +151,9 @@ test('basic scalar', async () => {
     },
   }
   const schema = parseSchema(config.schema)
+
+  expect(validateConfig(config, schema)).toBe(true)
+
   const modelMap = parseModels(config.models, schema, config.output, language)
   const { generatedTypes, generatedResolvers } = generateCode({
     schema,
@@ -154,6 +165,4 @@ test('basic scalar', async () => {
 
   expect(generatedTypes).toMatchSnapshot()
   expect(generatedResolvers).toMatchSnapshot()
-
-  expect(validateConfig(config, schema)).toBe(true)
 })
