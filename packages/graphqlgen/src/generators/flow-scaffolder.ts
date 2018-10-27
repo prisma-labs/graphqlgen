@@ -68,6 +68,7 @@ export const ${type.name}: ${upperFirst(type.name)}Resolvers = {
 
 export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
+    .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
     .map(type => renderResolvers(type, args.modelMap))
 
