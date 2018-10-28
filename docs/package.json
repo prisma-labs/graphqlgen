@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "gitbook-plugin-anchorjs": "1.1.1",
-    "gitbook-plugin-base": "^1.2.0",
+    "gitbook-plugin-base": "1.2.0",
     "gitbook-plugin-custom-favicon": "0.0.4",
     "gitbook-plugin-edit-link": "2.0.2",
     "gitbook-plugin-github": "2.0.0",
