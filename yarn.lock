@@ -243,9 +243,9 @@
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.3.tgz#7f226d67d654ec9070e755f46daebf014628e9d9"
 
-"@types/update-notifier@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@types/update-notifier/-/update-notifier-2.2.0.tgz#a61bd58270247606f77ec388586e53026803c7d9"
+"@types/update-notifier@2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@types/update-notifier/-/update-notifier-2.5.0.tgz#63cfcee92cc915f9a6eea4d1442ec6efd012e118"
 
 "@types/yargs@12.0.1":
   version "12.0.1"
