@@ -119,9 +119,9 @@
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.13.2.tgz#ffe96278e712a8d4e467e367a338b05e22872646"
 
-"@types/request@2.47.1":
-  version "2.47.1"
-  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.47.1.tgz#25410d3afbdac04c91a94ad9efc9824100735824"
+"@types/request@2.48.0":
+  version "2.48.0"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.0.tgz#837d0c4002f6b63d77999d7fe6f945ffb94406c1"
   dependencies:
     "@types/caseless" "*"
     "@types/form-data" "*"
