@@ -1,6 +1,7 @@
 # Table of contents
 
-* [Configuration](./graphqlgen/configuration.md)
-* [Generation](./graphqlgen/generation.md)
-* [Scaffolding Resolvers](./graphqlgen/scaffolding-resolvers.md)
-* [Bootstrapping](./graphqlgen/bootstrapping.md)
+* [Overview](./README.md)
+* [Configuration](./01-configuration.md)
+* [Generation](./02-generation.md)
+* [Scaffolding Resolvers](./03-scaffolding-resolvers.md)
+* [Bootstrapping](./04-bootstrapping.md)

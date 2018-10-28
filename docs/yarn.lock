@@ -831,6 +831,10 @@ gitbook-plugin-anchorjs@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-anchorjs/-/gitbook-plugin-anchorjs-1.1.1.tgz#728e0471ba7427fcde2149227c29fe172b5eecdd"
 
+gitbook-plugin-base@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-base/-/gitbook-plugin-base-1.2.0.tgz#6122317fd6f7b398013ebccb9e35d0f41ce9c496"
+
 gitbook-plugin-custom-favicon@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-custom-favicon/-/gitbook-plugin-custom-favicon-0.0.4.tgz#cb73729d4758cb7c6c564e8efb035d1f6e08aecf"

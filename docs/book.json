@@ -1,11 +1,14 @@
 {
   "title": "graphqlgen",
-  "plugins": ["edit-link", "github", "anchorjs", "custom-favicon"],
+  "plugins": ["edit-link", "github", "anchorjs", "custom-favicon", "base"],
   "links": {
     "sidebar": false
   },
   "pluginsConfig": {
     "favicon": "favicon.png",
+    "base": {
+      "base": "/graphqlgen/"
+    },
     "edit-link": {
       "base": "https://github.com/prisma/graphqlgen/tree/master/docs",
       "label": "Edit This Page"
