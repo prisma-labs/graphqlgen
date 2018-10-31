@@ -8,7 +8,7 @@ import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
 import { DocumentNode } from 'graphql'
-import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
+import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import {
   extractGraphQLTypes,
   extractGraphQLEnums,
@@ -272,13 +272,10 @@ async function run() {
     console.log(chalk.blue(`Found a prettier configuration to use`))
   }
 
-  // Extract all file path from wildcard pattern
-  const files = handleGlobPattern(config.models.files)
-
-  // Create new models by overriding the models.files using handleGlobPattern
-  const models: Models = {
+  // Override the config.models.files using handleGlobPattern
+  config.models = {
     ...config.models,
-    files,
+    files: handleGlobPattern(config.models.files),
   }
 
   if (!validateConfig(config, parsedSchema)) {
@@ -287,7 +284,7 @@ async function run() {
 
   //TODO: Should we provide a default in case `config.output.types` is not defined?
   const modelMap = parseModels(
-    models,
+    config.models,
     parsedSchema,
     config.output,
     config.language,
