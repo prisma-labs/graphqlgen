@@ -2,7 +2,6 @@ import * as Ajv from 'ajv'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
 import * as yaml from 'js-yaml'
-import { DocumentNode, parse } from 'graphql'
 import { importSchema } from 'graphql-import'
 
 import {
@@ -19,7 +18,7 @@ import {
   getImportPathRelativeToOutput,
 } from './path-helpers'
 import { getTypeToFileMapping } from './ast'
-import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
+import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
 import { normalizeFilePath } from './utils'
 
 const ajv = new Ajv().addMetaSchema(
@@ -73,7 +72,7 @@ export function parseContext(
   }
 }
 
-export function parseSchema(schemaPath: string): DocumentNode {
+export function parseSchema(schemaPath: string): GraphQLTypes {
   if (!fs.existsSync(schemaPath)) {
     console.error(
       chalk.default.red(`The schema file ${schemaPath} does not exist`),
@@ -81,7 +80,7 @@ export function parseSchema(schemaPath: string): DocumentNode {
     process.exit(1)
   }
 
-  let schema = undefined
+  let schema: string | undefined
   try {
     schema = importSchema(schemaPath)
   } catch (e) {
@@ -91,16 +90,15 @@ export function parseSchema(schemaPath: string): DocumentNode {
     process.exit(1)
   }
 
-  let parsedSchema = undefined
-
+  let types: GraphQLTypes
   try {
-    parsedSchema = parse(schema!)
+    types = extractTypes(schema!)
   } catch (e) {
     console.error(chalk.default.red(`Failed to parse schema: ${e}`))
     process.exit(1)
   }
 
-  return parsedSchema!
+  return types!
 }
 
 function buildModel(
@@ -139,7 +137,7 @@ export function getDefaultName(file: File): string | null {
 
 export function parseModels(
   models: Models,
-  schema: DocumentNode,
+  schema: GraphQLTypes,
   outputDir: string,
   language: Language,
 ): ModelMap {

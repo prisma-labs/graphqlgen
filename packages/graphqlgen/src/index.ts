@@ -7,13 +7,8 @@ import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
-import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
-import {
-  extractGraphQLTypes,
-  extractGraphQLEnums,
-  extractGraphQLUnions,
-} from './source-helper'
+import { GraphQLTypes } from './source-helper'
 import {
   getImportPathRelativeToOutput,
   getAbsoluteFilePath,
@@ -40,7 +35,7 @@ import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 
 export type GenerateCodeArgs = {
-  schema: DocumentNode
+  schema: GraphQLTypes
   config: GraphQLGenDefinition
   modelMap: ModelMap
   prettify?: boolean
@@ -112,10 +107,9 @@ function generateResolvers(
 export function generateCode(
   generateCodeArgs: GenerateCodeArgs,
 ): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
+  const { schema } = generateCodeArgs
   const generateArgs: GenerateArgs = {
-    types: extractGraphQLTypes(generateCodeArgs.schema!),
-    enums: extractGraphQLEnums(generateCodeArgs.schema!),
-    unions: extractGraphQLUnions(generateCodeArgs.schema!),
+    ...schema,
     context: parseContext(
       generateCodeArgs.config.context,
       generateCodeArgs.config.output,

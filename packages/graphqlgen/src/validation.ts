@@ -1,6 +1,5 @@
 import chalk from 'chalk'
 import { existsSync } from 'fs'
-import { DocumentNode } from 'graphql'
 import {
   GraphQLGenDefinition,
   Language,
@@ -15,7 +14,7 @@ import {
   outputModelFilesNotFound,
   outputWrongSyntaxFiles,
 } from './output'
-import { extractGraphQLTypesWithoutRootsAndInputs } from './source-helper'
+import { extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
 import { normalizeFilePath } from './utils'
 import { replaceVariablesInString, getPath, getDefaultName } from './parse'
 
@@ -35,7 +34,7 @@ export type ValidatedDefinition = {
 
 export function validateConfig(
   config: GraphQLGenDefinition,
-  schema: DocumentNode,
+  schema: GraphQLTypes,
 ): boolean {
   const language = config.language
 
@@ -102,7 +101,7 @@ function validateContext(
 
 function validateModels(
   models: Models,
-  schema: DocumentNode,
+  schema: GraphQLTypes,
   language: Language,
 ): boolean {
   const filePaths = !!models.files
@@ -168,7 +167,7 @@ function testValidatedDefinitions(
 }
 
 function validateSchemaToModelMapping(
-  schema: DocumentNode,
+  schema: GraphQLTypes,
   validatedOverriddenModels: ValidatedDefinition[],
   files: File[],
 ): boolean {
