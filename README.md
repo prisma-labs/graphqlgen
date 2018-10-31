@@ -52,7 +52,7 @@ yarn create graphqlgen my-app
 cd my-app
 yarn start
 ```
-*Note: `yarn create` requires yarn version >= 0.24.2*
+*Note: `yarn create` requires yarn version >= 0.25*
 
 After updating the GraphQL schema in `.my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
 
