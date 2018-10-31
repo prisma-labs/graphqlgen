@@ -8,7 +8,7 @@ import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
 import { DocumentNode } from 'graphql'
-import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
+import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
 import {
   extractGraphQLTypes,
   extractGraphQLEnums,
@@ -38,6 +38,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
+import { extractPath } from './glob'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -271,13 +272,22 @@ async function run() {
     console.log(chalk.blue(`Found a prettier configuration to use`))
   }
 
+  // Extract all file path from wildcard pattern
+  const files = extractPath(config.models.files as any)
+
+  // Create a new model
+  const models: Models = {
+    ...config.models,
+    files,
+  }
+
   if (!validateConfig(config, parsedSchema)) {
     return false
   }
 
   //TODO: Should we provide a default in case `config.output.types` is not defined?
   const modelMap = parseModels(
-    config.models,
+    models,
     parsedSchema,
     config.output,
     config.language,
