@@ -1,9 +1,10 @@
 import * as glob from 'glob'
+import { File } from 'graphqlgen-json-schema'
 
 /**
- * Returns path array from glob patterns
+ * Returns the path array from glob patterns
  */
-export const extractPath = (paths?: string[]) => {
+export const extractGlobPattern = (paths?: string[]) => {
   try {
     const pathArr: string[] = []
     if (paths) {
@@ -12,6 +13,29 @@ export const extractPath = (paths?: string[]) => {
       })
     }
     return pathArr
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * Handles the glob pattern of models.files
+ */
+export const handleGlobPattern = (files?: File[]) => {
+  try {
+    const newFiles: File[] = []
+
+    if (files) {
+      files.map(file => {
+        if (typeof file === 'string') {
+          newFiles.push(...extractGlobPattern([file])!)
+        } else {
+          newFiles.push(file)
+        }
+      })
+    }
+
+    return newFiles
   } catch (error) {
     console.log(error)
   }

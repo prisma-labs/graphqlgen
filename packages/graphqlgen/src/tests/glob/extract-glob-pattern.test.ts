@@ -1,4 +1,4 @@
-import { extractPath } from '../../glob'
+import { extractGlobPattern } from '../../glob'
 
 // Expected output
 const expectedArr = [
@@ -16,7 +16,7 @@ test('Basic Walk', () => {
     './src/tests/glob/mocks/dir-1/*.ts',
     './src/tests/glob/mocks/dir-2/*.ts',
   ]
-  expect(extractPath(mockPaths)).toMatchObject(expectedArr)
+  expect(extractGlobPattern(mockPaths)).toMatchObject(expectedArr)
 })
 
 /**
@@ -24,7 +24,7 @@ test('Basic Walk', () => {
  */
 test('Wild Walk', () => {
   const mockPaths = ['./src/tests/glob/mocks/**/*.ts']
-  expect(extractPath(mockPaths)).toMatchObject(expectedArr)
+  expect(extractGlobPattern(mockPaths)).toMatchObject(expectedArr)
 })
 
 /**
@@ -35,11 +35,11 @@ test('No Walk', () => {
     './src/tests/glob/mocks/dir-1/file-11.ts',
     './src/tests/glob/mocks/dir-2/file-21.ts',
   ]
-  expect(extractPath(mockPaths)).toMatchObject(mockPaths)
+  expect(extractGlobPattern(mockPaths)).toMatchObject(mockPaths)
 })
 
 /**
- * If no glob pattern is mentioned, Return the input array
+ * Walk through mixed set of files
  */
 test('Mixed Walk', () => {
   const mockPaths = [
@@ -49,7 +49,7 @@ test('Mixed Walk', () => {
     './src/tests/glob/mocks/dir-1/*.ts', // Basic Walk
     './src/tests/glob/mocks/dir-2/*.ts', // Basic Walk
   ]
-  expect(extractPath(mockPaths)).toMatchObject([
+  expect(extractGlobPattern(mockPaths)).toMatchObject([
     ...[
       './src/tests/glob/mocks/dir-1/file-11.ts',
       './src/tests/glob/mocks/dir-2/file-21.ts',
@@ -64,5 +64,5 @@ test('Mixed Walk', () => {
  */
 test('Unknown Walk', () => {
   const mockPaths = ['./src/tests/glob/mocks/dir-3/*.ts']
-  expect(extractPath(mockPaths)).toMatchObject([])
+  expect(extractGlobPattern(mockPaths)).toMatchObject([])
 })

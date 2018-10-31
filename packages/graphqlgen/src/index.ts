@@ -38,7 +38,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
-import { extractPath } from './glob'
+import { handleGlobPattern } from './glob'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -273,9 +273,9 @@ async function run() {
   }
 
   // Extract all file path from wildcard pattern
-  const files = extractPath(config.models.files as any)
+  const files = handleGlobPattern(config.models.files)
 
-  // Create a new model
+  // Create new models by overriding the models.files using handleGlobPattern
   const models: Models = {
     ...config.models,
     files,
