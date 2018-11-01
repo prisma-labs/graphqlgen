@@ -2,7 +2,7 @@ import { GraphQLGenDefinition } from './definition'
 
 export const createConfig = (
   rootDir: string = './src/graphql',
-  outputFolder: string = 'generated',
+  outputFolder: string = '__generated__',
 ) => {
   const getRootFolder = (file: string) => {
     return `${rootDir}/${file}`

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Read Schema 1`] = `
+"type Schema1 {
+  schema1: String!
+}
+
+type Schema2 {
+  schema2: String!
+}
+
+type Schema3 {
+  schema3: String!
+}
+"
+`;
+
+exports[`create config 1`] = `
+Object {
+  "context": "./src/tests/fixtures/advanced-scaffold/context.ts:Context",
+  "language": "typescript",
+  "models": Object {
+    "files": Array [
+      "./src/tests/fixtures/advanced-scaffold/models/**.ts",
+    ],
+  },
+  "output": "./src/tests/fixtures/advanced-scaffold/__generated__/graphqlgen.ts",
+  "resolver-scaffolding": Object {
+    "layout": "file-per-type",
+    "output": "./src/tests/fixtures/advanced-scaffold/__generated__/tmp-resolvers",
+  },
+  "schema": "./src/tests/fixtures/advanced-scaffold/schema/**.graphql",
+  "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/graphqlgen.schema.graphql",
+}
+`;
