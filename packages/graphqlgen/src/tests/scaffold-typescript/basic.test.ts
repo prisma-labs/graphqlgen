@@ -161,3 +161,34 @@ test('basic scalar', async () => {
 
   expect(validateConfig(config, schema)).toBe(true)
 })
+
+test('basic input', async () => {
+  const language = 'typescript'
+  const config: GraphQLGenDefinition = {
+    language,
+    schema: relative('../fixtures/input/schema.graphql'),
+    context: relative('../fixtures/input/types.ts:Context'),
+    models: {
+      files: [relative('../fixtures/input/types.ts')],
+    },
+    output: relative('./generated/input/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/input/'),
+      layout: 'file-per-type',
+    },
+  }
+  const schema = parseSchema(config.schema)
+  const modelMap = parseModels(config.models, schema, config.output, language)
+  const { generatedTypes, generatedResolvers } = generateCode({
+    schema,
+    language,
+    config,
+    modelMap,
+    prettify: true,
+  })
+
+  expect(generatedTypes).toMatchSnapshot()
+  expect(generatedResolvers).toMatchSnapshot()
+
+  expect(validateConfig(config, schema)).toBe(true)
+})

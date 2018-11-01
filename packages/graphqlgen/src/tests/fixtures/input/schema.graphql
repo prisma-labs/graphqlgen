@@ -6,8 +6,21 @@ type AddMemberPayload {
 input AddMemberData {
   email: String!
   projects: [ID!]!
+  sideProjects: [ID]
+  profile: ProfileData
+  phones: [PhoneData]
+}
+
+input ProfileData {
+  firstName: String
+  lastName: String
+}
+
+input PhoneData {
+  number: String!
 }
 
 type Mutation {
   addMember(data: AddMemberData!): AddMemberPayload!
+  addMembers(data: [AddMemberData!]!): AddMemberPayload!
 }
