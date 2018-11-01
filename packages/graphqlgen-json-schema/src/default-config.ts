@@ -13,7 +13,7 @@ export const defaultConfig: GraphQLGenDefinition = {
   schema: getRootFolder('schema/**.graphql'),
   context: getRootFolder('context.ts:Context'),
   models: {
-    files: [getRootFolder('resolvers/**.ts')],
+    files: [getRootFolder('models/**.ts')],
   },
   output: getOutputFolder('graphqlgen.ts'),
   'schema-output': getOutputFolder('graphqlgen.schema.graphql'),

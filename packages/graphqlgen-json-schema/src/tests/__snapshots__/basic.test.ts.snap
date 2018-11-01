@@ -19,5 +19,6 @@ Object {
     "output": "./src/generated/tmp-resolvers/",
   },
   "schema": "./src/schema.graphql",
+  "schema-output": "./src/generated/graphqlgen.ts",
 }
 `;

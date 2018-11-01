@@ -6,7 +6,7 @@ Object {
   "language": "typescript",
   "models": Object {
     "files": Array [
-      "./src/graphql/resolvers/**.ts",
+      "./src/graphql/models/**.ts",
     ],
   },
   "output": "./src/graphql/generated/graphqlgen.ts",

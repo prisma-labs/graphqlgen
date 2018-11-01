@@ -17,6 +17,7 @@ test('basic schema', async () => {
       files: [relative('../fixtures/basic/index.ts')],
     },
     output: relative('./generated/basic/graphqlgen.ts'),
+    ['schema-output']: relative('./generated/basic/graphqlgen.schema.graphql'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/basic/'),
       layout: 'file-per-type',
@@ -45,6 +46,7 @@ test('basic enum', async () => {
       files: [relative('../fixtures/enum/types.ts')],
     },
     output: relative('./generated/enum/graphqlgen.ts'),
+    ['schema-output']: relative('./generated/enum/graphqlgen.schema.graphql'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/enum/'),
       layout: 'file-per-type',
@@ -75,6 +77,7 @@ test('basic union', async () => {
       files: [relative('../fixtures/union/types.ts')],
     },
     output: relative('./generated/union/graphqlgen.ts'),
+    ['schema-output']: relative('./generated/union/graphqlgen.schema.graphql'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/union/'),
       layout: 'file-per-type',
@@ -110,6 +113,9 @@ test('defaultName', async () => {
       ],
     },
     output: relative('./generated/defaultName/graphqlgen.ts'),
+    ['schema-output']: relative(
+      './generated/defaultName/graphqlgen.schema.graphql',
+    ),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',
@@ -141,6 +147,7 @@ test('basic scalar', async () => {
       files: [relative('../fixtures/scalar/types.ts')],
     },
     output: relative('./generated/scalar/graphqlgen.ts'),
+    ['schema-output']: relative('./generated/scalar/graphqlgen.schema.graphql'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',
@@ -172,6 +179,7 @@ test('basic input', async () => {
       files: [relative('../fixtures/input/types.ts')],
     },
     output: relative('./generated/input/graphqlgen.ts'),
+    ['schema-output']: relative('./generated/input/graphqlgen.schema.graphql'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/input/'),
       layout: 'file-per-type',

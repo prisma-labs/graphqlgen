@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basic Walk 1`] = `
+Array [
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-2/file-22.ts",
+]
+`;
+
+exports[`Mixed Walk 1`] = `
+Array [
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-2/file-22.ts",
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-2/file-22.ts",
+]
+`;
+
+exports[`No Walk 1`] = `
+Array [
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+]
+`;
+
+exports[`Wild Walk 1`] = `
+Array [
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-2/file-22.ts",
+]
+`;

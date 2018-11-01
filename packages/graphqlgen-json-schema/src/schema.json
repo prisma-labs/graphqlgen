@@ -52,6 +52,10 @@
       "type": "string",
       "description": "Path to main output file"
     },
+    "schema-output": {
+      "type": "string",
+      "description": "Path to main output file schema file"
+    },
     "resolver-scaffolding": {
       "description": "All output fields",
       "type": "object",

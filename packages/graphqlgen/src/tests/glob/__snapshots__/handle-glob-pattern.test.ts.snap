@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Handle Basic Walk 1`] = `
+Array [
+  Object {
+    "defaultName": undefined,
+    "path": "anotherPath",
+  },
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  Object {
+    "defaultName": undefined,
+    "path": "somepath",
+  },
+]
+`;
+
+exports[`Handle Complex Walk 1`] = `
+Array [
+  Object {
+    "defaultName": undefined,
+    "path": "somepath",
+  },
+  "./src/tests/fixtures/glob/dir-1/file-11.ts",
+  "./src/tests/fixtures/glob/dir-1/file-12.ts",
+  "./src/tests/fixtures/glob/dir-2/file-21.ts",
+  "./src/tests/fixtures/glob/dir-2/file-22.ts",
+  Object {
+    "defaultName": undefined,
+    "path": "anotherPath",
+  },
+]
+`;

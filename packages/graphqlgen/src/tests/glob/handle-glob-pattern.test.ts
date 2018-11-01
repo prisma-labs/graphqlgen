@@ -6,16 +6,11 @@ import { handleGlobPattern } from '../../glob'
 test('Handle Basic Walk', () => {
   expect(
     handleGlobPattern([
-      './src/tests/glob/mocks/dir-1/*.ts',
-      { path: 'somepath', defaultName: undefined },
       { path: 'anotherPath', defaultName: undefined },
+      './src/tests/fixtures/glob/dir-1/*.ts',
+      { path: 'somepath', defaultName: undefined },
     ]),
-  ).toMatchObject([
-    './src/tests/glob/mocks/dir-1/file-11.ts',
-    './src/tests/glob/mocks/dir-1/file-12.ts',
-    { path: 'somepath', defaultName: undefined },
-    { path: 'anotherPath', defaultName: undefined },
-  ])
+  ).toMatchSnapshot()
 })
 
 /**
@@ -24,16 +19,9 @@ test('Handle Basic Walk', () => {
 test('Handle Complex Walk', () => {
   expect(
     handleGlobPattern([
-      './src/tests/glob/mocks/**/*.ts',
       { path: 'somepath', defaultName: undefined },
+      './src/tests/fixtures/glob/**/*.ts',
       { path: 'anotherPath', defaultName: undefined },
     ]),
-  ).toMatchObject([
-    './src/tests/glob/mocks/dir-1/file-11.ts',
-    './src/tests/glob/mocks/dir-1/file-12.ts',
-    './src/tests/glob/mocks/dir-2/file-21.ts',
-    './src/tests/glob/mocks/dir-2/file-22.ts',
-    { path: 'somepath', defaultName: undefined },
-    { path: 'anotherPath', defaultName: undefined },
-  ])
+  ).toMatchSnapshot()
 })

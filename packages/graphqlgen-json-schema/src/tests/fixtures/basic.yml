@@ -18,6 +18,9 @@ models:
 # Please don't edit this file but just import from here
 output: ./src/generated/graphqlgen.ts
 
+# Generated schema files
+schema-output: ./src/generated/graphqlgen.ts
+
 # Temporary scaffolded resolvers to copy and paste in your application
 resolver-scaffolding:
   output: ./src/generated/tmp-resolvers/
