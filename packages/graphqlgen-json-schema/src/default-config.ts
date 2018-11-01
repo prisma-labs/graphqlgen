@@ -14,8 +14,8 @@ export const createConfig = (
 
   const defaultConfig: GraphQLGenDefinition = {
     language: 'typescript',
-    schema: getRootFolder('schema/**.graphql'),
-    context: getRootFolder('context.ts:Context'),
+    schema: getRootFolder('schemas/**.graphql'),
+    context: getRootFolder('models/context.ts:Context'),
     models: {
       files: [getRootFolder('models/**.ts')],
     },

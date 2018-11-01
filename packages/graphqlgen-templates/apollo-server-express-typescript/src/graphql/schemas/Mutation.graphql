@@ -1,0 +1,6 @@
+type Mutation {
+  createUser(name: String): User!
+  createDraft(title: String!, content: String!, authorId: ID!): Post!
+  deletePost(id: ID!): Post
+  publish(id: ID!): Post
+}

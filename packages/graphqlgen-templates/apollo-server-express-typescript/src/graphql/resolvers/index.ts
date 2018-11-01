@@ -1,4 +1,4 @@
-import { Resolvers } from '../generated/graphqlgen'
+import { Resolvers } from '../__generated__/graphqlgen'
 import { Query } from './Query'
 import { Mutation } from './Mutation'
 import { Post } from './Post'

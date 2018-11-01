@@ -31,7 +31,7 @@ export const generateSchema = (config: GraphQLGenDefinition) => {
   mkdirp.sync(path.dirname(outputPath))
 
   try {
-    console.log(chalk.cyan('Generating new schema :', outputPath))
+    console.log(chalk.green('Generating new schema :', config['schema-output']))
     fs.writeFileSync(outputPath, data, { flag: 'w' })
     return true
   } catch (error) {

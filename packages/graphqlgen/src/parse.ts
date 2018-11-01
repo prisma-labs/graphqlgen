@@ -1,5 +1,6 @@
 import * as Ajv from 'ajv'
 import * as chalk from 'chalk'
+import * as deepmerge from 'deepmerge'
 import * as fs from 'fs'
 import * as yaml from 'js-yaml'
 import { importSchema } from 'graphql-import'
@@ -9,6 +10,7 @@ import {
   Language,
   Models,
   File,
+  defaultConfig,
 } from 'graphqlgen-json-schema'
 import schema = require('graphqlgen-json-schema/dist/schema.json')
 
@@ -18,7 +20,11 @@ import {
   getImportPathRelativeToOutput,
 } from './path-helpers'
 import { getTypeToFileMapping } from './ast'
-import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
+import {
+  extractTypes,
+  extractGraphQLTypesWithoutRootsAndInputs,
+  GraphQLTypes,
+} from './source-helper'
 import { normalizeFilePath } from './utils'
 
 const ajv = new Ajv().addMetaSchema(
@@ -27,22 +33,29 @@ const ajv = new Ajv().addMetaSchema(
 const validateYaml = ajv.compile(schema)
 
 export function parseConfig(): GraphQLGenDefinition {
-  if (!fs.existsSync('graphqlgen.yml')) {
-    console.error(chalk.default.red(`No graphqlgen.yml found`))
-    process.exit(1)
+  // REMOVE
+  // if (!fs.existsSync('graphqlgen.yml')) {
+  //   console.error(chalk.default.red(`No graphqlgen.yml found`))
+  //   process.exit(1)
+  // }
+
+  if (fs.existsSync('graphqlgen.yml')) {
+    const config = yaml.safeLoad(
+      fs.readFileSync('graphqlgen.yml', 'utf-8'),
+    ) as GraphQLGenDefinition
+
+    if (!validateYaml(config)) {
+      console.error(chalk.default.red(`Invalid graphqlgen.yml file`))
+      console.error(chalk.default.red(printErrors(validateYaml.errors!)))
+      process.exit(1)
+    }
+
+    // DEEP Merge the config with default config
+    return deepmerge(defaultConfig, config)
   }
 
-  const config = yaml.safeLoad(
-    fs.readFileSync('graphqlgen.yml', 'utf-8'),
-  ) as GraphQLGenDefinition
-
-  if (!validateYaml(config)) {
-    console.error(chalk.default.red(`Invalid graphqlgen.yml file`))
-    console.error(chalk.default.red(printErrors(validateYaml.errors!)))
-    process.exit(1)
-  }
-
-  return config
+  // Return a default config
+  return defaultConfig
 }
 
 function printErrors(errors: any[]): string {

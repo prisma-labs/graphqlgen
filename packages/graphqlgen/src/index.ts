@@ -34,6 +34,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 import { handleGlobPattern } from './glob'
+import { generateSchema } from './concat-schema'
 
 export type GenerateCodeArgs = {
   schema: GraphQLTypes
@@ -259,6 +260,13 @@ async function run() {
   }
 
   const config = parseConfig()
+
+  // Generate combined schema file before parsing
+  generateSchema(config)
+
+  // Overwrite the schema file location in config with generated schema file location
+  config.schema = config['schema-output']
+
   const parsedSchema = parseSchema(config.schema)
 
   const options = (await prettier.resolveConfig(process.cwd())) || {} // TODO: Abstract this TS specific behavior better

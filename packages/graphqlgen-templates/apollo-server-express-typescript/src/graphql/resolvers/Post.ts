@@ -1,4 +1,4 @@
-import { PostResolvers } from '../generated/graphqlgen'
+import { PostResolvers } from '../__generated__/graphqlgen'
 
 export const Post: PostResolvers.Type = {
   ...PostResolvers.defaultResolvers,

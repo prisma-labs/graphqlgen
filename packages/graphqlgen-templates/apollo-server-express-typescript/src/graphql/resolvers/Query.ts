@@ -1,4 +1,4 @@
-import { QueryResolvers } from '../generated/graphqlgen'
+import { QueryResolvers } from '../__generated__/graphqlgen'
 
 export const Query: QueryResolvers.Type = {
   feed: (parent, args, ctx) => {

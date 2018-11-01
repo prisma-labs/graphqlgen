@@ -2,7 +2,7 @@
 
 exports[`Custom config 1`] = `
 Object {
-  "context": "./src/custom-folder/context.ts:Context",
+  "context": "./src/custom-folder/models/context.ts:Context",
   "language": "typescript",
   "models": Object {
     "files": Array [
@@ -14,26 +14,26 @@ Object {
     "layout": "file-per-type",
     "output": "./src/custom-folder/__generated_custom__/tmp-resolvers",
   },
-  "schema": "./src/custom-folder/schema/**.graphql",
+  "schema": "./src/custom-folder/schemas/**.graphql",
   "schema-output": "./src/custom-folder/__generated_custom__/graphqlgen.schema.graphql",
 }
 `;
 
 exports[`Default config 1`] = `
 Object {
-  "context": "./src/graphql/context.ts:Context",
+  "context": "./src/graphql/models/context.ts:Context",
   "language": "typescript",
   "models": Object {
     "files": Array [
       "./src/graphql/models/**.ts",
     ],
   },
-  "output": "./src/graphql/generated/graphqlgen.ts",
+  "output": "./src/graphql/__generated__/graphqlgen.ts",
   "resolver-scaffolding": Object {
     "layout": "file-per-type",
-    "output": "./src/graphql/generated/tmp-resolvers",
+    "output": "./src/graphql/__generated__/tmp-resolvers",
   },
-  "schema": "./src/graphql/schema/**.graphql",
-  "schema-output": "./src/graphql/generated/graphqlgen.schema.graphql",
+  "schema": "./src/graphql/schemas/**.graphql",
+  "schema-output": "./src/graphql/__generated__/graphqlgen.schema.graphql",
 }
 `;

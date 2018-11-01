@@ -17,7 +17,7 @@ type Schema3 {
 
 exports[`create config 1`] = `
 Object {
-  "context": "./src/tests/fixtures/advanced-scaffold/context.ts:Context",
+  "context": "./src/tests/fixtures/advanced-scaffold/models/context.ts:Context",
   "language": "typescript",
   "models": Object {
     "files": Array [
@@ -29,7 +29,7 @@ Object {
     "layout": "file-per-type",
     "output": "./src/tests/fixtures/advanced-scaffold/__generated__/tmp-resolvers",
   },
-  "schema": "./src/tests/fixtures/advanced-scaffold/schema/**.graphql",
+  "schema": "./src/tests/fixtures/advanced-scaffold/schemas/**.graphql",
   "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/graphqlgen.schema.graphql",
 }
 `;

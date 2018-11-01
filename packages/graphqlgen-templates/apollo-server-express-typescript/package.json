@@ -1,0 +1,17 @@
+{
+  "name": "apollo-server-express-typescript",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "generate": "graphqlgen"
+  },
+  "devDependencies": {
+    "graphqlgen": "0.2.12"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.1.0",
+    "express": "^4.16.4",
+    "graphql-import": "^0.7.1"
+  }
+}

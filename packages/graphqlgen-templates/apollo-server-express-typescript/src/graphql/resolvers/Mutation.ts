@@ -1,4 +1,4 @@
-import { MutationResolvers } from '../generated/graphqlgen'
+import { MutationResolvers } from '../__generated__/graphqlgen'
 
 export const Mutation: MutationResolvers.Type = {
   createUser: (parent, { name }, ctx) => {
