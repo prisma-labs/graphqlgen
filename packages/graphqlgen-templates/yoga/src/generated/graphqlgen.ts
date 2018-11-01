@@ -57,86 +57,6 @@ export namespace QueryResolvers {
   }
 }
 
-export namespace MutationResolvers {
-  export const defaultResolvers = {}
-
-  export interface ArgsCreateuser {
-    name: string | null
-  }
-
-  export interface ArgsCreatedraft {
-    title: string
-    content: string
-    authorId: string
-  }
-
-  export interface ArgsDeletepost {
-    id: string
-  }
-
-  export interface ArgsPublish {
-    id: string
-  }
-
-  export type CreateuserResolver = (
-    parent: {},
-    args: ArgsCreateuser,
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => User | Promise<User>
-
-  export type CreatedraftResolver = (
-    parent: {},
-    args: ArgsCreatedraft,
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => Post | Promise<Post>
-
-  export type DeletepostResolver = (
-    parent: {},
-    args: ArgsDeletepost,
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => Post | null | Promise<Post | null>
-
-  export type PublishResolver = (
-    parent: {},
-    args: ArgsPublish,
-    ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => Post | null | Promise<Post | null>
-
-  export interface Type {
-    createUser: (
-      parent: {},
-      args: ArgsCreateuser,
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => User | Promise<User>
-
-    createDraft: (
-      parent: {},
-      args: ArgsCreatedraft,
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => Post | Promise<Post>
-
-    deletePost: (
-      parent: {},
-      args: ArgsDeletepost,
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => Post | null | Promise<Post | null>
-
-    publish: (
-      parent: {},
-      args: ArgsPublish,
-      ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => Post | null | Promise<Post | null>
-  }
-}
-
 export namespace PostResolvers {
   export const defaultResolvers = {
     id: (parent: Post) => parent.id,
@@ -269,9 +189,89 @@ export namespace UserResolvers {
   }
 }
 
+export namespace MutationResolvers {
+  export const defaultResolvers = {}
+
+  export interface ArgsCreateUser {
+    name: string | null
+  }
+
+  export interface ArgsCreateDraft {
+    title: string
+    content: string
+    authorId: string
+  }
+
+  export interface ArgsDeletePost {
+    id: string
+  }
+
+  export interface ArgsPublish {
+    id: string
+  }
+
+  export type CreateUserResolver = (
+    parent: {},
+    args: ArgsCreateUser,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => User | Promise<User>
+
+  export type CreateDraftResolver = (
+    parent: {},
+    args: ArgsCreateDraft,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => Post | Promise<Post>
+
+  export type DeletePostResolver = (
+    parent: {},
+    args: ArgsDeletePost,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => Post | null | Promise<Post | null>
+
+  export type PublishResolver = (
+    parent: {},
+    args: ArgsPublish,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => Post | null | Promise<Post | null>
+
+  export interface Type {
+    createUser: (
+      parent: {},
+      args: ArgsCreateUser,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => User | Promise<User>
+
+    createDraft: (
+      parent: {},
+      args: ArgsCreateDraft,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => Post | Promise<Post>
+
+    deletePost: (
+      parent: {},
+      args: ArgsDeletePost,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => Post | null | Promise<Post | null>
+
+    publish: (
+      parent: {},
+      args: ArgsPublish,
+      ctx: Context,
+      info: GraphQLResolveInfo,
+    ) => Post | null | Promise<Post | null>
+  }
+}
+
 export interface Resolvers {
   Query: QueryResolvers.Type
-  Mutation: MutationResolvers.Type
   Post: PostResolvers.Type
   User: UserResolvers.Type
+  Mutation: MutationResolvers.Type
 }

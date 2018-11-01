@@ -20,14 +20,14 @@ import {
 
 /** Our own GraphQL schema/types abstraction. */
 export type GraphQLTypes = {
-  types: GraphQLTypeObject[],
-  unions: GraphQLUnionObject[],
-  enums: GraphQLEnumObject[],
+  types: GraphQLTypeObject[]
+  unions: GraphQLUnionObject[]
+  enums: GraphQLEnumObject[]
 }
 
 /** Converts typeDefs, e.g. the raw SDL string, into our `GraphQLTypes`. */
 export function extractTypes(typeDefs: string): GraphQLTypes {
-  const schema = buildASTSchema(parse(typeDefs));
+  const schema = buildASTSchema(parse(typeDefs))
   const types = extractGraphQLTypes(schema)
   const unions = extractGraphQLUnions(schema)
   const enums = extractGraphQLEnums(schema)
@@ -78,6 +78,12 @@ export type GraphQLUnionObject = {
   types: GraphQLTypeDefinition[]
 }
 
+interface FinalType {
+  isRequired: boolean
+  isArray: boolean
+  type: GraphQLInputType | GraphQLOutputType
+}
+
 export const GraphQLScalarTypeArray = [
   'Boolean',
   'Int',
@@ -120,27 +126,51 @@ function extractTypeDefinition(
   return typeLike
 }
 
+const getFinalType = (
+  type: GraphQLInputType | GraphQLOutputType,
+  acc: FinalType = { isArray: false, isRequired: false, type },
+): FinalType => {
+  if (type instanceof GraphQLNonNull) {
+    acc.isRequired = true
+  }
+  if (type instanceof GraphQLList) {
+    acc.isArray = true
+  }
+
+  if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
+    return getFinalType(
+      (type as GraphQLNonNull<any> | GraphQLList<any>).ofType,
+      acc,
+    )
+  }
+
+  return {
+    ...acc,
+    type,
+  }
+}
+
 function extractTypeLike(
   schema: GraphQLSchema,
   type: GraphQLInputType | GraphQLOutputType,
 ): GraphQLType {
   const typeLike: GraphQLType = {} as GraphQLType
-  if (type instanceof GraphQLNonNull) {
+  const { isArray, isRequired, type: finalType } = getFinalType(type)
+  if (isRequired) {
     typeLike.isRequired = true
-    type = (type as GraphQLNonNull<any>).ofType
   }
-  if (type instanceof GraphQLList) {
+  if (isArray) {
     typeLike.isArray = true
-    type = (type as GraphQLList<any>).ofType
   }
-  if (type instanceof GraphQLObjectType
-    || type instanceof GraphQLInterfaceType
-    || type instanceof GraphQLEnumType
-    || type instanceof GraphQLUnionType
-    || type instanceof GraphQLInputObjectType
-    || type instanceof GraphQLScalarType
+  if (
+    finalType instanceof GraphQLObjectType ||
+    finalType instanceof GraphQLInterfaceType ||
+    finalType instanceof GraphQLEnumType ||
+    finalType instanceof GraphQLUnionType ||
+    finalType instanceof GraphQLInputObjectType ||
+    finalType instanceof GraphQLScalarType
   ) {
-    typeLike.name = type.name
+    typeLike.name = finalType.name
   }
   const typeDefinitionLike = extractTypeDefinition(schema, typeLike)
   return {
@@ -149,27 +179,35 @@ function extractTypeLike(
   }
 }
 
-function extractTypeFieldsFromObjectType(schema: GraphQLSchema, node: GraphQLObjectType) {
+function extractTypeFieldsFromObjectType(
+  schema: GraphQLSchema,
+  node: GraphQLObjectType,
+) {
   const fields: GraphQLTypeField[] = []
-  Object.values(node.getFields()).forEach((fieldNode: GraphQLField<any, any>) => {
-    const fieldType: GraphQLType = extractTypeLike(schema, fieldNode.type)
-    const fieldArguments: GraphQLTypeArgument[] = []
-    fieldNode.args.forEach((arg: GraphQLArgument) => {
-      fieldArguments.push({
-        name: arg.name,
-        type: extractTypeLike(schema, arg.type),
+  Object.values(node.getFields()).forEach(
+    (fieldNode: GraphQLField<any, any>) => {
+      const fieldType: GraphQLType = extractTypeLike(schema, fieldNode.type)
+      const fieldArguments: GraphQLTypeArgument[] = []
+      fieldNode.args.forEach((arg: GraphQLArgument) => {
+        fieldArguments.push({
+          name: arg.name,
+          type: extractTypeLike(schema, arg.type),
+        })
       })
-    })
-    fields.push({
-      name: fieldNode.name,
-      type: fieldType,
-      arguments: fieldArguments,
-    })
-  })
+      fields.push({
+        name: fieldNode.name,
+        type: fieldType,
+        arguments: fieldArguments,
+      })
+    },
+  )
   return fields
 }
 
-function extractTypeFieldsFromInputType(schema: GraphQLSchema, node: GraphQLInputObjectType) {
+function extractTypeFieldsFromInputType(
+  schema: GraphQLSchema,
+  node: GraphQLInputObjectType,
+) {
   const fields: GraphQLTypeField[] = []
   Object.values(node.getFields()).forEach((input: GraphQLInputField) => {
     fields.push({
@@ -185,8 +223,8 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
   const types: GraphQLTypeObject[] = []
   Object.values(schema.getTypeMap()).forEach((node: GraphQLNamedType) => {
     // Ignore meta types like __Schema and __TypeKind
-    if (node.name.startsWith("__")) {
-      return;
+    if (node.name.startsWith('__')) {
+      return
     }
     if (node instanceof GraphQLEnumType) {
       types.push({
@@ -200,7 +238,7 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isScalar: false,
           isInterface: false,
         },
-        fields: [] // extractTypeFields(schema, node),
+        fields: [], // extractTypeFields(schema, node),
       })
     } else if (node instanceof GraphQLObjectType) {
       types.push({

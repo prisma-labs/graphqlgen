@@ -5,8 +5,8 @@ exports[`basic enum 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { Context } from \\"../../../fixtures/enum/types\\";
-import { User } from \\"../../../fixtures/enum/types\\";
 import { UserType } from \\"../../../fixtures/enum/types\\";
+import { User } from \\"../../../fixtures/enum/types\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
