@@ -38,6 +38,7 @@ import { generate as scaffoldTS } from './generators/ts-scaffolder'
 
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
+import { handleGlobPattern } from './glob'
 
 export type GenerateCodeArgs = {
   schema: DocumentNode
@@ -269,6 +270,12 @@ async function run() {
   const options = (await prettier.resolveConfig(process.cwd())) || {} // TODO: Abstract this TS specific behavior better
   if (JSON.stringify(options) !== '{}') {
     console.log(chalk.blue(`Found a prettier configuration to use`))
+  }
+
+  // Override the config.models.files using handleGlobPattern
+  config.models = {
+    ...config.models,
+    files: handleGlobPattern(config.models.files),
   }
 
   if (!validateConfig(config, parsedSchema)) {
