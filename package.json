@@ -5,7 +5,7 @@
     "test": "yarn build && cd packages/graphqlgen && yarn test"
   },
   "workspaces": [
-    "packages/*"
+    "packages/**/*"
   ],
   "prettier": {
     "semi": false,

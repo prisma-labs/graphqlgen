@@ -1,3 +1,5 @@
+import { defaultConfig } from './default-config'
+
 export interface GraphQLGenDefinition {
   language: Language
   schema: string
@@ -25,3 +27,5 @@ export interface ResolverScaffolding {
   output: string
   layout: string
 }
+
+export { defaultConfig }
