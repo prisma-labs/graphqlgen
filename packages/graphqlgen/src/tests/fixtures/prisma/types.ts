@@ -2,82 +2,330 @@ export interface Context {
   db: any
 }
 
-export type Long = string
+export interface Experience {
+  id: string
+  category: any | null
+  title: string
+  location: any
+  pricePerPerson: number
+  reviews: any[]
+  preview: any
+  popularity: number
+}
 
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number
-export type ID_Output = string
+export interface ExperienceCategory {
+  id: string
+  mainColor: string
+  name: string
+  experience: any | null
+}
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string
+export interface Location {
+  id: string
+  lat: number
+  lng: number
+  address: string | null
+  directions: string | null
+}
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
+export interface Review {
+  accuracy: number
+  checkIn: number
+  cleanliness: number
+  communication: number
+  createdAt: undefined
+  id: string
+  location: number
+  stars: number
+  text: string
+  value: number
+}
 
-/*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string
+export interface Picture {
+  id: string
+  url: string
+}
 
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string
-export type Float = number
+export interface Place {
+  id: string
+  name: string | null
+  size: any | null
+  shortDescription: string
+  description: string
+  slug: string
+  maxGuests: number
+  numRatings: number
+  avgRating: number | null
+  numBedrooms: number
+  numBeds: number
+  numBaths: number
+  reviews: any[]
+  amenities: any
+  host: any
+  pricing: any
+  location: any
+  views: any
+  guestRequirements: any | null
+  policies: any | null
+  houseRules: any | null
+  bookings: any[]
+  pictures: any[]
+  popularity: number
+}
+
+export interface PLACE_SIZES {}
+
+export interface Amenities {
+  airConditioning: boolean
+  babyBath: boolean
+  babyMonitor: boolean
+  babysitterRecommendations: boolean
+  bathtub: boolean
+  breakfast: boolean
+  buzzerWirelessIntercom: boolean
+  cableTv: boolean
+  changingTable: boolean
+  childrensBooksAndToys: boolean
+  childrensDinnerware: boolean
+  crib: boolean
+  doorman: boolean
+  dryer: boolean
+  elevator: boolean
+  essentials: boolean
+  familyKidFriendly: boolean
+  freeParkingOnPremises: boolean
+  freeParkingOnStreet: boolean
+  gym: boolean
+  hairDryer: boolean
+  hangers: boolean
+  heating: boolean
+  hotTub: boolean
+  id: string
+  indoorFireplace: boolean
+  internet: boolean
+  iron: boolean
+  kitchen: boolean
+  laptopFriendlyWorkspace: boolean
+  paidParkingOffPremises: boolean
+  petsAllowed: boolean
+  pool: boolean
+  privateEntrance: boolean
+  shampoo: boolean
+  smokingAllowed: boolean
+  suitableForEvents: boolean
+  tv: boolean
+  washer: boolean
+  wheelchairAccessible: boolean
+  wirelessInternet: boolean
+}
 
 export interface User {
-  id: ID_Output
-  createdAt: DateTimeOutput
-  updatedAt: DateTimeOutput
-  firstName: String
-  lastName: String
-  email: String
-  password: String
-  phone: String
-  responseRate?: Float
-  responseTime?: Int
-  isSuperHost: Boolean
+  bookings: any[]
+  createdAt: undefined
+  email: string
+  firstName: string
+  hostingExperiences: any[]
+  id: string
+  isSuperHost: boolean
+  lastName: string
+  location: any | null
+  notifications: any[]
+  ownedPlaces: any[]
+  paymentAccount: any[] | null
+  phone: string
+  profilePicture: any | null
+  receivedMessages: any[]
+  responseRate: number | null
+  responseTime: number | null
+  sentMessages: any[]
+  updatedAt: undefined
 }
 
-export interface PlaceNode {
-  id: ID_Output
-  name: String
-  // size?: PLACE_SIZES;
-  shortDescription: String
-  description: String
-  slug: String
-  maxGuests: Int
-  numBedrooms: Int
-  numBeds: Int
-  numBaths: Int
-  popularity: Int
+export interface Booking {
+  id: string
+  createdAt: undefined
+  bookee: any
+  place: any
+  startDate: undefined
+  endDate: undefined
+  payment: any
 }
 
-export interface PricingNode {
-  id: ID_Output
-  monthlyDiscount?: Int
-  weeklyDiscount?: Int
-  perNight: Int
-  smartPricing: Boolean
-  basePrice: Int
-  averageWeekly: Int
-  averageMonthly: Int
-  cleaningFee?: Int
-  securityDeposit?: Int
-  extraGuests?: Int
-  weekendPricing?: Int
-  // currency?: CURRENCY;
+export interface Payment {
+  booking: any
+  createdAt: undefined
+  id: string
+  paymentMethod: any
+  serviceFee: number
 }
 
-export interface GuestRequirementsNode {
-  id: ID_Output
-  govIssuedId: Boolean
-  recommendationsFromOtherHosts: Boolean
-  guestTripInformation: Boolean
+export interface PaymentAccount {
+  id: string
+  createdAt: undefined
+  type: any | null
+  user: any
+  payments: any[]
+  paypal: any | null
+  creditcard: any | null
+}
+
+export interface PAYMENT_PROVIDER {}
+
+export interface PaypalInformation {
+  createdAt: undefined
+  email: string
+  id: string
+  paymentAccount: any
+}
+
+export interface CreditCardInformation {
+  cardNumber: string
+  country: string
+  createdAt: undefined
+  expiresOnMonth: number
+  expiresOnYear: number
+  firstName: string
+  id: string
+  lastName: string
+  paymentAccount: any | null
+  postalCode: string
+  securityCode: string
+}
+
+export interface Notification {
+  createdAt: undefined
+  id: string
+  link: string
+  readDate: undefined
+  type: any | null
+  user: any
+}
+
+export interface NOTIFICATION_TYPE {}
+
+export interface Message {
+  createdAt: undefined
+  deliveredAt: undefined
+  id: string
+  readAt: undefined
+}
+
+export interface Pricing {
+  averageMonthly: number
+  averageWeekly: number
+  basePrice: number
+  cleaningFee: number | null
+  currency: any | null
+  extraGuests: number | null
+  id: string
+  monthlyDiscount: number | null
+  perNight: number
+  securityDeposit: number | null
+  smartPricing: boolean
+  weekendPricing: number | null
+  weeklyDiscount: number | null
+}
+
+export interface CURRENCY {}
+
+export interface PlaceViews {
+  id: string
+  lastWeek: number
+}
+
+export interface GuestRequirements {
+  govIssuedId: boolean
+  guestTripInformation: boolean
+  id: string
+  recommendationsFromOtherHosts: boolean
+}
+
+export interface Policies {
+  checkInEndTime: number
+  checkInStartTime: number
+  checkoutTime: number
+  createdAt: undefined
+  id: string
+  updatedAt: undefined
+}
+
+export interface HouseRules {
+  additionalRules: string | null
+  createdAt: undefined
+  id: string
+  partiesAndEventsAllowed: boolean | null
+  petsAllowed: boolean | null
+  smokingAllowed: boolean | null
+  suitableForChildren: boolean | null
+  suitableForInfants: boolean | null
+  updatedAt: undefined
+}
+
+export interface Reservation {
+  id: string
+  title: string
+  avgPricePerPerson: number
+  pictures: any[]
+  location: any
+  isCurated: boolean
+  slug: string
+  popularity: number
+}
+
+export interface Neighbourhood {
+  id: string
+  name: string
+  slug: string
+  homePreview: any | null
+  city: any
+  featured: boolean
+  popularity: number
+}
+
+export interface City {
+  id: string
+  name: string
+}
+
+export interface ExperiencesByCity {
+  experiences: any[]
+  city: any
+}
+
+export interface Viewer {
+  me: any
+  bookings: any[]
+}
+
+export interface AuthPayload {
+  token: string
+  user: any
+}
+
+export interface MutationResult {
+  success: boolean
+}
+
+export interface CitySubscriptionPayload {
+  mutation: any
+  node: any | null
+  updatedFields: string[]
+  previousValues: any | null
+}
+
+export interface MutationType {}
+
+export interface CityPreviousValues {
+  id: string
+  name: string
+}
+
+export interface Home {
+  id: string
+  name: string | null
+  description: string
+  numRatings: number
+  avgRating: number | null
+  pictures: any[]
+  perNight: number
 }
