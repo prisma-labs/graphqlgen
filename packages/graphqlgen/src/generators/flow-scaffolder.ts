@@ -20,7 +20,7 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
       field =>
         `${
           field.name
-        }: (parent, args, ctx) => { throw new Error('Resolver not implemented') }`,
+        }: (parent, args, ctx, info) => { throw new Error('Resolver not implemented') }`,
     )}
   }
   `
@@ -52,7 +52,7 @@ export const ${type.name}: ${upperFirst(type.name)}Resolvers = {
     )
     .map(
       field => `
-      ${field.name}: (parent, args, ctx) => {
+      ${field.name}: (parent, args, ctx, info) => {
         throw new Error('Resolver not implemented')
       }
     `,
