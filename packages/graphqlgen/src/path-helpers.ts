@@ -11,7 +11,6 @@ export function getExtNameFromLanguage(language: Language) {
   return extNames[language]
 }
 
-// TODO write test cases
 export function getAbsoluteFilePath(
   modelPath: string,
   language: Language,
@@ -48,7 +47,6 @@ export function getAbsoluteFilePath(
   return indexPath.replace(/\\/g, '/')
 }
 
-// TODO write test cases
 export function getImportPathRelativeToOutput(
   absolutePath: string,
   outputDir: string,

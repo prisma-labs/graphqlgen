@@ -100,7 +100,7 @@ function validateContext(
   return true
 }
 
-function validateModels(
+export function validateModels(
   models: Models,
   schema: GraphQLTypes,
   language: Language,
