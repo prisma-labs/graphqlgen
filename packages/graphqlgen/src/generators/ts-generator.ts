@@ -9,7 +9,7 @@ import {
   GraphQLType,
 } from '../source-helper'
 import { findTypescriptInterfaceByName, getChildrenNodes } from '../ast'
-import { upperFirst } from '../utils'
+import { flatten, uniq, upperFirst } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -167,7 +167,7 @@ function deepResolveInputTypes(
       .map(name =>
         deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
       )
-      .reduce((rest, cur) => [...rest, ...cur], [])
+      .reduce(flatten, [])
     return [typeName, ...childTypes]
   } else {
     throw new Error(`Input type ${typeName} not found`)
@@ -184,8 +184,8 @@ function renderInputTypeInterfaces(
   }
   const distinctInputTypes = typeToInputTypeAssociation[type.name]
     .map(t => deepResolveInputTypes(inputTypesMap, t))
-    .reduce((a, b) => [...a, ...b], [])
-    .filter((v, i, a) => a.indexOf(v) === i)
+    .reduce(flatten, [])
+    .filter(uniq)
 
   return distinctInputTypes
     .map(typeAssociation => {

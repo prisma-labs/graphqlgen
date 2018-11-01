@@ -27,3 +27,11 @@ export function normalizeFilePath(
 
   return filePath
 }
+
+export function flatten(a: Array<any>, b: Array<any>) {
+  return [...a, ...b]
+}
+
+export function uniq(value: any, index: number, array: Array<any>) {
+  return array.indexOf(value) === index
+}
