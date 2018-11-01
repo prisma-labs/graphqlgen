@@ -32,7 +32,7 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 
 ### Start from scratch
 
-Bootstrap a GraphQL server based with a ready-made `graphqlen` setup then
+Bootstrap a GraphQL server based with a ready-made `graphqlgen` setup then
 start the server:
 
 *With `npm`*
