@@ -4,14 +4,18 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "start": "nodemon -x ts-node --no-cache src/index.ts",
     "generate": "graphqlgen"
   },
   "devDependencies": {
-    "graphqlgen": "0.2.12"
+    "graphqlgen": "0.2.12",
+    "nodemon": "^1.18.5",
+    "ts-node": "^7.0.1"
   },
   "dependencies": {
     "apollo-server-express": "^2.1.0",
     "express": "^4.16.4",
+    "graphql": "^14.0.2",
     "graphql-import": "^0.7.1"
   }
 }
