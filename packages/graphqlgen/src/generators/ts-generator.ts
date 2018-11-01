@@ -4,18 +4,16 @@ import * as prettier from 'prettier'
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
-import { flatten, uniq, upperFirst } from '../utils'
-import { renderDefaultResolvers, getContextName, getModelName } from './common'
-
-type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
-
-interface InputTypesMap {
-  [s: string]: GraphQLTypeObject
-}
-
-interface TypeToInputTypeAssociation {
-  [s: string]: string[]
-}
+import { upperFirst } from '../utils'
+import {
+  renderDefaultResolvers,
+  getContextName,
+  getModelName,
+  TypeToInputTypeAssociation,
+  InputTypesMap,
+  printFieldLikeType,
+  getDistinctInputTypes,
+} from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
   try {
@@ -139,9 +137,10 @@ function renderNamespace(
     )}
 
     ${renderInputTypeInterfaces(
+      type,
+      modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
-      type,
     )}
 
     ${renderInputArgInterfaces(type, modelMap)}
@@ -155,49 +154,22 @@ function renderNamespace(
   `
 }
 
-function deepResolveInputTypes(
-  inputTypesMap: InputTypesMap,
-  typeName: string,
-  seen: { [k: string]: boolean } = {},
-): string[] {
-  const type = inputTypesMap[typeName]
-  if (type) {
-    const childTypes = type.fields
-      .filter(t => t.type.isInput && !seen[type.name])
-      .map(t => t.type.name)
-      .map(name =>
-        deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
-      )
-      .reduce(flatten, [])
-    return [typeName, ...childTypes]
-  } else {
-    throw new Error(`Input type ${typeName} not found`)
-  }
-}
-
 function renderInputTypeInterfaces(
+  type: GraphQLTypeObject,
+  modelMap: ModelMap,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  type: GraphQLTypeObject,
 ) {
   if (!typeToInputTypeAssociation[type.name]) {
     return ``
   }
-  const distinctInputTypes = typeToInputTypeAssociation[type.name]
-    .map(t => deepResolveInputTypes(inputTypesMap, t))
-    .reduce(flatten, [])
-    .filter(uniq)
 
-  return distinctInputTypes
+  return getDistinctInputTypes(type, typeToInputTypeAssociation, inputTypesMap)
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
         field =>
-          `${field.name}${field.type.isRequired === false ? '?' : ''}: ${
-            field.type.isScalar
-              ? getTypeFromGraphQLType(field.type.name)
-              : field.type.name
-          }${field.type.isArray ? '[]' : ''}`,
+          `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}
     }`
     })
@@ -319,35 +291,4 @@ export interface Resolvers {
     .join(os.EOL)}
 }
   `
-}
-
-function printFieldLikeType(field: GraphQLTypeField, modelMap: ModelMap) {
-  if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name)}${
-      field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
-  }
-
-  if (field.type.isInput) {
-    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
-      !field.type.isRequired ? '| null' : ''
-    }`
-  }
-
-  return `${getModelName(field.type, modelMap)}${
-    field.type.isArray ? '[]' : ''
-  }${!field.type.isRequired ? '| null' : ''}`
-}
-
-function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
-  if (type === 'Int' || type === 'Float') {
-    return 'number'
-  }
-  if (type === 'Boolean') {
-    return 'boolean'
-  }
-  if (type === 'String' || type === 'ID' || type === 'DateTime') {
-    return 'string'
-  }
-  return 'string'
 }

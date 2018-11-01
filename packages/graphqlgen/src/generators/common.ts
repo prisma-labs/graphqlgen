@@ -7,6 +7,17 @@ import {
 } from '../source-helper'
 import { Model, ModelMap, ContextDefinition } from '../types'
 import { ModelField } from '../introspection/ts-ast'
+import { flatten, uniq } from '../utils'
+
+type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
+
+export interface InputTypesMap {
+  [s: string]: GraphQLTypeObject
+}
+
+export interface TypeToInputTypeAssociation {
+  [s: string]: string[]
+}
 
 export function renderDefaultResolvers(
   type: GraphQLTypeObject,
@@ -110,4 +121,71 @@ export function shouldScaffoldFieldResolver(
   }
 
   return modelField.fieldOptional && graphQLField.type.isRequired
+}
+
+export function printFieldLikeType(
+  field: GraphQLTypeField,
+  modelMap: ModelMap,
+) {
+  if (field.type.isScalar) {
+    return `${getTypeFromGraphQLType(field.type.name)}${
+      field.type.isArray ? '[]' : ''
+    }${!field.type.isRequired ? '| null' : ''}`
+  }
+
+  if (field.type.isInput) {
+    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
+      !field.type.isRequired ? '| null' : ''
+    }`
+  }
+
+  return `${getModelName(field.type, modelMap)}${
+    field.type.isArray ? '[]' : ''
+  }${!field.type.isRequired ? '| null' : ''}`
+}
+
+export function getTypeFromGraphQLType(
+  type: string,
+): SpecificGraphQLScalarType {
+  if (type === 'Int' || type === 'Float') {
+    return 'number'
+  }
+  if (type === 'Boolean') {
+    return 'boolean'
+  }
+  if (type === 'String' || type === 'ID' || type === 'DateTime') {
+    return 'string'
+  }
+  return 'string'
+}
+
+function deepResolveInputTypes(
+  inputTypesMap: InputTypesMap,
+  typeName: string,
+  seen: { [k: string]: boolean } = {},
+): string[] {
+  const type = inputTypesMap[typeName]
+  if (type) {
+    const childTypes = type.fields
+      .filter(t => t.type.isInput && !seen[type.name])
+      .map(t => t.type.name)
+      .map(name =>
+        deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
+      )
+      .reduce(flatten, [])
+    return [typeName, ...childTypes]
+  } else {
+    throw new Error(`Input type ${typeName} not found`)
+  }
+}
+
+export function getDistinctInputTypes(
+  type: GraphQLTypeObject,
+  typeToInputTypeAssociation: TypeToInputTypeAssociation,
+  inputTypesMap: InputTypesMap,
+) {
+  return typeToInputTypeAssociation[type.name]
+    .map(t => deepResolveInputTypes(inputTypesMap, t))
+    .reduce(flatten, [])
+    .filter(uniq)
 }

@@ -320,7 +320,7 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
   return types
 }
 
-const graphqlToTypescript: { [key: string]: string } = {
+const graphqlToTypescriptFlow: { [key: string]: string } = {
   String: 'string',
   Boolean: 'boolean',
   ID: 'string',
@@ -329,7 +329,7 @@ const graphqlToTypescript: { [key: string]: string } = {
 }
 
 export function graphQLToTypecriptFlowType(type: GraphQLType): string {
-  let typescriptType = type.isScalar ? graphqlToTypescript[type.name] : 'any'
+  let typescriptType = type.isScalar ? graphqlToTypescriptFlow[type.name] : 'any'
   if (type.isArray) {
     typescriptType += '[]'
   }

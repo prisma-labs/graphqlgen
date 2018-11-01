@@ -151,7 +151,7 @@ export const Mutation_defaultResolvers = {};
 
 export interface AddMemberData {
   email: string;
-  projects: string;
+  projects: string[];
 }
 
 export interface Mutation_Args_AddMember {

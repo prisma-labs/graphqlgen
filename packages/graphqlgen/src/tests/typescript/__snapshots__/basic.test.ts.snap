@@ -154,13 +154,13 @@ export namespace MutationResolvers {
   export interface AddMemberData {
     email: string;
     projects: string[];
-    sideProjects: string[];
-    profile: ProfileData;
-    phones: PhoneData[];
+    sideProjects: string[] | null;
+    profile: ProfileData | null;
+    phones: PhoneData[] | null;
   }
   export interface ProfileData {
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
   }
   export interface PhoneData {
     number: string;

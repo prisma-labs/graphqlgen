@@ -5,17 +5,15 @@ import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 import { extractFieldsFromFlowType } from '../introspection/flow-ast'
 import { upperFirst } from '../utils'
-import { renderDefaultResolvers, getContextName, getModelName } from './common'
-
-type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
-
-interface InputTypesMap {
-  [s: string]: GraphQLTypeObject
-}
-
-interface TypeToInputTypeAssociation {
-  [s: string]: string[]
-}
+import {
+  renderDefaultResolvers,
+  getContextName,
+  getModelName,
+  TypeToInputTypeAssociation,
+  InputTypesMap,
+  printFieldLikeType,
+  getDistinctInputTypes,
+} from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
   try {
@@ -144,9 +142,10 @@ function renderNamespace(
     )}
 
     ${renderInputTypeInterfaces(
+      type,
+      modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
-      type,
     )}
 
     ${renderInputArgInterfaces(type, modelMap)}
@@ -160,18 +159,21 @@ function renderNamespace(
 }
 
 function renderInputTypeInterfaces(
+  type: GraphQLTypeObject,
+  modelMap: ModelMap,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  type: GraphQLTypeObject,
 ) {
   if (!typeToInputTypeAssociation[type.name]) {
     return ``
   }
-  return typeToInputTypeAssociation[type.name]
+
+  return getDistinctInputTypes(type, typeToInputTypeAssociation, inputTypesMap)
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`,
+        field =>
+          `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}
     }`
     })
@@ -290,37 +292,6 @@ export interface Resolvers {
     .join(',' + os.EOL)}
 }
   `
-}
-
-function printFieldLikeType(field: GraphQLTypeField, modelMap: ModelMap) {
-  if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name)}${
-      field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
-  }
-
-  if (field.type.isInput) {
-    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
-      !field.type.isRequired ? '| null' : ''
-    }`
-  }
-
-  return `${getModelName(field.type, modelMap)}${
-    field.type.isArray ? '[]' : ''
-  }${!field.type.isRequired ? '| null' : ''}`
-}
-
-function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
-  if (type === 'Int' || type === 'Float') {
-    return 'number'
-  }
-  if (type === 'Boolean') {
-    return 'boolean'
-  }
-  if (type === 'String' || type === 'ID' || type === 'DateTime') {
-    return 'string'
-  }
-  return 'string'
 }
 
 function getInputArgName(type: GraphQLTypeObject, field: GraphQLTypeField) {
