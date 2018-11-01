@@ -26,7 +26,7 @@ Models represent domain objects in TypeScript:
 
 When starting a new project, it is often the case that models look _very_ similar to to the SDL types in your GraphQL schema. Only as a project grows, it is often useful to decouple the TypeScript representation of an object from the way it's exposed through the API.
 
-Consider an example where you have a `User` model with a `password` field. The `password` field most likely should not be exposed through the API, but it's still required within yout code. In that case, the model differs from the SDL type representation in the GraphQL schema.
+Consider an example where you have a `User` model with a `password` field. The `password` field most likely should not be exposed through the API, but it's still required within your code. In that case, the model differs from the SDL type representation in the GraphQL schema.
 
 ### Layouts
 
