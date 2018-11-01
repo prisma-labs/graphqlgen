@@ -141,7 +141,8 @@ export namespace PostResolvers {
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
-    name: (parent: User) => parent.name,
+    name: (parent: User) =>
+      parent.name === undefined || parent.name === null ? null : parent.name,
   }
 
   export type IdResolver = (

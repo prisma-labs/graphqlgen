@@ -17,9 +17,8 @@ import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
-import { getTypeToFileMapping, replaceAll } from './ast'
+import { getTypeToFileMapping, replaceAll, normalizeFilePath } from './utils'
 import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
-import { normalizeFilePath } from './utils'
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),

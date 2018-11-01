@@ -328,7 +328,7 @@ const graphqlToTypescript: { [key: string]: string } = {
   Float: 'number',
 }
 
-export function graphQLToTypecriptType(type: GraphQLType): string {
+export function graphQLToTypecriptFlowType(type: GraphQLType): string {
   let typescriptType = type.isScalar ? graphqlToTypescript[type.name] : 'any'
   if (type.isArray) {
     typescriptType += '[]'

@@ -7,7 +7,6 @@ import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
 import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
-import { DocumentNode } from 'graphql'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import { GraphQLTypes } from './source-helper'
 import {
