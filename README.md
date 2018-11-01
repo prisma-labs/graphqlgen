@@ -32,18 +32,27 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 
 ### Start from scratch
 
-Bootstrap a GraphQL server based with a ready-made `graphqlen` setup: 
+Bootstrap a GraphQL server based with a ready-made `graphqlen` setup then
+start the server:
 
+*With `npm`*
+```bash
+npm init graphqlgen my-app
+cd my-app
+npm start
 ```
-npm init graphqlgen ./my-app
-```
+*Note: `npm init` requires npm version >= 6.2.0*
 
-Then start the server:
+or
 
-```
+*With `yarn`*
+
+```bash
+yarn create graphqlgen my-app
 cd my-app
 yarn start
 ```
+*Note: `yarn create` requires yarn version >= 0.25*
 
 After updating the GraphQL schema in `.my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
 
@@ -55,10 +64,16 @@ graphqlgen
 
 #### Install
 
-You can install the `graphqlgen` CLI with the following command:
+You can install the `graphqlgen` CLI with either of the following commands:
 
 ```bash
 npm install -g graphqlgen
+```
+
+or
+
+```bash
+yarn global add graphqlgen
 ```
 
 #### Usage
