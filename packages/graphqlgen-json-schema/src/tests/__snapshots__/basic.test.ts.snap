@@ -7,6 +7,10 @@ Object {
   "models": Object {
     "files": Array [
       "./src/types.ts",
+      Object {
+        "defaultName": "\${typeName}Node",
+        "path": "./src/generated/client.ts",
+      },
     ],
   },
   "output": "./src/generated/graphqlgen.ts",

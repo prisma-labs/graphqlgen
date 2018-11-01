@@ -16,6 +16,7 @@ export const defaultConfig: GraphQLGenDefinition = {
     files: [getRootFolder('resolvers/**.ts')],
   },
   output: getOutputFolder('graphqlgen.ts'),
+  'schema-output': getOutputFolder('graphqlgen.schema.graphql'),
   'resolver-scaffolding': {
     layout: 'file-per-type',
     output: getOutputFolder('tmp-resolvers'),

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default config 1`] = `
+Object {
+  "context": "./src/graphql/context.ts:Context",
+  "language": "typescript",
+  "models": Object {
+    "files": Array [
+      "./src/graphql/resolvers/**.ts",
+    ],
+  },
+  "output": "./src/graphql/generated/graphqlgen.ts",
+  "resolver-scaffolding": Object {
+    "layout": "file-per-type",
+    "output": "./src/graphql/generated/tmp-resolvers",
+  },
+  "schema": "./src/graphql/schema/**.graphql",
+  "schema-output": "./src/graphql/generated/graphqlgen.schema.graphql",
+}
+`;
