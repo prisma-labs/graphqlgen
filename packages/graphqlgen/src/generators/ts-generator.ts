@@ -154,6 +154,26 @@ function renderNamespace(
   `
 }
 
+function deepResolveInputTypes(
+  inputTypesMap: InputTypesMap,
+  typeName: string,
+  seen: { [k: string]: boolean } = {},
+): string[] {
+  const type = inputTypesMap[typeName]
+  if (type) {
+    const childTypes = type.fields
+      .filter(t => t.type.isInput && !seen[type.name])
+      .map(t => t.type.name)
+      .map(name =>
+        deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
+      )
+      .reduce((rest, cur) => [...rest, ...cur], [])
+    return [typeName, ...childTypes]
+  } else {
+    throw new Error(`Input type ${typeName} not found`)
+  }
+}
+
 function renderInputTypeInterfaces(
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
@@ -162,11 +182,21 @@ function renderInputTypeInterfaces(
   if (!typeToInputTypeAssociation[type.name]) {
     return ``
   }
-  return typeToInputTypeAssociation[type.name]
+  const distinctInputTypes = typeToInputTypeAssociation[type.name]
+    .map(t => deepResolveInputTypes(inputTypesMap, t))
+    .reduce((a, b) => [...a, ...b], [])
+    .filter((v, i, a) => a.indexOf(v) === i)
+
+  return distinctInputTypes
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${getTypeFromGraphQLType(field.type.name)}`,
+        field =>
+          `${field.name}${field.type.isRequired === false ? '?' : ''}: ${
+            field.type.isScalar
+              ? getTypeFromGraphQLType(field.type.name)
+              : field.type.name
+          }${field.type.isArray ? '[]' : ''}`,
       )}
     }`
     })
