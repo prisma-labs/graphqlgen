@@ -6,8 +6,8 @@ exports[`basic enum 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import type { Context } from \\"../../../fixtures/enum/types-flow.js\\";
-import type { User } from \\"../../../fixtures/enum/types-flow.js\\";
 import type { UserType } from \\"../../../fixtures/enum/types-flow.js\\";
+import type { User } from \\"../../../fixtures/enum/types-flow.js\\";
 
 // Types for Query
 export const Query_defaultResolvers = {};
@@ -123,13 +123,13 @@ export const Query: QueryResolvers = {
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
-import { User } from \\"./User\\";
 import { UserType } from \\"./UserType\\";
+import { User } from \\"./User\\";
 
 export const resolvers: Resolvers = {
   Query,
-  User,
-  UserType
+  UserType,
+  User
 };
 ",
     "force": false,
@@ -234,13 +234,13 @@ export const Mutation: MutationResolvers = {
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Mutation } from \\"./Mutation\\";
-import { AddMemberPayload } from \\"./AddMemberPayload\\";
 import { AddMemberData } from \\"./AddMemberData\\";
+import { AddMemberPayload } from \\"./AddMemberPayload\\";
 
 export const resolvers: Resolvers = {
   Mutation,
-  AddMemberPayload,
-  AddMemberData
+  AddMemberData,
+  AddMemberPayload
 };
 ",
     "force": false,

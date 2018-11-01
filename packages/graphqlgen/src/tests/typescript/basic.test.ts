@@ -1,15 +1,11 @@
-import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
+import { testGeneration } from '../generation'
 import { join } from 'path'
 
-import { generateCode } from '../../index'
-import { validateConfig } from '../../validation'
-import { parseSchema, parseModels } from '../../parse'
-
+const language = 'typescript'
 const relative = (p: string) => join(__dirname, p)
 
 test('basic schema', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
     context: relative('../fixtures/basic:Context'),
@@ -21,26 +17,11 @@ test('basic schema', async () => {
       output: relative('./tmp/basic/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-
-  expect(validateConfig(config, schema)).toBe(true)
-
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic enum', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
     context: relative('../fixtures/enum/types.ts:Context'),
@@ -52,27 +33,11 @@ test('basic enum', async () => {
       output: relative('./tmp/enum/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-
-  expect(validateConfig(config, schema)).toBe(true)
-
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic union', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
     context: relative('../fixtures/union/types.ts:Context'),
@@ -84,27 +49,11 @@ test('basic union', async () => {
       output: relative('./tmp/union/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-
-  expect(validateConfig(config, schema)).toBe(true)
-
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('defaultName', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
     context: relative('../fixtures/defaultName:Context'),
@@ -121,27 +70,11 @@ test('defaultName', async () => {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-
-  expect(validateConfig(config, schema)).toBe(true)
-
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic scalar', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
     context: relative('../fixtures/scalar/types.ts:Context'),
@@ -153,27 +86,11 @@ test('basic scalar', async () => {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-
-  expect(validateConfig(config, schema)).toBe(true)
-
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
 })
 
 test('basic input', async () => {
-  const language = 'typescript'
-  const config: GraphQLGenDefinition = {
+  testGeneration({
     language,
     schema: relative('../fixtures/input/schema.graphql'),
     context: relative('../fixtures/input/types.ts:Context'),
@@ -185,19 +102,5 @@ test('basic input', async () => {
       output: relative('./tmp/input/'),
       layout: 'file-per-type',
     },
-  }
-  const schema = parseSchema(config.schema)
-  const modelMap = parseModels(config.models, schema, config.output, language)
-  const { generatedTypes, generatedResolvers } = generateCode({
-    schema,
-    language,
-    config,
-    modelMap,
-    prettify: true,
   })
-
-  expect(generatedTypes).toMatchSnapshot()
-  expect(generatedResolvers).toMatchSnapshot()
-
-  expect(validateConfig(config, schema)).toBe(true)
 })
