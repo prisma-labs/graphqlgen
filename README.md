@@ -25,7 +25,7 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 #### Supported languages:
 
 - `TypeScript`
-- `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
+- `Flow`
 - `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 
 ## Get started
@@ -53,6 +53,8 @@ cd my-app
 yarn start
 ```
 *Note: `yarn create` requires yarn version >= 0.25*
+
+> If you wish to boostrap a GraphQL server with **flow** use the option `--template yoga-flow"`
 
 After updating the GraphQL schema in `.my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
 
