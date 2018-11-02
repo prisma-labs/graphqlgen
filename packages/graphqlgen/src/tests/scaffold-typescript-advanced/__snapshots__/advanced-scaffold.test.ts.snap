@@ -191,6 +191,6 @@ Object {
     "output": "./src/tests/fixtures/advanced-scaffold/__generated__/tmp-resolvers",
   },
   "schema": "./src/tests/fixtures/advanced-scaffold/schemas/**.graphql",
-  "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/graphqlgen.schema.graphql",
+  "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/schema.graphql",
 }
 `;

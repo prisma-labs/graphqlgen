@@ -9,9 +9,7 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 // Import the schema as string
-const schema = importSchema(
-  './src/graphql/__generated__/graphqlgen.schema.graphql',
-)
+const schema = importSchema('./src/graphql/__generated__/schema.graphql')
 
 const apolloServer = new ApolloServer({
   typeDefs: gql(schema),

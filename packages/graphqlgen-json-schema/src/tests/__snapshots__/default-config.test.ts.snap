@@ -15,7 +15,7 @@ Object {
     "output": "./src/custom-folder/__generated_custom__/tmp-resolvers",
   },
   "schema": "./src/custom-folder/schemas/**.graphql",
-  "schema-output": "./src/custom-folder/__generated_custom__/graphqlgen.schema.graphql",
+  "schema-output": "./src/custom-folder/__generated_custom__/schema.graphql",
 }
 `;
 
@@ -34,6 +34,6 @@ Object {
     "output": "./src/graphql/__generated__/tmp-resolvers",
   },
   "schema": "./src/graphql/schemas/**.graphql",
-  "schema-output": "./src/graphql/__generated__/graphqlgen.schema.graphql",
+  "schema-output": "./src/graphql/__generated__/schema.graphql",
 }
 `;

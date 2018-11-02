@@ -3,7 +3,7 @@ import { resolvers } from './graphql'
 import { data } from './data'
 
 const server = new GraphQLServer({
-  typeDefs: './src/graphql/__generated__/graphqlgen.schema.graphql',
+  typeDefs: './src/graphql/__generated__/schema.graphql',
   resolvers,
   context: { data },
 } as any)

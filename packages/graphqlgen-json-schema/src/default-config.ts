@@ -20,7 +20,7 @@ export const createConfig = (
       files: [getRootFolder('models/**.ts')],
     },
     output: getOutputFolder('graphqlgen.ts'),
-    'schema-output': getOutputFolder('graphqlgen.schema.graphql'),
+    'schema-output': getOutputFolder('schema.graphql'),
     'resolver-scaffolding': {
       layout: 'file-per-type',
       output: getOutputFolder('tmp-resolvers'),
