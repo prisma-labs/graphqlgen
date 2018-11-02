@@ -6,10 +6,19 @@ You can bootstrap an entire GraphQL server based on one of the available [templa
 npm init graphqlgen ./my-graphql-server
 ```
 
-To choose between one of the available templates, use the `--template` or `-t` option
+You'll be prompted to choose the server template you want to bootstrap
 
 ```
-npm init graphqlgen ./my-graphql-server --template flow-yoga
+? What GraphQL server template do you want to bootstrap? (Use arrow keys)
+
+❯ yoga (GraphQL Yoga template with typescript)
+  flow-yoga (GraphQL Yoga template with flow)
+```
+
+Or provide the `--template` option to configure the template you want to bootstrap
+
+```
+npm init graphqlgen ./my-graphql-server --template yoga
 ```
 
 Then start the server:

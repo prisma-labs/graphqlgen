@@ -54,8 +54,6 @@ yarn start
 ```
 *Note: `yarn create` requires yarn version >= 0.25*
 
-> If you wish to boostrap a GraphQL server with **flow** use the option `--template yoga-flow"`
-
 After updating the GraphQL schema in `.my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
 
 ```
