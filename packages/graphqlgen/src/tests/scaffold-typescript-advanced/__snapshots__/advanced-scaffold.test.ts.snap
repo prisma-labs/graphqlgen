@@ -194,3 +194,22 @@ Object {
   "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/schema.graphql",
 }
 `;
+
+exports[`default config 1`] = `
+Object {
+  "context": "./src/graphql/models/context.ts:Context",
+  "language": "typescript",
+  "models": Object {
+    "files": Array [
+      "./src/graphql/models/**.ts",
+    ],
+  },
+  "output": "./src/graphql/__generated__/graphqlgen.ts",
+  "resolver-scaffolding": Object {
+    "layout": "file-per-type",
+    "output": "./src/graphql/__generated__/tmp-resolvers",
+  },
+  "schema": "./src/graphql/schemas/**.graphql",
+  "schema-output": "./src/graphql/__generated__/schema.graphql",
+}
+`;

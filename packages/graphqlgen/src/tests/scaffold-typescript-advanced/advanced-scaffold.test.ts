@@ -1,10 +1,17 @@
-import { createConfig } from 'graphqlgen-json-schema/dist/default-config'
+import {
+  createConfig,
+  defaultConfig,
+} from 'graphqlgen-json-schema/dist/default-config'
 import { readSchemaSync, generateSchema } from '../../concat-schema'
 import { parseSchema, parseModels } from '../../parse'
 import { generateCode } from '../..'
 import { extractGlobPattern, handleGlobPattern } from '../../glob'
 
 const config = createConfig('./src/tests/fixtures/advanced-scaffold')
+
+test('default config', async () => {
+  expect(defaultConfig).toMatchSnapshot()
+})
 
 test('create config', async () => {
   expect(config).toMatchSnapshot()

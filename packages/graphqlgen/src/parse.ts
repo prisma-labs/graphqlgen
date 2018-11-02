@@ -40,18 +40,21 @@ export function parseConfig(): GraphQLGenDefinition {
   // }
 
   if (fs.existsSync('graphqlgen.yml')) {
-    const config = yaml.safeLoad(
+    let config = yaml.safeLoad(
       fs.readFileSync('graphqlgen.yml', 'utf-8'),
     ) as GraphQLGenDefinition
 
+    // DEEP Merge the config with default config
+    config = deepmerge(defaultConfig, config)
+
+    // Validate the deepmerged config
     if (!validateYaml(config)) {
       console.error(chalk.default.red(`Invalid graphqlgen.yml file`))
       console.error(chalk.default.red(printErrors(validateYaml.errors!)))
       process.exit(1)
     }
 
-    // DEEP Merge the config with default config
-    return deepmerge(defaultConfig, config)
+    return config
   }
 
   // Return a default config
