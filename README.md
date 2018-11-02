@@ -28,6 +28,12 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 - `Flow`
 - `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/253))
 
+## Design principles
+
+1. **Code generation should be as redundant as possible**. Let's keep the generated code easy to understand and to navigate.
+
+2. **Graphqlgen should be as unopiniated as possible**. Every design decisions matter and should be carefully thought.
+
 ## Get started
 
 ### Start from scratch
