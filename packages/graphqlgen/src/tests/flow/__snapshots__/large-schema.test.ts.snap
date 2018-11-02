@@ -170,9 +170,7 @@ export interface Query_Resolvers {
 export const Experience_defaultResolvers = {
   id: (parent: Experience) => parent.id,
   category: (parent: Experience) =>
-    parent.category === undefined || parent.category === null
-      ? null
-      : parent.category,
+    parent.category === undefined ? null : parent.category,
   title: (parent: Experience) => parent.title,
   location: (parent: Experience) => parent.location,
   pricePerPerson: (parent: Experience) => parent.pricePerPerson,
@@ -301,9 +299,7 @@ export const ExperienceCategory_defaultResolvers = {
   mainColor: (parent: ExperienceCategory) => parent.mainColor,
   name: (parent: ExperienceCategory) => parent.name,
   experience: (parent: ExperienceCategory) =>
-    parent.experience === undefined || parent.experience === null
-      ? null
-      : parent.experience
+    parent.experience === undefined ? null : parent.experience
 };
 
 export type ExperienceCategory_Id_Resolver = (
@@ -370,13 +366,9 @@ export const Location_defaultResolvers = {
   lat: (parent: Location) => parent.lat,
   lng: (parent: Location) => parent.lng,
   address: (parent: Location) =>
-    parent.address === undefined || parent.address === null
-      ? null
-      : parent.address,
+    parent.address === undefined ? null : parent.address,
   directions: (parent: Location) =>
-    parent.directions === undefined || parent.directions === null
-      ? null
-      : parent.directions
+    parent.directions === undefined ? null : parent.directions
 };
 
 export type Location_Id_Resolver = (
@@ -646,14 +638,11 @@ export interface Picture_Resolvers {
 // Types for Home
 export const Home_defaultResolvers = {
   id: (parent: Home) => parent.id,
-  name: (parent: Home) =>
-    parent.name === undefined || parent.name === null ? null : parent.name,
+  name: (parent: Home) => (parent.name === undefined ? null : parent.name),
   description: (parent: Home) => parent.description,
   numRatings: (parent: Home) => parent.numRatings,
   avgRating: (parent: Home) =>
-    parent.avgRating === undefined || parent.avgRating === null
-      ? null
-      : parent.avgRating,
+    parent.avgRating === undefined ? null : parent.avgRating,
   pictures: (parent: Home) => parent.pictures,
   perNight: (parent: Home) => parent.perNight
 };
@@ -894,9 +883,7 @@ export const Neighbourhood_defaultResolvers = {
   name: (parent: Neighbourhood) => parent.name,
   slug: (parent: Neighbourhood) => parent.slug,
   homePreview: (parent: Neighbourhood) =>
-    parent.homePreview === undefined || parent.homePreview === null
-      ? null
-      : parent.homePreview,
+    parent.homePreview === undefined ? null : parent.homePreview,
   city: (parent: Neighbourhood) => parent.city,
   featured: (parent: Neighbourhood) => parent.featured,
   popularity: (parent: Neighbourhood) => parent.popularity
@@ -1124,18 +1111,12 @@ export const User_defaultResolvers = {
   ownedPlaces: (parent: User) => parent.ownedPlaces,
   phone: (parent: User) => parent.phone,
   profilePicture: (parent: User) =>
-    parent.profilePicture === undefined || parent.profilePicture === null
-      ? null
-      : parent.profilePicture,
+    parent.profilePicture === undefined ? null : parent.profilePicture,
   receivedMessages: (parent: User) => parent.receivedMessages,
   responseRate: (parent: User) =>
-    parent.responseRate === undefined || parent.responseRate === null
-      ? null
-      : parent.responseRate,
+    parent.responseRate === undefined ? null : parent.responseRate,
   responseTime: (parent: User) =>
-    parent.responseTime === undefined || parent.responseTime === null
-      ? null
-      : parent.responseTime,
+    parent.responseTime === undefined ? null : parent.responseTime,
   sentMessages: (parent: User) => parent.sentMessages,
   updatedAt: (parent: User) => parent.updatedAt
 };
@@ -1536,10 +1517,8 @@ export interface Booking_Resolvers {
 // Types for Place
 export const Place_defaultResolvers = {
   id: (parent: Place) => parent.id,
-  name: (parent: Place) =>
-    parent.name === undefined || parent.name === null ? null : parent.name,
-  size: (parent: Place) =>
-    parent.size === undefined || parent.size === null ? null : parent.size,
+  name: (parent: Place) => (parent.name === undefined ? null : parent.name),
+  size: (parent: Place) => (parent.size === undefined ? null : parent.size),
   shortDescription: (parent: Place) => parent.shortDescription,
   description: (parent: Place) => parent.description,
   slug: (parent: Place) => parent.slug,
@@ -1554,17 +1533,11 @@ export const Place_defaultResolvers = {
   location: (parent: Place) => parent.location,
   views: (parent: Place) => parent.views,
   guestRequirements: (parent: Place) =>
-    parent.guestRequirements === undefined || parent.guestRequirements === null
-      ? null
-      : parent.guestRequirements,
+    parent.guestRequirements === undefined ? null : parent.guestRequirements,
   policies: (parent: Place) =>
-    parent.policies === undefined || parent.policies === null
-      ? null
-      : parent.policies,
+    parent.policies === undefined ? null : parent.policies,
   houseRules: (parent: Place) =>
-    parent.houseRules === undefined || parent.houseRules === null
-      ? null
-      : parent.houseRules,
+    parent.houseRules === undefined ? null : parent.houseRules,
   bookings: (parent: Place) => parent.bookings,
   pictures: (parent: Place) => parent.pictures,
   popularity: (parent: Place) => parent.popularity
@@ -2509,36 +2482,22 @@ export const Pricing_defaultResolvers = {
   averageWeekly: (parent: Pricing) => parent.averageWeekly,
   basePrice: (parent: Pricing) => parent.basePrice,
   cleaningFee: (parent: Pricing) =>
-    parent.cleaningFee === undefined || parent.cleaningFee === null
-      ? null
-      : parent.cleaningFee,
+    parent.cleaningFee === undefined ? null : parent.cleaningFee,
   currency: (parent: Pricing) =>
-    parent.currency === undefined || parent.currency === null
-      ? null
-      : parent.currency,
+    parent.currency === undefined ? null : parent.currency,
   extraGuests: (parent: Pricing) =>
-    parent.extraGuests === undefined || parent.extraGuests === null
-      ? null
-      : parent.extraGuests,
+    parent.extraGuests === undefined ? null : parent.extraGuests,
   id: (parent: Pricing) => parent.id,
   monthlyDiscount: (parent: Pricing) =>
-    parent.monthlyDiscount === undefined || parent.monthlyDiscount === null
-      ? null
-      : parent.monthlyDiscount,
+    parent.monthlyDiscount === undefined ? null : parent.monthlyDiscount,
   perNight: (parent: Pricing) => parent.perNight,
   securityDeposit: (parent: Pricing) =>
-    parent.securityDeposit === undefined || parent.securityDeposit === null
-      ? null
-      : parent.securityDeposit,
+    parent.securityDeposit === undefined ? null : parent.securityDeposit,
   smartPricing: (parent: Pricing) => parent.smartPricing,
   weekendPricing: (parent: Pricing) =>
-    parent.weekendPricing === undefined || parent.weekendPricing === null
-      ? null
-      : parent.weekendPricing,
+    parent.weekendPricing === undefined ? null : parent.weekendPricing,
   weeklyDiscount: (parent: Pricing) =>
-    parent.weeklyDiscount === undefined || parent.weeklyDiscount === null
-      ? null
-      : parent.weeklyDiscount
+    parent.weeklyDiscount === undefined ? null : parent.weeklyDiscount
 };
 
 export type Pricing_AverageMonthly_Resolver = (
@@ -2928,34 +2887,23 @@ export interface Policies_Resolvers {
 // Types for HouseRules
 export const HouseRules_defaultResolvers = {
   additionalRules: (parent: HouseRules) =>
-    parent.additionalRules === undefined || parent.additionalRules === null
-      ? null
-      : parent.additionalRules,
+    parent.additionalRules === undefined ? null : parent.additionalRules,
   createdAt: (parent: HouseRules) => parent.createdAt,
   id: (parent: HouseRules) => parent.id,
   partiesAndEventsAllowed: (parent: HouseRules) =>
-    parent.partiesAndEventsAllowed === undefined ||
-    parent.partiesAndEventsAllowed === null
+    parent.partiesAndEventsAllowed === undefined
       ? null
       : parent.partiesAndEventsAllowed,
   petsAllowed: (parent: HouseRules) =>
-    parent.petsAllowed === undefined || parent.petsAllowed === null
-      ? null
-      : parent.petsAllowed,
+    parent.petsAllowed === undefined ? null : parent.petsAllowed,
   smokingAllowed: (parent: HouseRules) =>
-    parent.smokingAllowed === undefined || parent.smokingAllowed === null
-      ? null
-      : parent.smokingAllowed,
+    parent.smokingAllowed === undefined ? null : parent.smokingAllowed,
   suitableForChildren: (parent: HouseRules) =>
-    parent.suitableForChildren === undefined ||
-    parent.suitableForChildren === null
+    parent.suitableForChildren === undefined
       ? null
       : parent.suitableForChildren,
   suitableForInfants: (parent: HouseRules) =>
-    parent.suitableForInfants === undefined ||
-    parent.suitableForInfants === null
-      ? null
-      : parent.suitableForInfants,
+    parent.suitableForInfants === undefined ? null : parent.suitableForInfants,
   updatedAt: (parent: HouseRules) => parent.updatedAt
 };
 
@@ -3173,17 +3121,13 @@ export const PaymentAccount_defaultResolvers = {
   id: (parent: PaymentAccount) => parent.id,
   createdAt: (parent: PaymentAccount) => parent.createdAt,
   type: (parent: PaymentAccount) =>
-    parent.type === undefined || parent.type === null ? null : parent.type,
+    parent.type === undefined ? null : parent.type,
   user: (parent: PaymentAccount) => parent.user,
   payments: (parent: PaymentAccount) => parent.payments,
   paypal: (parent: PaymentAccount) =>
-    parent.paypal === undefined || parent.paypal === null
-      ? null
-      : parent.paypal,
+    parent.paypal === undefined ? null : parent.paypal,
   creditcard: (parent: PaymentAccount) =>
-    parent.creditcard === undefined || parent.creditcard === null
-      ? null
-      : parent.creditcard
+    parent.creditcard === undefined ? null : parent.creditcard
 };
 
 export type PaymentAccount_Id_Resolver = (
@@ -3363,9 +3307,7 @@ export const CreditCardInformation_defaultResolvers = {
   id: (parent: CreditCardInformation) => parent.id,
   lastName: (parent: CreditCardInformation) => parent.lastName,
   paymentAccount: (parent: CreditCardInformation) =>
-    parent.paymentAccount === undefined || parent.paymentAccount === null
-      ? null
-      : parent.paymentAccount,
+    parent.paymentAccount === undefined ? null : parent.paymentAccount,
   postalCode: (parent: CreditCardInformation) => parent.postalCode,
   securityCode: (parent: CreditCardInformation) => parent.securityCode
 };
@@ -3533,7 +3475,7 @@ export const Notification_defaultResolvers = {
   link: (parent: Notification) => parent.link,
   readDate: (parent: Notification) => parent.readDate,
   type: (parent: Notification) =>
-    parent.type === undefined || parent.type === null ? null : parent.type,
+    parent.type === undefined ? null : parent.type,
   user: (parent: Notification) => parent.user
 };
 

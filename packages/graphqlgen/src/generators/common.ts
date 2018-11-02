@@ -62,7 +62,7 @@ function renderFieldGetter(
   fieldOptional: boolean,
 ): string {
   if (fieldOptional) {
-    return `(${fieldGetter} === undefined || ${fieldGetter} === null) ? null : ${fieldGetter}`
+    return `${fieldGetter} === undefined ? null : ${fieldGetter}`
   }
 
   return fieldGetter
