@@ -8,7 +8,6 @@ test('large schema', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/prisma/schema.graphql'),
-    context: relative('../fixtures/prisma/flow-types.js:Context'),
     models: {
       files: [relative('../fixtures/prisma/flow-types.js')],
     },

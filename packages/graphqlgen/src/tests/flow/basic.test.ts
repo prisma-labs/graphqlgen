@@ -8,7 +8,6 @@ test('basic schema', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
-    context: relative('../fixtures/basic/types-flow.js:Context'),
     models: {
       files: [relative('../fixtures/basic/types-flow.js')],
     },
@@ -24,7 +23,6 @@ test('basic enum', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
-    context: relative('../fixtures/enum/types-flow.js:Context'),
     models: {
       files: [relative('../fixtures/enum/types-flow.js')],
     },
@@ -40,7 +38,6 @@ test('basic union', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
-    context: relative('../fixtures/union/flow-types.js:Context'),
     models: {
       files: [relative('../fixtures/union/flow-types.js')],
     },
@@ -56,7 +53,6 @@ test('defaultName', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
-    context: relative('../fixtures/defaultName/flow-types.js:Context'),
     models: {
       files: [
         {
@@ -77,13 +73,28 @@ test('basic scalar', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
-    context: relative('../fixtures/scalar/flow-types.js:Context'),
     models: {
       files: [relative('../fixtures/scalar/flow-types.js')],
     },
     output: relative('./generated/scalar/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
+      layout: 'file-per-type',
+    },
+  })
+})
+
+test('context', async () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/context/schema.graphql'),
+    context: relative('../fixtures/context/flow-types.js:Context'),
+    models: {
+      files: [relative('../fixtures/context/flow-types.js')],
+    },
+    output: relative('./generated/context/graphqlgen.js'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/input/'),
       layout: 'file-per-type',
     },
   })

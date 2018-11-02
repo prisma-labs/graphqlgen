@@ -1,5 +1,3 @@
-export interface Context {}
-
 export interface User {
   id: string
   name: string

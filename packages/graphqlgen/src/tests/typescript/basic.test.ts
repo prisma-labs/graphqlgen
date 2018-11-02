@@ -8,7 +8,6 @@ test('basic schema', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
-    context: relative('../fixtures/basic:Context'),
     models: {
       files: [relative('../fixtures/basic/index.ts')],
     },
@@ -24,7 +23,6 @@ test('basic enum', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
-    context: relative('../fixtures/enum/types.ts:Context'),
     models: {
       files: [relative('../fixtures/enum/types.ts')],
     },
@@ -40,7 +38,6 @@ test('basic union', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
-    context: relative('../fixtures/union/types.ts:Context'),
     models: {
       files: [relative('../fixtures/union/types.ts')],
     },
@@ -56,7 +53,6 @@ test('defaultName', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
-    context: relative('../fixtures/defaultName:Context'),
     models: {
       files: [
         {
@@ -77,7 +73,6 @@ test('basic scalar', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
-    context: relative('../fixtures/scalar/types.ts:Context'),
     models: {
       files: [relative('../fixtures/scalar/types.ts')],
     },
@@ -93,11 +88,26 @@ test('basic input', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/input/schema.graphql'),
-    context: relative('../fixtures/input/types.ts:Context'),
     models: {
       files: [relative('../fixtures/input/types.ts')],
     },
     output: relative('./generated/input/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/input/'),
+      layout: 'file-per-type',
+    },
+  })
+})
+
+test('context', async () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/context/schema.graphql'),
+    context: relative('../fixtures/context/types.ts:Context'),
+    models: {
+      files: [relative('../fixtures/context/types.ts')],
+    },
+    output: relative('./generated/context/graphqlgen.ts'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/input/'),
       layout: 'file-per-type',

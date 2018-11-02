@@ -1,7 +1,3 @@
-export interface Context {
-  db: any
-}
-
 export interface AddMemberPayload {
   json: Json
 }

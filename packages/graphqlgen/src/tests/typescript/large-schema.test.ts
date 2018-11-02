@@ -9,7 +9,6 @@ describe('large schema tests', () => {
     testGeneration({
       language,
       schema: relative('../fixtures/prisma/schema.graphql'),
-      context: relative('../fixtures/prisma/types.ts:Context'),
       models: {
         files: [relative('../fixtures/prisma/types.ts')],
       },

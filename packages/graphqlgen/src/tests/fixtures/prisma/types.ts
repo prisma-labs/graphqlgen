@@ -1,7 +1,3 @@
-export interface Context {
-  db: any
-}
-
 export interface Experience {
   id: string
   category: any | null
