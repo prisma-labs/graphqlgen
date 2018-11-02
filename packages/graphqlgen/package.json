@@ -41,7 +41,7 @@
     "prettier": "1.14.3",
     "reason": "3.3.4",
     "rimraf": "2.6.2",
-    "typescript": "3.1.5",
+    "typescript": "3.1.6",
     "yargs": "12.0.2"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@types/jest": "23.3.9",
     "@types/js-yaml": "3.11.2",
     "@types/mkdirp": "0.5.2",
-    "@types/node": "10.12.1",
+    "@types/node": "10.12.2",
     "@types/prettier": "1.13.2",
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.1",
