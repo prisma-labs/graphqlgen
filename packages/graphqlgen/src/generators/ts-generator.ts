@@ -147,7 +147,7 @@ function renderNamespace(
 
     ${renderResolverFunctionInterfaces(type, modelMap, context)}
 
-    ${renderResolverTypeInterface(type, modelMap, context)}
+    ${renderResolverTypeInterface(type)}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }
@@ -328,48 +328,21 @@ function renderResolverFunctionInterface(
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
-  ) => ${printFieldLikeType(field, modelMap)} | Promise<${printFieldLikeType(
-    field,
-    modelMap,
-  )}>
+  ) => ${printFieldLikeTypeOrPromise(field, modelMap)}
   `
 }
 
-function renderResolverTypeInterface(
-  type: GraphQLTypeObject,
-  modelMap: ModelMap,
-  context?: ContextDefinition,
-): string {
+function renderResolverTypeInterface(type: GraphQLTypeObject): string {
   return `
   export interface Type {
-    ${type.fields
-      .map(field =>
-        renderResolverTypeInterfaceFunction(field, type, modelMap, context),
-      )
-      .join(os.EOL)}
+    ${type.fields.map(renderResolverTypeInterfaceFunction).join(os.EOL)}
   }
   `
 }
 
-function renderResolverTypeInterfaceFunction(
-  field: GraphQLTypeField,
-  type: GraphQLTypeObject,
-  modelMap: ModelMap,
-  context?: ContextDefinition,
-): string {
+function renderResolverTypeInterfaceFunction(field: GraphQLTypeField): string {
   return `
-    ${field.name}: (
-      parent: ${getModelName(type.type as any, modelMap)},
-      args: ${
-        field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
-      },
-      ctx: ${getContextName(context)},
-      info: GraphQLResolveInfo,
-    ) => ${printFieldLikeType(field, modelMap)} | Promise<${printFieldLikeType(
-    field,
-    modelMap,
-  )}>
-  `
+    ${field.name}: ${upperFirst(field.name)}Resolver`
 }
 
 function renderResolvers(args: GenerateArgs): string {
@@ -401,21 +374,20 @@ function getModelName(type: GraphQLType, modelMap: ModelMap): string {
 }
 
 function printFieldLikeType(field: GraphQLTypeField, modelMap: ModelMap) {
+  const maybeArray = field.type.isArray ? '[]' : ''
+  const maybeNull = !field.type.isRequired ? ' | null' : ''
   if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name)}${
-      field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
+    return `${getTypeFromGraphQLType(field.type.name)}${maybeArray}${maybeNull}`
   }
-
   if (field.type.isInput) {
-    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
-      !field.type.isRequired ? '| null' : ''
-    }`
+    return `${field.type.name}${maybeArray}${maybeNull}`
   }
+  return `${getModelName(field.type, modelMap)}${maybeArray}${maybeNull}`
+}
 
-  return `${getModelName(field.type, modelMap)}${
-    field.type.isArray ? '[]' : ''
-  }${!field.type.isRequired ? '| null' : ''}`
+function printFieldLikeTypeOrPromise(field: GraphQLTypeField, modelMap: ModelMap) {
+  const likeType = printFieldLikeType(field, modelMap)
+  return `${likeType} | Promise<${likeType}>`
 }
 
 function getTypeFromGraphQLType(type: string): SpecificGraphQLScalarType {
