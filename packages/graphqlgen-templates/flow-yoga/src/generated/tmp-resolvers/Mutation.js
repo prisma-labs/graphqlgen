@@ -1,7 +1,7 @@
 /* @flow */
-import type { MutationResolvers } from '../graphqlgen.js'
+import type { Mutation_Resolvers } from '../graphqlgen'
 
-export const Mutation: MutationResolvers = {
+export const Mutation: Mutation_Resolvers = {
   createUser: (parent, args, ctx, info) => {
     throw new Error('Resolver not implemented')
   },

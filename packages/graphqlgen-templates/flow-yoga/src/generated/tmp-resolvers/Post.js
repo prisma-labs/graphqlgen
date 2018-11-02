@@ -1,8 +1,8 @@
 /* @flow */
-import { Post_defaultResolvers } from '../graphqlgen.js'
-import type { PostResolvers } from '../graphqlgen.js'
+import { Post_defaultResolvers } from '../graphqlgen'
+import type { Post_Resolvers } from '../graphqlgen'
 
-export const Post: PostResolvers = {
+export const Post: Post_Resolvers = {
   ...Post_defaultResolvers,
 
   author: (parent, args, ctx, info) => {

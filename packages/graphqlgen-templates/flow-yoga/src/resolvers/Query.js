@@ -1,8 +1,8 @@
 // @flow
 import { Query_defaultResolvers } from '../generated/graphqlgen'
-import type { QueryResolvers } from '../generated/graphqlgen'
+import type { Query_Resolvers } from '../generated/graphqlgen'
 
-export const Query: QueryResolvers = {
+export const Query: Query_Resolvers = {
   ...Query_defaultResolvers,
 
   feed: (parent, args, ctx) => {

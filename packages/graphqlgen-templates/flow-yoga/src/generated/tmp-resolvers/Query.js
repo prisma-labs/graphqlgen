@@ -1,7 +1,7 @@
 /* @flow */
-import type { QueryResolvers } from '../graphqlgen.js'
+import type { Query_Resolvers } from '../graphqlgen'
 
-export const Query: QueryResolvers = {
+export const Query: Query_Resolvers = {
   feed: (parent, args, ctx, info) => {
     throw new Error('Resolver not implemented')
   },

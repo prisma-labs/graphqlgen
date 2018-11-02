@@ -1,7 +1,7 @@
 // @flow
-import type { MutationResolvers } from '../generated/graphqlgen'
+import type { Mutation_Resolvers } from '../generated/graphqlgen'
 
-export const Mutation: MutationResolvers = {
+export const Mutation: Mutation_Resolvers = {
   createUser: (parent, { name }, ctx, info) => {
     const id = ctx.data.idProvider()
     const newUser = { id, name, postIDs: [] }

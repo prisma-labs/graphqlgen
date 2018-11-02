@@ -1,5 +1,5 @@
 /* @flow */
-import type { Resolvers } from '../generated/graphqlgen.js'
+import type { Resolvers } from '../generated/graphqlgen'
 
 import { Query } from './Query'
 import { Post } from './Post'
