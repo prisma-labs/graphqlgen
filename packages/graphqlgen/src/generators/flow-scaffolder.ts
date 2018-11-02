@@ -12,10 +12,11 @@ function isParentType(name: string) {
 }
 
 function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
+  const upperTypeName = upperFirst(type.name)
   const code = `/* @flow */
-  import type { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+  import type { ${upperTypeName}_Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
   
-  export const ${type.name}: ${type.name}Resolvers = {
+  export const ${type.name}: ${upperTypeName}_Resolvers = {
     ${type.fields.map(
       field =>
         `${
@@ -36,16 +37,13 @@ function renderResolvers(
 ): CodeFileLike {
   const model = modelMap[type.name]
   const modelFields = extractFieldsFromFlowType(model)
+  const upperTypeName = upperFirst(type.name)
   const code = `/* @flow */
-import { ${upperFirst(
-    type.name,
-  )}_defaultResolvers } from '[TEMPLATE-INTERFACES-PATH]'
-import type { ${upperFirst(
-    type.name,
-  )}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+import { ${upperTypeName}_defaultResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+import type { ${upperTypeName}_Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
-export const ${type.name}: ${upperFirst(type.name)}Resolvers = {
-  ...${upperFirst(type.name)}_defaultResolvers,
+export const ${type.name}: ${upperTypeName}_Resolvers = {
+  ...${upperTypeName}_defaultResolvers,
   ${type.fields
     .filter(graphQLField =>
       shouldScaffoldFieldResolver(graphQLField, modelFields),

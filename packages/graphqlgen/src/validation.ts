@@ -14,7 +14,10 @@ import {
   outputModelFilesNotFound,
   outputWrongSyntaxFiles,
 } from './output'
-import { extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
+import {
+  extractGraphQLTypesWithoutRootsAndInputs,
+  GraphQLTypes,
+} from './source-helper'
 import { normalizeFilePath, getTypeToFileMapping } from './utils'
 import { replaceVariablesInString, getPath, getDefaultName } from './parse'
 import { findFlowTypeByName } from './introspection/flow-ast'
@@ -220,9 +223,9 @@ function interfaceDefinitionExistsInFile(
 ): boolean {
   switch (language) {
     case 'typescript':
-      return !!findTypescriptInterfaceByName(filePath, modelName)
+      return findTypescriptInterfaceByName(filePath, modelName) !== undefined
     case 'flow':
-      return !!findFlowTypeByName(filePath, modelName)
+      return findFlowTypeByName(filePath, modelName) !== undefined
   }
 }
 

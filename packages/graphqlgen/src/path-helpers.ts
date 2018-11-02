@@ -57,8 +57,8 @@ export function getImportPathRelativeToOutput(
     relativePath = './' + relativePath
   }
 
-  // remove .ts file extension
-  relativePath = relativePath.replace(/\.ts$/, '')
+  // remove .ts or .js file extension
+  relativePath = relativePath.replace(/\.(ts|js)$/, '')
 
   // remove /index
   relativePath = relativePath.replace(/\/index$/, '')

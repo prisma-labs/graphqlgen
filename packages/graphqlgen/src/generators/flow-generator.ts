@@ -172,8 +172,7 @@ function renderInputTypeInterfaces(
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field =>
-          `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}
     }`
     })
@@ -254,7 +253,7 @@ function renderResolverTypeInterface(
   context?: ContextDefinition,
 ): string {
   return `
-  export interface ${upperFirst(type.name)}Resolvers {
+  export interface ${upperFirst(type.name)}_Resolvers {
     ${type.fields
       .map(field =>
         renderResolverTypeInterfaceFunction(field, type, modelMap, context),
@@ -288,7 +287,7 @@ function renderResolvers(args: GenerateArgs): string {
 export interface Resolvers {
   ${args.types
     .filter(type => type.type.isObject)
-    .map(type => `${type.name}: ${type.name}Resolvers`)
+    .map(type => `${type.name}: ${upperFirst(type.name)}_Resolvers`)
     .join(',' + os.EOL)}
 }
   `

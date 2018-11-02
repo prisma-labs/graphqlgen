@@ -12,11 +12,11 @@ import { flatten, uniq } from '../utils'
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
 export interface InputTypesMap {
-  [s: string]: GraphQLTypeObject
+  [inputTypeName: string]: GraphQLTypeObject
 }
 
 export interface TypeToInputTypeAssociation {
-  [s: string]: string[]
+  [objectTypeName: string]: string[]
 }
 
 export function renderDefaultResolvers(
