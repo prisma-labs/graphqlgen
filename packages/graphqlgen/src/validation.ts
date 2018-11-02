@@ -6,7 +6,7 @@ import {
   Models,
   File,
 } from 'graphqlgen-json-schema'
-import { findTypescriptInterfaceByName, getTypeToFileMapping } from './ast'
+import { findTypescriptInterfaceByName } from './introspection/ts-ast'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -14,9 +14,13 @@ import {
   outputModelFilesNotFound,
   outputWrongSyntaxFiles,
 } from './output'
-import { extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
-import { normalizeFilePath } from './utils'
+import {
+  extractGraphQLTypesWithoutRootsAndInputs,
+  GraphQLTypes,
+} from './source-helper'
+import { normalizeFilePath, getTypeToFileMapping } from './utils'
 import { replaceVariablesInString, getPath, getDefaultName } from './parse'
+import { findFlowTypeByName } from './introspection/flow-ast'
 
 type Definition = {
   typeName: string
@@ -99,7 +103,7 @@ function validateContext(
   return true
 }
 
-function validateModels(
+export function validateModels(
   models: Models,
   schema: GraphQLTypes,
   language: Language,
@@ -137,6 +141,7 @@ function validateModels(
     schema,
     validatedOverriddenModels,
     filePaths,
+    language,
   )
 }
 
@@ -170,12 +175,13 @@ function validateSchemaToModelMapping(
   schema: GraphQLTypes,
   validatedOverriddenModels: ValidatedDefinition[],
   files: File[],
+  language: Language,
 ): boolean {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
   const overridenTypeNames = validatedOverriddenModels.map(
     def => def.definition.typeName,
   )
-  const interfaceNamesToPath = getTypeToFileMapping(files)
+  const interfaceNamesToPath = getTypeToFileMapping(files, language)
 
   const missingModels = graphQLTypes.filter(type => {
     // If some overridden models are mapped to a GraphQL type, consider them valid
@@ -196,7 +202,7 @@ function validateSchemaToModelMapping(
   })
 
   if (missingModels.length > 0) {
-    outputMissingModels(missingModels)
+    outputMissingModels(missingModels, language)
     return false
   }
 
@@ -217,7 +223,9 @@ function interfaceDefinitionExistsInFile(
 ): boolean {
   switch (language) {
     case 'typescript':
-      return !!findTypescriptInterfaceByName(filePath, modelName)
+      return findTypescriptInterfaceByName(filePath, modelName) !== undefined
+    case 'flow':
+      return findFlowTypeByName(filePath, modelName) !== undefined
   }
 }
 

@@ -25,7 +25,7 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 #### Supported languages:
 
 - `TypeScript`
-- `Flow` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
+- `Flow`
 - `Reason` ([coming soon](https://github.com/prisma/graphqlgen/issues/130))
 
 ## Get started

@@ -5,13 +5,12 @@ import { Language } from 'graphqlgen-json-schema'
 export function getExtNameFromLanguage(language: Language) {
   const extNames = {
     typescript: '.ts',
-    /* flow: '.js' */
+    flow: '.js'
   }
 
   return extNames[language]
 }
 
-// TODO write test cases
 export function getAbsoluteFilePath(
   modelPath: string,
   language: Language,
@@ -48,7 +47,6 @@ export function getAbsoluteFilePath(
   return indexPath.replace(/\\/g, '/')
 }
 
-// TODO write test cases
 export function getImportPathRelativeToOutput(
   absolutePath: string,
   outputDir: string,
@@ -59,8 +57,8 @@ export function getImportPathRelativeToOutput(
     relativePath = './' + relativePath
   }
 
-  // remove .ts file extension
-  relativePath = relativePath.replace(/\.ts$/, '')
+  // remove .ts or .js file extension
+  relativePath = relativePath.replace(/\.(ts|js)$/, '')
 
   // remove /index
   relativePath = relativePath.replace(/\/index$/, '')

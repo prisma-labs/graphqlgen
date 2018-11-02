@@ -17,9 +17,8 @@ import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
 } from './path-helpers'
-import { getTypeToFileMapping } from './ast'
+import { getTypeToFileMapping, replaceAll, normalizeFilePath } from './utils'
 import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
-import { normalizeFilePath } from './utils'
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),
@@ -149,7 +148,7 @@ export function parseModels(
       }))
     : []
   const overriddenModels = !!models.override ? models.override : {}
-  const typeToFileMapping = getTypeToFileMapping(filePaths)
+  const typeToFileMapping = getTypeToFileMapping(filePaths, language)
 
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {
@@ -223,8 +222,4 @@ export function replaceVariablesInString(
   }
 
   return newStr
-}
-
-function replaceAll(str: string, search: string, replacement: string) {
-  return str.split(search).join(replacement)
 }
