@@ -182,7 +182,7 @@ Object {
   "language": "typescript",
   "models": Object {
     "files": Array [
-      "./src/tests/fixtures/advanced-scaffold/models/**.ts",
+      "./src/tests/fixtures/advanced-scaffold/models/**/*.ts",
     ],
   },
   "output": "./src/tests/fixtures/advanced-scaffold/__generated__/graphqlgen.ts",
@@ -190,7 +190,7 @@ Object {
     "layout": "file-per-type",
     "output": "./src/tests/fixtures/advanced-scaffold/__generated__/tmp-resolvers",
   },
-  "schema": "./src/tests/fixtures/advanced-scaffold/schemas/**.graphql",
+  "schema": "./src/tests/fixtures/advanced-scaffold/schemas/**/*.graphql",
   "schema-output": "./src/tests/fixtures/advanced-scaffold/__generated__/schema.graphql",
 }
 `;
@@ -201,7 +201,7 @@ Object {
   "language": "typescript",
   "models": Object {
     "files": Array [
-      "./src/graphql/models/**.ts",
+      "./src/graphql/models/**/*.ts",
     ],
   },
   "output": "./src/graphql/__generated__/graphqlgen.ts",
@@ -209,7 +209,7 @@ Object {
     "layout": "file-per-type",
     "output": "./src/graphql/__generated__/tmp-resolvers",
   },
-  "schema": "./src/graphql/schemas/**.graphql",
+  "schema": "./src/graphql/schemas/**/*.graphql",
   "schema-output": "./src/graphql/__generated__/schema.graphql",
 }
 `;

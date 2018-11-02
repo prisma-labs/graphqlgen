@@ -6,7 +6,7 @@ Object {
   "language": "typescript",
   "models": Object {
     "files": Array [
-      "./src/custom-folder/models/**.ts",
+      "./src/custom-folder/models/**/*.ts",
     ],
   },
   "output": "./src/custom-folder/__generated_custom__/graphqlgen.ts",
@@ -14,7 +14,7 @@ Object {
     "layout": "file-per-type",
     "output": "./src/custom-folder/__generated_custom__/tmp-resolvers",
   },
-  "schema": "./src/custom-folder/schemas/**.graphql",
+  "schema": "./src/custom-folder/schemas/**/*.graphql",
   "schema-output": "./src/custom-folder/__generated_custom__/schema.graphql",
 }
 `;
@@ -25,7 +25,7 @@ Object {
   "language": "typescript",
   "models": Object {
     "files": Array [
-      "./src/graphql/models/**.ts",
+      "./src/graphql/models/**/*.ts",
     ],
   },
   "output": "./src/graphql/__generated__/graphqlgen.ts",
@@ -33,7 +33,7 @@ Object {
     "layout": "file-per-type",
     "output": "./src/graphql/__generated__/tmp-resolvers",
   },
-  "schema": "./src/graphql/schemas/**.graphql",
+  "schema": "./src/graphql/schemas/**/*.graphql",
   "schema-output": "./src/graphql/__generated__/schema.graphql",
 }
 `;
