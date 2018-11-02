@@ -275,23 +275,28 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
 
 function extractGraphQLEnums(schema: GraphQLSchema) {
   const types: GraphQLEnumObject[] = []
-  Object.values(schema.getTypeMap()).forEach((node: GraphQLNamedType) => {
-    if (node instanceof GraphQLEnumType) {
-      types.push({
-        name: node.name,
-        type: {
+  Object.values(schema.getTypeMap())
+    .filter(
+      (node: GraphQLNamedType) =>
+        node.name !== '__TypeKind' && node.name !== '__DirectiveLocation',
+    )
+    .forEach((node: GraphQLNamedType) => {
+      if (node instanceof GraphQLEnumType) {
+        types.push({
           name: node.name,
-          isObject: false,
-          isInput: false,
-          isEnum: true,
-          isUnion: false,
-          isScalar: false,
-          isInterface: false,
-        },
-        values: node.getValues().map(v => v.name),
-      })
-    }
-  })
+          type: {
+            name: node.name,
+            isObject: false,
+            isInput: false,
+            isEnum: true,
+            isUnion: false,
+            isScalar: false,
+            isInterface: false,
+          },
+          values: node.getValues().map(v => v.name),
+        })
+      }
+    })
   return types
 }
 
@@ -329,7 +334,9 @@ const graphqlToTypescriptFlow: { [key: string]: string } = {
 }
 
 export function graphQLToTypecriptFlowType(type: GraphQLType): string {
-  let typescriptType = type.isScalar ? graphqlToTypescriptFlow[type.name] : 'any'
+  let typescriptType = type.isScalar
+    ? graphqlToTypescriptFlow[type.name]
+    : 'any'
   if (type.isArray) {
     typescriptType += '[]'
   }
@@ -339,11 +346,12 @@ export function graphQLToTypecriptFlowType(type: GraphQLType): string {
   return typescriptType
 }
 
-export function extractGraphQLTypesWithoutRootsAndInputs(
+export function extractGraphQLTypesWithoutRootsAndInputsAndEnums(
   schema: GraphQLTypes,
 ): GraphQLTypeObject[] {
   return schema.types
     .filter(type => !type.type.isInput)
+    .filter(type => !type.type.isEnum)
     .filter(
       type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
     )

@@ -13,6 +13,7 @@ import {
   InputTypesMap,
   printFieldLikeType,
   getDistinctInputTypes,
+  renderEnums,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -66,6 +67,8 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
+  
+  ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
@@ -169,8 +172,7 @@ function renderInputTypeInterfaces(
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field =>
-          `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}
     }`
     })

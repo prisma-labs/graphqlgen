@@ -15,7 +15,7 @@ import {
   outputWrongSyntaxFiles,
 } from './output'
 import {
-  extractGraphQLTypesWithoutRootsAndInputs,
+  extractGraphQLTypesWithoutRootsAndInputsAndEnums,
   GraphQLTypes,
 } from './source-helper'
 import { normalizeFilePath, getTypeToFileMapping } from './utils'
@@ -177,7 +177,7 @@ function validateSchemaToModelMapping(
   files: File[],
   language: Language,
 ): boolean {
-  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
+  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const overridenTypeNames = validatedOverriddenModels.map(
     def => def.definition.typeName,
   )

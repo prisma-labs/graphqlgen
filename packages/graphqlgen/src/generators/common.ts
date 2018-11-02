@@ -5,7 +5,7 @@ import {
   GraphQLType,
   GraphQLTypeField,
 } from '../source-helper'
-import { Model, ModelMap, ContextDefinition } from '../types'
+import { Model, ModelMap, ContextDefinition, GenerateArgs } from '../types'
 import { ModelField } from '../introspection/ts-ast'
 import { flatten, uniq } from '../utils'
 
@@ -94,10 +94,10 @@ export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
 }
 
 function shouldRenderDefaultResolver(
-  type: GraphQLTypeObject,
+  graphQLType: GraphQLTypeObject,
   modelField: ModelField,
 ) {
-  const graphQLField = type.fields.find(
+  const graphQLField = graphQLType.fields.find(
     field => field.name === modelField.fieldName,
   )
 
@@ -133,7 +133,7 @@ export function printFieldLikeType(
     }${!field.type.isRequired ? '| null' : ''}`
   }
 
-  if (field.type.isInput) {
+  if (field.type.isInput || field.type.isEnum) {
     return `${field.type.name}${field.type.isArray ? '[]' : ''}${
       !field.type.isRequired ? '| null' : ''
     }`
@@ -188,4 +188,14 @@ export function getDistinctInputTypes(
     .map(t => deepResolveInputTypes(inputTypesMap, t))
     .reduce(flatten, [])
     .filter(uniq)
+}
+
+export function renderEnums(args: GenerateArgs): string {
+  return args.enums
+    .map(enumObject => {
+      return `type ${enumObject.name} = ${enumObject.values
+        .map(value => `'${value}'`)
+        .join(' | ')}`
+    })
+    .join(os.EOL)
 }

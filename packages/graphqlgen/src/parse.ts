@@ -18,7 +18,11 @@ import {
   getImportPathRelativeToOutput,
 } from './path-helpers'
 import { getTypeToFileMapping, replaceAll, normalizeFilePath } from './utils'
-import { extractTypes, extractGraphQLTypesWithoutRootsAndInputs, GraphQLTypes } from './source-helper'
+import {
+  extractTypes,
+  extractGraphQLTypesWithoutRootsAndInputsAndEnums,
+  GraphQLTypes,
+} from './source-helper'
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),
@@ -140,7 +144,7 @@ export function parseModels(
   outputDir: string,
   language: Language,
 ): ModelMap {
-  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
+  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const filePaths = !!models.files
     ? models.files.map(file => ({
         defaultName: typeof file === 'object' ? file.defaultName : undefined,
