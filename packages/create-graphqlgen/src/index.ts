@@ -20,7 +20,7 @@ const cli = meow(
     > Scaffolds the initial files of your project.
 
     Options:
-      -t, --template  Select a template (${templatesNames}) Default: \`yoga\`.
+      -t, --template  Select a template. (${templatesNames})
       --no-install    Skips dependency installation.
       --no-generate   Skips model generation.
       --force (-f)    Overwrites existing files.
@@ -37,8 +37,8 @@ const cli = meow(
       },
       template: {
         type: 'string',
-        default: 'yoga',
         alias: 't',
+        default: false,
       },
       force: {
         type: 'boolean',
@@ -58,7 +58,7 @@ async function main(cli: meow.Result) {
 
   if (cli.flags['template']) {
     const selectedTemplate = availableTemplates.find(
-      template => template.name === cli.flags['template'],
+      t => t.name === cli.flags['template'],
     )
 
     if (selectedTemplate) {
@@ -67,6 +67,17 @@ async function main(cli: meow.Result) {
       console.log(`Unknown template. Available templates: ${templatesNames}`)
       return
     }
+  } else {
+    const res = await inquirer.prompt<{ templateName: string }>([
+      {
+        name: 'templateName',
+        message: 'What GraphQL server template do you want to bootstrap?',
+        type: 'list',
+        choices: availableTemplates.map(t => `${t.name} (${t.description})`),
+      },
+    ])
+
+    template = availableTemplates.find(t => t.name === res.templateName)
   }
 
   let [output] = cli.input
