@@ -102,7 +102,7 @@ resolver-scaffolding:
   layout: file-per-type
 ```
 
-Learn more about the configuration in the [docs](https://oss.prisma.io/graphqlgen/configuration.html).
+Learn more about the configuration in the [docs](https://oss.prisma.io/graphqlgen/01-configuration.html).
 
 ## Support
 
