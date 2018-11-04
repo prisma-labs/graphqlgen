@@ -13,6 +13,7 @@ import {
   InputTypesMap,
   printFieldLikeType,
   getDistinctInputTypes,
+  renderEnums,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -66,6 +67,8 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
+  
+  ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
