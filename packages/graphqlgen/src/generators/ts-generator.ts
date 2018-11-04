@@ -3,7 +3,7 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
+import { TypeAliasDefinition } from '../introspection/ts-ast'
 import { upperFirst } from '../utils'
 import {
   renderDefaultResolvers,
@@ -13,7 +13,6 @@ import {
   InputTypesMap,
   printFieldLikeType,
   getDistinctInputTypes,
-  renderEnums,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -67,8 +66,6 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
-  
-  ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
@@ -78,11 +75,23 @@ export function generate(args: GenerateArgs): string {
 }
 
 function renderHeader(args: GenerateArgs): string {
-  const modelArray = Object.keys(args.modelMap).map(k => args.modelMap[k])
+  const modelArray = Object.keys(args.modelMap)
+    .filter(modelName => {
+      const modelDef = args.modelMap[modelName].definition
+
+      return !(
+        modelDef.kind === 'TypeAliasDefinition' &&
+        (modelDef as TypeAliasDefinition).isEnum
+      )
+    })
+    .map(modelName => args.modelMap[modelName])
+
   const modelImports = modelArray
     .map(
       m =>
-        `import { ${m.modelTypeName} } from '${m.importPathRelativeToOutput}'`,
+        `import { ${m.definition.name} } from '${
+          m.importPathRelativeToOutput
+        }'`,
     )
     .join(os.EOL)
 
@@ -124,34 +133,29 @@ function renderNamespaces(
 }
 
 function renderNamespace(
-  type: GraphQLTypeObject,
+  graphQLTypeObject: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
   modelMap: ModelMap,
   context?: ContextDefinition,
 ): string {
   return `\
-    export namespace ${type.name}Resolvers {
+    export namespace ${graphQLTypeObject.name}Resolvers {
 
-    ${renderDefaultResolvers(
-      type,
-      modelMap,
-      extractFieldsFromTypescriptType,
-      'defaultResolvers',
-    )}
+    ${renderDefaultResolvers(graphQLTypeObject, modelMap, 'defaultResolvers')}
 
     ${renderInputTypeInterfaces(
-      type,
+      graphQLTypeObject,
       modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
     )}
 
-    ${renderInputArgInterfaces(type, modelMap)}
+    ${renderInputArgInterfaces(graphQLTypeObject, modelMap)}
 
-    ${renderResolverFunctionInterfaces(type, modelMap, context)}
+    ${renderResolverFunctionInterfaces(graphQLTypeObject, modelMap, context)}
 
-    ${renderResolverTypeInterface(type, modelMap, context)}
+    ${renderResolverTypeInterface(graphQLTypeObject, modelMap, context)}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }

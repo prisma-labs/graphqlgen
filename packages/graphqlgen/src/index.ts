@@ -221,15 +221,6 @@ resolver-scaffolding:
 }
 
 async function run() {
-  //TODO: Define proper defaults
-  // const defaults: DefaultOptions = {
-  //   outputInterfaces: 'src/generated/resolvers.ts',
-  //   outputScaffold: 'src/resolvers/',
-  //   language: 'typescript',
-  //   interfaces: '../generated/resolvers.ts',
-  //   force: false,
-  // }
-
   const argv = yargs
     .usage('Usage: graphqlgen or gg')
     .alias('i', 'init')
@@ -249,11 +240,6 @@ async function run() {
   const config = parseConfig()
   const parsedSchema = parseSchema(config.schema)
 
-  const options = (await prettier.resolveConfig(process.cwd())) || {} // TODO: Abstract this TS specific behavior better
-  if (JSON.stringify(options) !== '{}') {
-    console.log(chalk.blue(`Found a prettier configuration to use`))
-  }
-
   // Override the config.models.files using handleGlobPattern
   config.models = {
     ...config.models,
@@ -264,13 +250,18 @@ async function run() {
     return false
   }
 
-  //TODO: Should we provide a default in case `config.output.types` is not defined?
   const modelMap = parseModels(
     config.models,
     parsedSchema,
     config.output,
     config.language,
   )
+
+  const options = (await prettier.resolveConfig(process.cwd())) || {} // TODO: Abstract this TS specific behavior better
+
+  if (JSON.stringify(options) !== '{}') {
+    console.log(chalk.blue(`Found a prettier configuration to use`))
+  }
 
   const { generatedTypes, generatedResolvers } = generateCode({
     schema: parsedSchema!,

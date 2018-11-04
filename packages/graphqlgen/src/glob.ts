@@ -21,7 +21,7 @@ export const extractGlobPattern = (paths?: string[]) => {
 /**
  * Handles the glob pattern of models.files
  */
-export const handleGlobPattern = (files?: File[]) => {
+export const handleGlobPattern = (files?: File[]): File[] => {
   try {
     const newFiles: File[] = []
 
@@ -38,5 +38,7 @@ export const handleGlobPattern = (files?: File[]) => {
     return newFiles
   } catch (error) {
     console.log(error)
+    process.exit(1)
+    return []
   }
 }

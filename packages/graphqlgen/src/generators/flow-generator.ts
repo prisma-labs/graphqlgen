@@ -3,7 +3,6 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromFlowType } from '../introspection/flow-ast'
 import { upperFirst } from '../utils'
 import {
   renderDefaultResolvers,
@@ -13,7 +12,6 @@ import {
   InputTypesMap,
   printFieldLikeType,
   getDistinctInputTypes,
-  renderEnums,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -67,8 +65,6 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
-  
-  ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
@@ -82,7 +78,7 @@ function renderHeader(args: GenerateArgs): string {
   const modelImports = modelArray
     .map(
       m =>
-        `import type { ${m.modelTypeName} } from '${
+        `import type { ${m.definition.name} } from '${
           m.importPathRelativeToOutput
         }'`,
     )
@@ -138,12 +134,7 @@ function renderNamespace(
 
   return `\
     // Types for ${typeName}
-    ${renderDefaultResolvers(
-      type,
-      modelMap,
-      extractFieldsFromFlowType,
-      `${typeName}_defaultResolvers`,
-    )}
+    ${renderDefaultResolvers(type, modelMap, `${typeName}_defaultResolvers`)}
 
     ${renderInputTypeInterfaces(
       type,

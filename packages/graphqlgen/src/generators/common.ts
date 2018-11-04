@@ -5,8 +5,14 @@ import {
   GraphQLType,
   GraphQLTypeField,
 } from '../source-helper'
-import { Model, ModelMap, ContextDefinition, GenerateArgs } from '../types'
-import { ModelField } from '../introspection/ts-ast'
+import { ModelMap, ContextDefinition, GenerateArgs } from '../types'
+import {
+  ModelField,
+  Types,
+  InterfaceDefinition,
+  TypeAliasDefinition,
+  AnonymousInterfaceAnnotation,
+} from '../introspection/ts-ast'
 import { flatten, uniq } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
@@ -19,28 +25,61 @@ export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
 
+export function fieldsFromModelDefinition(modelDef: Types): ModelField[] {
+  // If model is of type `interface InterfaceName { ... }`
+  if (modelDef.kind === 'InterfaceDefinition') {
+    const interfaceDef = modelDef as InterfaceDefinition
+
+    return interfaceDef.fields.map(field => {
+      return {
+        fieldName: field.name,
+        fieldOptional: field.optional,
+      }
+    })
+  }
+  // If model is of type `type TypeName = { ... }`
+  if (
+    modelDef.kind === 'TypeAliasDefinition' &&
+    (modelDef as TypeAliasDefinition).type.kind ===
+      'AnonymousInterfaceAnnotation'
+  ) {
+    const interfaceDef = (modelDef as TypeAliasDefinition)
+      .type as AnonymousInterfaceAnnotation
+
+    return interfaceDef.fields.map(field => {
+      return {
+        fieldName: field.name,
+        fieldOptional: field.optional,
+      }
+    })
+  }
+
+  return []
+}
+
 export function renderDefaultResolvers(
-  type: GraphQLTypeObject,
+  graphQLTypeObject: GraphQLTypeObject,
   modelMap: ModelMap,
-  extractFieldsFromModel: (model: Model) => ModelField[],
   variableName: string,
 ): string {
-  const model = modelMap[type.name]
+  const model = modelMap[graphQLTypeObject.name]
 
   if (model === undefined) {
     return `export const ${variableName} = {}`
   }
 
-  const modelFields = extractFieldsFromModel(model)
+  const modelDef = model.definition
 
   return `export const ${variableName} = {
-    ${modelFields
-      .filter(modelField => shouldRenderDefaultResolver(type, modelField))
+    ${fieldsFromModelDefinition(modelDef)
+      .filter(modelField =>
+        shouldRenderDefaultResolver(graphQLTypeObject, modelField),
+      )
       .map(modelField =>
         renderDefaultResolver(
           modelField.fieldName,
           modelField.fieldOptional,
-          model.modelTypeName,
+          model.definition.name,
         ),
       )
       .join(os.EOL)}
@@ -90,7 +129,7 @@ export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
     return '{}'
   }
 
-  return model.modelTypeName
+  return model.definition.name
 }
 
 function shouldRenderDefaultResolver(

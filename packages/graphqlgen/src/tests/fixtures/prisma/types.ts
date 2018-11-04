@@ -1,4 +1,6 @@
-export interface Experience {
+export type EnumType = 'RED' | 'GREEN'
+
+export type Experience = {
   id: string
   category: any | null
   title: string

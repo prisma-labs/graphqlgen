@@ -1,7 +1,6 @@
 import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
-import { shouldScaffoldFieldResolver } from './common'
+import { fieldsFromModelDefinition, shouldScaffoldFieldResolver } from "./common";
 
 export { format } from './ts-generator'
 
@@ -48,7 +47,7 @@ function renderResolvers(
   modelMap: ModelMap,
 ): CodeFileLike {
   const model = modelMap[type.name]
-  const modelFields = extractFieldsFromTypescriptType(model)
+  const modelFields = fieldsFromModelDefinition(model.definition)
 
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.

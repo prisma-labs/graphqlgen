@@ -12,7 +12,7 @@ import {
 } from 'graphqlgen-json-schema'
 import schema = require('graphqlgen-json-schema/dist/schema.json')
 
-import { ContextDefinition, ModelMap } from './types'
+import { ContextDefinition, ModelMap, Model } from './types'
 import {
   getAbsoluteFilePath,
   getImportPathRelativeToOutput,
@@ -23,6 +23,16 @@ import {
   extractGraphQLTypesWithoutRootsAndInputsAndEnums,
   GraphQLTypes,
 } from './source-helper'
+import { buildTypesMap, TypesMap } from './introspection/ts-ast'
+
+export interface FilesToTypesMap {
+  [filePath: string]: TypesMap
+}
+
+export interface NormalizedFile {
+  path: string
+  defaultName?: string
+}
 
 const ajv = new Ajv().addMetaSchema(
   require('ajv/lib/refs/json-schema-draft-06.json'),
@@ -105,11 +115,12 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
 }
 
 function buildModel(
-  filePath: string,
   modelName: string,
+  filePath: string,
+  filesToTypesMap: FilesToTypesMap,
   outputDir: string,
   language: Language,
-) {
+): Model {
   const absoluteFilePath = getAbsoluteFilePath(filePath, language)
   const importPathRelativeToOutput = getImportPathRelativeToOutput(
     absoluteFilePath,
@@ -118,7 +129,7 @@ function buildModel(
   return {
     absoluteFilePath,
     importPathRelativeToOutput,
-    modelTypeName: modelName,
+    definition: filesToTypesMap[filePath][modelName],
   }
 }
 
@@ -138,6 +149,29 @@ export function getDefaultName(file: File): string | null {
   return file.defaultName || null
 }
 
+export function buildFilesToTypesMap(
+  files: NormalizedFile[],
+): FilesToTypesMap {
+  return files.reduce((acc, file) => {
+    return {
+      ...acc,
+      [file.path]: buildTypesMap(file.path),
+    }
+  }, {})
+}
+
+export function normalizeFiles(
+  files: File[] | undefined,
+  language: Language,
+): NormalizedFile[] {
+  return files !== undefined
+    ? files.map(file => ({
+        defaultName: typeof file === 'object' ? file.defaultName : undefined,
+        path: normalizeFilePath(getPath(file), language),
+      }))
+    : []
+}
+
 export function parseModels(
   models: Models,
   schema: GraphQLTypes,
@@ -145,14 +179,13 @@ export function parseModels(
   language: Language,
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
-  const filePaths = !!models.files
-    ? models.files.map(file => ({
-        defaultName: typeof file === 'object' ? file.defaultName : undefined,
-        path: normalizeFilePath(getPath(file), language),
-      }))
-    : []
+  const normalizedFiles = normalizeFiles(models.files, language)
+  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles)
   const overriddenModels = !!models.override ? models.override : {}
-  const typeToFileMapping = getTypeToFileMapping(filePaths, language)
+  const typeToFileMapping = getTypeToFileMapping(
+    normalizedFiles,
+    filesToTypesMap,
+  )
 
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {
@@ -160,7 +193,13 @@ export function parseModels(
 
       return {
         ...acc,
-        [type.name]: buildModel(filePath, modelName, outputDir, language),
+        [type.name]: buildModel(
+          modelName,
+          filePath,
+          filesToTypesMap,
+          outputDir,
+          language,
+        ),
       }
     }
 
@@ -192,7 +231,13 @@ export function parseModels(
 
     return {
       ...acc,
-      [type.name]: buildModel(filePath, replacedTypeName, outputDir, language),
+      [type.name]: buildModel(
+        replacedTypeName,
+        filePath,
+        filesToTypesMap,
+        outputDir,
+        language,
+      ),
     }
   }, {})
 }

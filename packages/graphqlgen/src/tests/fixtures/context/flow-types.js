@@ -1,13 +1,13 @@
 // @flow
 
 interface Data {
-  users: []
+  users: User[];
 }
 
 interface Context {
-  data: Data
+  data: Data;
 }
 
 interface User {
-  id: string
+  id: string;
 }

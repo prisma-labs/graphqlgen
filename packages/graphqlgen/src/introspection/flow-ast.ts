@@ -86,10 +86,10 @@ function isFieldOptional(node: ObjectTypeProperty) {
 
 export function extractFieldsFromFlowType(model: Model): ModelField[] {
   const filePath = model.absoluteFilePath
-  const typeNode = findFlowTypeByName(filePath, model.modelTypeName)
+  const typeNode = findFlowTypeByName(filePath, model.definition.name)
 
   if (!typeNode) {
-    throw new Error(`No interface found for name ${model.modelTypeName}`)
+    throw new Error(`No interface found for name ${model.definition}`)
   }
 
   const childrenNodes =

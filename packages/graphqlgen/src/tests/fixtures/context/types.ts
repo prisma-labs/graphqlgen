@@ -1,5 +1,5 @@
 interface Data {
-  users: []
+  users: User[]
 }
 
 interface Context {
