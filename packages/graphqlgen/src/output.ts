@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import * as os from 'os'
 import { graphQLToTypecriptFlowType, GraphQLTypeObject } from './source-helper'
-import { ValidatedDefinition } from './validation'
+import { maybeReplaceDefaultName, ValidatedDefinition } from './validation'
 import { Language } from 'graphqlgen-json-schema'
 import { getExtNameFromLanguage } from './path-helpers'
 
@@ -94,6 +94,7 @@ ${chalk.bold('Step 2')}: Re-run ${chalk.bold('`graphqlgen`')}`)
 export function outputMissingModels(
   missingModels: GraphQLTypeObject[],
   language: Language,
+  defaultName: string | null,
 ) {
   console.log(`❌ Some types from your application schema have model definitions that are not defined yet
   
@@ -101,7 +102,7 @@ ${chalk.bold(
     'Step 1',
   )}: Copy/paste the model definitions below to your application
 
-${missingModels.map(type => renderModelFromType(type, language)).join(os.EOL)}
+${missingModels.map(type => renderModelFromType(type, language, defaultName)).join(os.EOL)}
 
 
 ${chalk.bold('Step 2')}: Reference the model definitions in your ${chalk.bold(
@@ -130,27 +131,36 @@ ${chalk.bold('Step 2')}: Re-run ${chalk.bold('`graphqlgen`')}`)
 function renderModelFromType(
   type: GraphQLTypeObject,
   language: Language,
+  defaultName: string | null,
 ): string {
   switch (language) {
     case 'typescript':
-      return renderTypescriptModelFromType(type)
+      return renderTypescriptModelFromType(type, defaultName)
     case 'flow':
-      return renderFlowModelFromType(type)
+      return renderFlowModelFromType(type, defaultName)
   }
 }
 
-function renderTypescriptModelFromType(type: GraphQLTypeObject): string {
+function renderTypescriptModelFromType(
+  type: GraphQLTypeObject,
+  defaultName: string | null,
+): string {
+  const name = maybeReplaceDefaultName(type.name, defaultName)
   return `\
-export interface ${chalk.bold(type.name)} {
+export interface ${chalk.bold(name)} {
 ${type.fields
     .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
     .join(os.EOL)}
 }`
 }
 
-function renderFlowModelFromType(type: GraphQLTypeObject): string {
+function renderFlowModelFromType(
+  type: GraphQLTypeObject,
+  defaultName: string | null,
+): string {
+  const name = maybeReplaceDefaultName(type.name, defaultName)
   return `\
-export interface ${chalk.bold(type.name)} {
+export interface ${chalk.bold(name)} {
 ${type.fields
     .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
     .join(',' + os.EOL)}

@@ -194,7 +194,7 @@ function validateSchemaToModelMapping(
       interfaceName => {
         const file = interfaceNamesToPath[interfaceName]
         const defaultName = getDefaultName(file)
-        return interfaceName === replaceDefaultName(type.name, defaultName)
+        return interfaceName === maybeReplaceDefaultName(type.name, defaultName)
       },
     )
 
@@ -202,14 +202,23 @@ function validateSchemaToModelMapping(
   })
 
   if (missingModels.length > 0) {
-    outputMissingModels(missingModels, language)
+    // Append the user's chosen defaultName pattern to the step 1 missing models,
+    // but only if they have the same pattern for all of their files
+    let defaultName: string | null = null
+    if (files.length > 0) {
+      const names = files.map(getDefaultName)
+      if (names.every(name => name === names[0])) {
+        defaultName = names[0]
+      }
+    }
+    outputMissingModels(missingModels, language, defaultName)
     return false
   }
 
   return true
 }
 
-function replaceDefaultName(typeName: string, defaultName?: string | null) {
+export function maybeReplaceDefaultName(typeName: string, defaultName?: string | null) {
   return defaultName
     ? replaceVariablesInString(defaultName, { typeName })
     : typeName
