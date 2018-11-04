@@ -73,7 +73,10 @@ async function main(cli: meow.Result) {
         name: 'templateName',
         message: 'What GraphQL server template do you want to bootstrap?',
         type: 'list',
-        choices: availableTemplates.map(t => `${t.name} (${t.description})`),
+        choices: availableTemplates.map(t => ({
+          name: `${t.name} (${t.description})`,
+          value: t.name,
+        })),
       },
     ])
 

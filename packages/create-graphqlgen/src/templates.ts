@@ -11,12 +11,12 @@ export interface TemplateRepository {
 }
 
 export const defaultTemplate: Template = {
-  name: 'yoga',
+  name: 'typescript-yoga',
   description: 'GraphQL Yoga template with typescript',
   repo: {
     uri: 'https://github.com/prisma/graphqlgen',
     branch: 'master',
-    path: '/packages/graphqlgen-templates/yoga',
+    path: '/packages/graphqlgen-templates/typescript-yoga',
   },
 }
 
