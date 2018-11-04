@@ -9,6 +9,8 @@ import type { User } from \\"../../../fixtures/enum/types-flow\\";
 
 type Context = any;
 
+type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+
 // Types for Query
 export const Query_defaultResolvers = {};
 

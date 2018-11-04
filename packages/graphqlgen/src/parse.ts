@@ -23,11 +23,8 @@ import {
   extractGraphQLTypesWithoutRootsAndInputsAndEnums,
   GraphQLTypes,
 } from './source-helper'
-import { buildTypesMap, TypesMap } from './introspection/ts-ast'
-
-export interface FilesToTypesMap {
-  [filePath: string]: TypesMap
-}
+import { FilesToTypesMap } from './introspection/types'
+import { buildFilesToTypesMap } from './introspection'
 
 export interface NormalizedFile {
   path: string
@@ -149,17 +146,6 @@ export function getDefaultName(file: File): string | null {
   return file.defaultName || null
 }
 
-export function buildFilesToTypesMap(
-  files: NormalizedFile[],
-): FilesToTypesMap {
-  return files.reduce((acc, file) => {
-    return {
-      ...acc,
-      [file.path]: buildTypesMap(file.path),
-    }
-  }, {})
-}
-
 export function normalizeFiles(
   files: File[] | undefined,
   language: Language,
@@ -180,7 +166,7 @@ export function parseModels(
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const normalizedFiles = normalizeFiles(models.files, language)
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles)
+  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
   const overriddenModels = !!models.override ? models.override : {}
   const typeToFileMapping = getTypeToFileMapping(
     normalizedFiles,

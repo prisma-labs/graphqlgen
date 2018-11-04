@@ -1,11 +1,14 @@
 import { join } from 'path'
-import { buildTypesMap } from '../../introspection/ts-ast'
+import { buildTypesMap } from '../../introspection/index'
 
 const relative = (p: string) => join(__dirname, p)
+const language = 'typescript'
 
 describe('typescript file introspection', () => {
   test('find all types in file', () => {
-    const typesNames = Object.keys(buildTypesMap(relative('./mocks/types.ts')))
+    const typesNames = Object.keys(
+      buildTypesMap(relative('./mocks/types.ts'), language),
+    )
 
     expect(typesNames).toEqual([
       'Interface',

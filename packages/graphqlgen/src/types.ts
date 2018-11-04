@@ -4,7 +4,7 @@ import {
   GraphQLEnumObject,
   GraphQLUnionObject,
 } from './source-helper'
-import { TypeDefinition } from './introspection/ts-ast'
+import { TypeDefinition } from './introspection/types'
 
 export interface GenerateArgs {
   types: GraphQLTypeObject[]

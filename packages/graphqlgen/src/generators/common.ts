@@ -7,16 +7,18 @@ import {
   getGraphQLEnumValues,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs } from '../types'
+import { flatten, uniq } from '../utils'
 import {
   TypeDefinition,
+  FieldDefinition,
   InterfaceDefinition,
   TypeAliasDefinition,
   AnonymousInterfaceAnnotation,
-  FieldDefinition,
+} from '../introspection/types'
+import {
   isFieldDefinitionEnumOrLiteral,
   getEnumValues,
-} from '../introspection/ts-ast'
-import { flatten, uniq } from '../utils'
+} from '../introspection/utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 

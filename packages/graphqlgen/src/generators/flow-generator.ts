@@ -5,13 +5,14 @@ import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
 import { upperFirst } from '../utils'
 import {
-  renderDefaultResolvers,
   getContextName,
+  getDistinctInputTypes,
   getModelName,
-  TypeToInputTypeAssociation,
   InputTypesMap,
   printFieldLikeType,
-  getDistinctInputTypes,
+  renderDefaultResolvers,
+  renderEnums,
+  TypeToInputTypeAssociation,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -66,6 +67,8 @@ export function generate(args: GenerateArgs): string {
   return `\
   ${renderHeader(args)}
 
+  ${renderEnums(args)}
+
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
   ${renderResolvers(args)}
@@ -112,12 +115,7 @@ function renderNamespaces(
   return args.types
     .filter(type => type.type.isObject)
     .map(type =>
-      renderNamespace(
-        type,
-        typeToInputTypeAssociation,
-        inputTypesMap,
-        args
-      ),
+      renderNamespace(type, typeToInputTypeAssociation, inputTypesMap, args),
     )
     .join(os.EOL)
 }
@@ -126,7 +124,7 @@ function renderNamespace(
   type: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  args: GenerateArgs
+  args: GenerateArgs,
 ): string {
   const typeName = upperFirst(type.name)
 

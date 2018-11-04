@@ -1,325 +1,62 @@
-import * as fs from 'fs'
-import { File } from 'graphqlgen-json-schema'
-import { buildFilesToTypesMap } from '../parse'
 import { parse as parseTS } from '@babel/parser'
 import {
   ExportNamedDeclaration,
   File as TSFile,
   Identifier,
-  isTSArrayType,
-  isTSBooleanKeyword,
-  isTSLiteralType,
-  isTSNumberKeyword,
   isTSPropertySignature,
-  isTSStringKeyword,
-  isTSTypeReference,
-  isTSUnionType,
+  isTSTypeLiteral,
   Statement,
   TSInterfaceDeclaration,
   TSPropertySignature,
-  TSType,
   TSTypeAliasDeclaration,
+  TSTypeElement,
   TSUnionType,
+  TSType,
+  isTSParenthesizedType,
+  isTSStringKeyword,
+  isTSNumberKeyword,
+  isTSBooleanKeyword,
   isTSAnyKeyword,
   isTSNullKeyword,
   isTSUndefinedKeyword,
-  isTSTypeLiteral,
-  TSTypeElement,
-  BaseNode,
-  isTSParenthesizedType,
+  isTSTypeReference,
+  isTSArrayType,
+  isTSLiteralType,
+  isTSUnionType,
+  isTSTypeAliasDeclaration,
 } from '@babel/types'
+import {
+  InterfaceDefinition,
+  TypeAliasDefinition,
+  TypesMap,
+  InternalInnerType,
+} from './types'
+import {
+  createInterface,
+  createInterfaceField,
+  createTypeAlias,
+  createTypeAnnotation,
+  createTypeReferenceAnnotation,
+  createLiteralTypeAnnotation,
+  createAnonymousInterfaceAnnotation,
+  createUnionTypeAnnotation,
+} from './factory'
+import { getLine } from './utils'
 import chalk from 'chalk'
-
-type InnerType =
-  | ScalarTypeAnnotation
-  | UnionTypeAnnotation
-  | AnonymousInterfaceAnnotation
-  | LiteralTypeAnnotation
-
-type InternalInnerType = InnerType | TypeReferenceAnnotation
-
-type UnknownType = '_UNKNOWN_TYPE_'
-type Scalar = 'string' | 'number' | 'boolean' | null | UnknownType
-
-export type TypeDefinition = InterfaceDefinition | TypeAliasDefinition
-
-export type InnerAndTypeDefinition = InnerType | TypeDefinition
 
 // /!\ If you add a supported type of field, make sure you update isSupportedField() as well
 type SupportedFields = TSPropertySignature
 
-export interface UnionTypeAnnotation {
-  kind: 'UnionTypeAnnotation'
-  getTypes: Defer<InnerAndTypeDefinition[]>
-  isArray: boolean
-  isEnum: Defer<boolean>
-}
-
-interface ScalarTypeAnnotation {
-  kind: 'ScalarTypeAnnotation'
-  type: Scalar
-  isArray: boolean
-}
-
-export interface AnonymousInterfaceAnnotation {
-  kind: 'AnonymousInterfaceAnnotation'
-  fields: FieldDefinition[]
-  isArray: boolean
-}
-
-interface TypeReferenceAnnotation {
-  kind: 'TypeReferenceAnnotation'
-  referenceType: string
-}
-
-interface LiteralTypeAnnotation {
-  kind: 'LiteralTypeAnnotation'
-  type: string
-  value: string | number | boolean
-  isArray: boolean
-}
-
-type Defer<T> = () => T
-
-interface BaseTypeDefinition {
-  name: string
-}
-
-export interface FieldDefinition {
-  name: string
-  getType: Defer<InnerAndTypeDefinition>
-  optional: boolean
-}
-
-export interface InterfaceDefinition extends BaseTypeDefinition {
-  kind: 'InterfaceDefinition'
-  fields: FieldDefinition[]
-}
-
-export interface TypeAliasDefinition extends BaseTypeDefinition {
-  kind: 'TypeAliasDefinition'
-  getType: Defer<InnerAndTypeDefinition>
-  isEnum: Defer<boolean> //If type is UnionType && `types` are scalar strings
-}
-
-export interface TypesMap {
-  [typeName: string]: TypeDefinition
-}
-
-export interface InterfaceNamesToFile {
-  [interfaceName: string]: File
-}
-
-export interface ModelField {
-  fieldName: string
-  fieldOptional: boolean
-}
-
 type ExtractableType = TSTypeAliasDeclaration | TSInterfaceDeclaration
 
-const filesToTypesMap: { [filePath: string]: TypesMap } = {}
-
-function buildTypeGetter(
-  type: InternalInnerType,
-  filePath: string,
-): () => InnerAndTypeDefinition {
-  if (type.kind === 'TypeReferenceAnnotation') {
-    return () => filesToTypesMap[filePath][type.referenceType]
-  } else {
-    return () => type
-  }
-}
-
-export function isFieldDefinitionEnumOrLiteral(
-  modelFieldType: InnerAndTypeDefinition,
-): boolean {
-  // If type is: 'value'
-  if (isLiteralString(modelFieldType)) {
-    return true
-  }
-
-  if (
-    modelFieldType.kind === 'UnionTypeAnnotation' &&
-    modelFieldType.isEnum()
-  ) {
-    return true
-  }
-
-  // If type is: type X = 'value'
-  if (
-    modelFieldType.kind === 'TypeAliasDefinition' &&
-    isLiteralString(modelFieldType.getType())
-  ) {
-    return true
-  }
-
-  // If type is: Type X = 'value' | 'value2'
+function shouldExtractType(node: Statement) {
   return (
-    modelFieldType.kind === 'TypeAliasDefinition' && modelFieldType.isEnum()
+    node.type === 'TSTypeAliasDeclaration' ||
+    node.type === 'TSInterfaceDeclaration'
   )
 }
 
-function isLiteralString(type: InnerAndTypeDefinition) {
-  return type.kind === 'LiteralTypeAnnotation' && type.type === 'string'
-}
-
-export function getEnumValues(type: InnerAndTypeDefinition): string[] {
-  // If type is: 'value'
-  if (isLiteralString(type)) {
-    return [(type as LiteralTypeAnnotation).value as string]
-  }
-
-  if (
-    type.kind === 'TypeAliasDefinition' &&
-    isLiteralString(type.getType())
-  ) {
-    return [(type.getType() as LiteralTypeAnnotation).value as string]
-  }
-
-  let unionTypes: InnerAndTypeDefinition[] = []
-
-  if (type.kind === 'TypeAliasDefinition' && type.isEnum()) {
-    unionTypes = (type.getType() as UnionTypeAnnotation).getTypes()
-  } else if (type.kind === 'UnionTypeAnnotation' && type.isEnum) {
-    unionTypes = type.getTypes()
-  } else {
-    return []
-  }
-
-  return unionTypes.map(unionType => {
-    return (unionType as LiteralTypeAnnotation).value
-  }) as string[]
-}
-
-function isEnumUnion(unionTypes: InnerAndTypeDefinition[]) {
-  return unionTypes.every(unionType => {
-    return (
-      unionType.kind === 'LiteralTypeAnnotation' &&
-      unionType.isArray === false &&
-      unionType.type === 'string'
-    )
-  })
-}
-
-function createTypeAlias(
-  name: string,
-  type: InternalInnerType,
-  filePath: string,
-): TypeAliasDefinition {
-  return {
-    kind: 'TypeAliasDefinition',
-    name,
-    getType: buildTypeGetter(type, filePath),
-    isEnum: () => {
-      return type.kind === 'UnionTypeAnnotation' && isEnumUnion(type.getTypes())
-    },
-  }
-}
-
-function createInterfaceField(
-  name: string,
-  type: InternalInnerType,
-  filePath: string,
-  optional: boolean,
-): FieldDefinition {
-  return {
-    name,
-    getType: buildTypeGetter(type, filePath),
-    optional,
-  }
-}
-
-function createInterface(
-  name: string,
-  fields: FieldDefinition[],
-): InterfaceDefinition {
-  return {
-    kind: 'InterfaceDefinition',
-    name,
-    fields,
-  }
-}
-
-interface TypeAnnotationOpts {
-  isArray?: boolean
-  isTypeRef?: boolean
-  isAny?: boolean
-}
-
-function createTypeAnnotation(
-  type: Scalar,
-  options?: TypeAnnotationOpts,
-): ScalarTypeAnnotation {
-  let opts: TypeAnnotationOpts = {}
-  if (options === undefined) {
-    opts = { isArray: false, isTypeRef: false, isAny: false }
-  } else {
-    opts = {
-      isArray: options.isArray === undefined ? false : options.isArray,
-      isAny: options.isAny === undefined ? false : options.isAny,
-    }
-  }
-
-  const isArray = opts.isArray === undefined ? false : opts.isArray
-
-  return {
-    kind: 'ScalarTypeAnnotation',
-    type,
-    isArray,
-  }
-}
-
-function createUnionTypeAnnotation(
-  types: InternalInnerType[],
-  filePath: string,
-): UnionTypeAnnotation {
-  const getTypes = () => {
-    return types.map(unionType => {
-      return unionType.kind === 'TypeReferenceAnnotation'
-        ? filesToTypesMap[filePath][unionType.referenceType]
-        : unionType
-    })
-  }
-
-  return {
-    kind: 'UnionTypeAnnotation',
-    getTypes,
-    isArray: false,
-    isEnum: () => isEnumUnion(getTypes()),
-  }
-}
-
-function createAnonymousInterfaceAnnotation(
-  fields: FieldDefinition[],
-  isArray: boolean = false,
-): AnonymousInterfaceAnnotation {
-  return {
-    kind: 'AnonymousInterfaceAnnotation',
-    fields,
-    isArray,
-  }
-}
-
-function createLiteralTypeAnnotation(
-  type: string,
-  value: string | number | boolean,
-  isArray: boolean = false,
-): LiteralTypeAnnotation {
-  return {
-    kind: 'LiteralTypeAnnotation',
-    type,
-    value,
-    isArray,
-  }
-}
-
-function createTypeReferenceAnnotation(
-  referenceType: string,
-): TypeReferenceAnnotation {
-  return { kind: 'TypeReferenceAnnotation', referenceType }
-}
-
-function computeType(node: TSType, filePath: string): InternalInnerType {
+export function computeType(node: TSType, filePath: string): InternalInnerType {
   if (isTSParenthesizedType(node)) {
     node = node.typeAnnotation
   }
@@ -383,10 +120,6 @@ function computeType(node: TSType, filePath: string): InternalInnerType {
   )
 
   return createTypeAnnotation('_UNKNOWN_TYPE_')
-}
-
-function getLine(node: BaseNode) {
-  return node.loc === null ? 'unknown' : node.loc.start.line
 }
 
 function extractTypeAlias(
@@ -457,49 +190,6 @@ function extractInterface(
   return createInterface(typeName, interfaceFields)
 }
 
-export function buildTypesMap(filePath: string): TypesMap {
-  if (filesToTypesMap[filePath] !== undefined) {
-    return filesToTypesMap[filePath]
-  }
-
-  const file = fs.readFileSync(filePath).toString()
-
-  const ast = parseTS(file, {
-    plugins: ['typescript'],
-    sourceType: 'module',
-    tokens: true,
-  })
-
-  const typesMap = findTypescriptTypes(ast).reduce(
-    (acc, type) => {
-      const typeName = type.id.name
-      if (type.type === 'TSTypeAliasDeclaration') {
-        return {
-          ...acc,
-          [typeName]: extractTypeAlias(typeName, type, filePath),
-        }
-      }
-
-      return {
-        ...acc,
-        [typeName]: extractInterface(typeName, type.body.body, filePath),
-      }
-    },
-    {} as TypesMap,
-  )
-
-  filesToTypesMap[filePath] = typesMap
-
-  return typesMap
-}
-
-function shouldExtractType(node: Statement) {
-  return (
-    node.type === 'TSTypeAliasDeclaration' ||
-    node.type === 'TSInterfaceDeclaration'
-  )
-}
-
 function findTypescriptTypes(sourceFile: TSFile): ExtractableType[] {
   const statements = sourceFile.program.body
 
@@ -517,15 +207,6 @@ function findTypescriptTypes(sourceFile: TSFile): ExtractableType[] {
     })
 
   return [...types, ...typesFromNamedExport] as ExtractableType[]
-}
-
-export function findTypeInFile(
-  filePath: string,
-  typeName: string,
-): TypeDefinition | undefined {
-  const filesToTypesMap = buildFilesToTypesMap([{ path: filePath }])
-
-  return filesToTypesMap[filePath][typeName]
 }
 
 function isFieldOptional(node: TSPropertySignature) {
@@ -550,4 +231,32 @@ function isFieldOptional(node: TSPropertySignature) {
   }
 
   return false
+}
+
+export function buildTSTypesMap(fileContent: string, filePath: string) {
+  const ast = parseTS(fileContent, {
+    plugins: ['typescript'],
+    sourceType: 'module',
+  })
+
+  const typesMap = findTypescriptTypes(ast).reduce(
+    (acc, type) => {
+      const typeName = type.id.name
+
+      if (isTSTypeAliasDeclaration(type)) {
+        return {
+          ...acc,
+          [typeName]: extractTypeAlias(typeName, type, filePath),
+        }
+      }
+
+      return {
+        ...acc,
+        [typeName]: extractInterface(typeName, type.body.body, filePath),
+      }
+    },
+    {} as TypesMap,
+  )
+
+  return typesMap
 }

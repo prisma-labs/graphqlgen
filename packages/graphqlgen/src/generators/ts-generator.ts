@@ -3,8 +3,6 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { TypeAliasDefinition } from '../introspection/ts-ast'
-import { upperFirst } from '../utils'
 import {
   renderDefaultResolvers,
   getContextName,
@@ -15,6 +13,8 @@ import {
   getDistinctInputTypes,
   renderEnums,
 } from './common'
+import { TypeAliasDefinition } from '../introspection/types'
+import { upperFirst } from '../utils'
 
 export function format(code: string, options: prettier.Options = {}) {
   try {
@@ -124,12 +124,7 @@ function renderNamespaces(
   return args.types
     .filter(type => type.type.isObject)
     .map(type =>
-      renderNamespace(
-        type,
-        typeToInputTypeAssociation,
-        inputTypesMap,
-        args
-      ),
+      renderNamespace(type, typeToInputTypeAssociation, inputTypesMap, args),
     )
     .join(os.EOL)
 }
@@ -138,7 +133,7 @@ function renderNamespace(
   graphQLTypeObject: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  args: GenerateArgs
+  args: GenerateArgs,
 ): string {
   return `\
     export namespace ${graphQLTypeObject.name}Resolvers {
@@ -154,9 +149,17 @@ function renderNamespace(
 
     ${renderInputArgInterfaces(graphQLTypeObject, args.modelMap)}
 
-    ${renderResolverFunctionInterfaces(graphQLTypeObject, args.modelMap, args.context)}
+    ${renderResolverFunctionInterfaces(
+      graphQLTypeObject,
+      args.modelMap,
+      args.context,
+    )}
 
-    ${renderResolverTypeInterface(graphQLTypeObject, args.modelMap, args.context)}
+    ${renderResolverTypeInterface(
+      graphQLTypeObject,
+      args.modelMap,
+      args.context,
+    )}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }

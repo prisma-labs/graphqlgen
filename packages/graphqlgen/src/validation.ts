@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import { existsSync } from 'fs'
 import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
-import { findTypeInFile } from './introspection/ts-ast'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -19,9 +18,9 @@ import {
   getPath,
   getDefaultName,
   normalizeFiles,
-  buildFilesToTypesMap,
   NormalizedFile,
 } from './parse'
+import { buildFilesToTypesMap, findTypeInFile } from './introspection'
 
 type Definition = {
   typeName: string
@@ -181,7 +180,7 @@ function validateSchemaToModelMapping(
     def => def.definition.typeName,
   )
 
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles)
+  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
   const interfaceNamesToPath = getTypeToFileMapping(
     normalizedFiles,
     filesToTypesMap,
@@ -222,7 +221,10 @@ function validateSchemaToModelMapping(
   return true
 }
 
-export function maybeReplaceDefaultName(typeName: string, defaultName?: string | null) {
+export function maybeReplaceDefaultName(
+  typeName: string,
+  defaultName?: string | null,
+) {
   return defaultName
     ? replaceVariablesInString(defaultName, { typeName })
     : typeName
@@ -265,7 +267,7 @@ export function validateDefinition(
     return validation
   }
 
-  if (!findTypeInFile(normalizedFilePath, modelName)) {
+  if (!findTypeInFile(normalizedFilePath, modelName, language)) {
     validation.interfaceExists = false
   }
 
