@@ -71,13 +71,13 @@ async function main(cli: meow.Result) {
     const res = await inquirer.prompt<{ templateName: string }>([
       {
         name: 'templateName',
-        message: 'What GraphQL server template do you want to bootstrap?',
+        message: 'Choose a GraphQL server template?',
         type: 'list',
         choices: availableTemplates.map(t => `${t.name} (${t.description})`),
       },
     ])
 
-    template = availableTemplates.find(t => t.name === res.templateName)
+    template = availableTemplates.find(t => `${t.name} (${t.description})` === res.templateName)
   }
 
   let [output] = cli.input
