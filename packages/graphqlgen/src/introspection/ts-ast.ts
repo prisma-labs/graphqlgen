@@ -28,37 +28,47 @@ import {
   BaseNode,
   isTSParenthesizedType,
 } from '@babel/types'
-import chalk from "chalk";
+import chalk from 'chalk'
 
-type Type =
-  | TypeAnnotation
+type InnerType =
+  | ScalarTypeAnnotation
   | UnionTypeAnnotation
   | AnonymousInterfaceAnnotation
   | LiteralTypeAnnotation
 
+type InternalInnerType = InnerType | TypeReferenceAnnotation
+
 type UnknownType = '_UNKNOWN_TYPE_'
-type PrimitiveOrTypeRef = string | null | UnknownType
+type Scalar = 'string' | 'number' | 'boolean' | null | UnknownType
+
+export type TypeDefinition = InterfaceDefinition | TypeAliasDefinition
+
+export type InnerAndTypeDefinition = InnerType | TypeDefinition
 
 // /!\ If you add a supported type of field, make sure you update isSupportedField() as well
 type SupportedFields = TSPropertySignature
 
 interface UnionTypeAnnotation {
   kind: 'UnionTypeAnnotation'
-  types: Type[]
+  getTypes: Defer<InnerAndTypeDefinition[]>
   isArray: boolean
 }
 
-interface TypeAnnotation {
-  kind: 'TypeAnnotation'
-  type: PrimitiveOrTypeRef
+interface ScalarTypeAnnotation {
+  kind: 'ScalarTypeAnnotation'
+  type: Scalar
   isArray: boolean
-  isTypeRef: boolean
 }
 
 export interface AnonymousInterfaceAnnotation {
   kind: 'AnonymousInterfaceAnnotation'
   fields: FieldDefinition[]
   isArray: boolean
+}
+
+interface TypeReferenceAnnotation {
+  kind: 'TypeReferenceAnnotation'
+  referenceType: string
 }
 
 interface LiteralTypeAnnotation {
@@ -68,20 +78,18 @@ interface LiteralTypeAnnotation {
   isArray: boolean
 }
 
-type Kind =
-  | 'InterfaceDefinition'
-  | 'FieldDefinition'
-  | 'TypeAliasDefinition'
-  | 'TypeAliasValueDefinition'
+type TypeDefinitionKind = 'InterfaceDefinition' | 'TypeAliasDefinition'
+
+type Defer<T> = () => T
 
 interface BaseTypeDefinition {
-  kind: Kind
+  kind: TypeDefinitionKind
   name: string
 }
 
 interface FieldDefinition {
   name: string
-  type: Type
+  getType: Defer<InnerAndTypeDefinition>
   optional: boolean
 }
 
@@ -90,14 +98,12 @@ export interface InterfaceDefinition extends BaseTypeDefinition {
 }
 
 export interface TypeAliasDefinition extends BaseTypeDefinition {
-  type: Type
+  getType: Defer<InnerAndTypeDefinition>
   isEnum: boolean //If type is UnionType && `types` are scalar strings
 }
 
-export type Types = InterfaceDefinition | TypeAliasDefinition
-
 export interface TypesMap {
-  [typeName: string]: Types
+  [typeName: string]: TypeDefinition
 }
 
 export interface InterfaceNamesToFile {
@@ -111,14 +117,31 @@ export interface ModelField {
 
 type ExtractableType = TSTypeAliasDeclaration | TSInterfaceDeclaration
 
-function createTypeAlias(name: string, type: Type): TypeAliasDefinition {
+const filesToTypesMap: { [filePath: string]: TypesMap } = {}
+
+function buildTypeGetter(
+  type: InternalInnerType,
+  filePath: string,
+): () => InnerAndTypeDefinition {
+  if (type.kind === 'TypeReferenceAnnotation') {
+    return () => filesToTypesMap[filePath][type.referenceType]
+  } else {
+    return () => type
+  }
+}
+
+function createTypeAlias(
+  name: string,
+  type: InternalInnerType,
+  filePath: string,
+): TypeAliasDefinition {
   return {
     kind: 'TypeAliasDefinition',
     name,
-    type,
+    getType: buildTypeGetter(type, filePath),
     isEnum:
       type.kind === 'UnionTypeAnnotation' &&
-      type.types.every(unionType => {
+      type.getTypes().every(unionType => {
         return (
           unionType.kind === 'LiteralTypeAnnotation' &&
           unionType.isArray === false &&
@@ -130,12 +153,13 @@ function createTypeAlias(name: string, type: Type): TypeAliasDefinition {
 
 function createInterfaceField(
   name: string,
-  type: Type,
+  type: InternalInnerType,
+  filePath: string,
   optional: boolean,
 ): FieldDefinition {
   return {
     name,
-    type,
+    getType: buildTypeGetter(type, filePath),
     optional,
   }
 }
@@ -158,39 +182,42 @@ interface TypeAnnotationOpts {
 }
 
 function createTypeAnnotation(
-  type: PrimitiveOrTypeRef,
+  type: Scalar,
   options?: TypeAnnotationOpts,
-): TypeAnnotation {
+): ScalarTypeAnnotation {
   let opts: TypeAnnotationOpts = {}
   if (options === undefined) {
     opts = { isArray: false, isTypeRef: false, isAny: false }
   } else {
     opts = {
       isArray: options.isArray === undefined ? false : options.isArray,
-      isTypeRef: options.isTypeRef === undefined ? false : options.isTypeRef,
       isAny: options.isAny === undefined ? false : options.isAny,
     }
   }
 
   const isArray = opts.isArray === undefined ? false : opts.isArray
-  const isTypeRef = opts.isTypeRef === undefined ? false : opts.isTypeRef
 
   return {
-    kind: 'TypeAnnotation',
+    kind: 'ScalarTypeAnnotation',
     type,
     isArray,
-    isTypeRef,
   }
 }
 
 function createUnionTypeAnnotation(
-  types: Type[],
-  isArray: boolean = false,
+  types: InternalInnerType[],
+  filePath: string,
 ): UnionTypeAnnotation {
   return {
     kind: 'UnionTypeAnnotation',
-    types,
-    isArray,
+    getTypes: () => {
+      return types.map(unionType => {
+        return unionType.kind === 'TypeReferenceAnnotation'
+          ? filesToTypesMap[filePath][unionType.referenceType]
+          : unionType
+      })
+    },
+    isArray: false,
   }
 }
 
@@ -218,7 +245,13 @@ function createLiteralTypeAnnotation(
   }
 }
 
-function computeType(node: TSType, filePath: string): Type {
+function createTypeReferenceAnnotation(
+  referenceType: string,
+): TypeReferenceAnnotation {
+  return { kind: 'TypeReferenceAnnotation', referenceType }
+}
+
+function computeType(node: TSType, filePath: string): InternalInnerType {
   if (isTSParenthesizedType(node)) {
     node = node.typeAnnotation
   }
@@ -235,21 +268,20 @@ function computeType(node: TSType, filePath: string): Type {
   if (isTSAnyKeyword(node)) {
     return createTypeAnnotation(null, { isAny: true })
   }
-  if (isTSNullKeyword(node)) {
-    return createTypeAnnotation(null)
-  }
   if (isTSNullKeyword(node) || isTSUndefinedKeyword(node)) {
     return createTypeAnnotation(null)
   }
   if (isTSTypeReference(node)) {
-    const typeRefName = (node.typeName as Identifier).name
+    const referenceTypeName = (node.typeName as Identifier).name
 
-    return createTypeAnnotation(typeRefName, { isTypeRef: true })
+    return createTypeReferenceAnnotation(referenceTypeName)
   }
   if (isTSArrayType(node)) {
     const computedType = computeType(node.elementType, filePath)
 
-    computedType.isArray = true
+    if (computedType.kind !== 'TypeReferenceAnnotation') {
+      computedType.isArray = true
+    }
 
     return computedType
   }
@@ -267,15 +299,19 @@ function computeType(node: TSType, filePath: string): Type {
   }
 
   if (isTSUnionType(node)) {
-    const unionTypes = node.types.map(unionType => computeType(unionType, filePath))
+    const unionTypes = node.types.map(unionType =>
+      computeType(unionType, filePath),
+    )
 
-    return createUnionTypeAnnotation(unionTypes)
+    return createUnionTypeAnnotation(unionTypes, filePath)
   }
 
   console.log(
-    chalk.yellow(`WARNING: Unsupported type ${node.type} (Line ${getLine(
-      node,
-    )} in ${filePath}). Please file an issue at https://github.com/prisma/graphqlgen/issues`),
+    chalk.yellow(
+      `WARNING: Unsupported type ${node.type} (Line ${getLine(
+        node,
+      )} in ${filePath}). Please file an issue at https://github.com/prisma/graphqlgen/issues`,
+    ),
   )
 
   return createTypeAnnotation('_UNKNOWN_TYPE_')
@@ -288,14 +324,18 @@ function getLine(node: BaseNode) {
 function extractTypeAlias(
   typeName: string,
   typeAlias: TSTypeAliasDeclaration,
-  filePath: string
+  filePath: string,
 ): TypeAliasDefinition | InterfaceDefinition {
   if (isTSTypeLiteral(typeAlias.typeAnnotation)) {
-    return extractInterface(typeName, typeAlias.typeAnnotation.members, filePath)
+    return extractInterface(
+      typeName,
+      typeAlias.typeAnnotation.members,
+      filePath,
+    )
   } else {
     const typeAliasType = computeType(typeAlias.typeAnnotation, filePath)
 
-    return createTypeAlias(typeName, typeAliasType)
+    return createTypeAlias(typeName, typeAliasType, filePath)
   }
 }
 
@@ -324,31 +364,34 @@ function extractInterfaceFields(fields: TSTypeElement[], filePath: string) {
     const fieldName = (field.key as Identifier).name
 
     if (!field.typeAnnotation) {
-      throw new Error(`ERROR: Unsupported notation (Line ${getLine(field)} in ${filePath})`)
+      throw new Error(
+        `ERROR: Unsupported notation (Line ${getLine(field)} in ${filePath})`,
+      )
     }
 
-    const fieldType = computeType(field.typeAnnotation!.typeAnnotation, filePath)
+    const fieldType = computeType(
+      field.typeAnnotation!.typeAnnotation,
+      filePath,
+    )
     const isOptional = isFieldOptional(field)
 
-    return createInterfaceField(fieldName, fieldType, isOptional)
+    return createInterfaceField(fieldName, fieldType, filePath, isOptional)
   })
 }
 
 function extractInterface(
   typeName: string,
   fields: TSTypeElement[],
-  filePath: string
+  filePath: string,
 ): InterfaceDefinition {
   const interfaceFields = extractInterfaceFields(fields, filePath)
 
   return createInterface(typeName, interfaceFields)
 }
 
-const cachedFilesToTypeMaps: { [filePath: string]: TypesMap } = {}
-
 export function buildTypesMap(filePath: string): TypesMap {
-  if (cachedFilesToTypeMaps[filePath] !== undefined) {
-    return cachedFilesToTypeMaps[filePath]
+  if (filesToTypesMap[filePath] !== undefined) {
+    return filesToTypesMap[filePath]
   }
 
   const file = fs.readFileSync(filePath).toString()
@@ -377,7 +420,7 @@ export function buildTypesMap(filePath: string): TypesMap {
     {} as TypesMap,
   )
 
-  cachedFilesToTypeMaps[filePath] = typesMap
+  filesToTypesMap[filePath] = typesMap
 
   return typesMap
 }
@@ -411,7 +454,7 @@ function findTypescriptTypes(sourceFile: TSFile): ExtractableType[] {
 export function findTypeInFile(
   filePath: string,
   typeName: string,
-): Types | undefined {
+): TypeDefinition | undefined {
   const filesToTypesMap = buildFilesToTypesMap([{ path: filePath }])
 
   return filesToTypesMap[filePath][typeName]
