@@ -356,3 +356,22 @@ export function extractGraphQLTypesWithoutRootsAndInputsAndEnums(
       type => ['Query', 'Mutation', 'Subscription'].indexOf(type.name) === -1,
     )
 }
+
+export function getGraphQLEnumValues(
+  enumField: GraphQLTypeField,
+  graphQLEnumObjects: GraphQLEnumObject[],
+): string[] {
+  if (!enumField.type.isEnum) {
+    return []
+  }
+
+  const graphQLEnumObject = graphQLEnumObjects.find(
+    graphqlEnum => graphqlEnum.name === enumField.type.name,
+  )
+
+  if (!graphQLEnumObject) {
+    return []
+  }
+
+  return graphQLEnumObject.values
+}

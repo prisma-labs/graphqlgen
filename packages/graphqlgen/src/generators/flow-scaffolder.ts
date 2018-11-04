@@ -1,8 +1,10 @@
-import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
+import { GenerateArgs, CodeFileLike } from '../types'
 import { upperFirst } from '../utils'
 import { GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromFlowType } from '../introspection/flow-ast'
-import { shouldScaffoldFieldResolver } from './common'
+import {
+  fieldsFromModelDefinition,
+  shouldScaffoldFieldResolver,
+} from './common'
 
 export { format } from './flow-generator'
 
@@ -33,10 +35,10 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
 }
 function renderResolvers(
   type: GraphQLTypeObject,
-  modelMap: ModelMap,
+  args: GenerateArgs,
 ): CodeFileLike {
-  const model = modelMap[type.name]
-  const modelFields = extractFieldsFromFlowType(model)
+  const model = args.modelMap[type.name]
+  const modelFields = fieldsFromModelDefinition(model.definition)
   const upperTypeName = upperFirst(type.name)
   const code = `/* @flow */
 import { ${upperTypeName}_defaultResolvers } from '[TEMPLATE-INTERFACES-PATH]'
@@ -46,7 +48,7 @@ export const ${type.name}: ${upperTypeName}_Resolvers = {
   ...${upperTypeName}_defaultResolvers,
   ${type.fields
     .filter(graphQLField =>
-      shouldScaffoldFieldResolver(graphQLField, modelFields),
+      shouldScaffoldFieldResolver(graphQLField, modelFields, args),
     )
     .map(
       field => `
@@ -68,7 +70,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
     .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
-    .map(type => renderResolvers(type, args.modelMap))
+    .map(type => renderResolvers(type, args))
 
   files = files.concat(
     args.types

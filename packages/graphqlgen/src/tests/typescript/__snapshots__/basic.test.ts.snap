@@ -8,6 +8,8 @@ import { User } from \\"../../../fixtures/enum/types\\";
 
 type Context = any;
 
+type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 

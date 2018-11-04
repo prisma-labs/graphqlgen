@@ -35,6 +35,24 @@ import { MutationResult } from \\"../../../fixtures/prisma/types\\";
 
 type Context = any;
 
+type PLACE_SIZES =
+  | \\"ENTIRE_HOUSE\\"
+  | \\"ENTIRE_APARTMENT\\"
+  | \\"ENTIRE_EARTH_HOUSE\\"
+  | \\"ENTIRE_CABIN\\"
+  | \\"ENTIRE_VILLA\\"
+  | \\"ENTIRE_PLACE\\"
+  | \\"ENTIRE_BOAT\\"
+  | \\"PRIVATE_ROOM\\";
+type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
+type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
+type NOTIFICATION_TYPE =
+  | \\"OFFER\\"
+  | \\"INSTANT_BOOK\\"
+  | \\"RESPONSIVENESS\\"
+  | \\"NEW_AMENITIES\\"
+  | \\"HOUSE_RULES\\";
+
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 

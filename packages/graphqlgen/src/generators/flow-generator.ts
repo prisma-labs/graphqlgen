@@ -116,8 +116,7 @@ function renderNamespaces(
         type,
         typeToInputTypeAssociation,
         inputTypesMap,
-        args.modelMap,
-        args.context,
+        args
       ),
     )
     .join(os.EOL)
@@ -127,27 +126,26 @@ function renderNamespace(
   type: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  modelMap: ModelMap,
-  context?: ContextDefinition,
+  args: GenerateArgs
 ): string {
   const typeName = upperFirst(type.name)
 
   return `\
     // Types for ${typeName}
-    ${renderDefaultResolvers(type, modelMap, `${typeName}_defaultResolvers`)}
+    ${renderDefaultResolvers(type, args, `${typeName}_defaultResolvers`)}
 
     ${renderInputTypeInterfaces(
       type,
-      modelMap,
+      args.modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
     )}
 
-    ${renderInputArgInterfaces(type, modelMap)}
+    ${renderInputArgInterfaces(type, args.modelMap)}
 
-    ${renderResolverFunctionInterfaces(type, modelMap, context)}
+    ${renderResolverFunctionInterfaces(type, args.modelMap, args.context)}
 
-    ${renderResolverTypeInterface(type, modelMap, context)}
+    ${renderResolverTypeInterface(type, args.modelMap, args.context)}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   `

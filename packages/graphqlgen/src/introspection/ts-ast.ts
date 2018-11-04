@@ -48,10 +48,11 @@ export type InnerAndTypeDefinition = InnerType | TypeDefinition
 // /!\ If you add a supported type of field, make sure you update isSupportedField() as well
 type SupportedFields = TSPropertySignature
 
-interface UnionTypeAnnotation {
+export interface UnionTypeAnnotation {
   kind: 'UnionTypeAnnotation'
   getTypes: Defer<InnerAndTypeDefinition[]>
   isArray: boolean
+  isEnum: Defer<boolean>
 }
 
 interface ScalarTypeAnnotation {
@@ -78,28 +79,27 @@ interface LiteralTypeAnnotation {
   isArray: boolean
 }
 
-type TypeDefinitionKind = 'InterfaceDefinition' | 'TypeAliasDefinition'
-
 type Defer<T> = () => T
 
 interface BaseTypeDefinition {
-  kind: TypeDefinitionKind
   name: string
 }
 
-interface FieldDefinition {
+export interface FieldDefinition {
   name: string
   getType: Defer<InnerAndTypeDefinition>
   optional: boolean
 }
 
 export interface InterfaceDefinition extends BaseTypeDefinition {
+  kind: 'InterfaceDefinition'
   fields: FieldDefinition[]
 }
 
 export interface TypeAliasDefinition extends BaseTypeDefinition {
+  kind: 'TypeAliasDefinition'
   getType: Defer<InnerAndTypeDefinition>
-  isEnum: boolean //If type is UnionType && `types` are scalar strings
+  isEnum: Defer<boolean> //If type is UnionType && `types` are scalar strings
 }
 
 export interface TypesMap {
@@ -130,6 +130,77 @@ function buildTypeGetter(
   }
 }
 
+export function isFieldDefinitionEnumOrLiteral(
+  modelFieldType: InnerAndTypeDefinition,
+): boolean {
+  // If type is: 'value'
+  if (isLiteralString(modelFieldType)) {
+    return true
+  }
+
+  if (
+    modelFieldType.kind === 'UnionTypeAnnotation' &&
+    modelFieldType.isEnum()
+  ) {
+    return true
+  }
+
+  // If type is: type X = 'value'
+  if (
+    modelFieldType.kind === 'TypeAliasDefinition' &&
+    isLiteralString(modelFieldType.getType())
+  ) {
+    return true
+  }
+
+  // If type is: Type X = 'value' | 'value2'
+  return (
+    modelFieldType.kind === 'TypeAliasDefinition' && modelFieldType.isEnum()
+  )
+}
+
+function isLiteralString(type: InnerAndTypeDefinition) {
+  return type.kind === 'LiteralTypeAnnotation' && type.type === 'string'
+}
+
+export function getEnumValues(type: InnerAndTypeDefinition): string[] {
+  // If type is: 'value'
+  if (isLiteralString(type)) {
+    return [(type as LiteralTypeAnnotation).value as string]
+  }
+
+  if (
+    type.kind === 'TypeAliasDefinition' &&
+    isLiteralString(type.getType())
+  ) {
+    return [(type.getType() as LiteralTypeAnnotation).value as string]
+  }
+
+  let unionTypes: InnerAndTypeDefinition[] = []
+
+  if (type.kind === 'TypeAliasDefinition' && type.isEnum()) {
+    unionTypes = (type.getType() as UnionTypeAnnotation).getTypes()
+  } else if (type.kind === 'UnionTypeAnnotation' && type.isEnum) {
+    unionTypes = type.getTypes()
+  } else {
+    return []
+  }
+
+  return unionTypes.map(unionType => {
+    return (unionType as LiteralTypeAnnotation).value
+  }) as string[]
+}
+
+function isEnumUnion(unionTypes: InnerAndTypeDefinition[]) {
+  return unionTypes.every(unionType => {
+    return (
+      unionType.kind === 'LiteralTypeAnnotation' &&
+      unionType.isArray === false &&
+      unionType.type === 'string'
+    )
+  })
+}
+
 function createTypeAlias(
   name: string,
   type: InternalInnerType,
@@ -139,15 +210,9 @@ function createTypeAlias(
     kind: 'TypeAliasDefinition',
     name,
     getType: buildTypeGetter(type, filePath),
-    isEnum:
-      type.kind === 'UnionTypeAnnotation' &&
-      type.getTypes().every(unionType => {
-        return (
-          unionType.kind === 'LiteralTypeAnnotation' &&
-          unionType.isArray === false &&
-          unionType.type === 'string'
-        )
-      }),
+    isEnum: () => {
+      return type.kind === 'UnionTypeAnnotation' && isEnumUnion(type.getTypes())
+    },
   }
 }
 
@@ -208,16 +273,19 @@ function createUnionTypeAnnotation(
   types: InternalInnerType[],
   filePath: string,
 ): UnionTypeAnnotation {
+  const getTypes = () => {
+    return types.map(unionType => {
+      return unionType.kind === 'TypeReferenceAnnotation'
+        ? filesToTypesMap[filePath][unionType.referenceType]
+        : unionType
+    })
+  }
+
   return {
     kind: 'UnionTypeAnnotation',
-    getTypes: () => {
-      return types.map(unionType => {
-        return unionType.kind === 'TypeReferenceAnnotation'
-          ? filesToTypesMap[filePath][unionType.referenceType]
-          : unionType
-      })
-    },
+    getTypes,
     isArray: false,
+    isEnum: () => isEnumUnion(getTypes()),
   }
 }
 

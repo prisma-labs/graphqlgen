@@ -128,8 +128,7 @@ function renderNamespaces(
         type,
         typeToInputTypeAssociation,
         inputTypesMap,
-        args.modelMap,
-        args.context,
+        args
       ),
     )
     .join(os.EOL)
@@ -139,26 +138,25 @@ function renderNamespace(
   graphQLTypeObject: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  modelMap: ModelMap,
-  context?: ContextDefinition,
+  args: GenerateArgs
 ): string {
   return `\
     export namespace ${graphQLTypeObject.name}Resolvers {
 
-    ${renderDefaultResolvers(graphQLTypeObject, modelMap, 'defaultResolvers')}
+    ${renderDefaultResolvers(graphQLTypeObject, args, 'defaultResolvers')}
 
     ${renderInputTypeInterfaces(
       graphQLTypeObject,
-      modelMap,
+      args.modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
     )}
 
-    ${renderInputArgInterfaces(graphQLTypeObject, modelMap)}
+    ${renderInputArgInterfaces(graphQLTypeObject, args.modelMap)}
 
-    ${renderResolverFunctionInterfaces(graphQLTypeObject, modelMap, context)}
+    ${renderResolverFunctionInterfaces(graphQLTypeObject, args.modelMap, args.context)}
 
-    ${renderResolverTypeInterface(graphQLTypeObject, modelMap, context)}
+    ${renderResolverTypeInterface(graphQLTypeObject, args.modelMap, args.context)}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   }
