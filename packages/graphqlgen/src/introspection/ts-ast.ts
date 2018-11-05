@@ -26,6 +26,7 @@ import {
   isTSTypeAliasDeclaration,
   TSEnumDeclaration,
   isTSEnumDeclaration,
+  StringLiteral,
 } from '@babel/types'
 import {
   InterfaceDefinition,
@@ -171,7 +172,9 @@ function isSupportedTypeOfField(field: TSTypeElement) {
 
 function extractInterfaceFieldName(field: TSTypeElement): string {
   if (isTSPropertySignature(field)) {
-    return (field.key as Identifier).name
+    return field.key.type === 'Identifier'
+      ? (field.key as Identifier).name
+      : (field.key as StringLiteral).value
   }
 
   return ''
