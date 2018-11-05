@@ -150,7 +150,7 @@ function shouldRenderDefaultResolver(
     return false
   }
 
-  if (modelField == undefined) {
+  if (modelField === undefined) {
     return false
   }
 
