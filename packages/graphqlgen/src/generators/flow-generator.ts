@@ -161,7 +161,9 @@ function renderInputTypeInterfaces(
 
   return getDistinctInputTypes(type, typeToInputTypeAssociation, inputTypesMap)
     .map(typeAssociation => {
-      return `export interface ${inputTypesMap[typeAssociation].name} {
+      return `export interface ${upperFirst(type.name)}_${upperFirst(
+        inputTypesMap[typeAssociation].name,
+      )} {
       ${inputTypesMap[typeAssociation].fields.map(
         field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}
