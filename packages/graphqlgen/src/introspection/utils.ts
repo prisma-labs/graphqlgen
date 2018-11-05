@@ -1,5 +1,3 @@
-import { BaseNode } from '@babel/types'
-
 import {
   InnerAndTypeDefinition,
   InternalInnerType,
@@ -86,8 +84,4 @@ export function isEnumUnion(unionTypes: InnerAndTypeDefinition[]) {
       unionType.type === 'string'
     )
   })
-}
-
-export function getLine(node: BaseNode) {
-  return node.loc === null ? 'unknown' : node.loc.start.line
 }

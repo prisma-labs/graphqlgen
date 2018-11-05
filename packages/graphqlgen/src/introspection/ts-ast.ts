@@ -43,8 +43,6 @@ import {
   createAnonymousInterfaceAnnotation,
   createUnionTypeAnnotation,
 } from './factory'
-import { getLine } from './utils'
-import chalk from 'chalk'
 
 // /!\ If you add a supported type of field, make sure you update isSupportedField() as well
 type SupportedFields = TSPropertySignature
@@ -117,14 +115,6 @@ export function computeType(node: TSType, filePath: string): InternalInnerType {
     return createUnionTypeAnnotation(unionTypes, filePath)
   }
 
-  console.log(
-    chalk.yellow(
-      `WARNING: Unsupported type ${node.type} (Line ${getLine(
-        node,
-      )} in ${filePath}). Please file an issue at https://github.com/prisma/graphqlgen/issues`,
-    ),
-  )
-
   return createTypeAnnotation('_UNKNOWN_TYPE_')
 }
 
@@ -157,7 +147,7 @@ function extractEnum(
     enumType.members.some(enumMember => enumMember.id.type === 'StringLiteral')
   ) {
     throw new Error(
-      `ERROR: Enum initializers not supported (${enumName} in ${filePath})`,
+      `ERROR: Enum initializers not supported (${enumName} in ${filePath}).`,
     )
   }
 
@@ -179,29 +169,24 @@ function isSupportedTypeOfField(field: TSTypeElement) {
   return isTSPropertySignature(field)
 }
 
-function throwIfUnsupportedFields(fields: TSTypeElement[], filePath: string) {
-  const unsupportedFields = fields.filter(
-    field => !isSupportedTypeOfField(field),
-  )
-
-  if (unsupportedFields.length > 0) {
-    throw new Error(
-      `Unsupported notation for fields: ${unsupportedFields
-        .map(field => `Line ${getLine(field)} in ${filePath}`)
-        .join(', ')}`,
-    )
+function extractInterfaceFieldName(field: TSTypeElement): string {
+  if (isTSPropertySignature(field)) {
+    return (field.key as Identifier).name
   }
+
+  return ''
 }
 
 function extractInterfaceFields(fields: TSTypeElement[], filePath: string) {
-  throwIfUnsupportedFields(fields, filePath)
+  return fields.map(field => {
+    const fieldName = extractInterfaceFieldName(field)
 
-  return (fields as SupportedFields[]).map(field => {
-    const fieldName = (field.key as Identifier).name
-
-    if (!field.typeAnnotation) {
-      throw new Error(
-        `ERROR: Unsupported notation (Line ${getLine(field)} in ${filePath})`,
+    if (!isSupportedTypeOfField(field) || !field.typeAnnotation) {
+      return createInterfaceField(
+        '',
+        createTypeAnnotation('_UNKNOWN_TYPE_'),
+        filePath,
+        false,
       )
     }
 
@@ -209,7 +194,7 @@ function extractInterfaceFields(fields: TSTypeElement[], filePath: string) {
       field.typeAnnotation!.typeAnnotation,
       filePath,
     )
-    const isOptional = isFieldOptional(field)
+    const isOptional = isFieldOptional(field as TSPropertySignature)
 
     return createInterfaceField(fieldName, fieldType, filePath, isOptional)
   })

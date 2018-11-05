@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-
 import { parse as parseFlow } from '@babel/parser'
 import {
   ExportNamedDeclaration,
@@ -28,9 +26,7 @@ import {
   isUnionTypeAnnotation,
   isNullLiteralTypeAnnotation,
 } from '@babel/types'
-import { File } from 'graphqlgen-json-schema'
 
-import { getPath } from '../parse'
 import {
   TypeAliasDefinition,
   InterfaceDefinition,
@@ -47,18 +43,8 @@ import {
   createAnonymousInterfaceAnnotation,
   createUnionTypeAnnotation,
 } from './factory'
-import { getLine } from './utils'
-import chalk from 'chalk'
 
-// /!\ If you add a supported type of field, make sure you update isSupportedField() as well
-type SupportedFields = ObjectTypeProperty
 type ExtractableType = TypeAlias | InterfaceDeclaration
-
-function getSourceFile(filePath: string): FlowFile {
-  const file = fs.readFileSync(filePath).toString()
-
-  return parseFlow(file, { plugins: ['flow'] })
-}
 
 function shouldExtractType(node: Statement) {
   return node.type === 'TypeAlias' || node.type === 'InterfaceDeclaration'
@@ -83,13 +69,6 @@ function findFlowTypes(sourceFile: FlowFile): ExtractableType[] {
   return [...types, ...typesFromNamedExport] as ExtractableType[]
 }
 
-export function typeNamesFromFlowFile(file: File): string[] {
-  const filePath = getPath(file)
-  const sourceFile = getSourceFile(filePath)
-
-  return findFlowTypes(sourceFile).map(node => node.id.name)
-}
-
 export function isFieldOptional(node: ObjectTypeProperty) {
   if (!!node.optional) {
     return true
@@ -106,29 +85,6 @@ export function isFieldOptional(node: ObjectTypeProperty) {
   }
 
   return false
-}
-
-function isSupportedTypeOfField(
-  field: ObjectTypeProperty | ObjectTypeSpreadProperty,
-) {
-  return isObjectTypeProperty(field)
-}
-
-function throwIfUnsupportedFields(
-  fields: (ObjectTypeProperty | ObjectTypeSpreadProperty)[],
-  filePath: string,
-) {
-  const unsupportedFields = fields.filter(
-    field => !isSupportedTypeOfField(field),
-  )
-
-  if (unsupportedFields.length > 0) {
-    throw new Error(
-      `Unsupported notation for fields: ${unsupportedFields
-        .map(field => `Line ${getLine(field)} in ${filePath}`)
-        .join(', ')}`,
-    )
-  }
 }
 
 export function computeType(
@@ -191,14 +147,6 @@ export function computeType(
     return createUnionTypeAnnotation(unionTypes, filePath)
   }
 
-  console.log(
-    chalk.yellow(
-      `WARNING: Unsupported type ${node.type} (Line ${getLine(
-        node,
-      )} in ${filePath}). Please file an issue at https://github.com/prisma/graphqlgen/issues`,
-    ),
-  )
-
   return createTypeAnnotation('_UNKNOWN_TYPE_')
 }
 
@@ -216,20 +164,43 @@ function extractTypeAlias(
   }
 }
 
+function isSupportedTypeOfField(
+  field: ObjectTypeProperty | ObjectTypeSpreadProperty,
+) {
+  return isObjectTypeProperty(field)
+}
+
+function extractInterfaceFieldName(
+  field: ObjectTypeProperty | ObjectTypeSpreadProperty,
+): string {
+  if (isObjectTypeProperty(field)) {
+    return field.key.type === 'Identifier'
+      ? (field.key as Identifier).name
+      : (field.key as StringLiteral).value
+  }
+
+  return ''
+}
+
 function extractInterfaceFields(
   fields: (ObjectTypeProperty | ObjectTypeSpreadProperty)[],
   filePath: string,
 ) {
-  throwIfUnsupportedFields(fields, filePath)
+  return fields.map(field => {
+    const fieldName = extractInterfaceFieldName(field)
 
-  return (fields as SupportedFields[]).map(field => {
-    const fieldName =
-      field.key.type === 'Identifier'
-        ? (field.key as Identifier).name
-        : (field.key as StringLiteral).value
+    if (!isSupportedTypeOfField(field)) {
+      return createInterfaceField(
+        '',
+        createTypeAnnotation('_UNKNOWN_TYPE_'),
+        filePath,
+        false,
+      )
+    }
 
-    const fieldType = computeType(field.value, filePath)
-    const isOptional = isFieldOptional(field)
+    const fieldAsObjectTypeProperty = field as ObjectTypeProperty
+    const fieldType = computeType(fieldAsObjectTypeProperty.value, filePath)
+    const isOptional = isFieldOptional(fieldAsObjectTypeProperty)
 
     return createInterfaceField(fieldName, fieldType, filePath, isOptional)
   })
@@ -248,6 +219,7 @@ function extractInterface(
 export function buildFlowTypesMap(fileContent: string, filePath: string) {
   const ast = parseFlow(fileContent, {
     plugins: ['flow'],
+    sourceType: 'module',
   })
 
   const typesMap = findFlowTypes(ast).reduce(
