@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { buildTypesMap } from '../../introspection/index'
+import { buildTypesMap } from '../../introspection'
 
 const relative = (p: string) => join(__dirname, p)
 const language = 'typescript'
@@ -13,6 +13,7 @@ describe('typescript file introspection', () => {
     expect(typesNames).toEqual([
       'Interface',
       'Type',
+      'Enum',
       'ExportedInterface',
       'ExportedType',
     ])

@@ -9,14 +9,15 @@ import type { User } from \\"../../../fixtures/enum/types-flow\\";
 
 type Context = any;
 
-type UserType = \\"ADMIN\\" | \\"EDITOR\\" | \\"COLLABORATOR\\";
+type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
+type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
 
 // Types for Query
 export const Query_defaultResolvers = {};
 
 export interface Query_Args_CreateUser {
   name: string;
-  type: UserType;
+  type: EnumAnnotation;
 }
 
 export type Query_CreateUser_Resolver = (
@@ -39,7 +40,7 @@ export interface Query_Resolvers {
 export const User_defaultResolvers = {
   id: (parent: User) => parent.id,
   name: (parent: User) => parent.name,
-  type: (parent: User) => parent.type
+  enumAsUnionType: (parent: User) => parent.enumAsUnionType
 };
 
 export type User_Id_Resolver = (
@@ -56,12 +57,19 @@ export type User_Name_Resolver = (
   info: GraphQLResolveInfo
 ) => string | Promise<string>;
 
-export type User_Type_Resolver = (
+export type User_EnumAnnotation_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => UserType | Promise<UserType>;
+) => EnumAnnotation | Promise<EnumAnnotation>;
+
+export type User_EnumAsUnionType_Resolver = (
+  parent: User,
+  args: {},
+  ctx: Context,
+  info: GraphQLResolveInfo
+) => EnumAsUnionType | Promise<EnumAsUnionType>;
 
 export interface User_Resolvers {
   id: (
@@ -78,12 +86,19 @@ export interface User_Resolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
-  type: (
+  enumAnnotation: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => UserType | Promise<UserType>;
+  ) => EnumAnnotation | Promise<EnumAnnotation>;
+
+  enumAsUnionType: (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => EnumAsUnionType | Promise<EnumAsUnionType>;
 }
 
 export interface Resolvers {
@@ -101,7 +116,11 @@ import { User_defaultResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 import type { User_Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const User: User_Resolvers = {
-  ...User_defaultResolvers
+  ...User_defaultResolvers,
+
+  enumAnnotation: (parent, args, ctx, info) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,
@@ -121,16 +140,17 @@ export const Query: Query_Resolvers = {
     "path": "Query.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
-import { UserType } from \\"./UserType\\";
 import { User } from \\"./User\\";
 
 export const resolvers: Resolvers = {
   Query,
-  UserType,
   User
 };
 ",
@@ -233,16 +253,17 @@ export const Mutation: Mutation_Resolvers = {
     "path": "Mutation.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Mutation } from \\"./Mutation\\";
-import { AddMemberData } from \\"./AddMemberData\\";
 import { AddMemberPayload } from \\"./AddMemberPayload\\";
 
 export const resolvers: Resolvers = {
   Mutation,
-  AddMemberData,
   AddMemberPayload
 };
 ",
@@ -571,7 +592,10 @@ export const Query: Query_Resolvers = {
     "path": "Query.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
@@ -742,7 +766,10 @@ export const Professor: Professor_Resolvers = {
     "path": "Professor.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { User } from \\"./User\\";
@@ -845,7 +872,10 @@ export const Query: Query_Resolvers = {
     "path": "Query.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
@@ -1181,7 +1211,10 @@ export const Query: Query_Resolvers = {
     "path": "Query.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";

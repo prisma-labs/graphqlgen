@@ -4234,7 +4234,10 @@ export const Mutation: Mutation_Resolvers = {
     "path": "Mutation.js",
   },
   Object {
-    "code": "/* @flow */
+    "code": "// @flow
+// This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+// Please do not import this file directly but copy & paste to your application code.
+
 import type { Resolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 import { Query } from \\"./Query\\";
@@ -4252,21 +4255,17 @@ import { Viewer } from \\"./Viewer\\";
 import { User } from \\"./User\\";
 import { Booking } from \\"./Booking\\";
 import { Place } from \\"./Place\\";
-import { PLACE_SIZES } from \\"./PLACE_SIZES\\";
 import { Amenities } from \\"./Amenities\\";
 import { Pricing } from \\"./Pricing\\";
-import { CURRENCY } from \\"./CURRENCY\\";
 import { PlaceViews } from \\"./PlaceViews\\";
 import { GuestRequirements } from \\"./GuestRequirements\\";
 import { Policies } from \\"./Policies\\";
 import { HouseRules } from \\"./HouseRules\\";
 import { Payment } from \\"./Payment\\";
 import { PaymentAccount } from \\"./PaymentAccount\\";
-import { PAYMENT_PROVIDER } from \\"./PAYMENT_PROVIDER\\";
 import { PaypalInformation } from \\"./PaypalInformation\\";
 import { CreditCardInformation } from \\"./CreditCardInformation\\";
 import { Notification } from \\"./Notification\\";
-import { NOTIFICATION_TYPE } from \\"./NOTIFICATION_TYPE\\";
 import { Message } from \\"./Message\\";
 import { Mutation } from \\"./Mutation\\";
 import { AuthPayload } from \\"./AuthPayload\\";
@@ -4288,21 +4287,17 @@ export const resolvers: Resolvers = {
   User,
   Booking,
   Place,
-  PLACE_SIZES,
   Amenities,
   Pricing,
-  CURRENCY,
   PlaceViews,
   GuestRequirements,
   Policies,
   HouseRules,
   Payment,
   PaymentAccount,
-  PAYMENT_PROVIDER,
   PaypalInformation,
   CreditCardInformation,
   Notification,
-  NOTIFICATION_TYPE,
   Message,
   Mutation,
   AuthPayload,

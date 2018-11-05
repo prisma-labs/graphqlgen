@@ -41,19 +41,19 @@ function renderExports(types: GraphQLTypeObject[]): string {
 
   import type { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
     ${types
-    .filter(type => type.type.isObject)
-    .map(
-      type => `
+      .filter(type => type.type.isObject)
+      .map(
+        type => `
       import { ${type.name} } from './${type.name}'
     `,
-    )
-    .join(';')}
+      )
+      .join(';')}
 
     export const resolvers: Resolvers = {
       ${types
-    .filter(type => type.type.isObject)
-    .map(type => `${type.name}`)
-    .join(',')}
+        .filter(type => type.type.isObject)
+        .map(type => `${type.name}`)
+        .join(',')}
     }`
 }
 function renderResolvers(
@@ -104,7 +104,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files.push({
     path: 'index.js',
     force: false,
-    code: renderExports(args.types)
+    code: renderExports(args.types),
   })
 
   return files
