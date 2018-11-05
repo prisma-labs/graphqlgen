@@ -33,6 +33,29 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
     code,
   }
 }
+function renderExports(types: GraphQLTypeObject[]): string {
+  return `\
+  // @flow
+  // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+  // Please do not import this file directly but copy & paste to your application code.
+
+  import type { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+    ${types
+    .filter(type => type.type.isObject)
+    .map(
+      type => `
+      import { ${type.name} } from './${type.name}'
+    `,
+    )
+    .join(';')}
+
+    export const resolvers: Resolvers = {
+      ${types
+    .filter(type => type.type.isObject)
+    .map(type => `${type.name}`)
+    .join(',')}
+    }`
+}
 function renderResolvers(
   type: GraphQLTypeObject,
   args: GenerateArgs,
@@ -81,20 +104,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   files.push({
     path: 'index.js',
     force: false,
-    code: `/* @flow */
-    import type { Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
-    ${args.types
-      .map(
-        type => `
-      import { ${type.name} } from './${type.name}'
-    `,
-      )
-      .join(';')}
-
-    export const resolvers: Resolvers = {
-      ${args.types.map(type => `${type.name}`).join(',')}   
-    }
-    `,
+    code: renderExports(args.types)
   })
 
   return files
