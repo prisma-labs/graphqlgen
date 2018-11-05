@@ -92,7 +92,6 @@ function renderHeader(args: GenerateArgs): string {
 
 import type { GraphQLResolveInfo } from 'graphql'
 ${modelImports}
-
 ${renderContext(args.context)}
   `
 }
