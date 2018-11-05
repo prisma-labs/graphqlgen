@@ -3,7 +3,6 @@
 import { GraphQLResolveInfo } from 'graphql'
 import { Post } from '../types'
 import { User } from '../types'
-
 import { Context } from '../types'
 
 export namespace QueryResolvers {
