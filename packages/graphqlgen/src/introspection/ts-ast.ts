@@ -24,6 +24,8 @@ import {
   isTSLiteralType,
   isTSUnionType,
   isTSTypeAliasDeclaration,
+  TSEnumDeclaration,
+  isTSEnumDeclaration,
 } from '@babel/types'
 import {
   InterfaceDefinition,
@@ -47,12 +49,16 @@ import chalk from 'chalk'
 // /!\ If you add a supported type of field, make sure you update isSupportedField() as well
 type SupportedFields = TSPropertySignature
 
-type ExtractableType = TSTypeAliasDeclaration | TSInterfaceDeclaration
+type ExtractableType =
+  | TSTypeAliasDeclaration
+  | TSInterfaceDeclaration
+  | TSEnumDeclaration
 
 function shouldExtractType(node: Statement) {
   return (
     node.type === 'TSTypeAliasDeclaration' ||
-    node.type === 'TSInterfaceDeclaration'
+    node.type === 'TSInterfaceDeclaration' ||
+    node.type === 'TSEnumDeclaration'
   )
 }
 
@@ -138,6 +144,35 @@ function extractTypeAlias(
 
     return createTypeAlias(typeName, typeAliasType, filePath)
   }
+}
+
+// Enums are converted to TypeAlias of UnionType
+// enum Enum { A, B, C } => type Enum = 'A' | 'B' | 'C'
+function extractEnum(
+  enumName: string,
+  enumType: TSEnumDeclaration,
+  filePath: string,
+): TypeAliasDefinition {
+  if (
+    enumType.members.some(enumMember => enumMember.id.type === 'StringLiteral')
+  ) {
+    throw new Error(
+      `ERROR: Enum initializers not supported (${enumName} in ${filePath})`,
+    )
+  }
+
+  const enumValuesAsLiteralStrings = enumType.members.map(enumMember => {
+    return createLiteralTypeAnnotation(
+      'string',
+      (enumMember.id as Identifier).name,
+    )
+  })
+  const unionType = createUnionTypeAnnotation(
+    enumValuesAsLiteralStrings,
+    filePath,
+  )
+
+  return createTypeAlias(enumName, unionType, filePath)
 }
 
 function isSupportedTypeOfField(field: TSTypeElement) {
@@ -247,6 +282,13 @@ export function buildTSTypesMap(fileContent: string, filePath: string) {
         return {
           ...acc,
           [typeName]: extractTypeAlias(typeName, type, filePath),
+        }
+      }
+
+      if (isTSEnumDeclaration(type)) {
+        return {
+          ...acc,
+          [typeName]: extractEnum(typeName, type, filePath),
         }
       }
 
