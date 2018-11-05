@@ -32,7 +32,6 @@ import { Notification } from \\"../../../fixtures/prisma/types\\";
 import { Message } from \\"../../../fixtures/prisma/types\\";
 import { AuthPayload } from \\"../../../fixtures/prisma/types\\";
 import { MutationResult } from \\"../../../fixtures/prisma/types\\";
-
 type Context = any;
 
 type PLACE_SIZES =

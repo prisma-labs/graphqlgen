@@ -172,7 +172,7 @@ type Context = any;
 // Types for Mutation
 export const Mutation_defaultResolvers = {};
 
-export interface AddMemberData {
+export interface Mutation_AddMemberData {
   email: string;
   projects: string[];
 }

@@ -5,7 +5,6 @@ exports[`basic enum 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { User } from \\"../../../fixtures/enum/types\\";
-
 type Context = any;
 
 type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
@@ -167,7 +166,6 @@ exports[`basic input 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { AddMemberPayload } from \\"../../../fixtures/input/types\\";
-
 type Context = any;
 
 export namespace MutationResolvers {
@@ -333,7 +331,6 @@ exports[`basic scalar 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { AddMemberPayload } from \\"../../../fixtures/scalar/types\\";
-
 type Context = any;
 
 export namespace MutationResolvers {
@@ -450,7 +447,6 @@ exports[`basic schema 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { Number } from \\"../../../fixtures/basic\\";
-
 type Context = any;
 
 export namespace QueryResolvers {
@@ -777,7 +773,6 @@ import { GraphQLResolveInfo } from \\"graphql\\";
 import { User } from \\"../../../fixtures/union/types\\";
 import { Student } from \\"../../../fixtures/union/types\\";
 import { Professor } from \\"../../../fixtures/union/types\\";
-
 type Context = any;
 
 export namespace UserResolvers {
@@ -955,7 +950,6 @@ exports[`context 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { User } from \\"../../../fixtures/context/types\\";
-
 import { Context } from \\"../../../fixtures/context/types\\";
 
 export namespace QueryResolvers {
@@ -1061,7 +1055,6 @@ exports[`defaultName 1`] = `
 
 import { GraphQLResolveInfo } from \\"graphql\\";
 import { NumberNode } from \\"../../../fixtures/defaultName\\";
-
 type Context = any;
 
 export namespace QueryResolvers {
