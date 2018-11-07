@@ -43,7 +43,7 @@
     "graphqlgen-json-schema": "0.2.12",
     "js-yaml": "3.12.0",
     "mkdirp": "0.5.1",
-    "prettier": "1.14.3",
+    "prettier": "1.15.1",
     "reason": "3.3.4",
     "rimraf": "2.6.2",
     "typescript": "3.1.6",
