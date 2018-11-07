@@ -1,6 +1,6 @@
 {
   "name": "graphqlgen",
-  "version": "0.3.0-beta4",
+  "version": "0.3.0",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "files": [
@@ -13,7 +13,7 @@
     "gg": "dist/index.js"
   },
   "scripts": {
-    "prepublish": "rm -rf example/node_modules && npm run build",
+    "prepublish": "rm -rf example/node_modules && npm test && npm run build",
     "build": "npm run lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/prisma/graphqlgen#readme",
   "dependencies": {
-    "@babel/parser": "^7.1.3",
-    "@babel/types": "7.1.3",
+    "@babel/parser": "^7.1.5",
+    "@babel/types": "7.1.5",
     "ajv": "^6.5.5",
     "camelcase": "5.0.0",
     "chalk": "2.4.1",
