@@ -18,7 +18,8 @@ export type ExportedType = {
   field: string
 }
 
-export enum EnumShouldNotBeEvaluated {
+// @ts-ignore
+enum Enum {
   A, B, C
 }
 

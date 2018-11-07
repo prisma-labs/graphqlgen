@@ -4,6 +4,7 @@ import {
   GraphQLEnumObject,
   GraphQLUnionObject,
 } from './source-helper'
+import { TypeDefinition } from './introspection/types'
 
 export interface GenerateArgs {
   types: GraphQLTypeObject[]
@@ -20,7 +21,7 @@ export interface ModelMap {
 export interface Model {
   absoluteFilePath: string
   importPathRelativeToOutput: string
-  modelTypeName: string
+  definition: TypeDefinition
 }
 
 export interface ContextDefinition {

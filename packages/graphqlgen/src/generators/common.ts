@@ -4,10 +4,21 @@ import {
   GraphQLTypeObject,
   GraphQLType,
   GraphQLTypeField,
+  getGraphQLEnumValues,
 } from '../source-helper'
-import { Model, ModelMap, ContextDefinition } from '../types'
-import { ModelField } from '../introspection/ts-ast'
+import { ModelMap, ContextDefinition, GenerateArgs } from '../types'
 import { flatten, uniq } from '../utils'
+import {
+  TypeDefinition,
+  FieldDefinition,
+  InterfaceDefinition,
+  TypeAliasDefinition,
+  AnonymousInterfaceAnnotation,
+} from '../introspection/types'
+import {
+  isFieldDefinitionEnumOrLiteral,
+  getEnumValues,
+} from '../introspection/utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -19,28 +30,56 @@ export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
 
+export function fieldsFromModelDefinition(
+  modelDef: TypeDefinition,
+): FieldDefinition[] {
+  // If model is of type `interface InterfaceName { ... }`
+  if (modelDef.kind === 'InterfaceDefinition') {
+    const interfaceDef = modelDef as InterfaceDefinition
+
+    return interfaceDef.fields
+  }
+  // If model is of type `type TypeName = { ... }`
+  if (
+    modelDef.kind === 'TypeAliasDefinition' &&
+    (modelDef as TypeAliasDefinition).getType().kind ===
+      'AnonymousInterfaceAnnotation'
+  ) {
+    const interfaceDef = (modelDef as TypeAliasDefinition).getType() as AnonymousInterfaceAnnotation
+
+    return interfaceDef.fields
+  }
+
+  return []
+}
+
 export function renderDefaultResolvers(
-  type: GraphQLTypeObject,
-  modelMap: ModelMap,
-  extractFieldsFromModel: (model: Model) => ModelField[],
+  graphQLTypeObject: GraphQLTypeObject,
+  args: GenerateArgs,
   variableName: string,
 ): string {
-  const model = modelMap[type.name]
+  const model = args.modelMap[graphQLTypeObject.name]
 
   if (model === undefined) {
     return `export const ${variableName} = {}`
   }
 
-  const modelFields = extractFieldsFromModel(model)
+  const modelDef = model.definition
 
   return `export const ${variableName} = {
-    ${modelFields
-      .filter(modelField => shouldRenderDefaultResolver(type, modelField))
+    ${fieldsFromModelDefinition(modelDef)
+      .filter(modelField => {
+        const graphQLField = graphQLTypeObject.fields.find(
+          field => field.name === modelField.name,
+        )
+
+        return shouldRenderDefaultResolver(graphQLField, modelField, args)
+      })
       .map(modelField =>
         renderDefaultResolver(
-          modelField.fieldName,
-          modelField.fieldOptional,
-          model.modelTypeName,
+          modelField.name,
+          modelField.optional,
+          model.definition.name,
         ),
       )
       .join(os.EOL)}
@@ -90,37 +129,60 @@ export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
     return '{}'
   }
 
-  return model.modelTypeName
+  return model.definition.name
+}
+
+function isModelEnumSubsetOfGraphQLEnum(
+  graphQLEnumValues: string[],
+  modelEnumValues: string[],
+) {
+  return modelEnumValues.every(enumValue =>
+    graphQLEnumValues.includes(enumValue),
+  )
 }
 
 function shouldRenderDefaultResolver(
-  type: GraphQLTypeObject,
-  modelField: ModelField,
+  graphQLField: GraphQLTypeField | undefined,
+  modelField: FieldDefinition | undefined,
+  args: GenerateArgs,
 ) {
-  const graphQLField = type.fields.find(
-    field => field.name === modelField.fieldName,
-  )
-
-  if (!graphQLField) {
+  if (graphQLField === undefined) {
     return false
   }
 
-  return !(modelField.fieldOptional && graphQLField.type.isRequired)
+  if (modelField === undefined) {
+    return false
+  }
+
+  const modelFieldType = modelField.getType()
+
+  // If both types are enums, and model definition enum is a subset of the graphql enum
+  // Then render as defaultResolver
+  // eg: given GraphQLEnum = 'A' | 'B' | 'C'
+  // render when FieldDefinition = ('A') | ('A' | 'B') | ('A | 'B' | 'C')
+  if (
+    graphQLField.type.isEnum &&
+    isFieldDefinitionEnumOrLiteral(modelFieldType)
+  ) {
+    return isModelEnumSubsetOfGraphQLEnum(
+      getGraphQLEnumValues(graphQLField, args.enums),
+      getEnumValues(modelFieldType),
+    )
+  }
+
+  return !(modelField.optional && graphQLField.type.isRequired)
 }
 
 export function shouldScaffoldFieldResolver(
   graphQLField: GraphQLTypeField,
-  modelFields: ModelField[],
+  modelFields: FieldDefinition[],
+  args: GenerateArgs,
 ): boolean {
   const modelField = modelFields.find(
-    modelField => modelField.fieldName === graphQLField.name,
+    modelField => modelField.name === graphQLField.name,
   )
 
-  if (!modelField) {
-    return true
-  }
-
-  return modelField.fieldOptional && graphQLField.type.isRequired
+  return !shouldRenderDefaultResolver(graphQLField, modelField, args)
 }
 
 export function printFieldLikeType(
@@ -133,7 +195,7 @@ export function printFieldLikeType(
     }${!field.type.isRequired ? '| null' : ''}`
   }
 
-  if (field.type.isInput) {
+  if (field.type.isInput || field.type.isEnum) {
     return `${field.type.name}${field.type.isArray ? '[]' : ''}${
       !field.type.isRequired ? '| null' : ''
     }`
@@ -188,4 +250,14 @@ export function getDistinctInputTypes(
     .map(t => deepResolveInputTypes(inputTypesMap, t))
     .reduce(flatten, [])
     .filter(uniq)
+}
+
+export function renderEnums(args: GenerateArgs): string {
+  return args.enums
+    .map(enumObject => {
+      return `type ${enumObject.name} = ${enumObject.values
+        .map(value => `'${value}'`)
+        .join(' | ')}`
+    })
+    .join(os.EOL)
 }

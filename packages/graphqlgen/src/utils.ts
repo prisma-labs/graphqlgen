@@ -1,9 +1,9 @@
 import * as path from 'path'
-import { Language, File } from 'graphqlgen-json-schema'
+import { Language } from 'graphqlgen-json-schema'
 
 import { getExtNameFromLanguage } from './path-helpers'
-import { InterfaceNamesToFile, typeNamesFromTypescriptFile } from './introspection/ts-ast'
-import { typeNamesFromFlowFile } from './introspection/flow-ast'
+import { NormalizedFile } from './parse'
+import { FilesToTypesMap, InterfaceNamesToFile } from './introspection/types'
 
 export function upperFirst(s: string) {
   return s.replace(/^\w/, c => c.toUpperCase())
@@ -30,34 +30,29 @@ export function normalizeFilePath(
   return filePath
 }
 
-function typeNamesFromFile(file: File, language: Language) {
-  switch (language) {
-    case 'typescript':
-      return typeNamesFromTypescriptFile(file)
-    case 'flow':
-      return typeNamesFromFlowFile(file)
-  }
-}
-
 /**
  * Create a map of interface names to the path of the file in which they're defined
  * The first evaluated interfaces are always the chosen ones
  */
 export function getTypeToFileMapping(
-  files: File[],
-  language: Language,
+  files: NormalizedFile[],
+  filesToTypesMap: FilesToTypesMap,
 ): InterfaceNamesToFile {
-  return files.reduce((acc: InterfaceNamesToFile, file: File) => {
-    const interfaceNames = typeNamesFromFile(file, language).filter(
-      interfaceName => !acc[interfaceName],
-    )
+  return files.reduce(
+    (acc, file) => {
+      const typesMap = filesToTypesMap[file.path]
+      const interfaceNames = Object.keys(typesMap).filter(
+        interfaceName => !acc[interfaceName],
+      )
 
-    interfaceNames.forEach(interfaceName => {
-      acc[interfaceName] = file
-    })
+      interfaceNames.forEach(interfaceName => {
+        acc[interfaceName] = file
+      })
 
-    return acc
-  }, {})
+      return acc
+    },
+    {} as InterfaceNamesToFile,
+  )
 }
 
 export function replaceAll(str: string, search: string, replacement: string) {

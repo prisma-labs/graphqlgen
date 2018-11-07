@@ -3,16 +3,16 @@ import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromFlowType } from '../introspection/flow-ast'
 import { upperFirst } from '../utils'
 import {
-  renderDefaultResolvers,
   getContextName,
+  getDistinctInputTypes,
   getModelName,
-  TypeToInputTypeAssociation,
   InputTypesMap,
   printFieldLikeType,
-  getDistinctInputTypes,
+  renderDefaultResolvers,
+  renderEnums,
+  TypeToInputTypeAssociation,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -67,6 +67,8 @@ export function generate(args: GenerateArgs): string {
   return `\
   ${renderHeader(args)}
 
+  ${renderEnums(args)}
+
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
 
   ${renderResolvers(args)}
@@ -79,7 +81,7 @@ function renderHeader(args: GenerateArgs): string {
   const modelImports = modelArray
     .map(
       m =>
-        `import type { ${m.modelTypeName} } from '${
+        `import type { ${m.definition.name} } from '${
           m.importPathRelativeToOutput
         }'`,
     )
@@ -90,7 +92,6 @@ function renderHeader(args: GenerateArgs): string {
 
 import type { GraphQLResolveInfo } from 'graphql'
 ${modelImports}
-
 ${renderContext(args.context)}
   `
 }
@@ -113,13 +114,7 @@ function renderNamespaces(
   return args.types
     .filter(type => type.type.isObject)
     .map(type =>
-      renderNamespace(
-        type,
-        typeToInputTypeAssociation,
-        inputTypesMap,
-        args.modelMap,
-        args.context,
-      ),
+      renderNamespace(type, typeToInputTypeAssociation, inputTypesMap, args),
     )
     .join(os.EOL)
 }
@@ -128,32 +123,26 @@ function renderNamespace(
   type: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-  modelMap: ModelMap,
-  context?: ContextDefinition,
+  args: GenerateArgs,
 ): string {
   const typeName = upperFirst(type.name)
 
   return `\
     // Types for ${typeName}
-    ${renderDefaultResolvers(
-      type,
-      modelMap,
-      extractFieldsFromFlowType,
-      `${typeName}_defaultResolvers`,
-    )}
+    ${renderDefaultResolvers(type, args, `${typeName}_defaultResolvers`)}
 
     ${renderInputTypeInterfaces(
       type,
-      modelMap,
+      args.modelMap,
       typeToInputTypeAssociation,
       inputTypesMap,
     )}
 
-    ${renderInputArgInterfaces(type, modelMap)}
+    ${renderInputArgInterfaces(type, args.modelMap)}
 
-    ${renderResolverFunctionInterfaces(type, modelMap, context)}
+    ${renderResolverFunctionInterfaces(type, args.modelMap, args.context)}
 
-    ${renderResolverTypeInterface(type, modelMap, context)}
+    ${renderResolverTypeInterface(type, args.modelMap, args.context)}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   `
@@ -171,7 +160,9 @@ function renderInputTypeInterfaces(
 
   return getDistinctInputTypes(type, typeToInputTypeAssociation, inputTypesMap)
     .map(typeAssociation => {
-      return `export interface ${inputTypesMap[typeAssociation].name} {
+      return `export interface ${upperFirst(type.name)}_${upperFirst(
+        inputTypesMap[typeAssociation].name,
+      )} {
       ${inputTypesMap[typeAssociation].fields.map(
         field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
       )}

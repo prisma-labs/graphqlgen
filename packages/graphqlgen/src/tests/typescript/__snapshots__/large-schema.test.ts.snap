@@ -18,26 +18,39 @@ import { Viewer } from \\"../../../fixtures/prisma/types\\";
 import { User } from \\"../../../fixtures/prisma/types\\";
 import { Booking } from \\"../../../fixtures/prisma/types\\";
 import { Place } from \\"../../../fixtures/prisma/types\\";
-import { PLACE_SIZES } from \\"../../../fixtures/prisma/types\\";
 import { Amenities } from \\"../../../fixtures/prisma/types\\";
 import { Pricing } from \\"../../../fixtures/prisma/types\\";
-import { CURRENCY } from \\"../../../fixtures/prisma/types\\";
 import { PlaceViews } from \\"../../../fixtures/prisma/types\\";
 import { GuestRequirements } from \\"../../../fixtures/prisma/types\\";
 import { Policies } from \\"../../../fixtures/prisma/types\\";
 import { HouseRules } from \\"../../../fixtures/prisma/types\\";
 import { Payment } from \\"../../../fixtures/prisma/types\\";
 import { PaymentAccount } from \\"../../../fixtures/prisma/types\\";
-import { PAYMENT_PROVIDER } from \\"../../../fixtures/prisma/types\\";
 import { PaypalInformation } from \\"../../../fixtures/prisma/types\\";
 import { CreditCardInformation } from \\"../../../fixtures/prisma/types\\";
 import { Notification } from \\"../../../fixtures/prisma/types\\";
-import { NOTIFICATION_TYPE } from \\"../../../fixtures/prisma/types\\";
 import { Message } from \\"../../../fixtures/prisma/types\\";
 import { AuthPayload } from \\"../../../fixtures/prisma/types\\";
 import { MutationResult } from \\"../../../fixtures/prisma/types\\";
-
 type Context = any;
+
+type PLACE_SIZES =
+  | \\"ENTIRE_HOUSE\\"
+  | \\"ENTIRE_APARTMENT\\"
+  | \\"ENTIRE_EARTH_HOUSE\\"
+  | \\"ENTIRE_CABIN\\"
+  | \\"ENTIRE_VILLA\\"
+  | \\"ENTIRE_PLACE\\"
+  | \\"ENTIRE_BOAT\\"
+  | \\"PRIVATE_ROOM\\";
+type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
+type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
+type NOTIFICATION_TYPE =
+  | \\"OFFER\\"
+  | \\"INSTANT_BOOK\\"
+  | \\"RESPONSIVENESS\\"
+  | \\"NEW_AMENITIES\\"
+  | \\"HOUSE_RULES\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};

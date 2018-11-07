@@ -1,7 +1,9 @@
-import { GenerateArgs, CodeFileLike, ModelMap } from '../types'
+import { GenerateArgs, CodeFileLike } from '../types'
 import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
-import { extractFieldsFromTypescriptType } from '../introspection/ts-ast'
-import { shouldScaffoldFieldResolver } from './common'
+import {
+  fieldsFromModelDefinition,
+  shouldScaffoldFieldResolver,
+} from './common'
 
 export { format } from './ts-generator'
 
@@ -45,10 +47,10 @@ function isParentType(name: string) {
 
 function renderResolvers(
   type: GraphQLTypeObject,
-  modelMap: ModelMap,
+  args: GenerateArgs,
 ): CodeFileLike {
-  const model = modelMap[type.name]
-  const modelFields = extractFieldsFromTypescriptType(model)
+  const model = args.modelMap[type.name]
+  const modelFields = fieldsFromModelDefinition(model.definition)
 
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
@@ -59,7 +61,7 @@ function renderResolvers(
   export const ${type.name}: ${type.name}Resolvers.Type = {
     ...${type.name}Resolvers.defaultResolvers,
     ${type.fields
-      .filter(field => shouldScaffoldFieldResolver(field, modelFields))
+      .filter(field => shouldScaffoldFieldResolver(field, modelFields, args))
       .map(
         field => `
       ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {
@@ -122,7 +124,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
   let files: CodeFileLike[] = args.types
     .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
-    .map(type => renderResolvers(type, args.modelMap))
+    .map(type => renderResolvers(type, args))
 
   files = files.concat(
     args.types

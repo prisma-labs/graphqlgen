@@ -1,12 +1,6 @@
 import chalk from 'chalk'
 import { existsSync } from 'fs'
-import {
-  GraphQLGenDefinition,
-  Language,
-  Models,
-  File,
-} from 'graphqlgen-json-schema'
-import { findTypescriptInterfaceByName } from './introspection/ts-ast'
+import { GraphQLGenDefinition, Language, Models } from 'graphqlgen-json-schema'
 import {
   outputDefinitionFilesNotFound,
   outputInterfaceDefinitionsNotFound,
@@ -15,12 +9,18 @@ import {
   outputWrongSyntaxFiles,
 } from './output'
 import {
-  extractGraphQLTypesWithoutRootsAndInputs,
+  extractGraphQLTypesWithoutRootsAndInputsAndEnums,
   GraphQLTypes,
 } from './source-helper'
 import { normalizeFilePath, getTypeToFileMapping } from './utils'
-import { replaceVariablesInString, getPath, getDefaultName } from './parse'
-import { findFlowTypeByName } from './introspection/flow-ast'
+import {
+  replaceVariablesInString,
+  getPath,
+  getDefaultName,
+  normalizeFiles,
+  NormalizedFile,
+} from './parse'
+import { buildFilesToTypesMap, findTypeInFile } from './introspection'
 
 type Definition = {
   typeName: string
@@ -108,16 +108,14 @@ export function validateModels(
   schema: GraphQLTypes,
   language: Language,
 ): boolean {
-  const filePaths = !!models.files
-    ? models.files.map(file => ({
-        defaultName: typeof file === 'object' ? file.defaultName : undefined,
-        path: normalizeFilePath(getPath(file), language),
-      }))
-    : []
+  const normalizedFiles = normalizeFiles(models.files, language)
   const overriddenModels = !!models.override ? models.override : {}
-  // First test if all files are existing
-  if (filePaths.length > 0) {
-    const invalidFiles = filePaths.filter(file => !existsSync(getPath(file)))
+
+  // Make sure all files exist
+  if (normalizedFiles.length > 0) {
+    const invalidFiles = normalizedFiles.filter(
+      file => !existsSync(getPath(file)),
+    )
 
     if (invalidFiles.length > 0) {
       outputModelFilesNotFound(invalidFiles.map(f => f.path))
@@ -140,7 +138,7 @@ export function validateModels(
   return validateSchemaToModelMapping(
     schema,
     validatedOverriddenModels,
-    filePaths,
+    normalizedFiles,
     language,
   )
 }
@@ -174,14 +172,19 @@ function testValidatedDefinitions(
 function validateSchemaToModelMapping(
   schema: GraphQLTypes,
   validatedOverriddenModels: ValidatedDefinition[],
-  files: File[],
+  normalizedFiles: NormalizedFile[],
   language: Language,
 ): boolean {
-  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputs(schema)
+  const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const overridenTypeNames = validatedOverriddenModels.map(
     def => def.definition.typeName,
   )
-  const interfaceNamesToPath = getTypeToFileMapping(files, language)
+
+  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
+  const interfaceNamesToPath = getTypeToFileMapping(
+    normalizedFiles,
+    filesToTypesMap,
+  )
 
   const missingModels = graphQLTypes.filter(type => {
     // If some overridden models are mapped to a GraphQL type, consider them valid
@@ -205,8 +208,8 @@ function validateSchemaToModelMapping(
     // Append the user's chosen defaultName pattern to the step 1 missing models,
     // but only if they have the same pattern for all of their files
     let defaultName: string | null = null
-    if (files.length > 0) {
-      const names = files.map(getDefaultName)
+    if (normalizedFiles.length > 0) {
+      const names = normalizedFiles.map(getDefaultName)
       if (names.every(name => name === names[0])) {
         defaultName = names[0]
       }
@@ -218,24 +221,13 @@ function validateSchemaToModelMapping(
   return true
 }
 
-export function maybeReplaceDefaultName(typeName: string, defaultName?: string | null) {
+export function maybeReplaceDefaultName(
+  typeName: string,
+  defaultName?: string | null,
+) {
   return defaultName
     ? replaceVariablesInString(defaultName, { typeName })
     : typeName
-}
-
-// Check whether the model definition exists in typescript/flow file
-function interfaceDefinitionExistsInFile(
-  filePath: string,
-  modelName: string,
-  language: Language,
-): boolean {
-  switch (language) {
-    case 'typescript':
-      return findTypescriptInterfaceByName(filePath, modelName) !== undefined
-    case 'flow':
-      return findFlowTypeByName(filePath, modelName) !== undefined
-  }
 }
 
 export function validateDefinition(
@@ -275,9 +267,7 @@ export function validateDefinition(
     return validation
   }
 
-  if (
-    !interfaceDefinitionExistsInFile(normalizedFilePath, modelName, language)
-  ) {
+  if (!findTypeInFile(normalizedFilePath, modelName, language)) {
     validation.interfaceExists = false
   }
 

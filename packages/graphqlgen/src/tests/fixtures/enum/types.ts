@@ -1,7 +1,14 @@
 export interface User {
   id: string
   name: string
-  type: UserType
+  enumAnnotation: EnumAnnotation
+  enumAsUnionType: EnumAsUnionType
 }
 
-type UserType = 'ADMIN' | 'EDITOR' | 'COLLABORATOR'
+enum EnumAnnotation {
+  ADMIN,
+  EDITOR,
+  COLLABORATOR,
+}
+
+type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'
