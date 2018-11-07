@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/parser@^7.1.5":
+"@babel/parser@^7.1.3":
   version "7.1.5"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.5.tgz#20b7d5e7e1811ba996f8a868962ea7dd2bfcd2fc"
 
@@ -12,9 +12,9 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/types@7.1.5":
-  version "7.1.5"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.1.5.tgz#12fe64e91a431234b7017b4227a78cc0eec4e081"
+"@babel/types@7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.1.3.tgz#3a767004567060c2f40fca49a304712c525ee37d"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.10"
@@ -1083,12 +1083,12 @@ graphqlgen-json-schema@0.2.12:
   version "0.2.12"
   resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.12.tgz#445a2da9839a460841d729fba5941fd3007249c2"
 
-graphqlgen@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.3.0.tgz#f04f8ba2ee397a27962925a0e00f0ad78f8dd300"
+graphqlgen@0.3.0-beta4:
+  version "0.3.0-beta4"
+  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.3.0-beta4.tgz#c069c8eac59346d447e4ada787928175868a61ad"
   dependencies:
-    "@babel/parser" "^7.1.5"
-    "@babel/types" "7.1.5"
+    "@babel/parser" "^7.1.3"
+    "@babel/types" "7.1.3"
     ajv "^6.5.5"
     camelcase "5.0.0"
     chalk "2.4.1"
@@ -1098,7 +1098,7 @@ graphqlgen@0.3.0:
     graphqlgen-json-schema "0.2.12"
     js-yaml "3.12.0"
     mkdirp "0.5.1"
-    prettier "1.15.1"
+    prettier "1.14.3"
     reason "3.3.4"
     rimraf "2.6.2"
     typescript "3.1.6"
@@ -1852,9 +1852,9 @@ prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
 
-prettier@1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.1.tgz#06c67106afb1b40e74b002353b2079cc7e0e67bf"
+prettier@1.14.3:
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
