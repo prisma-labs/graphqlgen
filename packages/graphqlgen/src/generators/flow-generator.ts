@@ -8,6 +8,7 @@ import {
   getContextName,
   getDistinctInputTypes,
   getModelName,
+  groupModelsNameByImportPath,
   InputTypesMap,
   printFieldLikeType,
   renderDefaultResolvers,
@@ -77,13 +78,15 @@ export function generate(args: GenerateArgs): string {
 }
 
 function renderHeader(args: GenerateArgs): string {
-  const modelArray = Object.keys(args.modelMap).map(k => args.modelMap[k])
-  const modelImports = modelArray
+  const modelsToImport = Object.keys(args.modelMap).map(k => args.modelMap[k])
+  const modelsByImportPaths = groupModelsNameByImportPath(modelsToImport)
+
+  const modelImports = Object.keys(modelsByImportPaths)
     .map(
-      m =>
-        `import type { ${m.definition.name} } from '${
-          m.importPathRelativeToOutput
-        }'`,
+      importPath =>
+        `import type { ${modelsByImportPaths[importPath].join(
+          ',',
+        )} } from '${importPath}'`,
     )
     .join(os.EOL)
 
