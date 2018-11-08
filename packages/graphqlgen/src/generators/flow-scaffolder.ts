@@ -15,12 +15,19 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   import type { ${upperTypeName}_Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
   
   export const ${type.name}: ${upperTypeName}_Resolvers = {
-    ${type.fields.map(
-      field =>
-        `${field.name}: (parent, args, ctx, info) => {
+    ${type.fields.map(field => {
+      if (type.name === 'Subscription') {
+        return `${field.name}: {
+          subscribe: (parent, args, ctx, info) => {
+            throw new Error('Resolver not implemented')
+          }
+        }`
+      }
+
+      return `${field.name}: (parent, args, ctx, info) => {
           throw new Error('Resolver not implemented')
-        }`,
-    )}
+        }`
+    })}
   }
   `
   return {
