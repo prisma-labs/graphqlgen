@@ -331,12 +331,16 @@ const graphqlToTypescriptFlow: { [key: string]: string } = {
   ID: 'string',
   Int: 'number',
   Float: 'number',
+  DateTime: 'string'
 }
 
 export function graphQLToTypecriptFlowType(type: GraphQLType): string {
-  let typescriptType = type.isScalar
-    ? graphqlToTypescriptFlow[type.name]
-    : 'any'
+  let typescriptType = graphqlToTypescriptFlow[type.name]
+
+  if (typescriptType === undefined) {
+    typescriptType = 'any'
+  }
+
   if (type.isArray) {
     typescriptType += '[]'
   }
