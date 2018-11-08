@@ -261,3 +261,9 @@ export function renderEnums(args: GenerateArgs): string {
     })
     .join(os.EOL)
 }
+
+export function isParentType(name: string) {
+  const parentTypes = ['Query', 'Mutation', 'Subscription']
+
+  return parentTypes.indexOf(name) > -1
+}

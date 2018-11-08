@@ -4015,13 +4015,13 @@ import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 export const User: UserResolvers.Type = {
   ...UserResolvers.defaultResolvers,
 
-  location: parent => {
+  location: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  paymentAccount: parent => {
+  paymentAccount: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  token: parent => {
+  token: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -4245,26 +4245,30 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  topExperiences: parent => {
+  topExperiences: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  topHomes: parent => {
+  topHomes: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  homesInPriceRange: (parent, args) => {
+  homesInPriceRange: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  topReservations: parent => {
+  topReservations: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  featuredDestinations: parent => {
+  featuredDestinations: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  experiencesByCity: (parent, args) => {
+  experiencesByCity: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  viewer: parent => null,
-  myLocation: parent => null
+  viewer: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  myLocation: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,
@@ -4278,16 +4282,16 @@ import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
-  signup: (parent, args) => {
+  signup: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  login: (parent, args) => {
+  login: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  addPaymentMethod: (parent, args) => {
+  addPaymentMethod: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  book: (parent, args) => {
+  book: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
