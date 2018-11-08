@@ -1,4 +1,5 @@
 import * as path from 'path'
+import { existsSync } from 'fs'
 import { Language } from 'graphqlgen-json-schema'
 
 import { getExtNameFromLanguage } from './path-helpers'
@@ -13,6 +14,7 @@ export function upperFirst(s: string) {
  * Support for different path notation
  *
  * './path/to/index.ts' => './path/to/index.ts'
+ * './path/to' => './path/to/to.ts'
  * './path/to' => './path/to/index.ts'
  * './path/to/' => './path/to/index.ts'
  */
@@ -24,10 +26,16 @@ export function normalizeFilePath(
   const ext = getExtNameFromLanguage(language)
 
   if (path.extname(filePath) !== ext) {
+    const pathToFileWithExt = path.resolve(filePath) + ext
+
+    if (existsSync(pathToFileWithExt)) {
+      return pathToFileWithExt
+    }
+
     return path.join(path.resolve(filePath), 'index' + ext)
   }
 
-  return filePath
+  return path.resolve(filePath)
 }
 
 /**
