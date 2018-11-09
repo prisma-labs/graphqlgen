@@ -12,6 +12,7 @@ import {
   printFieldLikeType,
   getDistinctInputTypes,
   renderEnums,
+  groupModelsNameByImportPath,
 } from './common'
 import { TypeAliasDefinition } from '../introspection/types'
 import { upperFirst } from '../utils'
@@ -78,7 +79,7 @@ export function generate(args: GenerateArgs): string {
 }
 
 function renderHeader(args: GenerateArgs): string {
-  const modelArray = Object.keys(args.modelMap)
+  const modelsToImport = Object.keys(args.modelMap)
     .filter(modelName => {
       const modelDef = args.modelMap[modelName].definition
 
@@ -88,13 +89,14 @@ function renderHeader(args: GenerateArgs): string {
       )
     })
     .map(modelName => args.modelMap[modelName])
+  const modelsByImportPaths = groupModelsNameByImportPath(modelsToImport)
 
-  const modelImports = modelArray
+  const modelImports = Object.keys(modelsByImportPaths)
     .map(
-      m =>
-        `import { ${m.definition.name} } from '${
-          m.importPathRelativeToOutput
-        }'`,
+      importPath =>
+        `import { ${modelsByImportPaths[importPath].join(
+          ', ',
+        )} } from '${importPath}'`,
     )
     .join(os.EOL)
 

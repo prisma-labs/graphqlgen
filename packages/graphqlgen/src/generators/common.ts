@@ -6,7 +6,7 @@ import {
   GraphQLTypeField,
   getGraphQLEnumValues,
 } from '../source-helper'
-import { ModelMap, ContextDefinition, GenerateArgs } from '../types'
+import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import { flatten, uniq } from '../utils'
 import {
   TypeDefinition,
@@ -266,4 +266,16 @@ export function isParentType(name: string) {
   const parentTypes = ['Query', 'Mutation', 'Subscription']
 
   return parentTypes.indexOf(name) > -1
+}
+
+export function groupModelsNameByImportPath(models: Model[]) {
+  return models.reduce<{ [importPath: string]: string[] }>((acc, model) => {
+    if (acc[model.importPathRelativeToOutput] === undefined) {
+      acc[model.importPathRelativeToOutput] = []
+    }
+
+    acc[model.importPathRelativeToOutput].push(model.definition.name)
+
+    return acc
+  }, {})
 }
