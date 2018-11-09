@@ -229,7 +229,7 @@ function deepResolveInputTypes(
   const type = inputTypesMap[typeName]
   if (type) {
     const childTypes = type.fields
-      .filter(t => t.type.isInput && !seen[type.name])
+      .filter(t => t.type.isInput && !seen[t.type.name])
       .map(t => t.type.name)
       .map(name =>
         deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),

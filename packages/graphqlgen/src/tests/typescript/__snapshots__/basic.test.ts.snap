@@ -183,6 +183,11 @@ export namespace MutationResolvers {
   export interface ProfileData {
     firstName: string | null;
     lastName: string | null;
+    photo: Photo | null;
+  }
+  export interface Photo {
+    title: string;
+    url: string;
   }
   export interface PhoneData {
     number: string;
