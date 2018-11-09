@@ -4,14 +4,10 @@ import { GraphQLTypeObject } from '../source-helper'
 import {
   fieldsFromModelDefinition,
   shouldScaffoldFieldResolver,
+  isParentType,
 } from './common'
 
 export { format } from './flow-generator'
-
-function isParentType(name: string) {
-  const parentTypes = ['Query', 'Mutation', 'Subscription']
-  return parentTypes.indexOf(name) > -1
-}
 
 function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   const upperTypeName = upperFirst(type.name)
@@ -21,9 +17,9 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   export const ${type.name}: ${upperTypeName}_Resolvers = {
     ${type.fields.map(
       field =>
-        `${
-          field.name
-        }: (parent, args, ctx, info) => { throw new Error('Resolver not implemented') }`,
+        `${field.name}: (parent, args, ctx, info) => {
+          throw new Error('Resolver not implemented')
+        }`,
     )}
   }
   `

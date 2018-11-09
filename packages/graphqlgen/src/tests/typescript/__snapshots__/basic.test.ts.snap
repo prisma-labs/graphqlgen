@@ -119,7 +119,7 @@ import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 export const User: UserResolvers.Type = {
   ...UserResolvers.defaultResolvers,
 
-  enumAnnotation: parent => {
+  enumAnnotation: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -135,7 +135,9 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  createUser: (parent, args) => null
+  createUser: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,
@@ -279,7 +281,7 @@ import { AddMemberPayloadResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 export const AddMemberPayload: AddMemberPayloadResolvers.Type = {
   ...AddMemberPayloadResolvers.defaultResolvers,
 
-  existingUserInviteSent: parent => {
+  existingUserInviteSent: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -295,10 +297,10 @@ import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
-  addMember: (parent, args) => {
+  addMember: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  addMembers: (parent, args) => {
+  addMembers: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -414,7 +416,7 @@ import { MutationResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
-  addMember: (parent, args) => {
+  addMember: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -720,27 +722,45 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  id: parent => null,
-  custom_required: parent => {
+  id: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_nullable: parent => null,
-  custom_array_nullable: parent => null,
-  custom_array_required: parent => {
+  custom_required: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_arg: (parent, args) => {
+  custom_nullable: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_custom_arg: (parent, args) => {
+  custom_array_nullable: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  scalar_required: parent => false,
-  scalar_nullable: parent => null,
-  scalar_array_nullable: parent => null,
-  scalar_array_required: parent => [],
-  scalar_with_arg: (parent, args) => false,
-  scalar_with_custom_arg: (parent, args) => false
+  custom_array_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_custom_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_nullable: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_array_nullable: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_array_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_with_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_with_custom_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,
@@ -889,7 +909,7 @@ import { UserResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 export const User: UserResolvers.Type = {
   ...UserResolvers.defaultResolvers,
 
-  type: parent => {
+  type: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };
@@ -1024,7 +1044,9 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  createUser: parent => null
+  createUser: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,
@@ -1328,27 +1350,45 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  id: parent => null,
-  custom_required: parent => {
+  id: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_nullable: parent => null,
-  custom_array_nullable: parent => null,
-  custom_array_required: parent => {
+  custom_required: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_arg: (parent, args) => {
+  custom_nullable: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  custom_with_custom_arg: (parent, args) => {
+  custom_array_nullable: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   },
-  scalar_required: parent => false,
-  scalar_nullable: parent => null,
-  scalar_array_nullable: parent => null,
-  scalar_array_required: parent => [],
-  scalar_with_arg: (parent, args) => false,
-  scalar_with_custom_arg: (parent, args) => false
+  custom_array_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  custom_with_custom_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_nullable: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_array_nullable: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_array_required: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_with_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  scalar_with_custom_arg: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  }
 };
 ",
     "force": false,

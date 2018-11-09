@@ -5,11 +5,13 @@ import { QueryResolvers } from '../graphqlgen'
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  feed: parent => {
+  feed: (parent, args, ctx) => {
     throw new Error('Resolver not implemented')
   },
-  drafts: parent => {
+  drafts: (parent, args, ctx) => {
     throw new Error('Resolver not implemented')
   },
-  post: (parent, args) => null,
+  post: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented')
+  },
 }

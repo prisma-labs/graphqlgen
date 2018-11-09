@@ -1,49 +1,12 @@
 import { GenerateArgs, CodeFileLike } from '../types'
-import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import { GraphQLTypeObject } from '../source-helper'
 import {
   fieldsFromModelDefinition,
   shouldScaffoldFieldResolver,
+  isParentType,
 } from './common'
 
 export { format } from './ts-generator'
-
-function printFieldLikeTypeEmptyCase(field: GraphQLTypeField) {
-  if (!field.type.isRequired || field.type.name === 'ID') {
-    return `null`
-  }
-  if (field.type.isRequired && field.type.isArray && field.type.isScalar) {
-    return `[]`
-  }
-  if (
-    field.type.isRequired &&
-    field.type.name === 'String' &&
-    field.type.isScalar
-  ) {
-    return `''`
-  }
-  if (
-    field.type.isRequired &&
-    (field.type.name === 'Int' || field.type.name === 'Float') &&
-    field.type.isScalar
-  ) {
-    return `0`
-  }
-  if (
-    field.type.isRequired &&
-    field.type.name === 'Boolean' &&
-    field.type.isScalar
-  ) {
-    return `false`
-  }
-  if (field.type.isRequired && !field.type.isScalar) {
-    return `{ throw new Error('Resolver not implemented') }`
-  }
-}
-
-function isParentType(name: string) {
-  const parentTypes = ['Query', 'Mutation', 'Subscription']
-  return parentTypes.indexOf(name) > -1
-}
 
 function renderResolvers(
   type: GraphQLTypeObject,
@@ -64,7 +27,7 @@ function renderResolvers(
       .filter(field => shouldScaffoldFieldResolver(field, modelFields, args))
       .map(
         field => `
-      ${field.name}: (parent${field.arguments.length > 0 ? ', args' : ''}) => {
+      ${field.name}: (parent, args, ctx) => {
         throw new Error('Resolver not implemented')
       }
     `,
@@ -84,9 +47,9 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
     ...${type.name}Resolvers.defaultResolvers,
     ${type.fields.map(
       field =>
-        `${field.name}: (parent${
-          field.arguments.length > 0 ? ', args' : ''
-        }) => ${printFieldLikeTypeEmptyCase(field)}`,
+        `${field.name}: (parent, args, ctx) => {
+          throw new Error('Resolver not implemented')
+        }`,
     )}
   }
       `
