@@ -67,114 +67,114 @@ export namespace QueryResolvers {
   }
 
   export type TopExperiencesResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Experience[] | Promise<Experience[]>;
 
   export type TopHomesResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Home[] | Promise<Home[]>;
 
   export type HomesInPriceRangeResolver = (
-    parent: {},
+    parent: never,
     args: ArgsHomesInPriceRange,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Home[] | Promise<Home[]>;
 
   export type TopReservationsResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Reservation[] | Promise<Reservation[]>;
 
   export type FeaturedDestinationsResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
   export type ExperiencesByCityResolver = (
-    parent: {},
+    parent: never,
     args: ArgsExperiencesByCity,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
   export type ViewerResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Viewer | null | Promise<Viewer | null>;
 
   export type MyLocationResolver = (
-    parent: {},
-    args: {},
+    parent: never,
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Location | null | Promise<Location | null>;
 
   export interface Type {
     topExperiences: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Experience[] | Promise<Experience[]>;
 
     topHomes: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Home[] | Promise<Home[]>;
 
     homesInPriceRange: (
-      parent: {},
+      parent: never,
       args: ArgsHomesInPriceRange,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Home[] | Promise<Home[]>;
 
     topReservations: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Reservation[] | Promise<Reservation[]>;
 
     featuredDestinations: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
     experiencesByCity: (
-      parent: {},
+      parent: never,
       args: ArgsExperiencesByCity,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
     viewer: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Viewer | null | Promise<Viewer | null>;
 
     myLocation: (
-      parent: {},
-      args: {},
+      parent: never,
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Location | null | Promise<Location | null>;
@@ -196,56 +196,56 @@ export namespace ExperienceResolvers {
 
   export type IdResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type CategoryResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => ExperienceCategory | null | Promise<ExperienceCategory | null>;
 
   export type TitleResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LocationResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Location | Promise<Location>;
 
   export type PricePerPersonResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type ReviewsResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Review[] | Promise<Review[]>;
 
   export type PreviewResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Picture | Promise<Picture>;
 
   export type PopularityResolver = (
     parent: Experience,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -253,56 +253,56 @@ export namespace ExperienceResolvers {
   export interface Type {
     id: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     category: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => ExperienceCategory | null | Promise<ExperienceCategory | null>;
 
     title: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     location: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Location | Promise<Location>;
 
     pricePerPerson: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     reviews: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Review[] | Promise<Review[]>;
 
     preview: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Picture | Promise<Picture>;
 
     popularity: (
       parent: Experience,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -320,28 +320,28 @@ export namespace ExperienceCategoryResolvers {
 
   export type IdResolver = (
     parent: ExperienceCategory,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type MainColorResolver = (
     parent: ExperienceCategory,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: ExperienceCategory,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ExperienceResolver = (
     parent: ExperienceCategory,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Experience | null | Promise<Experience | null>;
@@ -349,28 +349,28 @@ export namespace ExperienceCategoryResolvers {
   export interface Type {
     id: (
       parent: ExperienceCategory,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     mainColor: (
       parent: ExperienceCategory,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: ExperienceCategory,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     experience: (
       parent: ExperienceCategory,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Experience | null | Promise<Experience | null>;
@@ -390,35 +390,35 @@ export namespace LocationResolvers {
 
   export type IdResolver = (
     parent: Location,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LatResolver = (
     parent: Location,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type LngResolver = (
     parent: Location,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type AddressResolver = (
     parent: Location,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export type DirectionsResolver = (
     parent: Location,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
@@ -426,35 +426,35 @@ export namespace LocationResolvers {
   export interface Type {
     id: (
       parent: Location,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     lat: (
       parent: Location,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     lng: (
       parent: Location,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     address: (
       parent: Location,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
 
     directions: (
       parent: Location,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
@@ -477,70 +477,70 @@ export namespace ReviewResolvers {
 
   export type AccuracyResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CheckInResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CleanlinessResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CommunicationResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CreatedAtResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LocationResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type StarsResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type TextResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ValueResolver = (
     parent: Review,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -548,70 +548,70 @@ export namespace ReviewResolvers {
   export interface Type {
     accuracy: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     checkIn: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     cleanliness: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     communication: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     createdAt: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     location: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     stars: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     text: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     value: (
       parent: Review,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -626,14 +626,14 @@ export namespace PictureResolvers {
 
   export type IdResolver = (
     parent: Picture,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type UrlResolver = (
     parent: Picture,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -641,14 +641,14 @@ export namespace PictureResolvers {
   export interface Type {
     id: (
       parent: Picture,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     url: (
       parent: Picture,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -673,35 +673,35 @@ export namespace HomeResolvers {
 
   export type IdResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export type DescriptionResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NumRatingsResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type AvgRatingResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
@@ -715,7 +715,7 @@ export namespace HomeResolvers {
 
   export type PerNightResolver = (
     parent: Home,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -723,35 +723,35 @@ export namespace HomeResolvers {
   export interface Type {
     id: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
 
     description: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     numRatings: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     avgRating: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
@@ -765,7 +765,7 @@ export namespace HomeResolvers {
 
     perNight: (
       parent: Home,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -786,56 +786,56 @@ export namespace ReservationResolvers {
 
   export type IdResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type TitleResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type AvgPricePerPersonResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type PicturesResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Picture[] | Promise<Picture[]>;
 
   export type LocationResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Location | Promise<Location>;
 
   export type IsCuratedResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type SlugResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PopularityResolver = (
     parent: Reservation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -843,56 +843,56 @@ export namespace ReservationResolvers {
   export interface Type {
     id: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     title: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     avgPricePerPerson: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     pictures: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Picture[] | Promise<Picture[]>;
 
     location: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Location | Promise<Location>;
 
     isCurated: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     slug: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     popularity: (
       parent: Reservation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -913,49 +913,49 @@ export namespace NeighbourhoodResolvers {
 
   export type IdResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type SlugResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type HomePreviewResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Picture | null | Promise<Picture | null>;
 
   export type CityResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => City | Promise<City>;
 
   export type FeaturedResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type PopularityResolver = (
     parent: Neighbourhood,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -963,49 +963,49 @@ export namespace NeighbourhoodResolvers {
   export interface Type {
     id: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     slug: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     homePreview: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Picture | null | Promise<Picture | null>;
 
     city: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => City | Promise<City>;
 
     featured: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     popularity: (
       parent: Neighbourhood,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -1020,14 +1020,14 @@ export namespace CityResolvers {
 
   export type IdResolver = (
     parent: City,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: City,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -1035,14 +1035,14 @@ export namespace CityResolvers {
   export interface Type {
     id: (
       parent: City,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: City,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -1057,14 +1057,14 @@ export namespace ExperiencesByCityResolvers {
 
   export type ExperiencesResolver = (
     parent: ExperiencesByCity,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Experience[] | Promise<Experience[]>;
 
   export type CityResolver = (
     parent: ExperiencesByCity,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => City | Promise<City>;
@@ -1072,14 +1072,14 @@ export namespace ExperiencesByCityResolvers {
   export interface Type {
     experiences: (
       parent: ExperiencesByCity,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Experience[] | Promise<Experience[]>;
 
     city: (
       parent: ExperiencesByCity,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => City | Promise<City>;
@@ -1094,14 +1094,14 @@ export namespace ViewerResolvers {
 
   export type MeResolver = (
     parent: Viewer,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
   export type BookingsResolver = (
     parent: Viewer,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Booking[] | Promise<Booking[]>;
@@ -1109,14 +1109,14 @@ export namespace ViewerResolvers {
   export interface Type {
     me: (
       parent: Viewer,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
     bookings: (
       parent: Viewer,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Booking[] | Promise<Booking[]>;
@@ -1149,140 +1149,140 @@ export namespace UserResolvers {
 
   export type BookingsResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Booking[] | Promise<Booking[]>;
 
   export type CreatedAtResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type EmailResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type FirstNameResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type HostingExperiencesResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Experience[] | Promise<Experience[]>;
 
   export type IdResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IsSuperHostResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type LastNameResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LocationResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Location | Promise<Location>;
 
   export type NotificationsResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Notification[] | Promise<Notification[]>;
 
   export type OwnedPlacesResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Place[] | Promise<Place[]>;
 
   export type PaymentAccountResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PaymentAccount[] | Promise<PaymentAccount[]>;
 
   export type PhoneResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ProfilePictureResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Picture | null | Promise<Picture | null>;
 
   export type ReceivedMessagesResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Message[] | Promise<Message[]>;
 
   export type ResponseRateResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type ResponseTimeResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type SentMessagesResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Message[] | Promise<Message[]>;
 
   export type UpdatedAtResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type TokenResolver = (
     parent: User,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -1290,140 +1290,140 @@ export namespace UserResolvers {
   export interface Type {
     bookings: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Booking[] | Promise<Booking[]>;
 
     createdAt: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     email: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     firstName: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     hostingExperiences: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Experience[] | Promise<Experience[]>;
 
     id: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     isSuperHost: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     lastName: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     location: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Location | Promise<Location>;
 
     notifications: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Notification[] | Promise<Notification[]>;
 
     ownedPlaces: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Place[] | Promise<Place[]>;
 
     paymentAccount: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PaymentAccount[] | Promise<PaymentAccount[]>;
 
     phone: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     profilePicture: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Picture | null | Promise<Picture | null>;
 
     receivedMessages: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Message[] | Promise<Message[]>;
 
     responseRate: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     responseTime: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     sentMessages: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Message[] | Promise<Message[]>;
 
     updatedAt: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     token: (
       parent: User,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -1443,49 +1443,49 @@ export namespace BookingResolvers {
 
   export type IdResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type CreatedAtResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type BookeeResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
   export type PlaceResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Place | Promise<Place>;
 
   export type StartDateResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type EndDateResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PaymentResolver = (
     parent: Booking,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Payment | Promise<Payment>;
@@ -1493,49 +1493,49 @@ export namespace BookingResolvers {
   export interface Type {
     id: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     createdAt: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     bookee: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
     place: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Place | Promise<Place>;
 
     startDate: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     endDate: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     payment: (
       parent: Booking,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Payment | Promise<Payment>;
@@ -1573,154 +1573,154 @@ export namespace PlaceResolvers {
 
   export type IdResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export type SizeResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PLACE_SIZES | null | Promise<PLACE_SIZES | null>;
 
   export type ShortDescriptionResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type DescriptionResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type SlugResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type MaxGuestsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type NumBedroomsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type NumBedsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type NumBathsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type ReviewsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Review[] | Promise<Review[]>;
 
   export type AmenitiesResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Amenities | Promise<Amenities>;
 
   export type HostResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
   export type PricingResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Pricing | Promise<Pricing>;
 
   export type LocationResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Location | Promise<Location>;
 
   export type ViewsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PlaceViews | Promise<PlaceViews>;
 
   export type GuestRequirementsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => GuestRequirements | null | Promise<GuestRequirements | null>;
 
   export type PoliciesResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Policies | null | Promise<Policies | null>;
 
   export type HouseRulesResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => HouseRules | null | Promise<HouseRules | null>;
 
   export type BookingsResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Booking[] | Promise<Booking[]>;
 
   export type PicturesResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Picture[] | Promise<Picture[]>;
 
   export type PopularityResolver = (
     parent: Place,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -1728,154 +1728,154 @@ export namespace PlaceResolvers {
   export interface Type {
     id: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
 
     size: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PLACE_SIZES | null | Promise<PLACE_SIZES | null>;
 
     shortDescription: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     description: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     slug: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     maxGuests: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     numBedrooms: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     numBeds: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     numBaths: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     reviews: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Review[] | Promise<Review[]>;
 
     amenities: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Amenities | Promise<Amenities>;
 
     host: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
     pricing: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Pricing | Promise<Pricing>;
 
     location: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Location | Promise<Location>;
 
     views: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PlaceViews | Promise<PlaceViews>;
 
     guestRequirements: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => GuestRequirements | null | Promise<GuestRequirements | null>;
 
     policies: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Policies | null | Promise<Policies | null>;
 
     houseRules: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => HouseRules | null | Promise<HouseRules | null>;
 
     bookings: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Booking[] | Promise<Booking[]>;
 
     pictures: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Picture[] | Promise<Picture[]>;
 
     popularity: (
       parent: Place,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -1933,287 +1933,287 @@ export namespace AmenitiesResolvers {
 
   export type AirConditioningResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BabyBathResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BabyMonitorResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BabysitterRecommendationsResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BathtubResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BreakfastResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type BuzzerWirelessIntercomResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type CableTvResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type ChangingTableResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type ChildrensBooksAndToysResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type ChildrensDinnerwareResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type CribResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type DoormanResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type DryerResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type ElevatorResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type EssentialsResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type FamilyKidFriendlyResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type FreeParkingOnPremisesResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type FreeParkingOnStreetResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type GymResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type HairDryerResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type HangersResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type HeatingResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type HotTubResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type IdResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IndoorFireplaceResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type InternetResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type IronResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type KitchenResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type LaptopFriendlyWorkspaceResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type PaidParkingOffPremisesResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type PetsAllowedResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type PoolResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type PrivateEntranceResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type ShampooResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type SmokingAllowedResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type SuitableForEventsResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type TvResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type WasherResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type WheelchairAccessibleResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type WirelessInternetResolver = (
     parent: Amenities,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
@@ -2221,287 +2221,287 @@ export namespace AmenitiesResolvers {
   export interface Type {
     airConditioning: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     babyBath: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     babyMonitor: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     babysitterRecommendations: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     bathtub: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     breakfast: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     buzzerWirelessIntercom: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     cableTv: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     changingTable: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     childrensBooksAndToys: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     childrensDinnerware: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     crib: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     doorman: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     dryer: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     elevator: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     essentials: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     familyKidFriendly: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     freeParkingOnPremises: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     freeParkingOnStreet: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     gym: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     hairDryer: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     hangers: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     heating: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     hotTub: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     id: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     indoorFireplace: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     internet: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     iron: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     kitchen: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     laptopFriendlyWorkspace: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     paidParkingOffPremises: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     petsAllowed: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     pool: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     privateEntrance: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     shampoo: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     smokingAllowed: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     suitableForEvents: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     tv: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     washer: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     wheelchairAccessible: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     wirelessInternet: (
       parent: Amenities,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
@@ -2534,91 +2534,91 @@ export namespace PricingResolvers {
 
   export type AverageMonthlyResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type AverageWeeklyResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type BasePriceResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CleaningFeeResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type CurrencyResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => CURRENCY | null | Promise<CURRENCY | null>;
 
   export type ExtraGuestsResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type IdResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type MonthlyDiscountResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type PerNightResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type SecurityDepositResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type SmartPricingResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type WeekendPricingResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
   export type WeeklyDiscountResolver = (
     parent: Pricing,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
@@ -2626,91 +2626,91 @@ export namespace PricingResolvers {
   export interface Type {
     averageMonthly: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     averageWeekly: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     basePrice: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     cleaningFee: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     currency: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => CURRENCY | null | Promise<CURRENCY | null>;
 
     extraGuests: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     id: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     monthlyDiscount: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     perNight: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     securityDeposit: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     smartPricing: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     weekendPricing: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
     weeklyDiscount: (
       parent: Pricing,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
@@ -2725,14 +2725,14 @@ export namespace PlaceViewsResolvers {
 
   export type IdResolver = (
     parent: PlaceViews,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LastWeekResolver = (
     parent: PlaceViews,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -2740,14 +2740,14 @@ export namespace PlaceViewsResolvers {
   export interface Type {
     id: (
       parent: PlaceViews,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     lastWeek: (
       parent: PlaceViews,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -2766,28 +2766,28 @@ export namespace GuestRequirementsResolvers {
 
   export type GovIssuedIdResolver = (
     parent: GuestRequirements,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type GuestTripInformationResolver = (
     parent: GuestRequirements,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
   export type IdResolver = (
     parent: GuestRequirements,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type RecommendationsFromOtherHostsResolver = (
     parent: GuestRequirements,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
@@ -2795,28 +2795,28 @@ export namespace GuestRequirementsResolvers {
   export interface Type {
     govIssuedId: (
       parent: GuestRequirements,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     guestTripInformation: (
       parent: GuestRequirements,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
 
     id: (
       parent: GuestRequirements,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     recommendationsFromOtherHosts: (
       parent: GuestRequirements,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
@@ -2835,42 +2835,42 @@ export namespace PoliciesResolvers {
 
   export type CheckInEndTimeResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CheckInStartTimeResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CheckoutTimeResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type CreatedAtResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type UpdatedAtResolver = (
     parent: Policies,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -2878,42 +2878,42 @@ export namespace PoliciesResolvers {
   export interface Type {
     checkInEndTime: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     checkInStartTime: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     checkoutTime: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     createdAt: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     updatedAt: (
       parent: Policies,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -2947,63 +2947,63 @@ export namespace HouseRulesResolvers {
 
   export type AdditionalRulesResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export type CreatedAtResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PartiesAndEventsAllowedResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | null | Promise<boolean | null>;
 
   export type PetsAllowedResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | null | Promise<boolean | null>;
 
   export type SmokingAllowedResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | null | Promise<boolean | null>;
 
   export type SuitableForChildrenResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | null | Promise<boolean | null>;
 
   export type SuitableForInfantsResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | null | Promise<boolean | null>;
 
   export type UpdatedAtResolver = (
     parent: HouseRules,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -3011,63 +3011,63 @@ export namespace HouseRulesResolvers {
   export interface Type {
     additionalRules: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
 
     createdAt: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     partiesAndEventsAllowed: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | null | Promise<boolean | null>;
 
     petsAllowed: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | null | Promise<boolean | null>;
 
     smokingAllowed: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | null | Promise<boolean | null>;
 
     suitableForChildren: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | null | Promise<boolean | null>;
 
     suitableForInfants: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | null | Promise<boolean | null>;
 
     updatedAt: (
       parent: HouseRules,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -3085,35 +3085,35 @@ export namespace PaymentResolvers {
 
   export type BookingResolver = (
     parent: Payment,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Booking | Promise<Booking>;
 
   export type CreatedAtResolver = (
     parent: Payment,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: Payment,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PaymentMethodResolver = (
     parent: Payment,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PaymentAccount | Promise<PaymentAccount>;
 
   export type ServiceFeeResolver = (
     parent: Payment,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
@@ -3121,35 +3121,35 @@ export namespace PaymentResolvers {
   export interface Type {
     booking: (
       parent: Payment,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Booking | Promise<Booking>;
 
     createdAt: (
       parent: Payment,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: Payment,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     paymentMethod: (
       parent: Payment,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PaymentAccount | Promise<PaymentAccount>;
 
     serviceFee: (
       parent: Payment,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
@@ -3172,49 +3172,49 @@ export namespace PaymentAccountResolvers {
 
   export type IdResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type CreatedAtResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type TypeResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PAYMENT_PROVIDER | null | Promise<PAYMENT_PROVIDER | null>;
 
   export type UserResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
   export type PaymentsResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Payment[] | Promise<Payment[]>;
 
   export type PaypalResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PaypalInformation | null | Promise<PaypalInformation | null>;
 
   export type CreditcardResolver = (
     parent: PaymentAccount,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => CreditCardInformation | null | Promise<CreditCardInformation | null>;
@@ -3222,49 +3222,49 @@ export namespace PaymentAccountResolvers {
   export interface Type {
     id: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     createdAt: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     type: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PAYMENT_PROVIDER | null | Promise<PAYMENT_PROVIDER | null>;
 
     user: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
     payments: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Payment[] | Promise<Payment[]>;
 
     paypal: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PaypalInformation | null | Promise<PaypalInformation | null>;
 
     creditcard: (
       parent: PaymentAccount,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => CreditCardInformation | null | Promise<CreditCardInformation | null>;
@@ -3281,28 +3281,28 @@ export namespace PaypalInformationResolvers {
 
   export type CreatedAtResolver = (
     parent: PaypalInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type EmailResolver = (
     parent: PaypalInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: PaypalInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PaymentAccountResolver = (
     parent: PaypalInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PaymentAccount | Promise<PaymentAccount>;
@@ -3310,28 +3310,28 @@ export namespace PaypalInformationResolvers {
   export interface Type {
     createdAt: (
       parent: PaypalInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     email: (
       parent: PaypalInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: PaypalInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     paymentAccount: (
       parent: PaypalInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PaymentAccount | Promise<PaymentAccount>;
@@ -3356,77 +3356,77 @@ export namespace CreditCardInformationResolvers {
 
   export type CardNumberResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type CountryResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type CreatedAtResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ExpiresOnMonthResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type ExpiresOnYearResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type FirstNameResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LastNameResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PaymentAccountResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => PaymentAccount | null | Promise<PaymentAccount | null>;
 
   export type PostalCodeResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type SecurityCodeResolver = (
     parent: CreditCardInformation,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -3434,77 +3434,77 @@ export namespace CreditCardInformationResolvers {
   export interface Type {
     cardNumber: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     country: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     createdAt: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     expiresOnMonth: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     expiresOnYear: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     firstName: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     lastName: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     paymentAccount: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => PaymentAccount | null | Promise<PaymentAccount | null>;
 
     postalCode: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     securityCode: (
       parent: CreditCardInformation,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -3524,42 +3524,42 @@ export namespace NotificationResolvers {
 
   export type CreatedAtResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type LinkResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ReadDateResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type TypeResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => NOTIFICATION_TYPE | null | Promise<NOTIFICATION_TYPE | null>;
 
   export type UserResolver = (
     parent: Notification,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
@@ -3567,42 +3567,42 @@ export namespace NotificationResolvers {
   export interface Type {
     createdAt: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     link: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     readDate: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     type: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => NOTIFICATION_TYPE | null | Promise<NOTIFICATION_TYPE | null>;
 
     user: (
       parent: Notification,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
@@ -3619,28 +3619,28 @@ export namespace MessageResolvers {
 
   export type CreatedAtResolver = (
     parent: Message,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type DeliveredAtResolver = (
     parent: Message,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type IdResolver = (
     parent: Message,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type ReadAtResolver = (
     parent: Message,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
@@ -3648,28 +3648,28 @@ export namespace MessageResolvers {
   export interface Type {
     createdAt: (
       parent: Message,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     deliveredAt: (
       parent: Message,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     id: (
       parent: Message,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     readAt: (
       parent: Message,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
@@ -3711,28 +3711,28 @@ export namespace MutationResolvers {
   }
 
   export type SignupResolver = (
-    parent: {},
+    parent: never,
     args: ArgsSignup,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => AuthPayload | Promise<AuthPayload>;
 
   export type LoginResolver = (
-    parent: {},
+    parent: never,
     args: ArgsLogin,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => AuthPayload | Promise<AuthPayload>;
 
   export type AddPaymentMethodResolver = (
-    parent: {},
+    parent: never,
     args: ArgsAddPaymentMethod,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => MutationResult | Promise<MutationResult>;
 
   export type BookResolver = (
-    parent: {},
+    parent: never,
     args: ArgsBook,
     ctx: Context,
     info: GraphQLResolveInfo
@@ -3740,28 +3740,28 @@ export namespace MutationResolvers {
 
   export interface Type {
     signup: (
-      parent: {},
+      parent: never,
       args: ArgsSignup,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AuthPayload | Promise<AuthPayload>;
 
     login: (
-      parent: {},
+      parent: never,
       args: ArgsLogin,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AuthPayload | Promise<AuthPayload>;
 
     addPaymentMethod: (
-      parent: {},
+      parent: never,
       args: ArgsAddPaymentMethod,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => MutationResult | Promise<MutationResult>;
 
     book: (
-      parent: {},
+      parent: never,
       args: ArgsBook,
       ctx: Context,
       info: GraphQLResolveInfo
@@ -3777,14 +3777,14 @@ export namespace AuthPayloadResolvers {
 
   export type TokenResolver = (
     parent: AuthPayload,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type UserResolver = (
     parent: AuthPayload,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
@@ -3792,14 +3792,14 @@ export namespace AuthPayloadResolvers {
   export interface Type {
     token: (
       parent: AuthPayload,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     user: (
       parent: AuthPayload,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
@@ -3813,7 +3813,7 @@ export namespace MutationResultResolvers {
 
   export type SuccessResolver = (
     parent: MutationResult,
-    args: {},
+    args: never,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
@@ -3821,7 +3821,7 @@ export namespace MutationResultResolvers {
   export interface Type {
     success: (
       parent: MutationResult,
-      args: {},
+      args: never,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;

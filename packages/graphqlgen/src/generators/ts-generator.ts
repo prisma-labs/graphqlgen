@@ -241,9 +241,9 @@ function renderResolverFunctionInterface(
   const resolverName = `${upperFirst(field.name)}Resolver`
   const resolverDefinition = `
   (
-    parent: ${getModelName(type.type as any, modelMap)},
+    parent: ${getModelName(type.type as any, modelMap, 'never')},
     args: ${
-      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
+      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : 'never'
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
@@ -289,9 +289,9 @@ function renderResolverTypeInterfaceFunction(
 ): string {
   const resolverDefinition = `
   (
-    parent: ${getModelName(type.type as any, modelMap)},
+    parent: ${getModelName(type.type as any, modelMap, 'never')},
     args: ${
-      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
+      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : 'never'
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,

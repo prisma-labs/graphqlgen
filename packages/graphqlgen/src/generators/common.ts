@@ -115,7 +115,11 @@ export function getContextName(context?: ContextDefinition) {
   return context.interfaceName
 }
 
-export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
+export function getModelName(
+  type: GraphQLType,
+  modelMap: ModelMap,
+  emptyType: string = '{}',
+): string {
   const model = modelMap[type.name]
 
   if (type.isEnum) {
@@ -126,7 +130,7 @@ export function getModelName(type: GraphQLType, modelMap: ModelMap): string {
   // It's usually assumed that every GraphQL type has a model associated
   // expect for the `Query`, `Mutation` and `Subscription` type
   if (model === undefined) {
-    return '{}'
+    return emptyType
   }
 
   return model.definition.name
