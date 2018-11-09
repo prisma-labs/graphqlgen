@@ -99,3 +99,18 @@ test('context', async () => {
     },
   })
 })
+
+test('subscription', () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/subscription/schema.graphql'),
+    models: {
+      files: [relative('../fixtures/subscription/flow-types.js')],
+    },
+    output: relative('./generated/subscription/graphqlgen.js'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/input/'),
+      layout: 'file-per-type',
+    },
+  })
+})

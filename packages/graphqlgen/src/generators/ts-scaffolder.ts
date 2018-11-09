@@ -45,12 +45,19 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   
   export const ${type.name}: ${type.name}Resolvers.Type = {
     ...${type.name}Resolvers.defaultResolvers,
-    ${type.fields.map(
-      field =>
-        `${field.name}: (parent, args, ctx) => {
+    ${type.fields.map(field => {
+      if (type.name === 'Subscription') {
+        return `${field.name}: {
+          subscribe: (parent, args, ctx) => {
+            throw new Error('Resolver not implemented')
+          }
+        }`
+      }
+
+      return `${field.name}: (parent, args, ctx) => {
           throw new Error('Resolver not implemented')
-        }`,
-    )}
+        }`
+    })}
   }
       `
   return {

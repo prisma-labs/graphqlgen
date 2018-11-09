@@ -236,22 +236,30 @@ function renderResolverFunctionInterface(
   modelMap: ModelMap,
   context?: ContextDefinition,
 ): string {
-  // TODO double check parent for union/enum
-  //   parent: ${getModelName(type.name, modelMap)}${
-  //   type.type.isEnum || type.type.isUnion ? '' : 'Parent'
-  // },
-  return `
-  export type ${upperFirst(field.name)}Resolver = (
+  const resolverName = `${upperFirst(field.name)}Resolver`
+  const resolverDefinition = `
+  (
     parent: ${getModelName(type.type as any, modelMap)},
     args: ${
       field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
-  ) => ${printFieldLikeType(field, modelMap)} | Promise<${printFieldLikeType(
-    field,
-    modelMap,
-  )}>
+  )
+  `
+  const returnType = printFieldLikeType(field, modelMap)
+
+  if (type.name === 'Subscription') {
+    return `
+    export type ${resolverName} = {
+      subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>
+      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+    }
+    `
+  }
+
+  return `
+  export type ${resolverName} = ${resolverDefinition} => ${returnType} | Promise<${returnType}>
   `
 }
 
@@ -277,18 +285,31 @@ function renderResolverTypeInterfaceFunction(
   modelMap: ModelMap,
   context?: ContextDefinition,
 ): string {
+  const resolverDefinition = `
+  (
+    parent: ${getModelName(type.type as any, modelMap)},
+    args: ${
+      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
+    },
+    ctx: ${getContextName(context)},
+    info: GraphQLResolveInfo,
+  )
+  `
+  const returnType = printFieldLikeType(field, modelMap)
+
+  if (type.name === 'Subscription') {
+    return `
+    ${field.name}: {
+      subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>
+      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+    }
+    `
+  }
+
   return `
-    ${field.name}: (
-      parent: ${getModelName(type.type as any, modelMap)},
-      args: ${
-        field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
-      },
-      ctx: ${getContextName(context)},
-      info: GraphQLResolveInfo,
-    ) => ${printFieldLikeType(field, modelMap)} | Promise<${printFieldLikeType(
-    field,
-    modelMap,
-  )}>
+    ${
+      field.name
+    }: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
   `
 }
 
