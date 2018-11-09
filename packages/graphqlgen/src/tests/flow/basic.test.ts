@@ -26,7 +26,7 @@ test('basic enum', async () => {
     models: {
       files: [relative('../fixtures/enum/types-flow.js')],
     },
-    output: relative('./generated/enum/graphqlgen.ts'),
+    output: relative('./generated/enum/graphqlgen.js'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/enum/'),
       layout: 'file-per-type',
@@ -41,7 +41,7 @@ test('basic union', async () => {
     models: {
       files: [relative('../fixtures/union/flow-types.js')],
     },
-    output: relative('./generated/union/graphqlgen.ts'),
+    output: relative('./generated/union/graphqlgen.js'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/union/'),
       layout: 'file-per-type',
@@ -61,7 +61,7 @@ test('defaultName', async () => {
         },
       ],
     },
-    output: relative('./generated/defaultName/graphqlgen.ts'),
+    output: relative('./generated/defaultName/graphqlgen.js'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',
@@ -76,7 +76,7 @@ test('basic scalar', async () => {
     models: {
       files: [relative('../fixtures/scalar/flow-types.js')],
     },
-    output: relative('./generated/scalar/graphqlgen.ts'),
+    output: relative('./generated/scalar/graphqlgen.js'),
     ['resolver-scaffolding']: {
       output: relative('./tmp/scalar/'),
       layout: 'file-per-type',

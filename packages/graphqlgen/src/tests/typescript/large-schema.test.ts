@@ -1,8 +1,11 @@
 import { testGeneration } from '../generation'
 import { join } from 'path'
 
-const language = 'typescript'
 const relative = (p: string) => join(__dirname, p)
+
+const typesDir = relative('./generated-large/graphqlgen.ts')
+const resolversDir = relative('./generated-large/tmp-resolvers/')
+const language = 'typescript'
 
 describe('large schema tests', () => {
   test('large schema', async () => {
@@ -12,9 +15,9 @@ describe('large schema tests', () => {
       models: {
         files: [relative('../fixtures/prisma/types.ts')],
       },
-      output: relative('./generated/prisma/graphqlgen.ts'),
+      output: typesDir,
       ['resolver-scaffolding']: {
-        output: relative('./tmp/prisma/'),
+        output: resolversDir,
         layout: 'file-per-type',
       },
     })

@@ -1,8 +1,11 @@
 import { testGeneration } from '../generation'
 import { join } from 'path'
 
-const language = 'typescript'
 const relative = (p: string) => join(__dirname, p)
+
+const typesDir = relative('./generated-basic/graphqlgen.ts')
+const resolversDir = relative('./generated-basic/tmp-resolvers/')
+const language = 'typescript'
 
 test('basic schema', async () => {
   testGeneration({
@@ -11,9 +14,9 @@ test('basic schema', async () => {
     models: {
       files: [relative('../fixtures/basic/index.ts')],
     },
-    output: relative('./generated/basic/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/basic/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -26,9 +29,9 @@ test('basic enum', async () => {
     models: {
       files: [relative('../fixtures/enum/types.ts')],
     },
-    output: relative('./generated/enum/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/enum/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -41,9 +44,9 @@ test('basic union', async () => {
     models: {
       files: [relative('../fixtures/union/types.ts')],
     },
-    output: relative('./generated/union/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/union/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -61,9 +64,9 @@ test('defaultName', async () => {
         },
       ],
     },
-    output: relative('./generated/defaultName/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -76,9 +79,9 @@ test('basic scalar', async () => {
     models: {
       files: [relative('../fixtures/scalar/types.ts')],
     },
-    output: relative('./generated/scalar/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -91,9 +94,9 @@ test('basic input', async () => {
     models: {
       files: [relative('../fixtures/input/types.ts')],
     },
-    output: relative('./generated/input/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -107,9 +110,9 @@ test('context', async () => {
     models: {
       files: [relative('../fixtures/context/types.ts')],
     },
-    output: relative('./generated/context/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
@@ -122,9 +125,9 @@ test('subscription', () => {
     models: {
       files: [relative('../fixtures/subscription/types.ts')],
     },
-    output: relative('./generated/subscription/graphqlgen.ts'),
+    output: typesDir,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })

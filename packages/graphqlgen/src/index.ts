@@ -114,7 +114,7 @@ export function generateCode(
   return { generatedTypes, generatedResolvers }
 }
 
-function writeTypes(types: string, config: GraphQLGenDefinition): void {
+export function writeTypes(types: string, config: GraphQLGenDefinition): void {
   // Create generation target folder, if it does not exist
   // TODO: Error handling around this
   mkdirp.sync(path.dirname(config.output))
@@ -135,7 +135,7 @@ function writeTypes(types: string, config: GraphQLGenDefinition): void {
   )
 }
 
-function writeResolversScaffolding(
+export function writeResolversScaffolding(
   resolvers: CodeFileLike[],
   config: GraphQLGenDefinition,
 ) {
@@ -172,8 +172,6 @@ function writeResolversScaffolding(
   })
 
   console.log(chalk.green(`Resolvers scaffolded at ${outputResolversDir}`))
-
-  process.exit(0)
 }
 
 function bootstrapYamlFile() {
