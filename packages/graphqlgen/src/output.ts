@@ -149,6 +149,7 @@ function renderTypescriptModelFromType(
   return `\
 export interface ${chalk.bold(name)} {
 ${type.fields
+    .filter(field => field.type.isScalar)
     .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
     .join(os.EOL)}
 }`
