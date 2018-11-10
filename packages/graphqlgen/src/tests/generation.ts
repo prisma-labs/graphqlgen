@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import { EOL } from 'os'
 import * as rimraf from 'rimraf'
 import * as path from 'path'
-import { execFileSync } from 'child_process'
+import { execFile } from 'child_process'
 import { writeFileSync } from 'fs'
 import chalk from 'chalk'
 import { File, GraphQLGenDefinition } from 'graphqlgen-json-schema'
@@ -51,7 +51,7 @@ function compileTypescript(fileNames: string[], compiledOutputDir: string) {
   expect(errors.length).toEqual(0)
 }
 
-function compileFlow(includeFiles: File[], typesPath: string) {
+async function compileFlow(includeFiles: File[], typesPath: string) {
   const flowConfig = `
 [ignore]
 
@@ -69,16 +69,15 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
 
   writeFileSync(path.join(path.dirname(typesPath), '.flowconfig'), flowConfig)
 
-  let stdout = ''
-
-  try {
-    execFileSync(
+  const stdout = await new Promise(resolve => {
+    return execFile(
       flow,
       ['check', path.resolve(path.dirname(typesPath))],
+      (_err: any, stdout: string) => {
+        resolve(stdout)
+      },
     )
-  } catch (e) {
-    stdout = e.stdout.toString()
-  }
+  })
 
   const errorDelimiter =
     'Error ----------------------------------------------------------------'
@@ -102,7 +101,7 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
   expect(errors.length).toEqual(0)
 }
 
-export function testGeneration(config: GraphQLGenDefinition) {
+export async function testGeneration(config: GraphQLGenDefinition) {
   const schema = parseSchema(config.schema)
 
   expect(validateConfig(config, schema)).toBe(true)
@@ -151,7 +150,7 @@ export function testGeneration(config: GraphQLGenDefinition) {
   }
 
   if (config.language === 'flow') {
-    compileFlow(config.models.files!, config.output)
+    await compileFlow(config.models.files!, config.output)
   }
 
   rimraf.sync(path.dirname(config.output))

@@ -9,7 +9,7 @@ const language = 'typescript'
 
 describe('large schema tests', () => {
   test('large schema', async () => {
-    testGeneration({
+    return testGeneration({
       language,
       schema: relative('../fixtures/prisma/schema.graphql'),
       models: {

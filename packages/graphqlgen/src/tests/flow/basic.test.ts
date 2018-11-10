@@ -7,7 +7,7 @@ const resolversDir = relative('./generated-basic/tmp-resolvers/')
 const language = 'flow'
 
 test('basic schema', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
     models: {
@@ -22,7 +22,7 @@ test('basic schema', async () => {
 })
 
 test('basic enum', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
     models: {
@@ -37,7 +37,7 @@ test('basic enum', async () => {
 })
 
 test('basic union', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
     models: {
@@ -52,7 +52,7 @@ test('basic union', async () => {
 })
 
 test('defaultName', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
     models: {
@@ -73,7 +73,7 @@ test('defaultName', async () => {
 
 //TODO: Fix this test (detected since compiling flow)
 // test('basic scalar', async () => {
-//   testGeneration({
+//   return testGeneration({
 //     language,
 //     schema: relative('../fixtures/scalar/schema.graphql'),
 //     models: {
@@ -88,7 +88,7 @@ test('defaultName', async () => {
 // })
 
 test('context', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/context/schema.graphql'),
     context: relative('../fixtures/context/flow-types.js:Context'),
@@ -104,7 +104,7 @@ test('context', async () => {
 })
 
 test('subscription', () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/subscription/schema.graphql'),
     models: {

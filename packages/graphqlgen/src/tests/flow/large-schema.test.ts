@@ -7,7 +7,7 @@ const resolversDir = relative('./generated-large/tmp-resolvers/')
 const language = 'flow'
 
 test('large schema', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/prisma/schema.graphql'),
     models: {
