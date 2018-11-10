@@ -3,7 +3,7 @@ import { join } from 'path'
 
 const relative = (p: string) => join(__dirname, p)
 
-const typesDir = relative('./generated-basic/graphqlgen.ts')
+const typesPath = relative('./generated-basic/graphqlgen.ts')
 const resolversDir = relative('./generated-basic/tmp-resolvers/')
 const language = 'typescript'
 
@@ -14,7 +14,7 @@ test('basic schema', async () => {
     models: {
       files: [relative('../fixtures/basic/index.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -29,7 +29,7 @@ test('basic enum', async () => {
     models: {
       files: [relative('../fixtures/enum/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -44,7 +44,7 @@ test('basic union', async () => {
     models: {
       files: [relative('../fixtures/union/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -64,7 +64,7 @@ test('defaultName', async () => {
         },
       ],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -79,7 +79,7 @@ test('basic scalar', async () => {
     models: {
       files: [relative('../fixtures/scalar/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -94,7 +94,7 @@ test('basic input', async () => {
     models: {
       files: [relative('../fixtures/input/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -110,7 +110,7 @@ test('context', async () => {
     models: {
       files: [relative('../fixtures/context/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',
@@ -125,7 +125,7 @@ test('subscription', () => {
     models: {
       files: [relative('../fixtures/subscription/types.ts')],
     },
-    output: typesDir,
+    output: typesPath,
     ['resolver-scaffolding']: {
       output: resolversDir,
       layout: 'file-per-type',

@@ -1,10 +1,15 @@
 import * as ts from 'typescript'
+import { EOL } from 'os'
 import * as rimraf from 'rimraf'
 import * as path from 'path'
-import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
-import { parseModels, parseSchema } from '../parse'
+import { execFileSync } from 'child_process'
+import { writeFileSync } from 'fs'
+import chalk from 'chalk'
+import { File, GraphQLGenDefinition } from 'graphqlgen-json-schema'
+import { getPath, parseModels, parseSchema } from '../parse'
 import { validateConfig } from '../validation'
 import { generateCode, writeResolversScaffolding, writeTypes } from '../index'
+const flow = require('flow-bin')
 
 function printTypescriptErrors(diagnotics: ReadonlyArray<ts.Diagnostic>) {
   diagnotics.forEach(diagnostic => {
@@ -41,6 +46,57 @@ function compileTypescript(fileNames: string[], compiledOutputDir: string) {
 
   if (errors.length > 0) {
     printTypescriptErrors(errors)
+  }
+
+  expect(errors.length).toEqual(0)
+}
+
+function compileFlow(includeFiles: File[], typesPath: string) {
+  const flowConfig = `
+[ignore]
+
+[include]
+${includeFiles.map(file => getPath(file)).join(EOL)}
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
+  `
+
+  writeFileSync(path.join(path.dirname(typesPath), '.flowconfig'), flowConfig)
+
+  let stdout = ''
+
+  try {
+    execFileSync(
+      flow,
+      ['check', path.resolve(path.dirname(typesPath))],
+    )
+  } catch (e) {
+    stdout = e.stdout.toString()
+  }
+
+  const errorDelimiter =
+    'Error ----------------------------------------------------------------'
+  // Do not take into account error from 'import type { GraphQLResolveInfo } from "graphql"'
+  const errors = (stdout as string)
+    .split(errorDelimiter)
+    .filter(
+      error =>
+        error.length !== 0 &&
+        !error.includes('Cannot resolve module `graphql`'),
+    )
+
+  if (errors.length > 0) {
+    console.log(
+      errors
+        .map(error => `${chalk.red(errorDelimiter) + EOL}${error}`)
+        .join(EOL),
+    )
   }
 
   expect(errors.length).toEqual(0)
@@ -95,7 +151,7 @@ export function testGeneration(config: GraphQLGenDefinition) {
   }
 
   if (config.language === 'flow') {
-    // compileFlow(fileNames)
+    compileFlow(config.models.files!, config.output)
   }
 
   rimraf.sync(path.dirname(config.output))

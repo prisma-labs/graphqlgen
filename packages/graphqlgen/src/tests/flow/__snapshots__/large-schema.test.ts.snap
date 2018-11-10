@@ -34,7 +34,7 @@ import type {
   Message,
   AuthPayload,
   MutationResult
-} from \\"../../../fixtures/prisma/flow-types\\";
+} from \\"../../fixtures/prisma/flow-types\\";
 type Context = any;
 
 type PLACE_SIZES =
