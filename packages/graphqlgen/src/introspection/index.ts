@@ -49,7 +49,11 @@ export function buildFilesToTypesMap(
   files: NormalizedFile[],
   language: Language,
 ): FilesToTypesMap {
-  return files.reduce((acc, file) => {
+  return files.reduce<FilesToTypesMap>((acc, file) => {
+    if (acc[file.path] !== undefined) {
+      return acc
+    }
+
     return {
       ...acc,
       [file.path]: buildTypesMap(file.path, language),

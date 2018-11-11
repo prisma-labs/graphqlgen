@@ -23,7 +23,7 @@ import {
   extractGraphQLTypesWithoutRootsAndInputsAndEnums,
   GraphQLTypes,
 } from './source-helper'
-import { FilesToTypesMap } from './introspection/types'
+import { TypeDefinition } from './introspection/types'
 import { buildFilesToTypesMap } from './introspection'
 
 export interface NormalizedFile {
@@ -112,9 +112,8 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
 }
 
 function buildModel(
-  modelName: string,
   filePath: string,
-  filesToTypesMap: FilesToTypesMap,
+  definition: TypeDefinition,
   outputDir: string,
   language: Language,
 ): Model {
@@ -126,7 +125,7 @@ function buildModel(
   return {
     absoluteFilePath,
     importPathRelativeToOutput,
-    definition: filesToTypesMap[filePath][modelName],
+    definition,
   }
 }
 
@@ -165,9 +164,19 @@ export function parseModels(
   language: Language,
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
-  const normalizedFiles = normalizeFiles(models.files, language)
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
   const overriddenModels = !!models.override ? models.override : {}
+  const filesFromOverridenModels = Object.keys(overriddenModels).map(
+    modelName => overriddenModels[modelName].split(':')[0],
+  )
+  const normalizedFilesFromOverridenModels = normalizeFiles(
+    filesFromOverridenModels,
+    language,
+  )
+  const normalizedFiles = normalizeFiles(models.files, language)
+  const filesToTypesMap = buildFilesToTypesMap(
+    [...normalizedFiles, ...normalizedFilesFromOverridenModels],
+    language,
+  )
   const typeToFileMapping = getTypeToFileMapping(
     normalizedFiles,
     filesToTypesMap,
@@ -176,16 +185,12 @@ export function parseModels(
   return graphQLTypes.reduce((acc, type) => {
     if (overriddenModels[type.name]) {
       const [filePath, modelName] = models.override![type.name].split(':')
+      const normalizedFilePath = normalizeFilePath(filePath, language)
+      const modelDefinition = filesToTypesMap[normalizedFilePath][modelName]
 
       return {
         ...acc,
-        [type.name]: buildModel(
-          modelName,
-          filePath,
-          filesToTypesMap,
-          outputDir,
-          language,
-        ),
+        [type.name]: buildModel(filePath, modelDefinition, outputDir, language),
       }
     }
 
@@ -214,16 +219,11 @@ export function parseModels(
     const replacedTypeName = defaultName
       ? replaceVariablesInString(defaultName, { typeName: type.name })
       : type.name
+    const modelDefinition = filesToTypesMap[filePath][replacedTypeName]
 
     return {
       ...acc,
-      [type.name]: buildModel(
-        replacedTypeName,
-        filePath,
-        filesToTypesMap,
-        outputDir,
-        language,
-      ),
+      [type.name]: buildModel(filePath, modelDefinition, outputDir, language),
     }
   }, {})
 }
