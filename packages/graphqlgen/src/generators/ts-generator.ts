@@ -164,7 +164,7 @@ function renderNamespaces(
       inputTypesMap,
     )}
 
-    ${renderInterfaceNamespaces(args)}
+    ${renderInterfaceNamespaces(args, interfacesMap, unionsMap)}
 
     ${renderUnionNamespaces(args)}
   `
@@ -192,9 +192,13 @@ function renderObjectNamespaces(
     .join(os.EOL)
 }
 
-function renderInterfaceNamespaces(args: GenerateArgs): string {
+function renderInterfaceNamespaces(
+  args: GenerateArgs,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
+): string {
   return args.interfaces
-    .map(type => renderInterfaceNamespace(type, args))
+    .map(type => renderInterfaceNamespace(type, interfacesMap, unionsMap, args))
     .join(os.EOL)
 }
 
@@ -204,10 +208,28 @@ function renderUnionNamespaces(args: GenerateArgs): string {
 
 function renderInterfaceNamespace(
   graphQLTypeObject: GraphQLInterfaceObject,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   args: GenerateArgs,
 ): string {
   return `\
     export namespace ${graphQLTypeObject.name}Resolvers {
+      ${renderInputArgInterfaces(
+        graphQLTypeObject,
+        args.modelMap,
+        interfacesMap,
+        unionsMap,
+      )}
+
+      ${renderResolverTypeInterface(
+        graphQLTypeObject,
+        args.modelMap,
+        interfacesMap,
+        unionsMap,
+        args.context,
+        'InterfaceType',
+      )}
+
       export interface Type {
         __resolveType: GraphQLTypeResolver<${graphQLTypeObject.types
           .map(interfaceType => getModelName(interfaceType, args.modelMap))
@@ -451,9 +473,17 @@ function renderResolverTypeInterface(
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
   context?: ContextDefinition,
+  interfaceName: string = 'Type',
 ): string {
+  const extend =
+    type.interfaces && type.interfaces.length
+      ? `extends ${type.interfaces
+          .map(typeInterface => `${typeInterface}Resolvers.InterfaceType`)
+          .join(',')}`
+      : ''
+
   return `
-  export interface Type {
+  export interface ${interfaceName} ${extend} {
     ${type.fields
       .map(field =>
         renderResolverTypeInterfaceFunction(
@@ -485,9 +515,21 @@ function renderResolverTypeInterfaceFunction(
   unionsMap: UnionsMap,
   context?: ContextDefinition,
 ): string {
+  let parent: string
+
+  if (type.type.isInterface) {
+    const implementingTypes = interfacesMap[type.name]
+
+    parent = implementingTypes
+      .map(implType => getModelName(implType, modelMap, 'undefined'))
+      .join(' | ')
+  } else {
+    parent = getModelName(type.type as any, modelMap, 'undefined')
+  }
+
   const resolverDefinition = `
   (
-    parent: ${getModelName(type.type as any, modelMap, 'undefined')},
+    parent: ${parent},
     args: ${
       field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
