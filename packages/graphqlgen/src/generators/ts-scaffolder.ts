@@ -1,5 +1,9 @@
 import { GenerateArgs, CodeFileLike } from '../types'
-import { GraphQLTypeObject } from '../source-helper'
+import {
+  GraphQLTypeObject,
+  GraphQLInterfaceObject,
+  GraphQLUnionObject,
+} from '../source-helper'
 import {
   fieldsFromModelDefinition,
   shouldScaffoldFieldResolver,
@@ -32,6 +36,23 @@ function renderResolvers(
       }
     `,
       )}
+  }`
+  return { path: `${type.name}.ts`, force: false, code }
+}
+
+function renderPolyResolvers(
+  type: GraphQLInterfaceObject | GraphQLUnionObject,
+): CodeFileLike {
+  const code = `\
+  // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
+  // Please do not import this file directly but copy & paste to your application code.
+
+  import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
+
+  export const ${type.name}: ${type.name}Resolvers.Type = {
+    __resolveType: (parent, ctx) => {
+      throw new Error('Resolver not implemented')
+    }
   }`
   return { path: `${type.name}.ts`, force: false, code }
 }
@@ -95,6 +116,11 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     .filter(type => type.type.isObject)
     .filter(type => !isParentType(type.name))
     .map(type => renderResolvers(type, args))
+
+  files = files.concat(
+    args.interfaces.map(type => renderPolyResolvers(type)),
+    args.unions.map(type => renderPolyResolvers(type)),
+  )
 
   files = files.concat(
     args.types

@@ -2,9 +2,9 @@ import * as os from 'os'
 
 import {
   GraphQLTypeObject,
-  GraphQLType,
   GraphQLTypeField,
   getGraphQLEnumValues,
+  GraphQLTypeDefinition,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import { flatten, uniq } from '../utils'
@@ -28,6 +28,14 @@ export interface InputTypesMap {
 
 export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
+}
+
+export interface InterfacesMap {
+  [interfaceName: string]: GraphQLTypeDefinition[]
+}
+
+export interface UnionsMap {
+  [unionName: string]: GraphQLTypeDefinition[]
 }
 
 export function fieldsFromModelDefinition(
@@ -116,7 +124,7 @@ export function getContextName(context?: ContextDefinition) {
 }
 
 export function getModelName(
-  type: GraphQLType,
+  type: GraphQLTypeDefinition,
   modelMap: ModelMap,
   emptyType: string = '{}',
 ): string {
@@ -192,6 +200,8 @@ export function shouldScaffoldFieldResolver(
 export function printFieldLikeType(
   field: GraphQLTypeField,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
 ) {
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name)}${
@@ -203,6 +213,28 @@ export function printFieldLikeType(
     return `${field.type.name}${field.type.isArray ? '[]' : ''}${
       !field.type.isRequired ? '| null' : ''
     }`
+  }
+
+  if (field.type.isInterface) {
+    let types = interfacesMap[field.type.name]
+      .map(type => getModelName(type, modelMap))
+      .filter(uniq)
+      .join(' | ')
+    if (field.type.isArray) {
+      types = `Array<${types}>`
+    }
+    return `${types}${!field.type.isRequired ? '| null' : ''}`
+  }
+
+  if (field.type.isUnion) {
+    let types = unionsMap[field.type.name]
+      .map(type => getModelName(type, modelMap))
+      .filter(uniq)
+      .join(' | ')
+    if (field.type.isArray) {
+      types = `Array<${types}>`
+    }
+    return `${types}${!field.type.isRequired ? '| null' : ''}`
   }
 
   return `${getModelName(field.type, modelMap)}${
@@ -274,11 +306,13 @@ export function isParentType(name: string) {
 
 export function groupModelsNameByImportPath(models: Model[]) {
   return models.reduce<{ [importPath: string]: string[] }>((acc, model) => {
-    if (acc[model.importPathRelativeToOutput] === undefined) {
-      acc[model.importPathRelativeToOutput] = []
+    const fileModels = acc[model.importPathRelativeToOutput] || []
+
+    if (fileModels.indexOf(model.definition.name) === -1) {
+      fileModels.push(model.definition.name)
     }
 
-    acc[model.importPathRelativeToOutput].push(model.definition.name)
+    acc[model.importPathRelativeToOutput] = fileModels
 
     return acc
   }, {})
