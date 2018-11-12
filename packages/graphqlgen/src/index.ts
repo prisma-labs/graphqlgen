@@ -5,7 +5,6 @@ import * as path from 'path'
 import chalk from 'chalk'
 import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
-import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import { GraphQLTypes } from './source-helper'
@@ -114,12 +113,24 @@ export function generateCode(
   return { generatedTypes, generatedResolvers }
 }
 
+function writeChangesOnly(
+  filename: string,
+  content: string
+) {
+  if (!fs.existsSync(filename) || fs.readFileSync(filename, { encoding: "utf-8" }) !== content) {
+    console.log(chalk.green(`Overriding ${filename} with new model`));
+    fs.writeFileSync(filename, content);
+  } else {
+    console.log(chalk.gray(`File ${filename} is the same`));
+  }
+}
+
 function writeTypes(types: string, config: GraphQLGenDefinition): void {
   // Create generation target folder, if it does not exist
   // TODO: Error handling around this
   mkdirp.sync(path.dirname(config.output))
   try {
-    fs.writeFileSync(config.output, types, { encoding: 'utf-8' })
+    writeChangesOnly(config.output, types);
   } catch (e) {
     console.error(
       chalk.red(`Failed to write the file at ${config.output}, error: ${e}`),
@@ -144,13 +155,22 @@ function writeResolversScaffolding(
   }
   const outputResolversDir = config['resolver-scaffolding']!.output
 
-  rimraf.sync(outputResolversDir)
+  const toBeCreatedFiles =
+    resolvers.map(f => path.join(outputResolversDir, f.path));
+
+  fs.readdirSync(outputResolversDir)
+    .map(f => path.join(outputResolversDir, f))
+    .filter(f => toBeCreatedFiles.indexOf(f) === -1)    
+    .forEach(f => {
+      fs.unlinkSync(f);
+      console.log(chalk.yellow(`Deleting file ${f} - model scaffold no long availabel`))
+    });
 
   resolvers.forEach(f => {
     const writePath = path.join(outputResolversDir, f.path)
     mkdirp.sync(path.dirname(writePath))
     try {
-      fs.writeFileSync(
+      writeChangesOnly(
         writePath,
         replaceAll(
           f.code,
