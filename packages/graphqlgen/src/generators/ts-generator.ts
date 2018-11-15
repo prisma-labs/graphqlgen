@@ -14,7 +14,6 @@ import {
   renderEnums,
   groupModelsNameByImportPath,
 } from './common'
-import { TypeAliasDefinition } from '../introspection/types'
 import { upperFirst } from '../utils'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -68,7 +67,7 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
-  
+
   ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
@@ -80,14 +79,6 @@ export function generate(args: GenerateArgs): string {
 
 function renderHeader(args: GenerateArgs): string {
   const modelsToImport = Object.keys(args.modelMap)
-    .filter(modelName => {
-      const modelDef = args.modelMap[modelName].definition
-
-      return !(
-        modelDef.kind === 'TypeAliasDefinition' &&
-        (modelDef as TypeAliasDefinition).isEnum
-      )
-    })
     .map(modelName => args.modelMap[modelName])
   const modelsByImportPaths = groupModelsNameByImportPath(modelsToImport)
 
