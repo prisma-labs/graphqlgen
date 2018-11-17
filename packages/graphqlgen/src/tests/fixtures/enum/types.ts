@@ -5,10 +5,10 @@ export interface User {
   enumAsUnionType: EnumAsUnionType
 }
 
-enum EnumAnnotation {
+export enum EnumAnnotation {
   ADMIN,
   EDITOR,
   COLLABORATOR,
 }
 
-type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'
+export type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'

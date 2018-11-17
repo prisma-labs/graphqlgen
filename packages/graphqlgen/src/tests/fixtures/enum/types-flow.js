@@ -7,5 +7,5 @@ export interface User {
   enumAsUnionType: EnumAsUnionType,
 }
 
-type EnumAnnotation = 'ADMIN' | 'EDITOR' | 'COLLABORATOR'
-type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'
+export type EnumAnnotation = 'ADMIN' | 'EDITOR' | 'COLLABORATOR'
+export type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'
