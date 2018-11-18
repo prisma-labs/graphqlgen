@@ -181,7 +181,10 @@ function renderInputTypeInterfaces(
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+        field =>
+          `${field.name}${
+            field.type.isRequired ? '' : '?'
+          }: ${printFieldLikeType(field, modelMap)}`,
       )}
     }`
     })
@@ -210,7 +213,7 @@ function renderInputArgInterface(
     ${field.arguments
       .map(
         arg =>
-          `${arg.name}: ${printFieldLikeType(
+          `${arg.name}${arg.type.isRequired ? '' : '?'}: ${printFieldLikeType(
             arg as GraphQLTypeField,
             modelMap,
           )}`,
