@@ -3,9 +3,10 @@
 export interface User {
   id: string,
   name: string,
-  enumAnnotation: EnumAnnotation,
-  enumAsUnionType: EnumAsUnionType,
+  color: Color,
+  role: Permissions,
+  permissions: Permissions,
 }
 
-export type EnumAnnotation = 'ADMIN' | 'EDITOR' | 'COLLABORATOR'
-export type EnumAsUnionType = 'RED' | 'GREEN' | 'BLUE'
+export type Permissions = 'ADMIN' | 'EDITOR' | 'COLLABORATOR'
+export type Color = 'RED' | 'GREEN' | 'BLUE'

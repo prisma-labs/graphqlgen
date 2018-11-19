@@ -1,21 +1,26 @@
 type User {
   id: ID!
   name: String!
-  enumAnnotation: EnumAnnotation!
-  enumAsUnionType: EnumAsUnionType!
+  color: Color!
+  role: Role!
+  permissions: Permissions!
 }
 
-enum EnumAnnotation {
+type Permissions {
+  isAdmin: Boolean
+}
+
+enum Role {
   EDITOR
   COLLABORATOR
 }
 
-enum EnumAsUnionType {
+enum Color {
   RED
   GREEN
   BLUE
 }
 
 type Query {
-  createUser(name: String!, type: EnumAnnotation!): User
+  createUser(name: String!, type: Role!): User
 }
