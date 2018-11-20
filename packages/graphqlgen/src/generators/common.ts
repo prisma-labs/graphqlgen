@@ -259,7 +259,7 @@ export function getDistinctInputTypes(
 export function renderEnums(args: GenerateArgs): string {
   return args.enums
     .map(enumObject => {
-      return `type ${enumObject.name} = ${enumObject.values
+      return `export type ${enumObject.name} = ${enumObject.values
         .map(value => `'${value}'`)
         .join(' | ')}`
     })

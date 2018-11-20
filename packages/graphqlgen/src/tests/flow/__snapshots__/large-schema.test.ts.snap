@@ -37,7 +37,7 @@ import type {
 } from \\"../../../fixtures/prisma/flow-types\\";
 type Context = any;
 
-type PLACE_SIZES =
+export type PLACE_SIZES =
   | \\"ENTIRE_HOUSE\\"
   | \\"ENTIRE_APARTMENT\\"
   | \\"ENTIRE_EARTH_HOUSE\\"
@@ -46,9 +46,9 @@ type PLACE_SIZES =
   | \\"ENTIRE_PLACE\\"
   | \\"ENTIRE_BOAT\\"
   | \\"PRIVATE_ROOM\\";
-type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
-type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
-type NOTIFICATION_TYPE =
+export type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
+export type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
+export type NOTIFICATION_TYPE =
   | \\"OFFER\\"
   | \\"INSTANT_BOOK\\"
   | \\"RESPONSIVENESS\\"

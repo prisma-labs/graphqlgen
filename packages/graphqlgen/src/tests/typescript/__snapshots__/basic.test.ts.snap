@@ -7,8 +7,8 @@ import { GraphQLResolveInfo } from \\"graphql\\";
 import { User } from \\"../../../fixtures/enum/types\\";
 type Context = any;
 
-type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
-type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
+export type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
+export type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
