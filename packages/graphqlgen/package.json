@@ -55,7 +55,7 @@
     "@types/jest": "23.3.9",
     "@types/js-yaml": "3.11.2",
     "@types/mkdirp": "0.5.2",
-    "@types/node": "10.12.9",
+    "@types/node": "10.12.10",
     "@types/prettier": "1.15.1",
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.1",
