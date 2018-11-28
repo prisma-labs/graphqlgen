@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/camelcase": "4.1.0",
     "@types/graphql": "14.0.3",
-    "@types/jest": "23.3.9",
+    "@types/jest": "23.3.10",
     "@types/js-yaml": "3.11.2",
     "@types/mkdirp": "0.5.2",
     "@types/node": "10.12.10",
