@@ -8,7 +8,7 @@
     "gitbook-cli": "2.3.2"
   },
   "dependencies": {
-    "gitbook-plugin-anchorjs": "1.1.1",
+    "gitbook-plugin-anchorjs": "2.0.1",
     "gitbook-plugin-base": "1.2.0",
     "gitbook-plugin-custom-favicon": "0.0.4",
     "gitbook-plugin-edit-link": "2.0.2",
