@@ -178,7 +178,8 @@ export namespace MutationResolvers {
     projects: string[];
     sideProjects: string[] | null;
     profile: ProfileData | null;
-    phones: PhoneData[] | null;
+    phones: PhoneData[];
+    isVIP: boolean;
   }
   export interface ProfileData {
     firstName: string | null;
@@ -195,10 +196,12 @@ export namespace MutationResolvers {
 
   export interface ArgsAddMember {
     data: AddMemberData;
+    upsert: boolean;
   }
 
   export interface ArgsAddMembers {
     data: AddMemberData[];
+    upsert: boolean;
   }
 
   export type AddMemberResolver = (

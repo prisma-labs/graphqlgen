@@ -84,7 +84,7 @@ test('basic scalar', async () => {
   })
 })
 
-test('basic input', async () => {
+test.only('basic input', async () => {
   testGeneration({
     language,
     schema: relative('../fixtures/input/schema.graphql'),
