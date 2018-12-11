@@ -201,7 +201,6 @@ export namespace MutationResolvers {
 
   export interface ArgsAddMembers {
     data: AddMemberData[];
-    upsert: boolean;
   }
 
   export type AddMemberResolver = (

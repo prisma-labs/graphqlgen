@@ -29,8 +29,5 @@ input PhoneData {
 
 type Mutation {
   addMember(data: AddMemberData!, upsert: Boolean = false): AddMemberPayload!
-  addMembers(
-    data: [AddMemberData!]!
-    upsert: Boolean = false
-  ): AddMemberPayload!
+  addMembers(data: [AddMemberData!]!): AddMemberPayload!
 }
