@@ -146,3 +146,22 @@ test('override model', async () => {
     },
   })
 })
+
+test('override model same names', async () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/override/schema.graphql'),
+    models: {
+      files: [relative('../fixtures/override/types.ts')],
+      override: {
+        Foo: `${relative('../fixtures/override/override-1.ts')}:Foo`,
+        Bar: `${relative('../fixtures/override/override-2.ts')}:Foo`,
+      },
+    },
+    output: relative('./generated/override/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/override/'),
+      layout: 'file-per-type',
+    },
+  })
+})
