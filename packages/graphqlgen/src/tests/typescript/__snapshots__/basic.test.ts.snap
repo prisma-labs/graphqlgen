@@ -197,6 +197,7 @@ export namespace MutationResolvers {
   export interface ArgsAddMember {
     data: AddMemberData;
     upsert: boolean;
+    note: string | null;
   }
 
   export interface ArgsAddMembers {

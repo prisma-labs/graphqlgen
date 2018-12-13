@@ -193,7 +193,9 @@ export function printFieldLikeType(
   field: GraphQLTypeField,
   modelMap: ModelMap,
 ) {
-  const isNullable = !field.type.isRequired && field.defaultValue === undefined
+  const isNullable =
+    field.defaultValue === null ||
+    (!field.type.isRequired && field.defaultValue === undefined)
 
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name)}${
