@@ -148,15 +148,17 @@ export async function testGeneration(config: GraphQLGenDefinition) {
     String(Math.random()),
   )
 
-  compileFlow
+  compileTypescript
+  compiledOutputDir
+  fileNames
 
-  if (config.language === 'typescript') {
-    compileTypescript(fileNames, compiledOutputDir)
-  }
-
-  // if (config.language === 'flow') {
-  //   await compileFlow(config.models.files!, config.output)
+  // if (config.language === 'typescript') {
+  //   compileTypescript(fileNames, compiledOutputDir)
   // }
+
+  if (config.language === 'flow') {
+    await compileFlow(config.models.files!, config.output)
+  }
 
   rimraf.sync(path.dirname(config.output))
 }
