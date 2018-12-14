@@ -17,7 +17,7 @@
     "build": "npm run lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
-    "t": "jest",
+    "t": "jest --verbose",
     "test": "npm run lint && npm run t",
     "gen": "ts-node --files src/index.ts"
   },
