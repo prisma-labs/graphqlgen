@@ -148,13 +148,9 @@ export async function testGeneration(config: GraphQLGenDefinition) {
     String(Math.random()),
   )
 
-  compileTypescript
-  compiledOutputDir
-  fileNames
-
-  // if (config.language === 'typescript') {
-  //   compileTypescript(fileNames, compiledOutputDir)
-  // }
+  if (config.language === 'typescript') {
+    compileTypescript(fileNames, compiledOutputDir)
+  }
 
   if (config.language === 'flow') {
     await compileFlow(config.models.files!, config.output)
