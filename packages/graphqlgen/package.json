@@ -17,7 +17,7 @@
     "build": "npm run lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
-    "t": "jest 'large-schema'",
+    "t": "jest --runInBand",
     "test": "npm run lint && npm run t",
     "gen": "ts-node --files src/index.ts"
   },
