@@ -11,6 +11,24 @@ import { validateConfig } from '../validation'
 import { generateCode, writeResolversScaffolding, writeTypes } from '../index'
 const flow = require('flow-bin')
 
+const exec = (command: string, args: string[]): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    return execFile(
+      command,
+      args,
+      (err: any, stdout: string, stderr: string) => {
+        if (err) {
+          err.stderr = stderr
+          err.stdout = stdout
+          reject(err)
+        } else {
+          resolve(stdout)
+        }
+      },
+    )
+  })
+}
+
 function printTypescriptErrors(diagnotics: ReadonlyArray<ts.Diagnostic>) {
   diagnotics.forEach(diagnostic => {
     if (diagnostic.file) {
@@ -67,38 +85,40 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
 [strict]
   `
 
-  writeFileSync(path.join(path.dirname(typesPath), '.flowconfig'), flowConfig)
+  const flowConfigName = `.flowconfig-${Math.random()}`
+  const flowConfigPath = path.join(path.dirname(typesPath), flowConfigName)
 
-  const stdout = await new Promise(resolve => {
-    return execFile(
-      flow,
-      ['check', path.resolve(path.dirname(typesPath))],
-      (_err: any, stdout: string) => {
-        resolve(stdout)
-      },
-    )
-  })
+  writeFileSync(flowConfigPath, flowConfig)
 
-  const errorDelimiter =
-    'Error ----------------------------------------------------------------'
-  // Do not take into account error from 'import type { GraphQLResolveInfo } from "graphql"'
-  const errors = (stdout as string)
-    .split(errorDelimiter)
-    .filter(
-      error =>
-        error.length !== 0 &&
-        !error.includes('Cannot resolve module `graphql`'),
-    )
+  try {
+    await exec(flow, [
+      'check',
+      '--flowconfig-name',
+      flowConfigName,
+      path.resolve(path.dirname(typesPath)),
+    ])
+  } catch (error) {
+    const errorDelimiter =
+      'Error ----------------------------------------------------------------'
+    // Do not take into account error from 'import type { GraphQLResolveInfo } from "graphql"'
+    const errors = (error.stdout as string)
+      .split(errorDelimiter)
+      .filter(
+        error =>
+          error.length !== 0 &&
+          !error.includes('Cannot resolve module `graphql`'),
+      )
 
-  if (errors.length > 0) {
-    console.log(
-      errors
-        .map(error => `${chalk.red(errorDelimiter) + EOL}${error}`)
-        .join(EOL),
-    )
+    if (errors.length > 0) {
+      console.log(
+        errors
+          .map(error => `${chalk.red(errorDelimiter) + EOL}${error}`)
+          .join(EOL),
+      )
+    }
+
+    expect(errors.length).toEqual(0)
   }
-
-  expect(errors.length).toEqual(0)
 }
 
 export async function testGeneration(config: GraphQLGenDefinition) {
