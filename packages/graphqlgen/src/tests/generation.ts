@@ -59,6 +59,7 @@ function printTypescriptErrors(diagnotics: ReadonlyArray<ts.Diagnostic>) {
 }
 
 function compileTypescript(fileNames: string[], compiledOutputDir: string) {
+  console.log('compileTypescript')
   const errors = ts
     .createProgram(fileNames, {
       sourceMap: false,
@@ -77,6 +78,7 @@ function compileTypescript(fileNames: string[], compiledOutputDir: string) {
 }
 
 async function compileFlow(includeFiles: File[], typesPath: string) {
+  console.log('compileFlow')
   const flowConfig = `
 [ignore]
 
