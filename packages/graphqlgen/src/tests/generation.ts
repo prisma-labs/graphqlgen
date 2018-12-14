@@ -97,14 +97,18 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
   const flowConfigName = `.flowconfig-${Math.random()}`
   const flowConfigPath = path.join(path.dirname(typesPath), flowConfigName)
 
+  console.log('flow writeFileSync')
   writeFileSync(flowConfigPath, flowConfig)
 
+  const id = Math.random()
+  console.log('flow will check %s', id)
   const result = await exec(flow, [
     'check',
     '--flowconfig-name',
     flowConfigName,
     path.resolve(path.dirname(typesPath)),
   ])
+  console.log('flow did check %s', id)
 
   if (result instanceof ExecError) {
     const errorDelimiter =
