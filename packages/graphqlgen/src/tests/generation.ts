@@ -143,7 +143,10 @@ export async function testGeneration(config: GraphQLGenDefinition) {
     config.output,
   ]
 
-  const compiledOutputDir = path.join(path.dirname(config.output), 'compiled')
+  const compiledOutputDir = path.join(
+    path.dirname(config.output),
+    String(Math.random()),
+  )
 
   if (config.language === 'typescript') {
     compileTypescript(fileNames, compiledOutputDir)
