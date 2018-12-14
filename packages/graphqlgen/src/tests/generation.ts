@@ -11,21 +11,28 @@ import { validateConfig } from '../validation'
 import { generateCode, writeResolversScaffolding, writeTypes } from '../index'
 const flow = require('flow-bin')
 
-const exec = (command: string, args: string[]): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    return execFile(
-      command,
-      args,
-      (err: any, stdout: string, stderr: string) => {
-        if (err) {
-          err.stderr = stderr
-          err.stdout = stdout
-          reject(err)
-        } else {
-          resolve(stdout)
-        }
-      },
-    )
+class ExecError extends Error {
+  constructor(
+    public message: string,
+    public stdout: string,
+    public stderr: string,
+  ) {
+    super(message)
+    // restore prototype chain
+    const actualProto = new.target.prototype
+    Object.setPrototypeOf(this, actualProto)
+  }
+}
+
+const exec = (command: string, args: string[]): Promise<ExecError | string> => {
+  return new Promise(resolve => {
+    return execFile(command, args, (err, stdout, stderr) => {
+      if (err) {
+        resolve(new ExecError(err.message, stdout, stderr))
+      } else {
+        resolve(stdout)
+      }
+    })
   })
 }
 
@@ -90,19 +97,20 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
 
   writeFileSync(flowConfigPath, flowConfig)
 
-  try {
-    await exec(flow, [
-      'check',
-      '--flowconfig-name',
-      flowConfigName,
-      path.resolve(path.dirname(typesPath)),
-    ])
-  } catch (error) {
+  const result = await exec(flow, [
+    'check',
+    '--flowconfig-name',
+    flowConfigName,
+    path.resolve(path.dirname(typesPath)),
+  ])
+
+  if (result instanceof ExecError) {
     const errorDelimiter =
       'Error ----------------------------------------------------------------'
-    // Do not take into account error from 'import type { GraphQLResolveInfo } from "graphql"'
-    const errors = (error.stdout as string)
+
+    const errors = result.stdout
       .split(errorDelimiter)
+      // Do not take into account error from 'import type { GraphQLResolveInfo } from "graphql"'
       .filter(
         error =>
           error.length !== 0 &&
