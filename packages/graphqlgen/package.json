@@ -17,8 +17,9 @@
     "build": "npm run lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
-    "t": "jest --maxWorkers 2",
-    "test": "npm run lint && npm run t",
+    "test:local": "jest",
+    "test:watch": "jest --watch",
+    "test": "npm run lint && jest --maxWorkers 2",
     "gen": "ts-node --files src/index.ts"
   },
   "repository": {
