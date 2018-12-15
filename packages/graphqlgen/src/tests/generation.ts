@@ -18,9 +18,8 @@ class ExecError extends Error {
     public stderr: string,
   ) {
     super(message)
-    // restore prototype chain
-    const actualProto = new.target.prototype
-    Object.setPrototypeOf(this, actualProto)
+    // https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    Object.setPrototypeOf(this, new.target.prototype)
   }
 }
 
