@@ -118,14 +118,11 @@ ${includeFiles.map(file => getPath(file)).join(EOL)}
       )
 
     if (errors.length > 0) {
-      console.log(
-        errors
-          .map(error => `${chalk.red(errorDelimiter) + EOL}${error}`)
-          .join(EOL),
-      )
+      const message = errors
+        .map(error => `${chalk.red(errorDelimiter) + EOL}${error}`)
+        .join(EOL)
+      throw new Error(message)
     }
-
-    expect(errors.length).toEqual(0)
   }
 }
 
