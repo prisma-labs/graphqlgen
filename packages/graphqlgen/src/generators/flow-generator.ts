@@ -196,20 +196,6 @@ function renderInputArgInterface(
     return ''
   }
 
-  const getArgTypePrefix = (
-    type: GraphQLTypeObject,
-    fieldArg: GraphQLTypeArgument,
-  ): string => {
-    if (
-      fieldArg.type.isScalar ||
-      // Object type includes GQL ID
-      fieldArg.type.isObject ||
-      fieldArg.type.isEnum
-    )
-      return ''
-    return upperFirst(type.name) + '_'
-  }
-
   return `
   export interface ${getInputArgName(type, field)} {
     ${field.arguments
@@ -223,6 +209,20 @@ function renderInputArgInterface(
       .join(',' + os.EOL)}
   }
   `
+}
+
+const getArgTypePrefix = (
+  type: GraphQLTypeObject,
+  fieldArg: GraphQLTypeArgument,
+): string => {
+  if (
+    fieldArg.type.isScalar ||
+    // Object type includes GQL ID
+    fieldArg.type.isObject ||
+    fieldArg.type.isEnum
+  )
+    return ''
+  return upperFirst(type.name) + '_'
 }
 
 function renderResolverFunctionInterfaces(
