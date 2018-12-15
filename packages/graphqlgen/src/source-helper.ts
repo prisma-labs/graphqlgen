@@ -49,7 +49,7 @@ export type GraphQLType = GraphQLTypeDefinition & {
   isRequired: boolean
 }
 
-type GraphQLTypeArgument = {
+export type GraphQLTypeArgument = {
   name: string
   type: GraphQLType
 }
@@ -331,7 +331,7 @@ const graphqlToTypescriptFlow: { [key: string]: string } = {
   ID: 'string',
   Int: 'number',
   Float: 'number',
-  DateTime: 'string'
+  DateTime: 'string',
 }
 
 export function graphQLToTypecriptFlowType(type: GraphQLType): string {
