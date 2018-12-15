@@ -107,7 +107,10 @@ export function generateCode(
     ),
     modelMap: generateCodeArgs.modelMap!,
   }
-  const generatedTypes = generateTypes(generateArgs, generateCodeArgs)
+  const generatedTypes = generateTypes(generateArgs, {
+    ...generateCodeArgs,
+    prettify: false,
+  })
   const generatedResolvers = generateResolvers(generateArgs, generateCodeArgs)
   // const generatedModels = generateModels(generateArgs, {schema, prettify, prettifyOptions, language})
 
