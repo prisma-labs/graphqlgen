@@ -19,7 +19,7 @@
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
     "test:local": "jest",
     "test:watch": "jest --watch",
-    "test": "npm run lint && jest --maxWorkers 2",
+    "test": "npm run lint && jest --maxWorkers 4",
     "gen": "ts-node --files src/index.ts"
   },
   "repository": {
