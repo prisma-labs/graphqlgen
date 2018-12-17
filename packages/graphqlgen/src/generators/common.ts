@@ -193,21 +193,25 @@ export function printFieldLikeType(
   field: GraphQLTypeField,
   modelMap: ModelMap,
 ) {
+  const isNullable =
+    field.defaultValue === null ||
+    (!field.type.isRequired && field.defaultValue === undefined)
+
   if (field.type.isScalar) {
     return `${getTypeFromGraphQLType(field.type.name)}${
       field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
+    }${isNullable ? '| null' : ''}`
   }
 
   if (field.type.isInput || field.type.isEnum) {
     return `${field.type.name}${field.type.isArray ? '[]' : ''}${
-      !field.type.isRequired ? '| null' : ''
+      isNullable ? '| null' : ''
     }`
   }
 
   return `${getModelName(field.type, modelMap)}${
     field.type.isArray ? '[]' : ''
-  }${!field.type.isRequired ? '| null' : ''}`
+  }${isNullable ? '| null' : ''}`
 }
 
 export function getTypeFromGraphQLType(

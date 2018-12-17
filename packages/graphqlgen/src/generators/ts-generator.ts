@@ -68,7 +68,7 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
-  
+
   ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
