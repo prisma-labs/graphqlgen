@@ -1,6 +1,5 @@
 {
   "name": "graphqlgen-json-schema",
-  "license": "MIT",
   "version": "0.2.12",
   "main": "dist/definition.js",
   "typings": "dist/definition.d.ts",
