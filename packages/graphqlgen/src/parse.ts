@@ -24,7 +24,7 @@ import {
   GraphQLTypes,
 } from './source-helper'
 import { FilesToTypesMap } from './introspection/types'
-import { buildFilesToTypesMap } from './introspection'
+import { getFilesToTypesMap } from './introspection'
 
 export interface NormalizedFile {
   path: string
@@ -166,7 +166,7 @@ export function parseModels(
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const normalizedFiles = normalizeFiles(models.files, language)
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
+  const filesToTypesMap = getFilesToTypesMap()
   const overriddenModels = !!models.override ? models.override : {}
   const typeToFileMapping = getTypeToFileMapping(
     normalizedFiles,
@@ -181,7 +181,7 @@ export function parseModels(
         ...acc,
         [type.name]: buildModel(
           modelName,
-          filePath,
+          normalizeFilePath(filePath, language),
           filesToTypesMap,
           outputDir,
           language,

@@ -21,7 +21,7 @@ function buildTypesMapByLanguage(
   }
 }
 
-export function buildTypesMap(filePath: string, language: Language): TypesMap {
+export function addFileToTypesMap(filePath: string, language: Language): TypesMap {
   if (filesToTypesMap[filePath] !== undefined) {
     return filesToTypesMap[filePath]
   }
@@ -40,19 +40,22 @@ export function findTypeInFile(
   typeName: string,
   language: Language,
 ): TypeDefinition | undefined {
-  const filesToTypesMap = buildFilesToTypesMap([{ path: filePath }], language)
+  addFileToTypesMap(filePath, language)
 
   return filesToTypesMap[filePath][typeName]
 }
 
-export function buildFilesToTypesMap(
+export function addFilesToTypesMap(
   files: NormalizedFile[],
   language: Language,
 ): FilesToTypesMap {
-  return files.reduce((acc, file) => {
-    return {
-      ...acc,
-      [file.path]: buildTypesMap(file.path, language),
-    }
-  }, {})
+  files.forEach(file => {
+    addFileToTypesMap(file.path, language)
+  })
+
+  return filesToTypesMap
+}
+
+export function getFilesToTypesMap() {
+  return filesToTypesMap
 }

@@ -1,6 +1,5 @@
 {
   "private": true,
-  "license": "MIT",
   "scripts": {
     "build": "cd packages/graphqlgen-json-schema && yarn build && cd ../graphqlgen && yarn build",
     "test": "yarn build && cd packages/graphqlgen && yarn test",
@@ -13,5 +12,6 @@
     "semi": false,
     "trailingComma": "all",
     "singleQuote": true
-  }
+  },
+  "license": "MIT"
 }

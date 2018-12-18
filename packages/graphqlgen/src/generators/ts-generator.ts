@@ -68,7 +68,7 @@ export function generate(args: GenerateArgs): string {
 
   return `\
   ${renderHeader(args)}
-  
+
   ${renderEnums(args)}
 
   ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
@@ -241,7 +241,7 @@ function renderResolverFunctionInterface(
   const resolverName = `${upperFirst(field.name)}Resolver`
   const resolverDefinition = `
   (
-    parent: ${getModelName(type.type as any, modelMap)},
+    parent: ${getModelName(type.type as any, modelMap, 'undefined')},
     args: ${
       field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },
@@ -289,7 +289,7 @@ function renderResolverTypeInterfaceFunction(
 ): string {
   const resolverDefinition = `
   (
-    parent: ${getModelName(type.type as any, modelMap)},
+    parent: ${getModelName(type.type as any, modelMap, 'undefined')},
     args: ${
       field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
     },

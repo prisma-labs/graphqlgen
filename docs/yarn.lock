@@ -827,9 +827,9 @@ gitbook-cli@2.3.2:
     tmp "0.0.31"
     user-home "2.0.0"
 
-gitbook-plugin-anchorjs@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-anchorjs/-/gitbook-plugin-anchorjs-1.1.1.tgz#728e0471ba7427fcde2149227c29fe172b5eecdd"
+gitbook-plugin-anchorjs@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-anchorjs/-/gitbook-plugin-anchorjs-2.1.0.tgz#c2b95a931121649011da834f7b153e78c19e110b"
 
 gitbook-plugin-base@1.2.0:
   version "1.2.0"
@@ -843,9 +843,9 @@ gitbook-plugin-edit-link@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-edit-link/-/gitbook-plugin-edit-link-2.0.2.tgz#d8fcd927eced81e7a662a72d59db609eafd7e72f"
 
-gitbook-plugin-github@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-2.0.0.tgz#5166e763cfcc402d432880b7a6c85c1c54b56a8d"
+gitbook-plugin-github@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-3.0.0.tgz#67457df98a57ea8ef9b2518b88340db370a5317b"
 
 github-url-from-git@~1.4.0:
   version "1.4.0"

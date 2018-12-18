@@ -67,56 +67,56 @@ export namespace QueryResolvers {
   }
 
   export type TopExperiencesResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Experience[] | Promise<Experience[]>;
 
   export type TopHomesResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Home[] | Promise<Home[]>;
 
   export type HomesInPriceRangeResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsHomesInPriceRange,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Home[] | Promise<Home[]>;
 
   export type TopReservationsResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Reservation[] | Promise<Reservation[]>;
 
   export type FeaturedDestinationsResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
   export type ExperiencesByCityResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsExperiencesByCity,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
   export type ViewerResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Viewer | null | Promise<Viewer | null>;
 
   export type MyLocationResolver = (
-    parent: {},
+    parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
@@ -124,56 +124,56 @@ export namespace QueryResolvers {
 
   export interface Type {
     topExperiences: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Experience[] | Promise<Experience[]>;
 
     topHomes: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Home[] | Promise<Home[]>;
 
     homesInPriceRange: (
-      parent: {},
+      parent: undefined,
       args: ArgsHomesInPriceRange,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Home[] | Promise<Home[]>;
 
     topReservations: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Reservation[] | Promise<Reservation[]>;
 
     featuredDestinations: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
     experiencesByCity: (
-      parent: {},
+      parent: undefined,
       args: ArgsExperiencesByCity,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
     viewer: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Viewer | null | Promise<Viewer | null>;
 
     myLocation: (
-      parent: {},
+      parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
@@ -3711,28 +3711,28 @@ export namespace MutationResolvers {
   }
 
   export type SignupResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsSignup,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => AuthPayload | Promise<AuthPayload>;
 
   export type LoginResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsLogin,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => AuthPayload | Promise<AuthPayload>;
 
   export type AddPaymentMethodResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsAddPaymentMethod,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => MutationResult | Promise<MutationResult>;
 
   export type BookResolver = (
-    parent: {},
+    parent: undefined,
     args: ArgsBook,
     ctx: Context,
     info: GraphQLResolveInfo
@@ -3740,28 +3740,28 @@ export namespace MutationResolvers {
 
   export interface Type {
     signup: (
-      parent: {},
+      parent: undefined,
       args: ArgsSignup,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AuthPayload | Promise<AuthPayload>;
 
     login: (
-      parent: {},
+      parent: undefined,
       args: ArgsLogin,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AuthPayload | Promise<AuthPayload>;
 
     addPaymentMethod: (
-      parent: {},
+      parent: undefined,
       args: ArgsAddPaymentMethod,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => MutationResult | Promise<MutationResult>;
 
     book: (
-      parent: {},
+      parent: undefined,
       args: ArgsBook,
       ctx: Context,
       info: GraphQLResolveInfo

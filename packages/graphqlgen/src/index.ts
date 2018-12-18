@@ -128,7 +128,7 @@ export function writeTypes(types: string, config: GraphQLGenDefinition): void {
   }
   console.log(
     chalk.green(
-      `Resolver interface definitons & default resolvers generated at ${
+      `Resolver interface definitions & default resolvers generated at ${
         config.output
       }`,
     ),

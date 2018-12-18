@@ -132,3 +132,20 @@ test('subscription', () => {
     },
   })
 })
+
+test('override model', async () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/basic/schema.graphql'),
+    models: {
+      override: {
+        Number: `${relative('../fixtures/basic')}:Number`,
+      },
+    },
+    output: relative('./generated/basic/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/basic/'),
+      layout: 'file-per-type',
+    },
+  })
+})

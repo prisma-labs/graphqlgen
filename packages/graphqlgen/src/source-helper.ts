@@ -52,11 +52,13 @@ export type GraphQLType = GraphQLTypeDefinition & {
 export type GraphQLTypeArgument = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
 }
 
 export type GraphQLTypeField = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
   arguments: GraphQLTypeArgument[]
 }
 
@@ -191,6 +193,7 @@ function extractTypeFieldsFromObjectType(
       fieldNode.args.forEach((arg: GraphQLArgument) => {
         fieldArguments.push({
           name: arg.name,
+          defaultValue: arg.defaultValue,
           type: extractTypeLike(schema, arg.type),
         })
       })
@@ -213,6 +216,7 @@ function extractTypeFieldsFromInputType(
     fields.push({
       name: input.name,
       type: extractTypeLike(schema, input.type),
+      defaultValue: input.defaultValue,
       arguments: [],
     })
   })
