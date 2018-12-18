@@ -38,10 +38,10 @@ const exec = (command: string, args: string[]): Promise<ExecError | string> => {
 function printTypescriptErrors(diagnotics: ReadonlyArray<ts.Diagnostic>) {
   diagnotics.forEach(diagnostic => {
     if (diagnostic.file) {
-      let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
+      const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
         diagnostic.start!,
       )
-      let message = ts.flattenDiagnosticMessageText(
+      const message = ts.flattenDiagnosticMessageText(
         diagnostic.messageText,
         '\n',
       )
