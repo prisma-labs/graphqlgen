@@ -47,5 +47,10 @@
     "tslint-config-standard": "8.0.1",
     "typescript": "3.2.2"
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "license": "MIT"
 }
