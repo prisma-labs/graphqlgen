@@ -29,7 +29,7 @@ Adding tests is a great way to help preventing future bugs.
 
 ## Documentation
 
-You can either improve existing content or add new resources. If you miss a particular information in [the reference documentation](https://oss.prisma.io/graphqlgen/), feel free to either create an issue or PR. 
+You can either improve existing content or add new resources. If you miss a particular information in [the reference documentation](https://oss.prisma.io/graphqlgen/), feel free to either create an issue or PR.
 
 ## Features
 
@@ -50,11 +50,13 @@ Below are a series of steps to help you from a more "practical" perspective. If 
 **Fork the repo and then clone your fork**
 
 SSH:
+
 ```sh
 git clone git@github.com:YOUR_USERNAME/graphqlgen.git
 ```
 
 HTTPS:
+
 ```sh
 git clone https://github.com/YOUR_USERNAME/graphqlgen.git
 ```

@@ -1,20 +1,19 @@
 // @flow
 
 interface Interface {
-  field: string,
-  optionalField?: string,
-  fieldUnionNull: string | null,
+  field: string;
+  optionalField?: string;
+  fieldUnionNull: string | null;
 }
 
 export interface ExportedInterface {
-  field: string
+  field: string;
 }
 
 type Type = {
-  field: string
+  field: string,
 }
 
 export type ExportedType = {
-  field: string
+  field: string,
 }
-

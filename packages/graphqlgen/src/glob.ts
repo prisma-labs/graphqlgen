@@ -31,7 +31,7 @@ export const handleGlobPattern = (files?: File[]): File[] => {
 
       return {
         path,
-        defaultName: file.defaultName
+        defaultName: file.defaultName,
       }
     })
 

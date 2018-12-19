@@ -1,7 +1,7 @@
 //@flow
 
 export interface AddMemberPayload {
-  json: Json
+  json: Json;
 }
 
 type Json = any
