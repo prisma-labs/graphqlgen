@@ -75,9 +75,10 @@
   version "23.3.10"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
 
-"@types/js-yaml@3.11.2":
-  version "3.11.2"
-  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.11.2.tgz#699ad86054cc20043c30d66a6fcde30bbf5d3d5e"
+"@types/js-yaml@3.11.4":
+  version "3.11.4"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.11.4.tgz#c4323304673278b8406bccb63bbf577342dbbdba"
+  integrity sha512-a42nbZzOlxbH3ORDg/brU+zlRQS8mSvZCEY4Xery66/NIA7yX4T9qk6yL9qpw4AhgwzEgc1XIhHRnivQW+zlkw==
 
 "@types/meow@5.0.0":
   version "5.0.0"
@@ -257,9 +258,10 @@
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@types/update-notifier/-/update-notifier-2.5.0.tgz#63cfcee92cc915f9a6eea4d1442ec6efd012e118"
 
-"@types/yargs@12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.1.tgz#c5ce4ad64499010ae4dc2acd9b14d49749a44233"
+"@types/yargs@12.0.2":
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.2.tgz#7569157b2601d49d4442023c0d22f81d23f62d1e"
+  integrity sha512-NUyxaQW48vjeDHybmhy7CFx/6of1+PoaEGPMI+0PzBVr5s3BTELT7gV4lNaxUsKllNS1YAjkeTEhBtzIDWs2WQ==
 
 abab@^2.0.0:
   version "2.0.0"

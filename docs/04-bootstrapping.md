@@ -27,4 +27,3 @@ Then start the server:
 cd my-graphql-server
 yarn start
 ```
-

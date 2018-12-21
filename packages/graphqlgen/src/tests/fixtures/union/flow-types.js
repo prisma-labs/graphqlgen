@@ -1,14 +1,14 @@
 // @flow
 
 export interface User {
-  id: string,
-  name: string
+  id: string;
+  name: string;
 }
 
 export interface Student {
-  age: number
+  age: number;
 }
 
 export interface Professor {
-  degree: string
+  degree: string;
 }

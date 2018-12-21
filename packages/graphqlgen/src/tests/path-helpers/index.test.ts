@@ -36,26 +36,24 @@ test('valid directory path without slash', () => {
 })
 
 test('normalizeFilePath()', () => {
-
   // '/path/to/file.ts' => '/path/to/file.ts'
-  expect(
-    normalizeFilePath(relative('./mocks/types.ts'), language),
-  ).toEqual(resolve(relative('./mocks/types.ts')))
+  expect(normalizeFilePath(relative('./mocks/types.ts'), language)).toEqual(
+    resolve(relative('./mocks/types.ts')),
+  )
 
   // '/path/to/file' => '/path/to/file.ts'
-  expect(
-    normalizeFilePath(relative('./mocks/types'), language),
-  ).toEqual(resolve(relative('./mocks/types.ts')))
+  expect(normalizeFilePath(relative('./mocks/types'), language)).toEqual(
+    resolve(relative('./mocks/types.ts')),
+  )
 
   // '/path/to/file' => '/path/to/file/index.ts'
-  expect(
-    normalizeFilePath(relative('./mocks/dir-1'), language),
-  ).toEqual(resolve(relative('./mocks/dir-1/index.ts')))
+  expect(normalizeFilePath(relative('./mocks/dir-1'), language)).toEqual(
+    resolve(relative('./mocks/dir-1/index.ts')),
+  )
 
   // '/path/to/file' => '/path/to/file.ts'
   // Even though there is a folder of the same name
-  expect(
-    normalizeFilePath(relative('./mocks/dir-2/dir-3'), language),
-  ).toEqual(resolve(relative('./mocks/dir-2/dir-3.ts')))
-
+  expect(normalizeFilePath(relative('./mocks/dir-2/dir-3'), language)).toEqual(
+    resolve(relative('./mocks/dir-2/dir-3.ts')),
+  )
 })

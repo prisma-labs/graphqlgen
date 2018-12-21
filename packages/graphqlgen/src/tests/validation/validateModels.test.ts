@@ -52,8 +52,8 @@ describe('test validateModels()', () => {
         models: {
           files: [relative('./mocks/overridenModel/types.ts')],
           override: {
-            Post: relative('./mocks/overridenModel/model.ts:PostModel')
-          }
+            Post: relative('./mocks/overridenModel/model.ts:PostModel'),
+          },
         },
       },
       true,
@@ -67,8 +67,8 @@ describe('test validateModels()', () => {
         models: {
           files: [relative('./mocks/overridenModel/types.ts')],
           override: {
-            Post: relative('./mocks/overridenModel/model.ts:Post')
-          }
+            Post: relative('./mocks/overridenModel/model.ts:Post'),
+          },
         },
       },
       false,
