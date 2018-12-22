@@ -28,6 +28,10 @@ input PhoneData {
 }
 
 type Mutation {
-  addMember(data: AddMemberData!, upsert: Boolean = false, note: String = null): AddMemberPayload!
+  addMember(
+    data: AddMemberData!
+    upsert: Boolean = false
+    note: String = null
+  ): AddMemberPayload!
   addMembers(data: [AddMemberData!]!): AddMemberPayload!
 }

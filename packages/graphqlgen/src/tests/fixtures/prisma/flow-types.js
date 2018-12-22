@@ -31,7 +31,7 @@ export interface Review {
   checkIn: number;
   cleanliness: number;
   communication: number;
-  createdAt: undefined;
+  createdAt: string;
   id: string;
   location: number;
   stars: number;
@@ -119,7 +119,7 @@ export interface Amenities {
 
 export interface User {
   bookings: any[];
-  createdAt: undefined;
+  createdAt: string;
   email: string;
   firstName: string;
   hostingExperiences: any[];
@@ -136,22 +136,22 @@ export interface User {
   responseRate: number | null;
   responseTime: number | null;
   sentMessages: any[];
-  updatedAt: undefined;
+  updatedAt: string;
 }
 
 export interface Booking {
   id: string;
-  createdAt: undefined;
+  createdAt: string;
   bookee: any;
   place: any;
-  startDate: undefined;
-  endDate: undefined;
+  startDate: any;
+  endDate: any;
   payment: any;
 }
 
 export interface Payment {
   booking: any;
-  createdAt: undefined;
+  createdAt: string;
   id: string;
   paymentMethod: any;
   serviceFee: number;
@@ -159,7 +159,7 @@ export interface Payment {
 
 export interface PaymentAccount {
   id: string;
-  createdAt: undefined;
+  createdAt: string;
   type: any | null;
   user: any;
   payments: any[];
@@ -170,7 +170,7 @@ export interface PaymentAccount {
 export interface PAYMENT_PROVIDER {}
 
 export interface PaypalInformation {
-  createdAt: undefined;
+  createdAt: string;
   email: string;
   id: string;
   paymentAccount: any;
@@ -179,7 +179,7 @@ export interface PaypalInformation {
 export interface CreditCardInformation {
   cardNumber: string;
   country: string;
-  createdAt: undefined;
+  createdAt: string;
   expiresOnMonth: number;
   expiresOnYear: number;
   firstName: string;
@@ -191,10 +191,10 @@ export interface CreditCardInformation {
 }
 
 export interface Notification {
-  createdAt: undefined;
+  createdAt: string;
   id: string;
   link: string;
-  readDate: undefined;
+  readDate: any;
   type: any | null;
   user: any;
 }
@@ -202,10 +202,10 @@ export interface Notification {
 export interface NOTIFICATION_TYPE {}
 
 export interface Message {
-  createdAt: undefined;
-  deliveredAt: undefined;
+  createdAt: string;
+  deliveredAt: any;
   id: string;
-  readAt: undefined;
+  readAt: any;
 }
 
 export interface Pricing {
@@ -242,21 +242,21 @@ export interface Policies {
   checkInEndTime: number;
   checkInStartTime: number;
   checkoutTime: number;
-  createdAt: undefined;
+  createdAt: string;
   id: string;
-  updatedAt: undefined;
+  updatedAt: string;
 }
 
 export interface HouseRules {
   additionalRules: string | null;
-  createdAt: undefined;
+  createdAt: string;
   id: string;
   partiesAndEventsAllowed: boolean | null;
   petsAllowed: boolean | null;
   smokingAllowed: boolean | null;
   suitableForChildren: boolean | null;
   suitableForInfants: boolean | null;
-  updatedAt: undefined;
+  updatedAt: string;
 }
 
 export interface Reservation {

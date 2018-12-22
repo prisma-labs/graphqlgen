@@ -1,56 +1,58 @@
 import { testGeneration } from '../generation'
 import { join } from 'path'
 
-const language = 'flow'
 const relative = (p: string) => join(__dirname, p)
+const typesPath = relative('./generated-basic/graphqlgen.js')
+const resolversDir = relative('./generated-basic/tmp-resolvers/')
+const language = 'flow'
 
 test('basic schema', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
     models: {
       files: [relative('../fixtures/basic/types-flow.js')],
     },
-    output: relative('./generated/basic/graphqlgen.js'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/basic/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic enum', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
     models: {
       files: [relative('../fixtures/enum/types-flow.js')],
     },
-    output: relative('./generated/enum/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/enum/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic union', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
     models: {
       files: [relative('../fixtures/union/flow-types.js')],
     },
-    output: relative('./generated/union/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/union/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('defaultName', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
     models: {
@@ -61,55 +63,55 @@ test('defaultName', async () => {
         },
       ],
     },
-    output: relative('./generated/defaultName/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic scalar', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
     models: {
       files: [relative('../fixtures/scalar/flow-types.js')],
     },
-    output: relative('./generated/scalar/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('context', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/context/schema.graphql'),
     context: relative('../fixtures/context/flow-types.js:Context'),
     models: {
       files: [relative('../fixtures/context/flow-types.js')],
     },
-    output: relative('./generated/context/graphqlgen.js'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('subscription', () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/subscription/schema.graphql'),
     models: {
       files: [relative('../fixtures/subscription/flow-types.js')],
     },
-    output: relative('./generated/subscription/graphqlgen.js'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })

@@ -80,7 +80,9 @@ async function main(cli: meow.Result) {
       },
     ])
 
-    template = availableTemplates.find(t => `${t.name} (${t.description})` === res.templateName)
+    template = availableTemplates.find(
+      t => `${t.name} (${t.description})` === res.templateName,
+    )
   }
 
   let [output] = cli.input

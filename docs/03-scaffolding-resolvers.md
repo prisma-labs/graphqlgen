@@ -87,54 +87,53 @@ After running `$ graphqlgen` in your terminal, the following code will be genera
 **`./tmp/User.ts`**
 
 ```ts
-import { UserResolvers } from "../generated/graphqlgen";
+import { UserResolvers } from '../generated/graphqlgen'
 
 export const User: UserResolvers.Type = {
-  ...UserResolvers.defaultResolvers
-};
+  ...UserResolvers.defaultResolvers,
+}
 ```
 
 **`./tmp/Query.ts`**
 
 ```ts
-import { QueryResolvers } from "../generated/graphqlgen";
+import { QueryResolvers } from '../generated/graphqlgen'
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
-  user: (parent, args) => null
-};
+  user: (parent, args) => null,
+}
 ```
 
 **`./tmp/Mutation.ts`**
 
 ```ts
-import { MutationResolvers } from "../generated/graphqlgen";
+import { MutationResolvers } from '../generated/graphqlgen'
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
   createUser: (parent, args) => {
-    throw new Error("Resolver not implemented");
-  }
-};
+    throw new Error('Resolver not implemented')
+  },
+}
 ```
 
 **`./tmp/index.ts`**
 
 ```ts
-import { Resolvers } from "../generated/graphqlgen";
+import { Resolvers } from '../generated/graphqlgen'
 
-import { Query } from "./Query";
-import { Mutation } from "./Mutation";
-import { User } from "./User";
+import { Query } from './Query'
+import { Mutation } from './Mutation'
+import { User } from './User'
 
 export const resolvers: Resolvers = {
   Query,
   Mutation,
-  User
-};
+  User,
+}
 ```
 
 Note the following:
 
 - The paths in the `import` statements will likely need to be adjusted depending on your file structure.
-
