@@ -102,7 +102,9 @@ ${chalk.bold(
     'Step 1',
   )}: Copy/paste the model definitions below to your application
 
-${missingModels.map(type => renderModelFromType(type, language, defaultName)).join(os.EOL)}
+${missingModels
+    .map(type => renderModelFromType(type, language, defaultName))
+    .join(os.EOL)}
 
 
 ${chalk.bold('Step 2')}: Reference the model definitions in your ${chalk.bold(

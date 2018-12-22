@@ -1,14 +1,14 @@
 scalar Json
 
 type AddMemberPayload {
- json: Json
+  json: Json
 }
 
 input AddMemberData {
- email: String!
- projects: [ID!]!
+  email: String!
+  projects: [ID!]!
 }
 
 type Mutation {
- addMember(data: AddMemberData!): AddMemberPayload!
+  addMember(data: AddMemberData!): AddMemberPayload!
 }

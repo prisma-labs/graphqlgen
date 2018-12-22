@@ -28,10 +28,22 @@ test('Handle Complex Walk', () => {
       { path: 'anotherPath', defaultName: undefined },
     ]),
   ).toMatchObject([
-    { path: './src/tests/glob/mocks/dir-1/file-11.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-1/file-12.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-2/file-21.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-2/file-22.ts', defaultName: '{typeName}Node' },
+    {
+      path: './src/tests/glob/mocks/dir-1/file-11.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-1/file-12.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-2/file-21.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-2/file-22.ts',
+      defaultName: '{typeName}Node',
+    },
     { path: 'anotherPath', defaultName: undefined },
   ])
 })
@@ -43,14 +55,29 @@ test('Handle Complex Walk', () => {
   expect(
     handleGlobPattern([
       { path: './src/tests/glob/mocks/**/*.ts', defaultName: '{typeName}Node' },
-      { path: './src/tests/glob/mocks/dir-1/file-11.ts', defaultName: undefined },
+      {
+        path: './src/tests/glob/mocks/dir-1/file-11.ts',
+        defaultName: undefined,
+      },
       { path: 'anotherPath', defaultName: undefined },
     ]),
   ).toMatchObject([
-    { path: './src/tests/glob/mocks/dir-1/file-11.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-1/file-12.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-2/file-21.ts', defaultName: '{typeName}Node' },
-    { path: './src/tests/glob/mocks/dir-2/file-22.ts', defaultName: '{typeName}Node' },
+    {
+      path: './src/tests/glob/mocks/dir-1/file-11.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-1/file-12.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-2/file-21.ts',
+      defaultName: '{typeName}Node',
+    },
+    {
+      path: './src/tests/glob/mocks/dir-2/file-22.ts',
+      defaultName: '{typeName}Node',
+    },
     { path: './src/tests/glob/mocks/dir-1/file-11.ts', defaultName: undefined },
     { path: 'anotherPath', defaultName: undefined },
   ])

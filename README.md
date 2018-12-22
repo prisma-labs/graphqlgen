@@ -35,24 +35,27 @@ Programming in type-safe environments provides a lot of benefits and gives you c
 Bootstrap a GraphQL server based with a ready-made `graphqlgen` setup then
 start the server:
 
-*With `npm`*
+_With `npm`_
+
 ```bash
 npm init graphqlgen my-app
 cd my-app
 npm start
 ```
-*Note: `npm init` requires npm version >= 6.2.0*
+
+_Note: `npm init` requires npm version >= 6.2.0_
 
 or
 
-*With `yarn`*
+_With `yarn`_
 
 ```bash
 yarn create graphqlgen my-app
 cd my-app
 yarn start
 ```
-*Note: `yarn create` requires yarn version >= 0.25*
+
+_Note: `yarn create` requires yarn version >= 0.25_
 
 After updating the GraphQL schema in `./my-app/src/schema.graphql`, execute the `graphqlgen` CLI to update all resolvers:
 

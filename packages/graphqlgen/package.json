@@ -54,9 +54,9 @@
     "@types/camelcase": "4.1.0",
     "@types/graphql": "14.0.3",
     "@types/jest": "23.3.10",
-    "@types/js-yaml": "3.11.2",
+    "@types/js-yaml": "3.11.4",
     "@types/mkdirp": "0.5.2",
-    "@types/node": "10.12.15",
+    "@types/node": "10.12.18",
     "@types/prettier": "1.15.2",
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.1",
@@ -64,6 +64,6 @@
     "jest": "23.6.0",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
-    "tslint": "5.11.0"
+    "tslint": "5.12.0"
   }
 }
