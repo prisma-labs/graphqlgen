@@ -62,11 +62,11 @@ const getTypeToFileMapping = (
   files: NormalizedFile[],
   filesToTypesMap: FilesToTypesMap,
 ): InterfaceNamesToFile => {
+  // REFACTOR: This function basically just takes an index and flips it. Make generic.
   const mapping: InterfaceNamesToFile = {}
 
   for (const file of files) {
-    // TODO: `typesMap` is not typesafe despite what the type claims,
-    //       since the lookup could fail.
+    // WARNING: typesMap is not typesafe since the lookup could fail.
     const typesMap = filesToTypesMap[file.path]
     const interfaceNames = Object.keys(typesMap)
 
