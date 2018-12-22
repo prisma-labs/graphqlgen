@@ -3,6 +3,7 @@
   "scripts": {
     "build": "cd packages/graphqlgen-json-schema && yarn build && cd ../graphqlgen && yarn build",
     "test": "yarn build && cd packages/graphqlgen && yarn test",
+    "test:ci": "yarn build && cd packages/graphqlgen && yarn test:ci",
     "fix:prettier": "yarn prettier --write './**/*.{md,ts,js,graphql,yaml}'"
   },
   "workspaces": [
