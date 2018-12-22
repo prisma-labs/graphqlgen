@@ -7,7 +7,7 @@ import {
   getGraphQLEnumValues,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
-import { flatten, uniq } from '../utils'
+import { concat, uniq } from '../utils'
 import {
   TypeDefinition,
   FieldDefinition,
@@ -242,7 +242,7 @@ function deepResolveInputTypes(
       .map(name =>
         deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
       )
-      .reduce(flatten, [])
+      .reduce(concat, [])
     return [typeName, ...childTypes]
   } else {
     throw new Error(`Input type ${typeName} not found`)
@@ -256,7 +256,7 @@ export function getDistinctInputTypes(
 ) {
   return typeToInputTypeAssociation[type.name]
     .map(t => deepResolveInputTypes(inputTypesMap, t))
-    .reduce(flatten, [])
+    .reduce(concat, [])
     .filter(uniq)
 }
 
