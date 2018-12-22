@@ -100,7 +100,7 @@ const concat = <T = unknown>(a: T[], b: T[]): T[] => {
 }
 
 // TODO Refactor; confusing; only one callsite
-const uniq = (value: any, index: number, array: Array<any>) => {
+const uniq = <T = unknown>(value: T, index: number, array: T[]): boolean => {
   return array.indexOf(value) === index
 }
 
