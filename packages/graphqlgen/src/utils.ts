@@ -62,6 +62,7 @@ const getTypeToFileMapping = (
   files: NormalizedFile[],
   filesToTypesMap: FilesToTypesMap,
 ): InterfaceNamesToFile => {
+  console.log(files, filesToTypesMap)
   // REFACTOR: This function basically just takes an index and flips it. Make generic.
   const mapping: InterfaceNamesToFile = {}
 
