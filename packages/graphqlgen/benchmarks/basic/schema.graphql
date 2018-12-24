@@ -1,3 +1,9 @@
-type Query {
+type A {
   a: String
+  b: Int
+  c: Boolean
+}
+
+type Query {
+  a: A
 }
