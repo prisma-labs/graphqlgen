@@ -3,6 +3,7 @@ import * as Parse from '../../src/parse'
 import * as Validation from '../../src/validation'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import * as Sys from '../lib/sys'
+import * as Bench from 'benchmark'
 
 const log = console.log
 
@@ -30,13 +31,19 @@ const modelMap = Parse.parseModels(
 )
 
 const run = () => {
-  const generated = GGen.generateCode({
-    language: language,
-    schema: schema,
-    config: config,
-    modelMap: modelMap,
+  const bench = new Bench({
+    name: 'basic',
+    fn: () => {
+      GGen.generateCode({
+        language: language,
+        schema: schema,
+        config: config,
+        modelMap: modelMap,
+      })
+    },
   })
-  log(generated)
+  bench.run()
+  log(bench.toString())
 }
 
 export { run }
