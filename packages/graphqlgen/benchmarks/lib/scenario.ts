@@ -1,9 +1,9 @@
-import * as Sys from './sys'
 import * as Parse from '../../src/parse'
 import * as ConfigTypes from 'graphqlgen-json-schema'
 import * as Validation from '../../src/validation'
 import * as GGen from '../../src'
 import * as Bench from 'benchmark'
+import * as Path from 'path'
 
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
@@ -33,18 +33,18 @@ type CodeGenConfigOptions = {
 const createCodeGenConfig = (
   config: CodeGenConfigOptions,
 ): GGen.GenerateCodeArgs => {
-  const sdlFilePath = Sys.path(config.rootPath, 'schema.graphql')
+  const sdlFilePath = Path.join(config.rootPath, 'schema.graphql')
 
   const schema = Parse.parseSchema(sdlFilePath)
 
   const models = {
-    files: [Sys.path(config.rootPath, './models.ts')],
+    files: [Path.join(config.rootPath, './models.ts')],
   }
 
   const graphqlGenConfig: ConfigTypes.GraphQLGenDefinition = {
     language: config.language,
     schema: sdlFilePath,
-    output: Sys.path(config.rootPath, './'),
+    output: Path.join(config.rootPath, './'),
     models,
   }
 
@@ -54,7 +54,7 @@ const createCodeGenConfig = (
   const modelMap = Parse.parseModels(
     models,
     schema,
-    Sys.path(config.rootPath, './'),
+    Path.join(config.rootPath, './'),
     graphqlGenConfig.language,
   )
 
