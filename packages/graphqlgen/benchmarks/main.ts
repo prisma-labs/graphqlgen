@@ -4,6 +4,10 @@ import * as Sys from './lib/sys'
 
 const benchmarks = Sys.globRelativeFromHere('./scenarios/*')
   .filter(node => Path.extname(node) === '')
+  .map(path => {
+    Scenario.validateFixtures(path)
+    return path
+  })
   .map(path =>
     Scenario.createBenchmark({
       language: 'typescript',

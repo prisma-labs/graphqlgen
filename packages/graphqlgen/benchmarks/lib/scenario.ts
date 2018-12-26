@@ -1,9 +1,15 @@
+/**
+ * This module contains utility functions for creating
+ * benchmark instances.
+ */
+
 import * as Parse from '../../src/parse'
 import * as ConfigTypes from 'graphqlgen-json-schema'
 import * as Validation from '../../src/validation'
 import * as GGen from '../../src'
 import * as Bench from 'benchmark'
 import * as Path from 'path'
+import * as Sys from './sys'
 
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
@@ -11,6 +17,11 @@ type Options = {
   name: string
 }
 
+/**
+ * Create a benchmark instance for testing the performance
+ * of the whole GraphqlGen pipeline (except for initial
+ * config parsing, file loading, and model map creation).
+ */
 const createBenchmark = (config: Options): Bench => {
   const codeGenConfig = createCodeGenConfig({
     language: config.language,
@@ -30,6 +41,11 @@ type CodeGenConfigOptions = {
   rootPath: string
 }
 
+/**
+ * Create a configuration ready for consumption  by the
+ * main code gen function. This utility function is needed
+ * because of the current complexity of assembling the config.
+ */
 const createCodeGenConfig = (
   config: CodeGenConfigOptions,
 ): GGen.GenerateCodeArgs => {
@@ -66,4 +82,21 @@ const createCodeGenConfig = (
   }
 }
 
-export { createCodeGenConfig as setup, createBenchmark }
+const validateFixtures = (scenarioFolder: string): void => {
+  const name = Path.basename(scenarioFolder)
+  const files = Sys.glob(Path.join(scenarioFolder, './*')).map(path =>
+    Path.basename(path),
+  )
+
+  // TODO throw a multi-error
+
+  if (!files.includes('schema.graphql')) {
+    throw new Error(`benchmark "${name}" missing file schema.graphql`)
+  }
+
+  if (!files.includes('models.ts')) {
+    throw new Error(`benchmark "${name}" missing file models.ts`)
+  }
+}
+
+export { validateFixtures, createCodeGenConfig as setup, createBenchmark }
