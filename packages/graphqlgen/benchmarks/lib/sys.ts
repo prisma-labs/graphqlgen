@@ -1,6 +1,7 @@
 import * as FS from 'fs'
 import * as Path from 'path'
 import * as getCallSite from 'callsite'
+import * as Glob from 'glob'
 
 const path = (...segments: string[]): string => {
   return Path.join.apply(null, segments)
@@ -28,7 +29,12 @@ const toAbsolutePathRelativeToCaller = (relativePath: string): string => {
   return Path.join(basePath, relativePath)
 }
 
+const globRelativeFromHere = (relativeGlob: string): string[] => {
+  return Glob.sync(toAbsolutePathRelativeToCaller(relativeGlob))
+}
+
 export {
+  globRelativeFromHere,
   read,
   toAbsolutePathRelativeToDefinition as toAbsolutePath,
   toAbsolutePathRelativeToCaller,

@@ -7,15 +7,17 @@ import * as Bench from 'benchmark'
 
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
+  rootPath: string
+  name: string
 }
 
 const createBenchmark = (config: Options): Bench => {
   const codeGenConfig = createCodeGenConfig({
     language: config.language,
-    rootPath: Sys.toAbsolutePathRelativeToCaller('.'),
+    rootPath: config.rootPath,
   })
   const benchmark = new Bench({
-    name: 'complex',
+    name: config.name,
     fn: () => {
       GGen.generateCode(codeGenConfig)
     },
