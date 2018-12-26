@@ -8,7 +8,7 @@ const benchmarks = Sys.globRelativeFromHere('./scenarios/*')
     Scenario.createBenchmark({
       language: 'typescript',
       rootPath: path,
-      name: Path.basename(path),
+      name: `generateCode (${Path.basename(path)} input)`,
     }),
   )
 
