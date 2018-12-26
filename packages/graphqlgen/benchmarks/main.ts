@@ -1,8 +1,8 @@
-import * as Scenario from './lib/scenario'
+import * as Scenario from './integration'
 import * as Path from 'path'
 import * as Sys from './lib/sys'
 
-const benchmarks = Sys.globRelativeFromHere('./scenarios/*')
+const benchmarks = Sys.globRelative('./integration/*')
   .filter(node => Path.extname(node) === '')
   .map(path => {
     Scenario.validateFixtures(path)

@@ -10,7 +10,7 @@ const toAbsolutePathRelativeToCaller = (relativePath: string): string => {
   return Path.join(basePath, relativePath)
 }
 
-const globRelativeFromHere = (relativeGlob: string): string[] => {
+const globRelative = (relativeGlob: string): string[] => {
   return Glob.sync(toAbsolutePathRelativeToCaller(relativeGlob))
 }
 
@@ -18,4 +18,4 @@ const glob = (pathPattern: string): string[] => {
   return Glob.sync(pathPattern)
 }
 
-export { glob, globRelativeFromHere, toAbsolutePathRelativeToCaller }
+export { glob, globRelative, toAbsolutePathRelativeToCaller }

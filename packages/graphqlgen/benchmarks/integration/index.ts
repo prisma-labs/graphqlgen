@@ -1,6 +1,6 @@
 /**
  * This module contains utility functions for creating
- * benchmark instances.
+ * integration benchmark instances.
  */
 
 import * as Parse from '../../src/parse'
@@ -9,7 +9,7 @@ import * as Validation from '../../src/validation'
 import * as GGen from '../../src'
 import * as Bench from 'benchmark'
 import * as Path from 'path'
-import * as Sys from './sys'
+import * as Sys from '../lib/sys'
 
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
