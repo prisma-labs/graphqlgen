@@ -25,7 +25,6 @@ const collectBenchmarks = (paths: string[]): Bench[] => {
       const benchmark = Scenario.createBenchmark({
         language: Util.getLangFromExt(ext),
         rootPath: path,
-        name: `generateCode (${Path.basename(path)} input)`,
       })
 
       benchmarks.push(benchmark)

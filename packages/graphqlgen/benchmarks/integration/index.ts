@@ -14,7 +14,6 @@ import * as Sys from '../lib/sys'
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
   rootPath: string
-  name: string
 }
 
 /**
@@ -28,7 +27,9 @@ const createBenchmark = (config: Options): Bench => {
     rootPath: config.rootPath,
   })
   const benchmark = new Bench({
-    name: config.name,
+    name: `generateCode (${Path.basename(config.rootPath)} schema, ${
+      config.language
+    })`,
     fn: () => {
       GGen.generateCode(codeGenConfig)
     },
