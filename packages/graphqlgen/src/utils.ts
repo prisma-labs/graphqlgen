@@ -104,7 +104,22 @@ const uniq = <T = unknown>(value: T, index: number, array: T[]): boolean => {
   return array.indexOf(value) === index
 }
 
+type LanguageExtension = 'ts' | 'js'
+const languageExtensions: LanguageExtension[] = ['ts', 'js']
+
+const extToLangIndex: Record<'ts' | 'js', Language> = {
+  ts: 'typescript',
+  js: 'flow',
+}
+
+const getLangFromExt = (ext: LanguageExtension): Language => {
+  return extToLangIndex[ext]
+}
+
 export {
+  LanguageExtension,
+  languageExtensions,
+  getLangFromExt,
   getTypeToFileMapping,
   uniq,
   concat,

@@ -18,4 +18,13 @@ const glob = (pathPattern: string): string[] => {
   return Glob.sync(pathPattern)
 }
 
-export { glob, globRelative, toAbsolutePathRelativeToCaller }
+const getExt = (path: string): null | string => {
+  const ext = Path.extname(path)
+  if (ext === '') return null
+  const extWithoutDot = ext.slice(1)
+  return extWithoutDot
+}
+
+const isFile = (path: string): boolean => Path.extname(path) !== ''
+
+export { glob, globRelative, toAbsolutePathRelativeToCaller, getExt, isFile }
