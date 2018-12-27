@@ -116,6 +116,31 @@ const getLangFromExt = (ext: LanguageExtension): Language => {
   return extToLangIndex[ext]
 }
 
+/**
+ * Get the extension from a file name (or path with file name).
+ * Unlike Path.extname this returns null if no ext can be extracted.
+ */
+const getExt = (path: string): null | string => {
+  const ext = Path.extname(path)
+  if (ext === '') return null
+  const extWithoutDot = ext.slice(1)
+  return extWithoutDot
+}
+
+/**
+ * Predicate function for checking if a path is to file.
+ * Relies on convention that a dot being present in last
+ * path item is a file.
+ *
+ * Examples:
+ *
+ *    /a/b/c -> false
+ *    /a/b/c.foo -> true
+ */
+const isFile = (path: string): boolean => {
+  return Path.extname(path) !== ''
+}
+
 export {
   LanguageExtension,
   languageExtensions,
@@ -126,4 +151,6 @@ export {
   replaceAll,
   upperFirst,
   normalizeFilePath,
+  getExt,
+  isFile,
 }

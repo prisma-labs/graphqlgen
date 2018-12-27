@@ -9,7 +9,7 @@ import * as Validation from '../../src/validation'
 import * as GGen from '../../src'
 import * as Bench from 'benchmark'
 import * as Path from 'path'
-import * as Sys from '../lib/sys'
+import * as Glob from 'glob'
 
 type Options = {
   language: ConfigTypes.GraphQLGenDefinition['language']
@@ -85,7 +85,7 @@ const createCodeGenConfig = (
 
 const validateFixtures = (scenarioFolder: string): void => {
   const name = Path.basename(scenarioFolder)
-  const files = Sys.glob(Path.join(scenarioFolder, './*')).map(path =>
+  const files = Glob.sync(Path.join(scenarioFolder, './*')).map(path =>
     Path.basename(path),
   )
 
