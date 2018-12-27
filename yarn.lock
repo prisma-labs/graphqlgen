@@ -144,10 +144,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
-"@types/ora@1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@types/ora/-/ora-1.3.4.tgz#b7fbbea8dac9851eb1918a761e2f4fae4cec03f5"
-  integrity sha512-DrHOHEdYzRjL65n2v+NwTdhC8tACaiCDnUU1wAAbibfZOaRj3KjUb3unnAAWFZuny43qPAvB6ka+Iyj2R2XPxw==
+"@types/ora@1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@types/ora/-/ora-1.3.5.tgz#1a08bf64902c1473d3d47de58549a49e07140f1c"
+  integrity sha512-CZe3oXbO1XylJT1feg+/aCzNt6tfR4XO+IkLetc85O/yaZRw271cZtS8LL/2mknd+PoR5IKAjFLzo4KWZXxung==
   dependencies:
     "@types/node" "*"
 
@@ -311,10 +311,10 @@
   resolved "https://registry.yarnpkg.com/@types/update-notifier/-/update-notifier-2.5.0.tgz#63cfcee92cc915f9a6eea4d1442ec6efd012e118"
   integrity sha512-YV+ZcSIiv30GhLM7WwxI+bsbcW34d3Yhl2JSFBNFL6qtfsoI9++hogxz+jTqeS86ynKcMUE0AsnLWQynfJnsfA==
 
-"@types/yargs@12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.1.tgz#c5ce4ad64499010ae4dc2acd9b14d49749a44233"
-  integrity sha512-UVjo2oH79aRNcsDlFlnQ/iJ67Jd7j6uSg7jUJP/RZ/nUjAh5ElmnwlD5K/6eGgETJUgCHkiWn91B8JjXQ6ubAw==
+"@types/yargs@12.0.4":
+  version "12.0.4"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.4.tgz#14a37542f01a1ed4d743d5f8bc3f40e63e5835d4"
+  integrity sha512-hBYcOaYPnlAPj2OZbivFFzsW61mN0L3N0Aq4KwRt/ZXlw1c25Srj8413MBu5IhFGOyOdjLi2/qOqtStDTXGs9g==
 
 abab@^2.0.0:
   version "2.0.0"
