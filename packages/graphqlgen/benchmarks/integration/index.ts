@@ -24,8 +24,8 @@ const collect = (): Bench[] => {
     if (errors) {
       for (const error of errors) {
         console.log(error.message)
-        process.exit(1)
       }
+      process.exit(100)
     }
 
     const modelPaths = Glob.sync(Path.join(path, './models.*'))
@@ -136,11 +136,17 @@ const validateFixtures = (scenarioFolder: string): null | Error[] => {
   const errors = []
 
   if (!files.includes('schema.graphql')) {
-    errors.push(new Error(`benchmark "${name}" missing file schema.graphql`))
+    errors.push(
+      new Error(`benchmark "${name}" missing the "schema.graphql" file`),
+    )
   }
 
   if (!files.includes('models.ts')) {
-    errors.push(new Error(`benchmark "${name}" missing file models.ts`))
+    errors.push(
+      new Error(
+        `benchmark "${name}" missing a mdodel file such as "models.ts"`,
+      ),
+    )
   }
 
   return errors.length ? errors : null
