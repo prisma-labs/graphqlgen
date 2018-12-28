@@ -7,14 +7,14 @@ import * as Parse from '../../src/parse'
 import * as ConfigTypes from 'graphqlgen-json-schema'
 import * as Validation from '../../src/validation'
 import * as GGen from '../../src'
-import * as Bench from 'benchmark'
 import * as Path from 'path'
 import * as Glob from 'glob'
 import * as Util from '../../src/utils'
+import { Benchmark } from '../lib/benchmark'
 
-const collect = (): Bench[] => {
+const collect = (): Benchmark[] => {
   const paths = Glob.sync(Path.join(__dirname, './*'))
-  const benchmarks: Bench[] = []
+  const benchmarks: Benchmark[] = []
 
   for (const path of paths) {
     if (Util.isFile(path)) continue
@@ -38,7 +38,7 @@ const collect = (): Bench[] => {
 
       if (!Util.languageExtensions.includes(ext)) continue
 
-      const benchmark = createBenchmark({
+      const benchmark = create({
         language: Util.getLangFromExt(ext),
         rootPath: path,
       })
@@ -60,19 +60,21 @@ type Options = {
  * of the whole GraphqlGen pipeline (except for initial
  * config parsing, file loading, and model map creation).
  */
-const createBenchmark = (config: Options): Bench => {
+const create = (config: Options): Benchmark => {
   const codeGenConfig = createCodeGenConfig({
     language: config.language,
     rootPath: config.rootPath,
   })
-  const benchmark = new Bench({
+
+  const benchmark = new Benchmark({
     name: `generateCode (${Path.basename(config.rootPath)} schema, ${
       config.language
     })`,
-    fn: () => {
+    test: () => {
       GGen.generateCode(codeGenConfig)
     },
   })
+
   return benchmark
 }
 

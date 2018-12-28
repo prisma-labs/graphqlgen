@@ -1,8 +1,12 @@
 import * as IntegrationBenchmarks from './integration'
+import * as Benchmark from './lib/benchmark'
 
-const benchmarks = IntegrationBenchmarks.collect()
+const reports = IntegrationBenchmarks.collect().reduce<Benchmark.Report[]>(
+  (acc, benchmark) => {
+    acc.push(benchmark.run())
+    return acc
+  },
+  [],
+)
 
-for (const benchmark of benchmarks) {
-  benchmark.run()
-  console.log(benchmark.toString())
-}
+console.log(reports)
