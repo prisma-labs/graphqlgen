@@ -119,13 +119,101 @@ While `graphqlgen` is ready to be used in production, it's still in active devel
 
 </Details>
 
-## Credits
+## Help & Community
+
+[![Slack Status](https://slack.prisma.io/badge.svg)](https://slack.prisma.io)
+
+Join the `#graphqlgen` channel our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
+
+## Benchmarks
+
+Benchmarks exist for the graphqlgen package.
+
+- Results can be reviewed in [history.json](https://github.com/prisma/graphqlgen/blob/master/packages/graphqlgen/benchmarks/history.json)
+- Run benchmarks within that package via `yarn bench`
+- Save results via `yarn bench --save`
+
+### Folder Structure
+
+```
+/benchmarks
+  history.json  <-- file keeping results of past benchmark runs
+  main.ts       <-- benchmark execution entrypoint
+  /integration  <-- integration-type benchmarks testing how quickly code-generation runs
+    index.ts    <-- integration-type benchmarks entrypoint (creates & collects benchmarks)
+    /a          <-- integration-type benchmark for a particular set of fixtures
+      model.ts
+      schema.graphql
+    /b
+      ...
+    /c
+      ...
+```
+
+### Developer Guide
+
+#### Adding a new integration-type benchmark
+
+1. Create a new folder for your benchmark case:
+
+   ```
+   /benchmarks
+     /integration
+       /<YOUR-BENCHMARK-TITLE-HERE>
+   ```
+
+2. Add fixtures containing whatever data case/pattern you're interested in benching:
+
+   ```
+   model.ts
+   schema.graphql
+   ```
+
+#### Adding a new type of benchmark
+
+1. Create a new folder for your benchmark type:
+
+   ```
+   /benchmarks
+     /<YOUR-BENCHMARK-TYPE-TITLE-HERE>
+   ```
+
+2. Implement an `index.ts` that exports a `collect` function:
+
+   ```
+   /benchmarks
+     /<YOUR-BENCHMARK-TYPE-TITLE-HERE>
+       index.ts
+   ```
+
+   ```
+   import * as Core from '../core`
+
+   const collect: Core.Collect = () => {
+     // TODO
+   }
+
+   export { collect }
+   ```
+
+   The collect function is responsible for returning benchmarks from your benchmark type to run. Some guidelines to keep in mind:
+
+   1. Adding new benchmarks to this type should be trivial, therefore, should only require the addition of fixtures and/or benchmark-specific code. For example the benchmark type should be prepared to pick up new folders automatically.
+
+   2. Support all types of languages supported by graphqlgen
+
+   With your system in place, add benchmarks as needed, in the format your collector dictates:
+
+   ```
+   /benchmarks
+     /<YOUR-BENCHMARK-TYPE-TITLE-HERE>
+       index.ts
+       ...  <-- dictated by your collector
+   ```
+
+## Prior Art
 
 - [**gqlgen**](https://github.com/99designs/gqlgen) is the Golang equivalent of `graphqlgen` and served as a source of inspiration
 - [**graphql-code-generator**](https://github.com/dotansimha/graphql-code-generator) is a similar tool based on templates support both frontend & backend
-
-## Help & Community [![Slack Status](https://slack.prisma.io/badge.svg)](https://slack.prisma.io)
-
-Join the `#graphqlgen` channel our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
 
 <p align="center"><a href="https://oss.prisma.io"><img src="https://imgur.com/IMU2ERq.png" alt="Prisma" height="170px"></a></p>
