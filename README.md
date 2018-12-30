@@ -139,6 +139,7 @@ Benchmarks exist for the graphqlgen package.
 /benchmarks
   history.json  <-- file keeping results of past benchmark runs
   main.ts       <-- benchmark execution entrypoint
+  /core         <-- base tools/types/logic for benchmark system
   /integration  <-- integration-type benchmarks testing how quickly code-generation runs
     index.ts    <-- integration-type benchmarks entrypoint (creates & collects benchmarks)
     /a          <-- integration-type benchmark for a particular set of fixtures

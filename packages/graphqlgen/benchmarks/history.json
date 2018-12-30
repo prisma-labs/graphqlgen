@@ -1,8 +1,8 @@
 {
   "19d0097bd52cf5f06a9a5b046c67319cb774686c": [
     {
-      "name": "generateCode (basic schema, typescript)",
-      "summary": "generateCode (basic schema, typescript) x 97,270 ops/sec ±1.22% (90 runs sampled)",
+      "name": "generateCode (trivial schema, typescript)",
+      "summary": "generateCode (trivial schema, typescript) x 97,270 ops/sec ±1.22% (90 runs sampled)",
       "hz": 97269.57769036714,
       "count": 5154,
       "cycles": 11,
