@@ -108,8 +108,8 @@
       }
     },
     {
-      "name": "generateCode (complex schema, typescript)",
-      "summary": "generateCode (complex schema, typescript) x 1,844 ops/sec ±1.22% (93 runs sampled)",
+      "name": "generateCode (prisma-complex schema, typescript)",
+      "summary": "generateCode (prisma-complex schema, typescript) x 1,844 ops/sec ±1.22% (93 runs sampled)",
       "hz": 1843.891894704627,
       "count": 96,
       "cycles": 5,

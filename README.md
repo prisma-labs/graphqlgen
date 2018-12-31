@@ -130,25 +130,23 @@ Join the `#graphqlgen` channel our [Slack community](http://slack.graph.cool/) i
 Benchmarks exist for the graphqlgen package.
 
 - Results can be reviewed in [history.json](https://github.com/prisma/graphqlgen/blob/master/packages/graphqlgen/benchmarks/history.json)
-- Run benchmarks within that package via `yarn bench`
-- Save results via `yarn bench --save`
+- Run benchmarks within that package via `yarn run benchmarks`
+- Save results via `yarn run benchmarks --save`
 
 ### Folder Structure
 
 ```
 /benchmarks
   history.json  <-- file keeping results of past benchmark runs
-  main.ts       <-- benchmark execution entrypoint
-  /core         <-- base tools/types/logic for benchmark system
+  index.ts      <-- benchmark execution entrypoint
+  /lib/*        <-- base tools/types/logic for benchmark system
   /integration  <-- integration-type benchmarks testing how quickly code-generation runs
     index.ts    <-- integration-type benchmarks entrypoint (creates & collects benchmarks)
     /a          <-- integration-type benchmark for a particular set of fixtures
       model.ts
       schema.graphql
-    /b
-      ...
-    /c
-      ...
+    /b/*
+    /c/*
 ```
 
 ### Developer Guide
@@ -187,10 +185,10 @@ Benchmarks exist for the graphqlgen package.
        index.ts
    ```
 
-   ```
-   import * as Core from '../core`
+   ```ts
+   import * as Benchmark from '../lib/benchmark'
 
-   const collect: Core.Collect = () => {
+   const collect: Benchmark.Collect = () => {
      // TODO
    }
 
