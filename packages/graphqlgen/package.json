@@ -52,7 +52,7 @@
     "yargs": "12.0.5"
   },
   "devDependencies": {
-    "@types/benchmark": "^1.0.31",
+    "@types/benchmark": "1.0.31",
     "@types/camelcase": "4.1.0",
     "@types/graphql": "14.0.3",
     "@types/jest": "23.3.10",
@@ -62,7 +62,7 @@
     "@types/prettier": "1.15.2",
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.4",
-    "benchmark": "^2.1.4",
+    "benchmark": "2.1.4",
     "flow-bin": "0.86.0",
     "jest": "23.6.0",
     "ts-jest": "23.10.5",
