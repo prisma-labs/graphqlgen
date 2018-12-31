@@ -87,12 +87,13 @@ type CodeGenConfigOptions = {
 const createCodeGenConfig = (
   config: CodeGenConfigOptions,
 ): GGen.GenerateCodeArgs => {
+  const ext = Util.getExtFromLang(config.language)
   const sdlFilePath = Path.join(config.rootPath, 'schema.graphql')
 
   const schema = Parse.parseSchema(sdlFilePath)
 
   const models = {
-    files: [Path.join(config.rootPath, './models.ts')],
+    files: [Path.join(config.rootPath, `./models.${ext}`)],
   }
 
   const graphqlGenConfig: ConfigTypes.GraphQLGenDefinition = {

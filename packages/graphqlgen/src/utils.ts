@@ -112,6 +112,15 @@ const extToLangIndex: Record<'ts' | 'js', Language> = {
   js: 'flow',
 }
 
+const langToExtIndex: Record<Language, 'ts' | 'js'> = {
+  typescript: 'ts',
+  flow: 'js',
+}
+
+const getExtFromLang = (lang: Language): LanguageExtension => {
+  return langToExtIndex[lang]
+}
+
 const getLangFromExt = (ext: LanguageExtension): Language => {
   return extToLangIndex[ext]
 }
@@ -145,6 +154,7 @@ export {
   LanguageExtension,
   languageExtensions,
   getLangFromExt,
+  getExtFromLang,
   getTypeToFileMapping,
   uniq,
   concat,

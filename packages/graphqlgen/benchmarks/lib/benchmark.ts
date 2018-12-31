@@ -4,7 +4,23 @@ import * as H from '../lib/helpers'
 type History = Record<string, Report[]>
 
 /**
- * The information about how a benchmark performed.
+ * Benchmark performance results
+ *
+ *  * hz: The number of executions per second.
+ *  * count: The number of times a test was executed.
+ *  * cycles: The number of cycles performed while benchmarking.
+ *  * stats.deviation: The sample standard deviation.
+ *  * stats.mean: The sample arithmetic mean (secs).
+ *  * stats.moe: The margin of error.
+ *  * stats.rme: The relative margin of error (expressed as a percentage of the mean).
+ *  * stats.sample: The array of sampled periods.
+ *  * stats.sem: The standard error of the mean.
+ *  * stats.variance: The sample variance.
+ *
+ * To get more detail refer to:
+ *
+ *  * https://stackoverflow.com/questions/32629779/define-number-of-cycles-benchmark-js
+ *  * http://monsur.hossa.in/2012/12/11/benchmarkjs.html
  */
 type Report = {
   name: string
