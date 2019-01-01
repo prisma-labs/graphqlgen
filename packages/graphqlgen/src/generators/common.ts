@@ -239,9 +239,18 @@ export function deepResolveInputTypes(
     const childTypes = type.fields
       .filter(t => t.type.isInput && !seen[t.type.name])
       .map(t => t.type.name)
-      .map(name =>
-        deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
-      )
+      .map(name => {
+        /**
+         * Mutate so that we track state across tree branches.
+         *
+         * Example, only visit "C" once:
+         *     A
+         *     ├── B ── C
+         *     └── D ── C
+         */
+        seen[name] = true
+        return deepResolveInputTypes(inputTypesMap, name, seen)
+      })
       .reduce(concat, [])
     return [typeName, ...childTypes]
   } else {
