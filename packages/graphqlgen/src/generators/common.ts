@@ -229,10 +229,10 @@ export function getTypeFromGraphQLType(
   return 'string'
 }
 
-function deepResolveInputTypes(
+export function deepResolveInputTypes(
   inputTypesMap: InputTypesMap,
   typeName: string,
-  seen: { [k: string]: boolean } = {},
+  seen: Record<string, boolean> = {},
 ): string[] {
   const type = inputTypesMap[typeName]
   if (type) {
