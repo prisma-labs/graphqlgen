@@ -186,12 +186,12 @@ export namespace MutationResolvers {
     lastName: string | null;
     photo: Photo | null;
   }
+  export interface PhoneData {
+    number: string;
+  }
   export interface Photo {
     title: string;
     url: string;
-  }
-  export interface PhoneData {
-    number: string;
   }
 
   export interface ArgsAddMember {

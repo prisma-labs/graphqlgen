@@ -1,6 +1,20 @@
 import * as Common from './common'
 
-it('deepResolveInputTypes', () => {
+it('getDistinctInputTypes', () => {
+  const Z = {
+    name: 'Z',
+    type: {
+      name: 'Z',
+      isInput: false,
+      isEnum: false,
+      isInterface: false,
+      isObject: true,
+      isScalar: false,
+      isUnion: false,
+    },
+    fields: [],
+  }
+
   const typeMap: Common.InputTypesMap = {
     A: {
       name: 'A',
@@ -135,12 +149,13 @@ it('deepResolveInputTypes', () => {
     },
   }
 
-  expect(Common.deepResolveInputTypes(typeMap, 'A')).toMatchInlineSnapshot(`
+  expect(Common.getDistinctInputTypes(Z, { Z: ['A'] }, typeMap))
+    .toMatchInlineSnapshot(`
 Array [
   "A",
   "B",
-  "D",
   "C",
+  "D",
 ]
 `)
 })

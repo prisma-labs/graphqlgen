@@ -7,7 +7,6 @@ import {
   getGraphQLEnumValues,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
-import { concat, uniq } from '../utils'
 import {
   TypeDefinition,
   FieldDefinition,
@@ -229,44 +228,35 @@ export function getTypeFromGraphQLType(
   return 'string'
 }
 
-export function deepResolveInputTypes(
-  inputTypesMap: InputTypesMap,
-  typeName: string,
-  seen: Record<string, boolean> = {},
-): string[] {
-  const type = inputTypesMap[typeName]
-  if (type) {
-    const childTypes = type.fields
-      .filter(t => t.type.isInput && !seen[t.type.name])
-      .map(t => t.type.name)
-      .map(name => {
-        /**
-         * Mutate so that we track state across tree branches.
-         *
-         * Example, only visit "C" once:
-         *     A
-         *     ├── B ── C
-         *     └── D ── C
-         */
-        seen[name] = true
-        return deepResolveInputTypes(inputTypesMap, name, seen)
-      })
-      .reduce(concat, [])
-    return [typeName, ...childTypes]
-  } else {
-    throw new Error(`Input type ${typeName} not found`)
-  }
-}
-
-export function getDistinctInputTypes(
+export const getDistinctInputTypes = (
   type: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-) {
-  return typeToInputTypeAssociation[type.name]
-    .map(t => deepResolveInputTypes(inputTypesMap, t))
-    .reduce(concat, [])
-    .filter(uniq)
+) => {
+  const inputTypes: GraphQLTypeObject[] = []
+  const seen: Record<string, boolean> = {}
+  const inputTypeNames: string[] = []
+  const see = (typeName: string): void => {
+    if (!seen[typeName]) {
+      seen[typeName] = true
+      inputTypes.push(inputTypesMap[typeName])
+    }
+  }
+
+  typeToInputTypeAssociation[type.name].forEach(see)
+
+  for (const inputType of inputTypes) {
+    inputTypeNames.push(inputType.type.name)
+
+    // Keep seeing (aka. traversing the tree) until we've seen everything.
+    for (const field of inputType.fields) {
+      if (field.type.isInput) {
+        see(field.type.name)
+      }
+    }
+  }
+
+  return inputTypeNames
 }
 
 export function renderEnums(args: GenerateArgs): string {
