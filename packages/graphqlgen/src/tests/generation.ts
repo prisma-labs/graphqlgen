@@ -8,7 +8,8 @@ import chalk from 'chalk'
 import { File, GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import { getPath, parseModels, parseSchema } from '../parse'
 import { validateConfig } from '../validation'
-import { generateCode, writeResolversScaffolding, writeTypes } from '../index'
+import { writeResolversScaffolding, writeTypes } from '../project-output'
+import { generateCode } from '../index'
 const flow = require('flow-bin')
 
 class ExecError extends Error {
