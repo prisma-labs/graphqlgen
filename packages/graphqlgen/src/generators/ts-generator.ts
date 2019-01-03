@@ -313,7 +313,7 @@ function renderResolverTypeInterfaceFunction(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+  const returnType = printFieldLikeReturnType(field, modelMap)
 
   if (type.name === 'Subscription') {
     return `

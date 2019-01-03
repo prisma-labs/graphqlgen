@@ -32,7 +32,7 @@ export interface Query_Resolvers {
     args: Query_Args_CreateUser,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => User | null | void | Promise<User | null | void>;
+  ) => User | null | Promise<User | null>;
 }
 
 // Types for User
@@ -213,7 +213,7 @@ export interface AddMemberPayload_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | void | Promise<string | null | void>;
+  ) => string | null | Promise<string | null>;
 }
 
 export interface Resolvers {
@@ -409,25 +409,21 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Number | null | void | Promise<Number | null | void>;
+  ) => Number | null | Promise<Number | null>;
 
   custom_array_nullable: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Number | null | void>
-    | null
-    | void
-    | Promise<Array<Number | null | void> | null | void>;
+  ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
 
   custom_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Number | null | void> | Promise<Array<Number | null | void>>;
+  ) => Array<Number | null> | Promise<Array<Number | null>>;
 
   custom_with_arg: (
     parent: {},
@@ -455,25 +451,21 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | void | Promise<boolean | null | void>;
+  ) => boolean | null | Promise<boolean | null>;
 
   scalar_array_nullable: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<boolean | null | void>
-    | null
-    | void
-    | Promise<Array<boolean | null | void> | null | void>;
+  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
   scalar_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null | void> | Promise<Array<boolean | null | void>>;
+  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
   scalar_with_arg: (
     parent: {},
@@ -516,14 +508,14 @@ export interface Number_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | void | Promise<string | null | void>;
+  ) => string | null | Promise<string | null>;
 
   value: (
     parent: Number,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | void | Promise<number | null | void>;
+  ) => number | null | Promise<number | null>;
 }
 
 export interface Resolvers {
@@ -714,7 +706,7 @@ export interface Professor_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | void | Promise<string | null | void>;
+  ) => string | null | Promise<string | null>;
 }
 
 export interface Resolvers {
@@ -814,7 +806,7 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => User | null | void | Promise<User | null | void>;
+  ) => User | null | Promise<User | null>;
 }
 
 // Types for User
@@ -1031,7 +1023,7 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => NumberNode | null | void | Promise<NumberNode | null | void>;
+  ) => NumberNode | null | Promise<NumberNode | null>;
 
   custom_array_nullable: (
     parent: {},
@@ -1039,19 +1031,16 @@ export interface Query_Resolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) =>
-    | Array<NumberNode | null | void>
+    | Array<NumberNode | null>
     | null
-    | void
-    | Promise<Array<NumberNode | null | void> | null | void>;
+    | Promise<Array<NumberNode | null> | null>;
 
   custom_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<NumberNode | null | void>
-    | Promise<Array<NumberNode | null | void>>;
+  ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>;
 
   custom_with_arg: (
     parent: {},
@@ -1079,25 +1068,21 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | void | Promise<boolean | null | void>;
+  ) => boolean | null | Promise<boolean | null>;
 
   scalar_array_nullable: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<boolean | null | void>
-    | null
-    | void
-    | Promise<Array<boolean | null | void> | null | void>;
+  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
   scalar_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null | void> | Promise<Array<boolean | null | void>>;
+  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
   scalar_with_arg: (
     parent: {},
@@ -1140,14 +1125,14 @@ export interface Number_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | void | Promise<string | null | void>;
+  ) => string | null | Promise<string | null>;
 
   value: (
     parent: NumberNode,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | void | Promise<number | null | void>;
+  ) => number | null | Promise<number | null>;
 }
 
 export interface Resolvers {

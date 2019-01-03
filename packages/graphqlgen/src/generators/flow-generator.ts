@@ -301,7 +301,7 @@ function renderResolverTypeInterfaceFunction(
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
   )`
-  const returnType = printFieldLikeFlowType(field, modelMap)
+  const returnType = printFieldLikeReturnType(field, modelMap)
 
   if (type.name === 'Subscription') {
     return `
