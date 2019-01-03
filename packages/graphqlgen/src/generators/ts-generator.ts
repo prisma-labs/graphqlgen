@@ -10,7 +10,6 @@ import {
   TypeToInputTypeAssociation,
   InputTypesMap,
   printFieldLikeType,
-  printFieldLikeReturnType,
   getDistinctInputTypes,
   renderEnums,
   groupModelsNameByImportPath,
@@ -265,7 +264,7 @@ function renderResolverFunctionInterface(
   )
   `
 
-  const returnType = printFieldLikeReturnType(field, modelMap)
+  const returnType = printFieldLikeType(field, modelMap, { isReturn: true })
 
   if (type.name === 'Subscription') {
     return `
@@ -313,7 +312,7 @@ function renderResolverTypeInterfaceFunction(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeReturnType(field, modelMap)
+  const returnType = printFieldLikeType(field, modelMap, { isReturn: true })
 
   if (type.name === 'Subscription') {
     return `

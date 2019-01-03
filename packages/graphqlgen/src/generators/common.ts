@@ -188,8 +188,9 @@ export function shouldScaffoldFieldResolver(
   return !shouldRenderDefaultResolver(graphQLField, modelField, args)
 }
 
-const voidable = (type: string): string => {
-  return `${type} | null | undefined`
+const voidable = (type: string, isFlowtype: boolean = false): string => {
+  const voidType = isFlowtype ? 'void' : 'undefined'
+  return `${type} | null | ${voidType}`
 }
 
 const nullable = (type: string): string => {
@@ -199,6 +200,13 @@ const nullable = (type: string): string => {
 export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
+  options: {
+    isReturn?: boolean
+    isFlowtype?: boolean
+  } = {
+    isReturn: false,
+    isFlowtype: false,
+  },
 ): string => {
   const name = field.type.isScalar
     ? getTypeFromGraphQLType(field.type.name)
@@ -215,7 +223,11 @@ export const printFieldLikeType = (
       : field.defaultValue === null
       ? nullable(`Array<${innerTypeRendering}>`)
       : field.defaultValue === undefined
-      ? voidable(`Array<${innerTypeRendering}>`)
+      ? // return type doesn't permit void return since that would allow
+        // resolvers to e.g. forget to return anything and that be considered OK.
+        options.isReturn
+        ? nullable(`Array<${innerTypeRendering}>`)
+        : voidable(`Array<${innerTypeRendering}>`, options.isFlowtype)
       : // field.defaultValue has has been set to non-null in the schema
         `Array<${innerTypeRendering}>`
 
@@ -226,70 +238,16 @@ export const printFieldLikeType = (
       : field.defaultValue === null
       ? nullable(name)
       : field.defaultValue === undefined
-      ? voidable(name)
+      ? // return type doesn't permit void return since that would allow
+        // resolvers to e.g. forget to return anything and that be considered OK.
+        options.isReturn
+        ? nullable(name)
+        : voidable(name, options.isFlowtype)
       : // field.defaultValue has has been set to non-null in the schema
         name
 
     return typeRendering
   }
-}
-
-export function printFieldLikeFlowType(
-  field: GraphQLTypeField,
-  modelMap: ModelMap,
-) {
-  const name = field.type.isScalar
-    ? getTypeFromGraphQLType(field.type.name)
-    : field.type.isInput || field.type.isEnum
-    ? field.type.name
-    : getModelName(field.type, modelMap)
-
-  const isRequired = field.type.isArray
-    ? field.type.isArrayRequired
-    : field.type.isRequired
-
-  const suffix = isRequired
-    ? ''
-    : field.defaultValue === null
-    ? ' | null'
-    : field.defaultValue === undefined
-    ? ' | null | void'
-    : ''
-
-  const type = field.type.isArray
-    ? name + (field.type.isRequired ? '' : ' | null | void')
-    : name + suffix
-
-  return field.type.isArray ? `Array<${type}>${suffix}` : type
-}
-
-export function printFieldLikeReturnType(
-  field: GraphQLTypeField,
-  modelMap: ModelMap,
-) {
-  const name = field.type.isScalar
-    ? getTypeFromGraphQLType(field.type.name)
-    : field.type.isInput || field.type.isEnum
-    ? field.type.name
-    : getModelName(field.type, modelMap)
-
-  const isRequired = field.type.isArray
-    ? field.type.isArrayRequired
-    : field.type.isRequired
-
-  const suffix = isRequired
-    ? ''
-    : field.defaultValue === null
-    ? ' | null'
-    : field.defaultValue === undefined
-    ? ' | null'
-    : ''
-
-  const type = field.type.isArray
-    ? name + (field.type.isRequired ? '' : ' | null')
-    : name + suffix
-
-  return field.type.isArray ? `Array<${type}>${suffix}` : type
 }
 
 export function getTypeFromGraphQLType(
