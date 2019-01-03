@@ -175,7 +175,7 @@ export namespace MutationResolvers {
 
   export interface AddMemberData {
     email: string;
-    projects: Array<string>;
+    projects: string[];
     sideProjects: Array<string | null> | null | undefined;
     profile: ProfileData | null;
     phones: Array<PhoneData | null>;
@@ -201,7 +201,7 @@ export namespace MutationResolvers {
   }
 
   export interface ArgsAddMembers {
-    data: Array<AddMemberData>;
+    data: AddMemberData[];
   }
 
   export type AddMemberResolver = (
@@ -348,7 +348,7 @@ export namespace MutationResolvers {
 
   export interface AddMemberData {
     email: string;
-    projects: Array<string>;
+    projects: string[];
   }
 
   export interface ArgsAddMember {

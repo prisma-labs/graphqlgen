@@ -197,6 +197,10 @@ const nullable = (type: string): string => {
   return `${type} | null`
 }
 
+const array = (innerType: string, config: { innerUnion?: boolean } = {}) => {
+  return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
+}
+
 export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
@@ -214,22 +218,27 @@ export const printFieldLikeType = (
     ? field.type.name
     : getModelName(field.type, modelMap)
 
+  /**
+   * 1. Return type doesn't permit void return since that would allow
+   *    resolvers to e.g. forget to return anything and that be considered OK.
+   */
   if (field.type.isArray) {
-    // A void array member is not possible
+    const innerUnion = field.type.isRequired
+    // Not voidable here because a void array member is not possible
     const innerTypeRendering = field.type.isRequired ? name : nullable(name)
 
     const typeRendering = field.type.isArrayRequired
-      ? `Array<${innerTypeRendering}>`
+      ? array(innerTypeRendering, { innerUnion })
       : field.defaultValue === null
-      ? nullable(`Array<${innerTypeRendering}>`)
+      ? nullable(array(innerTypeRendering, { innerUnion }))
       : field.defaultValue === undefined
-      ? // return type doesn't permit void return since that would allow
-        // resolvers to e.g. forget to return anything and that be considered OK.
-        options.isReturn
-        ? nullable(`Array<${innerTypeRendering}>`)
-        : voidable(`Array<${innerTypeRendering}>`, options.isFlowtype)
-      : // field.defaultValue has has been set to non-null in the schema
-        `Array<${innerTypeRendering}>`
+      ? options.isReturn // [1]
+        ? nullable(array(innerTypeRendering, { innerUnion }))
+        : voidable(
+            array(innerTypeRendering, { innerUnion }),
+            options.isFlowtype,
+          )
+      : array(innerTypeRendering, { innerUnion }) // schema has non-null default set
 
     return typeRendering
   } else {
@@ -238,13 +247,10 @@ export const printFieldLikeType = (
       : field.defaultValue === null
       ? nullable(name)
       : field.defaultValue === undefined
-      ? // return type doesn't permit void return since that would allow
-        // resolvers to e.g. forget to return anything and that be considered OK.
-        options.isReturn
+      ? options.isReturn // [1]
         ? nullable(name)
         : voidable(name, options.isFlowtype)
-      : // field.defaultValue has has been set to non-null in the schema
-        name
+      : name // schema has non-null default set
 
     return typeRendering
   }

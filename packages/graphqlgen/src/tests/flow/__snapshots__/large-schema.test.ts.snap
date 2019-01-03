@@ -64,7 +64,7 @@ export interface Query_Args_HomesInPriceRange {
 }
 
 export interface Query_Args_ExperiencesByCity {
-  cities: Array<string>;
+  cities: string[];
 }
 
 export type Query_TopExperiences_Resolver = (
@@ -72,42 +72,42 @@ export type Query_TopExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Experience> | Promise<Array<Experience>>;
+) => Experience[] | Promise<Experience[]>;
 
 export type Query_TopHomes_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Home> | Promise<Array<Home>>;
+) => Home[] | Promise<Home[]>;
 
 export type Query_HomesInPriceRange_Resolver = (
   parent: {},
   args: Query_Args_HomesInPriceRange,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Home> | Promise<Array<Home>>;
+) => Home[] | Promise<Home[]>;
 
 export type Query_TopReservations_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Reservation> | Promise<Array<Reservation>>;
+) => Reservation[] | Promise<Reservation[]>;
 
 export type Query_FeaturedDestinations_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Neighbourhood> | Promise<Array<Neighbourhood>>;
+) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
 export type Query_ExperiencesByCity_Resolver = (
   parent: {},
   args: Query_Args_ExperiencesByCity,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<ExperiencesByCity> | Promise<Array<ExperiencesByCity>>;
+) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
 export type Query_Viewer_Resolver = (
   parent: {},
@@ -129,42 +129,42 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Experience> | Promise<Array<Experience>>;
+  ) => Experience[] | Promise<Experience[]>;
 
   topHomes: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Home> | Promise<Array<Home>>;
+  ) => Home[] | Promise<Home[]>;
 
   homesInPriceRange: (
     parent: {},
     args: Query_Args_HomesInPriceRange,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Home> | Promise<Array<Home>>;
+  ) => Home[] | Promise<Home[]>;
 
   topReservations: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Reservation> | Promise<Array<Reservation>>;
+  ) => Reservation[] | Promise<Reservation[]>;
 
   featuredDestinations: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Neighbourhood> | Promise<Array<Neighbourhood>>;
+  ) => Neighbourhood[] | Promise<Neighbourhood[]>;
 
   experiencesByCity: (
     parent: {},
     args: Query_Args_ExperiencesByCity,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<ExperiencesByCity> | Promise<Array<ExperiencesByCity>>;
+  ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
 
   viewer: (
     parent: {},
@@ -234,7 +234,7 @@ export type Experience_Reviews_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Review> | Promise<Array<Review>>;
+) => Review[] | Promise<Review[]>;
 
 export type Experience_Preview_Resolver = (
   parent: Experience,
@@ -291,7 +291,7 @@ export interface Experience_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Review> | Promise<Array<Review>>;
+  ) => Review[] | Promise<Review[]>;
 
   preview: (
     parent: Experience,
@@ -706,7 +706,7 @@ export type Home_Pictures_Resolver = (
   args: Home_Args_Pictures,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Picture> | Promise<Array<Picture>>;
+) => Picture[] | Promise<Picture[]>;
 
 export type Home_PerNight_Resolver = (
   parent: Home,
@@ -756,7 +756,7 @@ export interface Home_Resolvers {
     args: Home_Args_Pictures,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Picture> | Promise<Array<Picture>>;
+  ) => Picture[] | Promise<Picture[]>;
 
   perNight: (
     parent: Home,
@@ -804,7 +804,7 @@ export type Reservation_Pictures_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Picture> | Promise<Array<Picture>>;
+) => Picture[] | Promise<Picture[]>;
 
 export type Reservation_Location_Resolver = (
   parent: Reservation,
@@ -861,7 +861,7 @@ export interface Reservation_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Picture> | Promise<Array<Picture>>;
+  ) => Picture[] | Promise<Picture[]>;
 
   location: (
     parent: Reservation,
@@ -1051,7 +1051,7 @@ export type ExperiencesByCity_Experiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Experience> | Promise<Array<Experience>>;
+) => Experience[] | Promise<Experience[]>;
 
 export type ExperiencesByCity_City_Resolver = (
   parent: ExperiencesByCity,
@@ -1066,7 +1066,7 @@ export interface ExperiencesByCity_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Experience> | Promise<Array<Experience>>;
+  ) => Experience[] | Promise<Experience[]>;
 
   city: (
     parent: ExperiencesByCity,
@@ -1094,7 +1094,7 @@ export type Viewer_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Booking> | Promise<Array<Booking>>;
+) => Booking[] | Promise<Booking[]>;
 
 export interface Viewer_Resolvers {
   me: (
@@ -1109,7 +1109,7 @@ export interface Viewer_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Booking> | Promise<Array<Booking>>;
+  ) => Booking[] | Promise<Booking[]>;
 }
 
 // Types for User
@@ -1141,7 +1141,7 @@ export type User_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Booking> | null | Promise<Array<Booking> | null>;
+) => Booking[] | null | Promise<Booking[] | null>;
 
 export type User_CreatedAt_Resolver = (
   parent: User,
@@ -1169,7 +1169,7 @@ export type User_HostingExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Experience> | null | Promise<Array<Experience> | null>;
+) => Experience[] | null | Promise<Experience[] | null>;
 
 export type User_Id_Resolver = (
   parent: User,
@@ -1204,21 +1204,21 @@ export type User_Notifications_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Notification> | null | Promise<Array<Notification> | null>;
+) => Notification[] | null | Promise<Notification[] | null>;
 
 export type User_OwnedPlaces_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Place> | null | Promise<Array<Place> | null>;
+) => Place[] | null | Promise<Place[] | null>;
 
 export type User_PaymentAccount_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<PaymentAccount> | null | Promise<Array<PaymentAccount> | null>;
+) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
 export type User_Phone_Resolver = (
   parent: User,
@@ -1239,7 +1239,7 @@ export type User_ReceivedMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Message> | null | Promise<Array<Message> | null>;
+) => Message[] | null | Promise<Message[] | null>;
 
 export type User_ResponseRate_Resolver = (
   parent: User,
@@ -1260,7 +1260,7 @@ export type User_SentMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Message> | null | Promise<Array<Message> | null>;
+) => Message[] | null | Promise<Message[] | null>;
 
 export type User_UpdatedAt_Resolver = (
   parent: User,
@@ -1282,7 +1282,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Booking> | null | Promise<Array<Booking> | null>;
+  ) => Booking[] | null | Promise<Booking[] | null>;
 
   createdAt: (
     parent: User,
@@ -1310,7 +1310,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Experience> | null | Promise<Array<Experience> | null>;
+  ) => Experience[] | null | Promise<Experience[] | null>;
 
   id: (
     parent: User,
@@ -1345,21 +1345,21 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Notification> | null | Promise<Array<Notification> | null>;
+  ) => Notification[] | null | Promise<Notification[] | null>;
 
   ownedPlaces: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Place> | null | Promise<Array<Place> | null>;
+  ) => Place[] | null | Promise<Place[] | null>;
 
   paymentAccount: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<PaymentAccount> | null | Promise<Array<PaymentAccount> | null>;
+  ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
   phone: (
     parent: User,
@@ -1380,7 +1380,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Message> | null | Promise<Array<Message> | null>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   responseRate: (
     parent: User,
@@ -1401,7 +1401,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Message> | null | Promise<Array<Message> | null>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   updatedAt: (
     parent: User,
@@ -1633,7 +1633,7 @@ export type Place_Reviews_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Review> | Promise<Array<Review>>;
+) => Review[] | Promise<Review[]>;
 
 export type Place_Amenities_Resolver = (
   parent: Place,
@@ -1696,14 +1696,14 @@ export type Place_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Booking> | Promise<Array<Booking>>;
+) => Booking[] | Promise<Booking[]>;
 
 export type Place_Pictures_Resolver = (
   parent: Place,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Picture> | null | Promise<Array<Picture> | null>;
+) => Picture[] | null | Promise<Picture[] | null>;
 
 export type Place_Popularity_Resolver = (
   parent: Place,
@@ -1788,7 +1788,7 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Review> | Promise<Array<Review>>;
+  ) => Review[] | Promise<Review[]>;
 
   amenities: (
     parent: Place,
@@ -1851,14 +1851,14 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Booking> | Promise<Array<Booking>>;
+  ) => Booking[] | Promise<Booking[]>;
 
   pictures: (
     parent: Place,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Picture> | null | Promise<Array<Picture> | null>;
+  ) => Picture[] | null | Promise<Picture[] | null>;
 
   popularity: (
     parent: Place,
@@ -3178,7 +3178,7 @@ export type PaymentAccount_Payments_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Payment> | Promise<Array<Payment>>;
+) => Payment[] | Promise<Payment[]>;
 
 export type PaymentAccount_Paypal_Resolver = (
   parent: PaymentAccount,
@@ -3228,7 +3228,7 @@ export interface PaymentAccount_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Payment> | Promise<Array<Payment>>;
+  ) => Payment[] | Promise<Payment[]>;
 
   paypal: (
     parent: PaymentAccount,
