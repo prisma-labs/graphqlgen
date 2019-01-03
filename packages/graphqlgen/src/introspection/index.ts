@@ -21,7 +21,10 @@ function buildTypesMapByLanguage(
   }
 }
 
-export function addFileToTypesMap(filePath: string, language: Language): TypesMap {
+export function addFileToTypesMap(
+  filePath: string,
+  language: Language,
+): TypesMap {
   if (filesToTypesMap[filePath] !== undefined) {
     return filesToTypesMap[filePath]
   }

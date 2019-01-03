@@ -2,7 +2,11 @@ import * as os from 'os'
 import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
-import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import {
+  GraphQLTypeField,
+  GraphQLTypeObject,
+  GraphQLTypeArgument,
+} from '../source-helper'
 import { upperFirst } from '../utils'
 import {
   getContextName,
@@ -197,7 +201,7 @@ function renderInputArgInterface(
     ${field.arguments
       .map(
         arg =>
-          `${arg.name}: ${printFieldLikeType(
+          `${arg.name}: ${getArgTypePrefix(type, arg)}${printFieldLikeType(
             arg as GraphQLTypeField,
             modelMap,
           )}`,
@@ -205,6 +209,20 @@ function renderInputArgInterface(
       .join(',' + os.EOL)}
   }
   `
+}
+
+const getArgTypePrefix = (
+  type: GraphQLTypeObject,
+  fieldArg: GraphQLTypeArgument,
+): string => {
+  if (
+    fieldArg.type.isScalar ||
+    // Object type includes GQL ID
+    fieldArg.type.isObject ||
+    fieldArg.type.isEnum
+  )
+    return ''
+  return upperFirst(type.name) + '_'
 }
 
 function renderResolverFunctionInterfaces(

@@ -2,15 +2,27 @@
   "private": true,
   "scripts": {
     "build": "cd packages/graphqlgen-json-schema && yarn build && cd ../graphqlgen && yarn build",
-    "test": "yarn build && cd packages/graphqlgen && yarn test"
+    "test": "yarn build && cd packages/graphqlgen && yarn test",
+    "test:ci": "yarn build && cd packages/graphqlgen && yarn test:ci",
+    "fix:prettier": "yarn prettier --write './**/*.{md,ts,js,graphql,yaml}'"
   },
   "workspaces": [
     "packages/*"
   ],
+  "devDependencies": {
+    "husky": "1.3.1",
+    "prettier": "1.15.3",
+    "pretty-quick": "1.8.0"
+  },
   "prettier": {
     "semi": false,
     "trailingComma": "all",
     "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "license": "MIT"
 }

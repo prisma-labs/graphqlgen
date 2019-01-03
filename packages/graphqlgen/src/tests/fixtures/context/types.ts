@@ -1,11 +1,11 @@
-interface Data {
+export interface Data {
   users: User[]
 }
 
-interface Context {
+export interface Context {
   data: Data
 }
 
-interface User {
+export interface User {
   id: string
 }

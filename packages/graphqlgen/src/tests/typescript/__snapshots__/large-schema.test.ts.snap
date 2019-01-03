@@ -33,7 +33,7 @@ import {
   Message,
   AuthPayload,
   MutationResult
-} from \\"../../../fixtures/prisma/types\\";
+} from \\"../../fixtures/prisma/types\\";
 type Context = any;
 
 type PLACE_SIZES =

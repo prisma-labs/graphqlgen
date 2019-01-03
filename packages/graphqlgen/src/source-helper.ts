@@ -50,7 +50,7 @@ export type GraphQLType = GraphQLTypeDefinition & {
   isRequired: boolean
 }
 
-type GraphQLTypeArgument = {
+export type GraphQLTypeArgument = {
   name: string
   type: GraphQLType
   defaultValue?: unknown
