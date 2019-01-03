@@ -188,33 +188,50 @@ export function shouldScaffoldFieldResolver(
   return !shouldRenderDefaultResolver(graphQLField, modelField, args)
 }
 
-export function printFieldLikeType(
+const voidable = (type: string): string => {
+  return `${type} | null | undefined`
+}
+
+const nullable = (type: string): string => {
+  return `${type} | null`
+}
+
+export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
-) {
+): string => {
   const name = field.type.isScalar
     ? getTypeFromGraphQLType(field.type.name)
     : field.type.isInput || field.type.isEnum
     ? field.type.name
     : getModelName(field.type, modelMap)
 
-  const isRequired = field.type.isArray
-    ? field.type.isArrayRequired
-    : field.type.isRequired
+  if (field.type.isArray) {
+    // A void array member is not possible
+    const innerTypeRendering = field.type.isRequired ? name : nullable(name)
 
-  const suffix = isRequired
-    ? ''
-    : field.defaultValue === null
-    ? ' | null'
-    : field.defaultValue === undefined
-    ? ' | null | undefined'
-    : ''
+    const typeRendering = field.type.isArrayRequired
+      ? `Array<${innerTypeRendering}>`
+      : field.defaultValue === null
+      ? nullable(`Array<${innerTypeRendering}>`)
+      : field.defaultValue === undefined
+      ? voidable(`Array<${innerTypeRendering}>`)
+      : // field.defaultValue has has been set to non-null in the schema
+        `Array<${innerTypeRendering}>`
 
-  const type = field.type.isArray
-    ? name + (field.type.isRequired ? '' : ' | null | undefined')
-    : name + suffix
+    return typeRendering
+  } else {
+    const typeRendering = field.type.isRequired
+      ? name
+      : field.defaultValue === null
+      ? nullable(name)
+      : field.defaultValue === undefined
+      ? voidable(name)
+      : // field.defaultValue has has been set to non-null in the schema
+        name
 
-  return field.type.isArray ? `Array<${type}>${suffix}` : type
+    return typeRendering
+  }
 }
 
 export function printFieldLikeFlowType(

@@ -176,9 +176,9 @@ export namespace MutationResolvers {
   export interface AddMemberData {
     email: string;
     projects: Array<string>;
-    sideProjects: Array<string | null | undefined> | null | undefined;
+    sideProjects: Array<string | null> | null | undefined;
     profile: ProfileData | null;
-    phones: Array<PhoneData | null | undefined>;
+    phones: Array<PhoneData | null>;
     isVIP: boolean;
   }
   export interface ProfileData {
