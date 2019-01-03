@@ -132,7 +132,12 @@ function extractTypeDefinition(
 
 const getFinalType = (
   type: GraphQLInputType | GraphQLOutputType,
-  acc: FinalType = { isArray: false, isArrayRequired: false, isRequired: false, type },
+  acc: FinalType = {
+    isArray: false,
+    isArrayRequired: false,
+    isRequired: false,
+    type,
+  },
 ): FinalType => {
   if (type instanceof GraphQLNonNull) {
     acc.isRequired = true
@@ -161,7 +166,12 @@ function extractTypeLike(
   type: GraphQLInputType | GraphQLOutputType,
 ): GraphQLType {
   const typeLike: GraphQLType = {} as GraphQLType
-  const { isArray, isArrayRequired, isRequired, type: finalType } = getFinalType(type)
+  const {
+    isArray,
+    isArrayRequired,
+    isRequired,
+    type: finalType,
+  } = getFinalType(type)
   if (isRequired) {
     typeLike.isRequired = true
   }

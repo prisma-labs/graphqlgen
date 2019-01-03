@@ -201,6 +201,7 @@ export function printFieldLikeType(
   const isRequired = field.type.isArray
     ? field.type.isArrayRequired
     : field.type.isRequired
+
   const suffix = isRequired
     ? ''
     : field.defaultValue === null
@@ -208,9 +209,11 @@ export function printFieldLikeType(
     : field.defaultValue === undefined
     ? ' | null | undefined'
     : ''
+
   const type = field.type.isArray
     ? name + (field.type.isRequired ? '' : ' | null | undefined')
     : name + suffix
+
   return field.type.isArray ? `Array<${type}>${suffix}` : type
 }
 
