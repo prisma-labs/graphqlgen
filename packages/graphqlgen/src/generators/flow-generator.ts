@@ -14,7 +14,8 @@ import {
   getModelName,
   groupModelsNameByImportPath,
   InputTypesMap,
-  printFieldLikeType,
+  printFieldLikeFlowType,
+  printFieldLikeReturnType,
   renderDefaultResolvers,
   renderEnums,
   TypeToInputTypeAssociation,
@@ -171,7 +172,7 @@ function renderInputTypeInterfaces(
         inputTypesMap[typeAssociation].name,
       )} {
       ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+        field => `${field.name}: ${printFieldLikeFlowType(field, modelMap)}`,
       )}
     }`
     })
@@ -201,7 +202,7 @@ function renderInputArgInterface(
     ${field.arguments
       .map(
         arg =>
-          `${arg.name}: ${getArgTypePrefix(type, arg)}${printFieldLikeType(
+          `${arg.name}: ${getArgTypePrefix(type, arg)}${printFieldLikeFlowType(
             arg as GraphQLTypeField,
             modelMap,
           )}`,
@@ -254,7 +255,8 @@ function renderResolverFunctionInterface(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+
+  const returnType = printFieldLikeReturnType(field, modelMap)
 
   if (type.name === 'Subscription') {
     return `
@@ -299,7 +301,7 @@ function renderResolverTypeInterfaceFunction(
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
   )`
-  const returnType = printFieldLikeType(field, modelMap)
+  const returnType = printFieldLikeFlowType(field, modelMap)
 
   if (type.name === 'Subscription') {
     return `

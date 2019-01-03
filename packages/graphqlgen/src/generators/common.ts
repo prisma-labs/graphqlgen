@@ -217,6 +217,64 @@ export function printFieldLikeType(
   return field.type.isArray ? `Array<${type}>${suffix}` : type
 }
 
+export function printFieldLikeFlowType(
+  field: GraphQLTypeField,
+  modelMap: ModelMap,
+) {
+  const name = field.type.isScalar
+    ? getTypeFromGraphQLType(field.type.name)
+    : field.type.isInput || field.type.isEnum
+    ? field.type.name
+    : getModelName(field.type, modelMap)
+
+  const isRequired = field.type.isArray
+    ? field.type.isArrayRequired
+    : field.type.isRequired
+
+  const suffix = isRequired
+    ? ''
+    : field.defaultValue === null
+    ? ' | null'
+    : field.defaultValue === undefined
+    ? ' | null | void'
+    : ''
+
+  const type = field.type.isArray
+    ? name + (field.type.isRequired ? '' : ' | null | void')
+    : name + suffix
+
+  return field.type.isArray ? `Array<${type}>${suffix}` : type
+}
+
+export function printFieldLikeReturnType(
+  field: GraphQLTypeField,
+  modelMap: ModelMap,
+) {
+  const name = field.type.isScalar
+    ? getTypeFromGraphQLType(field.type.name)
+    : field.type.isInput || field.type.isEnum
+    ? field.type.name
+    : getModelName(field.type, modelMap)
+
+  const isRequired = field.type.isArray
+    ? field.type.isArrayRequired
+    : field.type.isRequired
+
+  const suffix = isRequired
+    ? ''
+    : field.defaultValue === null
+    ? ' | null'
+    : field.defaultValue === undefined
+    ? ' | null'
+    : ''
+
+  const type = field.type.isArray
+    ? name + (field.type.isRequired ? '' : ' | null')
+    : name + suffix
+
+  return field.type.isArray ? `Array<${type}>${suffix}` : type
+}
+
 export function getTypeFromGraphQLType(
   type: string,
 ): SpecificGraphQLScalarType {

@@ -114,14 +114,14 @@ export type Query_Viewer_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Viewer | null | undefined | Promise<Viewer | null | undefined>;
+) => Viewer | null | Promise<Viewer | null>;
 
 export type Query_MyLocation_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Location | null | undefined | Promise<Location | null | undefined>;
+) => Location | null | Promise<Location | null>;
 
 export interface Query_Resolvers {
   topExperiences: (
@@ -171,14 +171,14 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Viewer | null | undefined | Promise<Viewer | null | undefined>;
+  ) => Viewer | null | void | Promise<Viewer | null | void>;
 
   myLocation: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Location | null | undefined | Promise<Location | null | undefined>;
+  ) => Location | null | void | Promise<Location | null | void>;
 }
 
 // Types for Experience
@@ -206,11 +206,7 @@ export type Experience_Category_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | ExperienceCategory
-  | null
-  | undefined
-  | Promise<ExperienceCategory | null | undefined>;
+) => ExperienceCategory | null | Promise<ExperienceCategory | null>;
 
 export type Experience_Title_Resolver = (
   parent: Experience,
@@ -270,8 +266,8 @@ export interface Experience_Resolvers {
   ) =>
     | ExperienceCategory
     | null
-    | undefined
-    | Promise<ExperienceCategory | null | undefined>;
+    | void
+    | Promise<ExperienceCategory | null | void>;
 
   title: (
     parent: Experience,
@@ -351,7 +347,7 @@ export type ExperienceCategory_Experience_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Experience | null | undefined | Promise<Experience | null | undefined>;
+) => Experience | null | Promise<Experience | null>;
 
 export interface ExperienceCategory_Resolvers {
   id: (
@@ -380,7 +376,7 @@ export interface ExperienceCategory_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience | null | undefined | Promise<Experience | null | undefined>;
+  ) => Experience | null | void | Promise<Experience | null | void>;
 }
 
 // Types for Location
@@ -420,14 +416,14 @@ export type Location_Address_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => string | null | undefined | Promise<string | null | undefined>;
+) => string | null | Promise<string | null>;
 
 export type Location_Directions_Resolver = (
   parent: Location,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => string | null | undefined | Promise<string | null | undefined>;
+) => string | null | Promise<string | null>;
 
 export interface Location_Resolvers {
   id: (
@@ -456,14 +452,14 @@ export interface Location_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | undefined | Promise<string | null | undefined>;
+  ) => string | null | void | Promise<string | null | void>;
 
   directions: (
     parent: Location,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | undefined | Promise<string | null | undefined>;
+  ) => string | null | void | Promise<string | null | void>;
 }
 
 // Types for Review
@@ -671,7 +667,7 @@ export const Home_defaultResolvers = {
 };
 
 export interface Home_Args_Pictures {
-  first: number | null | undefined;
+  first: number | null | void;
 }
 
 export type Home_Id_Resolver = (
@@ -686,7 +682,7 @@ export type Home_Name_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => string | null | undefined | Promise<string | null | undefined>;
+) => string | null | Promise<string | null>;
 
 export type Home_Description_Resolver = (
   parent: Home,
@@ -707,7 +703,7 @@ export type Home_AvgRating_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Home_Pictures_Resolver = (
   parent: Home,
@@ -736,7 +732,7 @@ export interface Home_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | undefined | Promise<string | null | undefined>;
+  ) => string | null | void | Promise<string | null | void>;
 
   description: (
     parent: Home,
@@ -757,7 +753,7 @@ export interface Home_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   pictures: (
     parent: Home,
@@ -938,7 +934,7 @@ export type Neighbourhood_HomePreview_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture | null | undefined | Promise<Picture | null | undefined>;
+) => Picture | null | Promise<Picture | null>;
 
 export type Neighbourhood_City_Resolver = (
   parent: Neighbourhood,
@@ -988,7 +984,7 @@ export interface Neighbourhood_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture | null | undefined | Promise<Picture | null | undefined>;
+  ) => Picture | null | void | Promise<Picture | null | void>;
 
   city: (
     parent: Neighbourhood,
@@ -1149,11 +1145,7 @@ export type User_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Booking>
-  | null
-  | undefined
-  | Promise<Array<Booking> | null | undefined>;
+) => Array<Booking> | null | Promise<Array<Booking> | null>;
 
 export type User_CreatedAt_Resolver = (
   parent: User,
@@ -1181,11 +1173,7 @@ export type User_HostingExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Experience>
-  | null
-  | undefined
-  | Promise<Array<Experience> | null | undefined>;
+) => Array<Experience> | null | Promise<Array<Experience> | null>;
 
 export type User_Id_Resolver = (
   parent: User,
@@ -1220,29 +1208,21 @@ export type User_Notifications_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Notification>
-  | null
-  | undefined
-  | Promise<Array<Notification> | null | undefined>;
+) => Array<Notification> | null | Promise<Array<Notification> | null>;
 
 export type User_OwnedPlaces_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Place> | null | undefined | Promise<Array<Place> | null | undefined>;
+) => Array<Place> | null | Promise<Array<Place> | null>;
 
 export type User_PaymentAccount_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<PaymentAccount>
-  | null
-  | undefined
-  | Promise<Array<PaymentAccount> | null | undefined>;
+) => Array<PaymentAccount> | null | Promise<Array<PaymentAccount> | null>;
 
 export type User_Phone_Resolver = (
   parent: User,
@@ -1256,43 +1236,35 @@ export type User_ProfilePicture_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture | null | undefined | Promise<Picture | null | undefined>;
+) => Picture | null | Promise<Picture | null>;
 
 export type User_ReceivedMessages_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Message>
-  | null
-  | undefined
-  | Promise<Array<Message> | null | undefined>;
+) => Array<Message> | null | Promise<Array<Message> | null>;
 
 export type User_ResponseRate_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type User_ResponseTime_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type User_SentMessages_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Message>
-  | null
-  | undefined
-  | Promise<Array<Message> | null | undefined>;
+) => Array<Message> | null | Promise<Array<Message> | null>;
 
 export type User_UpdatedAt_Resolver = (
   parent: User,
@@ -1314,11 +1286,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Booking>
-    | null
-    | undefined
-    | Promise<Array<Booking> | null | undefined>;
+  ) => Array<Booking> | null | void | Promise<Array<Booking> | null | void>;
 
   createdAt: (
     parent: User,
@@ -1349,8 +1317,8 @@ export interface User_Resolvers {
   ) =>
     | Array<Experience>
     | null
-    | undefined
-    | Promise<Array<Experience> | null | undefined>;
+    | void
+    | Promise<Array<Experience> | null | void>;
 
   id: (
     parent: User,
@@ -1388,19 +1356,15 @@ export interface User_Resolvers {
   ) =>
     | Array<Notification>
     | null
-    | undefined
-    | Promise<Array<Notification> | null | undefined>;
+    | void
+    | Promise<Array<Notification> | null | void>;
 
   ownedPlaces: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Place>
-    | null
-    | undefined
-    | Promise<Array<Place> | null | undefined>;
+  ) => Array<Place> | null | void | Promise<Array<Place> | null | void>;
 
   paymentAccount: (
     parent: User,
@@ -1410,8 +1374,8 @@ export interface User_Resolvers {
   ) =>
     | Array<PaymentAccount>
     | null
-    | undefined
-    | Promise<Array<PaymentAccount> | null | undefined>;
+    | void
+    | Promise<Array<PaymentAccount> | null | void>;
 
   phone: (
     parent: User,
@@ -1425,43 +1389,35 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture | null | undefined | Promise<Picture | null | undefined>;
+  ) => Picture | null | void | Promise<Picture | null | void>;
 
   receivedMessages: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Message>
-    | null
-    | undefined
-    | Promise<Array<Message> | null | undefined>;
+  ) => Array<Message> | null | void | Promise<Array<Message> | null | void>;
 
   responseRate: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   responseTime: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   sentMessages: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Message>
-    | null
-    | undefined
-    | Promise<Array<Message> | null | undefined>;
+  ) => Array<Message> | null | void | Promise<Array<Message> | null | void>;
 
   updatedAt: (
     parent: User,
@@ -1630,14 +1586,14 @@ export type Place_Name_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => string | null | undefined | Promise<string | null | undefined>;
+) => string | null | Promise<string | null>;
 
 export type Place_Size_Resolver = (
   parent: Place,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => PLACE_SIZES | null | undefined | Promise<PLACE_SIZES | null | undefined>;
+) => PLACE_SIZES | null | Promise<PLACE_SIZES | null>;
 
 export type Place_ShortDescription_Resolver = (
   parent: Place,
@@ -1735,25 +1691,21 @@ export type Place_GuestRequirements_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | GuestRequirements
-  | null
-  | undefined
-  | Promise<GuestRequirements | null | undefined>;
+) => GuestRequirements | null | Promise<GuestRequirements | null>;
 
 export type Place_Policies_Resolver = (
   parent: Place,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Policies | null | undefined | Promise<Policies | null | undefined>;
+) => Policies | null | Promise<Policies | null>;
 
 export type Place_HouseRules_Resolver = (
   parent: Place,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => HouseRules | null | undefined | Promise<HouseRules | null | undefined>;
+) => HouseRules | null | Promise<HouseRules | null>;
 
 export type Place_Bookings_Resolver = (
   parent: Place,
@@ -1767,11 +1719,7 @@ export type Place_Pictures_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | Array<Picture>
-  | null
-  | undefined
-  | Promise<Array<Picture> | null | undefined>;
+) => Array<Picture> | null | Promise<Array<Picture> | null>;
 
 export type Place_Popularity_Resolver = (
   parent: Place,
@@ -1793,14 +1741,14 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | undefined | Promise<string | null | undefined>;
+  ) => string | null | void | Promise<string | null | void>;
 
   size: (
     parent: Place,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => PLACE_SIZES | null | undefined | Promise<PLACE_SIZES | null | undefined>;
+  ) => PLACE_SIZES | null | void | Promise<PLACE_SIZES | null | void>;
 
   shortDescription: (
     parent: Place,
@@ -1901,22 +1849,22 @@ export interface Place_Resolvers {
   ) =>
     | GuestRequirements
     | null
-    | undefined
-    | Promise<GuestRequirements | null | undefined>;
+    | void
+    | Promise<GuestRequirements | null | void>;
 
   policies: (
     parent: Place,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Policies | null | undefined | Promise<Policies | null | undefined>;
+  ) => Policies | null | void | Promise<Policies | null | void>;
 
   houseRules: (
     parent: Place,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => HouseRules | null | undefined | Promise<HouseRules | null | undefined>;
+  ) => HouseRules | null | void | Promise<HouseRules | null | void>;
 
   bookings: (
     parent: Place,
@@ -1930,11 +1878,7 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | Array<Picture>
-    | null
-    | undefined
-    | Promise<Array<Picture> | null | undefined>;
+  ) => Array<Picture> | null | void | Promise<Array<Picture> | null | void>;
 
   popularity: (
     parent: Place,
@@ -2617,21 +2561,21 @@ export type Pricing_CleaningFee_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Pricing_Currency_Resolver = (
   parent: Pricing,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => CURRENCY | null | undefined | Promise<CURRENCY | null | undefined>;
+) => CURRENCY | null | Promise<CURRENCY | null>;
 
 export type Pricing_ExtraGuests_Resolver = (
   parent: Pricing,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Pricing_Id_Resolver = (
   parent: Pricing,
@@ -2645,7 +2589,7 @@ export type Pricing_MonthlyDiscount_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Pricing_PerNight_Resolver = (
   parent: Pricing,
@@ -2659,7 +2603,7 @@ export type Pricing_SecurityDeposit_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Pricing_SmartPricing_Resolver = (
   parent: Pricing,
@@ -2673,14 +2617,14 @@ export type Pricing_WeekendPricing_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export type Pricing_WeeklyDiscount_Resolver = (
   parent: Pricing,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => number | null | undefined | Promise<number | null | undefined>;
+) => number | null | Promise<number | null>;
 
 export interface Pricing_Resolvers {
   averageMonthly: (
@@ -2709,21 +2653,21 @@ export interface Pricing_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   currency: (
     parent: Pricing,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => CURRENCY | null | undefined | Promise<CURRENCY | null | undefined>;
+  ) => CURRENCY | null | void | Promise<CURRENCY | null | void>;
 
   extraGuests: (
     parent: Pricing,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   id: (
     parent: Pricing,
@@ -2737,7 +2681,7 @@ export interface Pricing_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   perNight: (
     parent: Pricing,
@@ -2751,7 +2695,7 @@ export interface Pricing_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   smartPricing: (
     parent: Pricing,
@@ -2765,14 +2709,14 @@ export interface Pricing_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 
   weeklyDiscount: (
     parent: Pricing,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => number | null | undefined | Promise<number | null | undefined>;
+  ) => number | null | void | Promise<number | null | void>;
 }
 
 // Types for PlaceViews
@@ -3003,7 +2947,7 @@ export type HouseRules_AdditionalRules_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => string | null | undefined | Promise<string | null | undefined>;
+) => string | null | Promise<string | null>;
 
 export type HouseRules_CreatedAt_Resolver = (
   parent: HouseRules,
@@ -3024,35 +2968,35 @@ export type HouseRules_PartiesAndEventsAllowed_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => boolean | null | undefined | Promise<boolean | null | undefined>;
+) => boolean | null | Promise<boolean | null>;
 
 export type HouseRules_PetsAllowed_Resolver = (
   parent: HouseRules,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => boolean | null | undefined | Promise<boolean | null | undefined>;
+) => boolean | null | Promise<boolean | null>;
 
 export type HouseRules_SmokingAllowed_Resolver = (
   parent: HouseRules,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => boolean | null | undefined | Promise<boolean | null | undefined>;
+) => boolean | null | Promise<boolean | null>;
 
 export type HouseRules_SuitableForChildren_Resolver = (
   parent: HouseRules,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => boolean | null | undefined | Promise<boolean | null | undefined>;
+) => boolean | null | Promise<boolean | null>;
 
 export type HouseRules_SuitableForInfants_Resolver = (
   parent: HouseRules,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => boolean | null | undefined | Promise<boolean | null | undefined>;
+) => boolean | null | Promise<boolean | null>;
 
 export type HouseRules_UpdatedAt_Resolver = (
   parent: HouseRules,
@@ -3067,7 +3011,7 @@ export interface HouseRules_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | undefined | Promise<string | null | undefined>;
+  ) => string | null | void | Promise<string | null | void>;
 
   createdAt: (
     parent: HouseRules,
@@ -3088,35 +3032,35 @@ export interface HouseRules_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | undefined | Promise<boolean | null | undefined>;
+  ) => boolean | null | void | Promise<boolean | null | void>;
 
   petsAllowed: (
     parent: HouseRules,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | undefined | Promise<boolean | null | undefined>;
+  ) => boolean | null | void | Promise<boolean | null | void>;
 
   smokingAllowed: (
     parent: HouseRules,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | undefined | Promise<boolean | null | undefined>;
+  ) => boolean | null | void | Promise<boolean | null | void>;
 
   suitableForChildren: (
     parent: HouseRules,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | undefined | Promise<boolean | null | undefined>;
+  ) => boolean | null | void | Promise<boolean | null | void>;
 
   suitableForInfants: (
     parent: HouseRules,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | null | undefined | Promise<boolean | null | undefined>;
+  ) => boolean | null | void | Promise<boolean | null | void>;
 
   updatedAt: (
     parent: HouseRules,
@@ -3240,11 +3184,7 @@ export type PaymentAccount_Type_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | PAYMENT_PROVIDER
-  | null
-  | undefined
-  | Promise<PAYMENT_PROVIDER | null | undefined>;
+) => PAYMENT_PROVIDER | null | Promise<PAYMENT_PROVIDER | null>;
 
 export type PaymentAccount_User_Resolver = (
   parent: PaymentAccount,
@@ -3265,22 +3205,14 @@ export type PaymentAccount_Paypal_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | PaypalInformation
-  | null
-  | undefined
-  | Promise<PaypalInformation | null | undefined>;
+) => PaypalInformation | null | Promise<PaypalInformation | null>;
 
 export type PaymentAccount_Creditcard_Resolver = (
   parent: PaymentAccount,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | CreditCardInformation
-  | null
-  | undefined
-  | Promise<CreditCardInformation | null | undefined>;
+) => CreditCardInformation | null | Promise<CreditCardInformation | null>;
 
 export interface PaymentAccount_Resolvers {
   id: (
@@ -3302,11 +3234,7 @@ export interface PaymentAccount_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | PAYMENT_PROVIDER
-    | null
-    | undefined
-    | Promise<PAYMENT_PROVIDER | null | undefined>;
+  ) => PAYMENT_PROVIDER | null | void | Promise<PAYMENT_PROVIDER | null | void>;
 
   user: (
     parent: PaymentAccount,
@@ -3330,8 +3258,8 @@ export interface PaymentAccount_Resolvers {
   ) =>
     | PaypalInformation
     | null
-    | undefined
-    | Promise<PaypalInformation | null | undefined>;
+    | void
+    | Promise<PaypalInformation | null | void>;
 
   creditcard: (
     parent: PaymentAccount,
@@ -3341,8 +3269,8 @@ export interface PaymentAccount_Resolvers {
   ) =>
     | CreditCardInformation
     | null
-    | undefined
-    | Promise<CreditCardInformation | null | undefined>;
+    | void
+    | Promise<CreditCardInformation | null | void>;
 }
 
 // Types for PaypalInformation
@@ -3488,11 +3416,7 @@ export type CreditCardInformation_PaymentAccount_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | PaymentAccount
-  | null
-  | undefined
-  | Promise<PaymentAccount | null | undefined>;
+) => PaymentAccount | null | Promise<PaymentAccount | null>;
 
 export type CreditCardInformation_PostalCode_Resolver = (
   parent: CreditCardInformation,
@@ -3570,11 +3494,7 @@ export interface CreditCardInformation_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) =>
-    | PaymentAccount
-    | null
-    | undefined
-    | Promise<PaymentAccount | null | undefined>;
+  ) => PaymentAccount | null | void | Promise<PaymentAccount | null | void>;
 
   postalCode: (
     parent: CreditCardInformation,
@@ -3635,11 +3555,7 @@ export type Notification_Type_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) =>
-  | NOTIFICATION_TYPE
-  | null
-  | undefined
-  | Promise<NOTIFICATION_TYPE | null | undefined>;
+) => NOTIFICATION_TYPE | null | Promise<NOTIFICATION_TYPE | null>;
 
 export type Notification_User_Resolver = (
   parent: Notification,
@@ -3685,8 +3601,8 @@ export interface Notification_Resolvers {
   ) =>
     | NOTIFICATION_TYPE
     | null
-    | undefined
-    | Promise<NOTIFICATION_TYPE | null | undefined>;
+    | void
+    | Promise<NOTIFICATION_TYPE | null | void>;
 
   user: (
     parent: Notification,

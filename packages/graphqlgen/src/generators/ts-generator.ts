@@ -10,6 +10,7 @@ import {
   TypeToInputTypeAssociation,
   InputTypesMap,
   printFieldLikeType,
+  printFieldLikeReturnType,
   getDistinctInputTypes,
   renderEnums,
   groupModelsNameByImportPath,
@@ -263,7 +264,8 @@ function renderResolverFunctionInterface(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+
+  const returnType = printFieldLikeReturnType(field, modelMap)
 
   if (type.name === 'Subscription') {
     return `
