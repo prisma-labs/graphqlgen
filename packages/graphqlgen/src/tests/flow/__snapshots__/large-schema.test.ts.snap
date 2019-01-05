@@ -663,7 +663,7 @@ export const Home_defaultResolvers = {
 };
 
 export interface Home_Args_Pictures {
-  first: number | null | void;
+  first?: number | null;
 }
 
 export type Home_Id_Resolver = (

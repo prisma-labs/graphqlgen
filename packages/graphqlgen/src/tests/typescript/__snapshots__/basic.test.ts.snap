@@ -176,15 +176,15 @@ export namespace MutationResolvers {
   export interface AddMemberData {
     email: string;
     projects: string[];
-    sideProjects: Array<string | null> | null | undefined;
+    sideProjects?: Array<string | null> | null;
     profile: ProfileData | null;
     phones: Array<PhoneData | null>;
     isVIP: boolean;
   }
   export interface ProfileData {
-    firstName: string | null | undefined;
-    lastName: string | null | undefined;
-    photo: Photo | null | undefined;
+    firstName?: string | null;
+    lastName?: string | null;
+    photo?: Photo | null;
   }
   export interface PhoneData {
     number: string;

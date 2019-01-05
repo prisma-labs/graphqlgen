@@ -170,11 +170,8 @@ function renderInputTypeInterfaces(
       return `export interface ${upperFirst(type.name)}_${upperFirst(
         inputTypesMap[typeAssociation].name,
       )} {
-      ${inputTypesMap[typeAssociation].fields.map(
-        field =>
-          `${field.name}: ${printFieldLikeType(field, modelMap, {
-            isFlowtype: true,
-          })}`,
+      ${inputTypesMap[typeAssociation].fields.map(field =>
+        printFieldLikeType(field, modelMap),
       )}
     }`
     })
@@ -202,13 +199,11 @@ function renderInputArgInterface(
   return `
   export interface ${getInputArgName(type, field)} {
     ${field.arguments
-      .map(
-        arg =>
-          `${arg.name}: ${getArgTypePrefix(type, arg)}${printFieldLikeType(
-            arg as GraphQLTypeField,
-            modelMap,
-            { isFlowtype: true },
-          )}`,
+      .map(arg =>
+        printFieldLikeType(arg as GraphQLTypeField, modelMap).replace(
+          ': ',
+          `: ${getArgTypePrefix(type, arg)}`,
+        ),
       )
       .join(',' + os.EOL)}
   }
@@ -260,7 +255,6 @@ function renderResolverFunctionInterface(
   `
 
   const returnType = printFieldLikeType(field, modelMap, {
-    isFlowtype: true,
     isReturn: true,
   })
 
@@ -308,7 +302,6 @@ function renderResolverTypeInterfaceFunction(
     info: GraphQLResolveInfo,
   )`
   const returnType = printFieldLikeType(field, modelMap, {
-    isFlowtype: true,
     isReturn: true,
   })
 

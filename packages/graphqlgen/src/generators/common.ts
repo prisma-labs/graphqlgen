@@ -188,28 +188,31 @@ export function shouldScaffoldFieldResolver(
   return !shouldRenderDefaultResolver(graphQLField, modelField, args)
 }
 
-const voidable = (type: string, isFlowtype: boolean = false): string => {
-  const voidType = isFlowtype ? 'void' : 'undefined'
-  return `${type} | null | ${voidType}`
-}
-
 const nullable = (type: string): string => {
   return `${type} | null`
+}
+
+const kv = (
+  key: string,
+  value: string,
+  isOptional: boolean = false,
+): string => {
+  return `${key}${isOptional ? '?' : ''}: ${value}`
 }
 
 const array = (innerType: string, config: { innerUnion?: boolean } = {}) => {
   return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
 }
 
+type FieldPrintOptions = {
+  isReturn?: boolean
+}
+
 export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
-  options: {
-    isReturn?: boolean
-    isFlowtype?: boolean
-  } = {
+  options: FieldPrintOptions = {
     isReturn: false,
-    isFlowtype: false,
   },
 ): string => {
   const name = field.type.isScalar
@@ -219,40 +222,53 @@ export const printFieldLikeType = (
     : getModelName(field.type, modelMap)
 
   /**
+   * Considerable difference between types in array versus not, such as what
+   * default value means, isRequired, ..., lead to forking the rendering paths.
+   *
+   * Regarding voidable, note how it can only show up in the k:v rendering e.g.:
+   *
+   *     foo?: null | string
+   *
+   * but not for return style e.g.:
+   *
+   *     undefined | null | string
+   *
+   * given footnote 1 below.
+   *
    * 1. Return type doesn't permit void return since that would allow
    *    resolvers to e.g. forget to return anything and that be considered OK.
    */
+
   if (field.type.isArray) {
     const innerUnion = field.type.isRequired
-    // Not voidable here because a void array member is not possible
-    const innerTypeRendering = field.type.isRequired ? name : nullable(name)
 
-    const typeRendering = field.type.isArrayRequired
-      ? array(innerTypeRendering, { innerUnion })
-      : field.defaultValue === null
-      ? nullable(array(innerTypeRendering, { innerUnion }))
-      : field.defaultValue === undefined
-      ? options.isReturn // [1]
-        ? nullable(array(innerTypeRendering, { innerUnion }))
-        : voidable(
-            array(innerTypeRendering, { innerUnion }),
-            options.isFlowtype,
-          )
-      : array(innerTypeRendering, { innerUnion }) // schema has non-null default set
+    // - Not voidable here because a void array member is not possible
+    // - For arrays default value does not apply to inner value
+    const valueInnerType = field.type.isRequired ? name : nullable(name)
 
-    return typeRendering
+    const isArrayNullable =
+      !field.type.isArrayRequired &&
+      (field.defaultValue === undefined || field.defaultValue === null)
+
+    const isArrayVoidable = isArrayNullable && field.defaultValue === undefined
+
+    const valueType = isArrayNullable
+      ? nullable(array(valueInnerType, { innerUnion })) // [1]
+      : array(valueInnerType, { innerUnion })
+
+    return options.isReturn
+      ? valueType
+      : kv(field.name, valueType, isArrayVoidable)
   } else {
-    const typeRendering = field.type.isRequired
-      ? name
-      : field.defaultValue === null
-      ? nullable(name)
-      : field.defaultValue === undefined
-      ? options.isReturn // [1]
-        ? nullable(name)
-        : voidable(name, options.isFlowtype)
-      : name // schema has non-null default set
+    const isNullable =
+      !field.type.isRequired &&
+      (field.defaultValue === undefined || field.defaultValue === null)
 
-    return typeRendering
+    const isVoidable = isNullable && field.defaultValue === undefined
+
+    const valueType = isNullable ? nullable(name) : name // [1]
+
+    return options.isReturn ? valueType : kv(field.name, valueType, isVoidable)
   }
 }
 

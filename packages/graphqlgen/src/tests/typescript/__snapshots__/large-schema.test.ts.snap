@@ -668,7 +668,7 @@ export namespace HomeResolvers {
   };
 
   export interface ArgsPictures {
-    first: number | null | undefined;
+    first?: number | null;
   }
 
   export type IdResolver = (
