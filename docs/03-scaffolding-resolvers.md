@@ -24,7 +24,7 @@ export const Query: QueryResolvers.Type = {
 
 With that boilerplate in place, all that's left to do for the developer is implement fetching the requested `User` object from some data source (guided by the generated typings for resolver arguments and return values).
 
-The relevant properties from `graphqlgen.yml` for the Generation feature are:
+The relevant properties from `graphqlgen.yml` for the Scaffolding feature are:
 
 - `language` (required)
 - `schema` (required)
