@@ -663,7 +663,7 @@ export const Home_defaultResolvers = {
 };
 
 export interface Home_Args_Pictures {
-  first: number | null;
+  first?: number | null;
 }
 
 export type Home_Id_Resolver = (
@@ -1141,7 +1141,7 @@ export type User_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Booking[] | Promise<Booking[]>;
+) => Booking[] | null | Promise<Booking[] | null>;
 
 export type User_CreatedAt_Resolver = (
   parent: User,
@@ -1169,7 +1169,7 @@ export type User_HostingExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Experience[] | Promise<Experience[]>;
+) => Experience[] | null | Promise<Experience[] | null>;
 
 export type User_Id_Resolver = (
   parent: User,
@@ -1204,21 +1204,21 @@ export type User_Notifications_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Notification[] | Promise<Notification[]>;
+) => Notification[] | null | Promise<Notification[] | null>;
 
 export type User_OwnedPlaces_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Place[] | Promise<Place[]>;
+) => Place[] | null | Promise<Place[] | null>;
 
 export type User_PaymentAccount_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => PaymentAccount[] | Promise<PaymentAccount[]>;
+) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
 export type User_Phone_Resolver = (
   parent: User,
@@ -1239,7 +1239,7 @@ export type User_ReceivedMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Message[] | Promise<Message[]>;
+) => Message[] | null | Promise<Message[] | null>;
 
 export type User_ResponseRate_Resolver = (
   parent: User,
@@ -1260,7 +1260,7 @@ export type User_SentMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Message[] | Promise<Message[]>;
+) => Message[] | null | Promise<Message[] | null>;
 
 export type User_UpdatedAt_Resolver = (
   parent: User,
@@ -1282,7 +1282,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Booking[] | Promise<Booking[]>;
+  ) => Booking[] | null | Promise<Booking[] | null>;
 
   createdAt: (
     parent: User,
@@ -1310,7 +1310,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience[] | Promise<Experience[]>;
+  ) => Experience[] | null | Promise<Experience[] | null>;
 
   id: (
     parent: User,
@@ -1345,21 +1345,21 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Notification[] | Promise<Notification[]>;
+  ) => Notification[] | null | Promise<Notification[] | null>;
 
   ownedPlaces: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Place[] | Promise<Place[]>;
+  ) => Place[] | null | Promise<Place[] | null>;
 
   paymentAccount: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => PaymentAccount[] | Promise<PaymentAccount[]>;
+  ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
   phone: (
     parent: User,
@@ -1380,7 +1380,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | Promise<Message[]>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   responseRate: (
     parent: User,
@@ -1401,7 +1401,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | Promise<Message[]>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   updatedAt: (
     parent: User,
@@ -1703,7 +1703,7 @@ export type Place_Pictures_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture[] | Promise<Picture[]>;
+) => Picture[] | null | Promise<Picture[] | null>;
 
 export type Place_Popularity_Resolver = (
   parent: Place,
@@ -1858,7 +1858,7 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture[] | Promise<Picture[]>;
+  ) => Picture[] | null | Promise<Picture[] | null>;
 
   popularity: (
     parent: Place,

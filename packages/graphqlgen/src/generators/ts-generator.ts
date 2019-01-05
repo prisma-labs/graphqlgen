@@ -194,8 +194,8 @@ function renderInputTypeInterfaces(
   return getDistinctInputTypes(type, typeToInputTypeAssociation, inputTypesMap)
     .map(typeAssociation => {
       return `export interface ${inputTypesMap[typeAssociation].name} {
-      ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+      ${inputTypesMap[typeAssociation].fields.map(field =>
+        printFieldLikeType(field, modelMap),
       )}
     }`
     })
@@ -222,13 +222,7 @@ function renderInputArgInterface(
   return `
   export interface Args${upperFirst(field.name)} {
     ${field.arguments
-      .map(
-        arg =>
-          `${arg.name}: ${printFieldLikeType(
-            arg as GraphQLTypeField,
-            modelMap,
-          )}`,
-      )
+      .map(arg => printFieldLikeType(arg as GraphQLTypeField, modelMap))
       .join(os.EOL)}
   }
   `
@@ -263,7 +257,8 @@ function renderResolverFunctionInterface(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+
+  const returnType = printFieldLikeType(field, modelMap, { isReturn: true })
 
   if (type.name === 'Subscription') {
     return `
@@ -311,7 +306,7 @@ function renderResolverTypeInterfaceFunction(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+  const returnType = printFieldLikeType(field, modelMap, { isReturn: true })
 
   if (type.name === 'Subscription') {
     return `
