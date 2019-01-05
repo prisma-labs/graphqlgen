@@ -43,7 +43,7 @@
     "graphql": "^0.13.0 || ^14.0.0",
     "graphql-import": "0.7.1",
     "graphqlgen-json-schema": "0.2.12",
-    "js-yaml": "3.12.0",
+    "js-yaml": "3.12.1",
     "mkdirp": "0.5.1",
     "prettier": "1.15.3",
     "reason": "3.3.4",
