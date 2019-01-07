@@ -2,7 +2,11 @@ import * as os from 'os'
 import * as prettier from 'prettier'
 
 import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
-import { GraphQLTypeField, GraphQLTypeObject } from '../source-helper'
+import {
+  GraphQLTypeField,
+  GraphQLTypeObject,
+  GraphQLTypeArgument,
+} from '../source-helper'
 import { upperFirst } from '../utils'
 import {
   getContextName,
@@ -166,8 +170,8 @@ function renderInputTypeInterfaces(
       return `export interface ${upperFirst(type.name)}_${upperFirst(
         inputTypesMap[typeAssociation].name,
       )} {
-      ${inputTypesMap[typeAssociation].fields.map(
-        field => `${field.name}: ${printFieldLikeType(field, modelMap)}`,
+      ${inputTypesMap[typeAssociation].fields.map(field =>
+        printFieldLikeType(field, modelMap),
       )}
     }`
     })
@@ -195,16 +199,29 @@ function renderInputArgInterface(
   return `
   export interface ${getInputArgName(type, field)} {
     ${field.arguments
-      .map(
-        arg =>
-          `${arg.name}: ${printFieldLikeType(
-            arg as GraphQLTypeField,
-            modelMap,
-          )}`,
+      .map(arg =>
+        printFieldLikeType(arg as GraphQLTypeField, modelMap).replace(
+          ': ',
+          `: ${getArgTypePrefix(type, arg)}`,
+        ),
       )
       .join(',' + os.EOL)}
   }
   `
+}
+
+const getArgTypePrefix = (
+  type: GraphQLTypeObject,
+  fieldArg: GraphQLTypeArgument,
+): string => {
+  if (
+    fieldArg.type.isScalar ||
+    // Object type includes GQL ID
+    fieldArg.type.isObject ||
+    fieldArg.type.isEnum
+  )
+    return ''
+  return upperFirst(type.name) + '_'
 }
 
 function renderResolverFunctionInterfaces(
@@ -236,7 +253,10 @@ function renderResolverFunctionInterface(
     info: GraphQLResolveInfo,
   )
   `
-  const returnType = printFieldLikeType(field, modelMap)
+
+  const returnType = printFieldLikeType(field, modelMap, {
+    isReturn: true,
+  })
 
   if (type.name === 'Subscription') {
     return `
@@ -281,7 +301,9 @@ function renderResolverTypeInterfaceFunction(
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
   )`
-  const returnType = printFieldLikeType(field, modelMap)
+  const returnType = printFieldLikeType(field, modelMap, {
+    isReturn: true,
+  })
 
   if (type.name === 'Subscription') {
     return `

@@ -20,6 +20,7 @@ export type ExportedType = {
 
 // @ts-ignore
 enum Enum {
-  A, B, C
+  A,
+  B,
+  C,
 }
-

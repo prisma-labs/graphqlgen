@@ -1,6 +1,6 @@
 // @flow
 
 export interface Number {
-  id: string,
-  value: number,
+  id: string;
+  value: number;
 }

@@ -7,8 +7,9 @@ input AddMemberData {
   email: String!
   projects: [ID!]!
   sideProjects: [ID]
-  profile: ProfileData
-  phones: [PhoneData]
+  profile: ProfileData = null
+  phones: [PhoneData] = []
+  isVIP: Boolean = false
 }
 
 input ProfileData {
@@ -27,6 +28,10 @@ input PhoneData {
 }
 
 type Mutation {
-  addMember(data: AddMemberData!): AddMemberPayload!
+  addMember(
+    data: AddMemberData!
+    upsert: Boolean = false
+    note: String = null
+  ): AddMemberPayload!
   addMembers(data: [AddMemberData!]!): AddMemberPayload!
 }
