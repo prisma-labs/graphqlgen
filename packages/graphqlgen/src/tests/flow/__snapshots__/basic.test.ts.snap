@@ -8,8 +8,8 @@ import type { GraphQLResolveInfo } from \\"graphql\\";
 import type { User } from \\"../../fixtures/enum/types-flow\\";
 type Context = any;
 
-type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
-type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
+export type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
+export type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
 
 // Types for Query
 export const Query_defaultResolvers = {};
