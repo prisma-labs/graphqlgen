@@ -4,7 +4,7 @@
 1. [Draft a new release on Github](https://github.com/prisma/graphqlgen/releases/new)
 2. `npm install -g git-release-notes`
 3. Get the release notes from executing `.github/make-release-notes.sh`
-4. Separate them like [here]() by Features and Fixes and add them to the draft
+4. Separate them like [here](https://github.com/prisma/graphqlgen/releases/tag/0.5.0) by Features and Fixes and add them to the draft
 5. Get feedback for the draft
 
 ## 2. Publish `graphqlgen-json-schema`, if there was a change
