@@ -72,8 +72,8 @@ const main = async (cli: meow.Result) => {
       },
     ])
 
-    template = availableTemplates.find(
-      t => `${t.name} (${t.description})` === res.templateName,
+    template = Templates.availableTemplates.find(
+      t => t.name === res.templateName,
     )
   }
 
