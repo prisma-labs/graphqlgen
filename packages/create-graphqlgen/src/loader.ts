@@ -6,19 +6,18 @@ import * as ora from 'ora'
 import * as request from 'request'
 import * as execa from 'execa'
 import chalk from 'chalk'
-
 import { Template } from './templates'
 
-export interface LoadOptions {
+interface LoadOptions {
   installDependencies: boolean
   generateModels: boolean
 }
 
-export async function loadGraphQLGenStarter(
+const loadGraphQLGenStarter = async (
   template: Template,
   output: string,
   options: LoadOptions,
-): Promise<void> {
+): Promise<void> => {
   const tar = getGraphQLGenTemplateRepositoryTarInformation(template)
   const tmp = await downloadRepository(tar)
 
@@ -40,9 +39,9 @@ interface TemplateRepositoryTarInformation {
   files: string
 }
 
-function getGraphQLGenTemplateRepositoryTarInformation(
+const getGraphQLGenTemplateRepositoryTarInformation = (
   template: Template,
-): TemplateRepositoryTarInformation {
+): TemplateRepositoryTarInformation => {
   const meta = github(template.repo.uri)
 
   const uri = [
@@ -55,9 +54,9 @@ function getGraphQLGenTemplateRepositoryTarInformation(
   return { uri, files: template.repo.path }
 }
 
-async function downloadRepository(
+const downloadRepository = async (
   tar: TemplateRepositoryTarInformation,
-): Promise<string> {
+): Promise<string> => {
   const spinner = ora(`Downloading starter from ${chalk.cyan(tar.uri)}`).start()
 
   const tmpPath = tmp.fileSync({
@@ -79,11 +78,11 @@ async function downloadRepository(
   return tmpPath.name
 }
 
-async function extractGraphQLGenStarterFromRepository(
+const extractGraphQLGenStarterFromRepository = async (
   tmp: string,
   repo: TemplateRepositoryTarInformation,
   output: string,
-): Promise<void> {
+): Promise<void> => {
   const spinner = ora(`Extracting content to ${chalk.cyan(output)}`)
 
   await tar.extract({
@@ -98,7 +97,7 @@ async function extractGraphQLGenStarterFromRepository(
   return
 }
 
-async function installGraphQLGenStarter(path: string): Promise<void> {
+const installGraphQLGenStarter = async (path: string): Promise<void> => {
   const spinner = ora(`Installing dependencies 👩‍🚀`).start()
 
   process.chdir(path)
@@ -116,7 +115,7 @@ async function installGraphQLGenStarter(path: string): Promise<void> {
   }
 }
 
-async function generateGraphQLGenStarterModels(path: string): Promise<void> {
+const generateGraphQLGenStarterModels = async (path: string): Promise<void> => {
   const spinner = ora(`Generating models 👷‍`).start()
 
   process.chdir(path)
@@ -134,7 +133,7 @@ async function generateGraphQLGenStarterModels(path: string): Promise<void> {
   }
 }
 
-async function isYarnInstalled(): Promise<boolean> {
+const isYarnInstalled = async (): Promise<boolean> => {
   try {
     await execa.shell(`yarnpkg --version`, { stdio: `ignore` })
     return true
@@ -143,7 +142,7 @@ async function isYarnInstalled(): Promise<boolean> {
   }
 }
 
-function printHelpMessage(): void {
+const printHelpMessage = (): void => {
   const message = `
 Your GraphQL server has been successfully set up!
 
@@ -157,3 +156,5 @@ Try running the following commands:
 
   console.log(message)
 }
+
+export { LoadOptions, loadGraphQLGenStarter }
