@@ -41,11 +41,10 @@ export function fieldsFromModelDefinition(
   // If model is of type `type TypeName = { ... }`
   if (
     modelDef.kind === 'TypeAliasDefinition' &&
-    (modelDef as TypeAliasDefinition).getType() &&
-    (modelDef as TypeAliasDefinition).getType().kind ===
-      'AnonymousInterfaceAnnotation'
+    modelDef.getType() &&
+    modelDef.getType().kind === 'AnonymousInterfaceAnnotation'
   ) {
-    const interfaceDef = (modelDef as TypeAliasDefinition).getType() as AnonymousInterfaceAnnotation
+    const interfaceDef = modelDef.getType() as AnonymousInterfaceAnnotation
 
     return interfaceDef.fields
   }
