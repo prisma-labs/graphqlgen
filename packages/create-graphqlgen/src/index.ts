@@ -89,6 +89,7 @@ const main = async (cli: meow.Result) => {
         name: 'path',
         message: 'Where should we scaffold graphql server?',
         type: 'input',
+        default: '.',
       },
     ])
 
