@@ -4,8 +4,10 @@
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
-    "build": "rimraf dist && tsc -d",
-    "pretest": "npm run build && npm run lint",
+    "clean": "rimraf dist",
+    "build": "yarn clean && tsc --declaration",
+    "build:watch": "yarn clean && tsc --declaration --watch",
+    "pretest": "yarn build && yarn lint",
     "test": "ava --serial",
     "lint": "tslint {src,test}/**/*.ts",
     "start": "ts-node src/index.ts"
