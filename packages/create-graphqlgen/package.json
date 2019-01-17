@@ -1,6 +1,6 @@
 {
   "name": "create-graphqlgen",
-  "version": "0.0.12",
+  "version": "0.5.1",
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
