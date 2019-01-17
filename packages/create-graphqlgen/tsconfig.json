@@ -9,5 +9,5 @@
     "sourceMap": true,
     "lib": ["dom", "es2017", "esnext.asynciterable"]
   },
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/index.ts"]
 }

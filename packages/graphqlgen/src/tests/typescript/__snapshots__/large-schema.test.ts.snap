@@ -37,10 +37,10 @@ import {
   Message,
   AuthPayload,
   MutationResult
-} from \\"../../../fixtures/prisma/types\\";
+} from \\"../../fixtures/prisma/types\\";
 type Context = any;
 
-type PLACE_SIZES =
+export type PLACE_SIZES =
   | \\"ENTIRE_HOUSE\\"
   | \\"ENTIRE_APARTMENT\\"
   | \\"ENTIRE_EARTH_HOUSE\\"
@@ -49,9 +49,9 @@ type PLACE_SIZES =
   | \\"ENTIRE_PLACE\\"
   | \\"ENTIRE_BOAT\\"
   | \\"PRIVATE_ROOM\\";
-type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
-type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
-type NOTIFICATION_TYPE =
+export type CURRENCY = \\"CAD\\" | \\"CHF\\" | \\"EUR\\" | \\"JPY\\" | \\"USD\\" | \\"ZAR\\";
+export type PAYMENT_PROVIDER = \\"PAYPAL\\" | \\"CREDIT_CARD\\";
+export type NOTIFICATION_TYPE =
   | \\"OFFER\\"
   | \\"INSTANT_BOOK\\"
   | \\"RESPONSIVENESS\\"
@@ -672,7 +672,7 @@ export namespace HomeResolvers {
   };
 
   export interface ArgsPictures {
-    first: number | null;
+    first?: number | null;
   }
 
   export type IdResolver = (
@@ -1156,7 +1156,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Booking[] | Promise<Booking[]>;
+  ) => Booking[] | null | Promise<Booking[] | null>;
 
   export type CreatedAtResolver = (
     parent: User,
@@ -1184,7 +1184,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience[] | Promise<Experience[]>;
+  ) => Experience[] | null | Promise<Experience[] | null>;
 
   export type IdResolver = (
     parent: User,
@@ -1219,21 +1219,21 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Notification[] | Promise<Notification[]>;
+  ) => Notification[] | null | Promise<Notification[] | null>;
 
   export type OwnedPlacesResolver = (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Place[] | Promise<Place[]>;
+  ) => Place[] | null | Promise<Place[] | null>;
 
   export type PaymentAccountResolver = (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => PaymentAccount[] | Promise<PaymentAccount[]>;
+  ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
   export type PhoneResolver = (
     parent: User,
@@ -1254,7 +1254,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | Promise<Message[]>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   export type ResponseRateResolver = (
     parent: User,
@@ -1275,7 +1275,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | Promise<Message[]>;
+  ) => Message[] | null | Promise<Message[] | null>;
 
   export type UpdatedAtResolver = (
     parent: User,
@@ -1297,7 +1297,7 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Booking[] | Promise<Booking[]>;
+    ) => Booking[] | null | Promise<Booking[] | null>;
 
     createdAt: (
       parent: User,
@@ -1325,7 +1325,7 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Experience[] | Promise<Experience[]>;
+    ) => Experience[] | null | Promise<Experience[] | null>;
 
     id: (
       parent: User,
@@ -1360,21 +1360,21 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Notification[] | Promise<Notification[]>;
+    ) => Notification[] | null | Promise<Notification[] | null>;
 
     ownedPlaces: (
       parent: User,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Place[] | Promise<Place[]>;
+    ) => Place[] | null | Promise<Place[] | null>;
 
     paymentAccount: (
       parent: User,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => PaymentAccount[] | Promise<PaymentAccount[]>;
+    ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
 
     phone: (
       parent: User,
@@ -1395,7 +1395,7 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Message[] | Promise<Message[]>;
+    ) => Message[] | null | Promise<Message[] | null>;
 
     responseRate: (
       parent: User,
@@ -1416,7 +1416,7 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Message[] | Promise<Message[]>;
+    ) => Message[] | null | Promise<Message[] | null>;
 
     updatedAt: (
       parent: User,
@@ -1720,7 +1720,7 @@ export namespace PlaceResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture[] | Promise<Picture[]>;
+  ) => Picture[] | null | Promise<Picture[] | null>;
 
   export type PopularityResolver = (
     parent: Place,
@@ -1875,7 +1875,7 @@ export namespace PlaceResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Picture[] | Promise<Picture[]>;
+    ) => Picture[] | null | Promise<Picture[] | null>;
 
     popularity: (
       parent: Place,

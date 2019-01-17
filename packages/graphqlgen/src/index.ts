@@ -1,18 +1,10 @@
 #!/usr/bin/env node
 
-import * as fs from 'fs'
-import * as path from 'path'
 import chalk from 'chalk'
-import * as mkdirp from 'mkdirp'
 import * as prettier from 'prettier'
-import * as rimraf from 'rimraf'
 import * as yargs from 'yargs'
 import { GraphQLGenDefinition, Language } from 'graphqlgen-json-schema'
 import { GraphQLTypes } from './source-helper'
-import {
-  getImportPathRelativeToOutput,
-  getAbsoluteFilePath,
-} from './path-helpers'
 import { IGenerator, GenerateArgs, CodeFileLike, ModelMap } from './types'
 import {
   generate as generateTS,
@@ -22,14 +14,12 @@ import {
   generate as generateFlow,
   format as formatFlow,
 } from './generators/flow-generator'
-
 import { generate as scaffoldTS } from './generators/ts-scaffolder'
 import { generate as scaffoldFlow } from './generators/flow-scaffolder'
-
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 import { handleGlobPattern } from './glob'
-import { replaceAll } from './utils'
+import * as Project from './project-output'
 
 export type GenerateCodeArgs = {
   schema: GraphQLTypes
@@ -114,112 +104,9 @@ export function generateCode(
   return { generatedTypes, generatedResolvers }
 }
 
-function writeTypes(types: string, config: GraphQLGenDefinition): void {
-  // Create generation target folder, if it does not exist
-  // TODO: Error handling around this
-  mkdirp.sync(path.dirname(config.output))
-  try {
-    fs.writeFileSync(config.output, types, { encoding: 'utf-8' })
-  } catch (e) {
-    console.error(
-      chalk.red(`Failed to write the file at ${config.output}, error: ${e}`),
-    )
-    process.exit(1)
-  }
-  console.log(
-    chalk.green(
-      `Resolver interface definitons & default resolvers generated at ${
-        config.output
-      }`,
-    ),
-  )
-}
-
-function writeResolversScaffolding(
-  resolvers: CodeFileLike[],
-  config: GraphQLGenDefinition,
-) {
-  if (!config['resolver-scaffolding']) {
-    return
-  }
-  const outputResolversDir = config['resolver-scaffolding']!.output
-
-  rimraf.sync(outputResolversDir)
-
-  resolvers.forEach(f => {
-    const writePath = path.join(outputResolversDir, f.path)
-    mkdirp.sync(path.dirname(writePath))
-    try {
-      fs.writeFileSync(
-        writePath,
-        replaceAll(
-          f.code,
-          '[TEMPLATE-INTERFACES-PATH]',
-          getImportPathRelativeToOutput(
-            getAbsoluteFilePath(config.output, config.language),
-            writePath,
-          ),
-        ),
-      )
-    } catch (e) {
-      console.error(
-        chalk.red(
-          `Failed to write the file at ${outputResolversDir}, error: ${e}`,
-        ),
-      )
-      process.exit(1)
-    }
-  })
-
-  console.log(chalk.green(`Resolvers scaffolded at ${outputResolversDir}`))
-
-  process.exit(0)
-}
-
-function bootstrapYamlFile() {
-  const yaml = `\
-# The target programming language for the generated code
-language: typescript
-
-# The file path pointing to your GraphQL schema
-schema: <path-to-your-schema>.graphql
-
-# Type definition for the resolver context object
-context: <path-to-file>:<name-of-interface>
-
-# Map SDL types from the GraphQL schema to TS models
-models:
-  files:
-    - <path-to-file>.ts
-
-# Generated typings for resolvers and default resolver implementations
-# Please don't edit this file but just import from here
-output: <path-to-generated-file>/graphqlgen.ts
-
-# Temporary scaffolded resolvers to copy and paste in your application
-resolver-scaffolding:
-  output: <path-to-output-dir>
-  layout: file-per-type
-`
-  const outputPath = path.join(process.cwd(), 'graphqlgen.yml')
-
-  if (fs.existsSync(outputPath)) {
-    return console.log(chalk.red('graphqlgen.yml file already exists'))
-  }
-
-  try {
-    fs.writeFileSync(outputPath, yaml, {
-      encoding: 'utf-8',
-    })
-  } catch (e) {
-    return console.error(
-      chalk.red(`Failed to write the graphqlgen.yml file, error: ${e}`),
-    )
-  }
-
-  console.log(chalk.green('graphqlgen.yml file created'))
-}
-
+/**
+ * The CLI interface
+ */
 async function run() {
   const argv = yargs
     .usage('Usage: graphqlgen or gg')
@@ -233,7 +120,7 @@ async function run() {
     .alias('h', 'help').argv
 
   if (argv.i) {
-    bootstrapYamlFile()
+    Project.writeConfigScaffolding()
     return true
   }
 
@@ -272,8 +159,8 @@ async function run() {
     modelMap,
   })
 
-  writeTypes(generatedTypes, config)
-  writeResolversScaffolding(generatedResolvers, config)
+  Project.writeTypes(generatedTypes, config)
+  Project.writeResolversScaffolding(generatedResolvers, config)
 }
 
 // Only call run when running from CLI, not when included for tests

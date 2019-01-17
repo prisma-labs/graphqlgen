@@ -4,14 +4,8 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as meow from 'meow'
 import * as inquirer from 'inquirer'
-
-import { loadGraphQLGenStarter } from './loader'
-import {
-  defaultTemplate,
-  Template,
-  availableTemplates,
-  templatesNames,
-} from './templates'
+import * as Loader from './loader'
+import * as Templates from './templates'
 
 const cli = meow(
   `
@@ -20,7 +14,7 @@ const cli = meow(
     > Scaffolds the initial files of your project.
 
     Options:
-      -t, --template  Select a template. (${templatesNames})
+      -t, --template  Select a template. (${Templates.templatesNames})
       --no-install    Skips dependency installation.
       --no-generate   Skips model generation.
       --force (-f)    Overwrites existing files.
@@ -49,22 +43,20 @@ const cli = meow(
   },
 )
 
-main(cli)
-
-// Main
-
-async function main(cli: meow.Result) {
-  let template: Template = defaultTemplate
+const main = async (cli: meow.Result) => {
+  let template = Templates.defaultTemplate
 
   if (cli.flags['template']) {
-    const selectedTemplate = availableTemplates.find(
+    const selectedTemplate = Templates.availableTemplates.find(
       t => t.name === cli.flags['template'],
     )
 
     if (selectedTemplate) {
       template = selectedTemplate
     } else {
-      console.log(`Unknown template. Available templates: ${templatesNames}`)
+      console.log(
+        `Unknown template. Available templates: ${Templates.templatesNames}`,
+      )
       return
     }
   } else {
@@ -73,14 +65,16 @@ async function main(cli: meow.Result) {
         name: 'templateName',
         message: 'Choose a GraphQL server template?',
         type: 'list',
-        choices: availableTemplates.map(t => ({
+        choices: Templates.availableTemplates.map(t => ({
           name: `${t.name} (${t.description})`,
           value: t.name,
         })),
       },
     ])
 
-    template = availableTemplates.find(t => `${t.name} (${t.description})` === res.templateName)
+    template = Templates.availableTemplates.find(
+      t => t.name === res.templateName,
+    )
   }
 
   let [output] = cli.input
@@ -95,6 +89,7 @@ async function main(cli: meow.Result) {
         name: 'path',
         message: 'Where should we scaffold graphql server?',
         type: 'input',
+        default: '.',
       },
     ])
 
@@ -115,8 +110,10 @@ async function main(cli: meow.Result) {
     fs.mkdirSync(output)
   }
 
-  loadGraphQLGenStarter(template, path.resolve(output), {
+  Loader.loadGraphQLGenStarter(template, path.resolve(output), {
     installDependencies: !cli.flags['no-install'],
     generateModels: !cli.flags['no-generate'],
   })
 }
+
+main(cli)

@@ -64,74 +64,74 @@ After running `$ graphqlgen` in your terminal, the following:
 **`./src/generated/graphqlgen.ts`**
 
 ```ts
-import { GraphQLResolveInfo } from "graphql";
-type Context = any;
-import { User } from "../models";
+import { GraphQLResolveInfo } from 'graphql'
+type Context = any
+import { User } from '../models'
 
 export namespace QueryResolvers {
-  export const defaultResolvers = {};
+  export const defaultResolvers = {}
 
   export interface ArgsUser {
-    id: string;
+    id: string
   }
 
   export type UserResolver = (
     parent: {},
     args: ArgsUser,
     ctx: Context,
-    info: GraphQLResolveInfo
-  ) => User | null | Promise<User | null>;
+    info: GraphQLResolveInfo,
+  ) => User | null | Promise<User | null>
 
   export interface Type {
     user: (
       parent: {},
       args: ArgsUser,
       ctx: Context,
-      info: GraphQLResolveInfo
-    ) => User | null | Promise<User | null>;
+      info: GraphQLResolveInfo,
+    ) => User | null | Promise<User | null>
   }
 }
 
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
-    name: (parent: User) => parent.name
-  };
+    name: (parent: User) => parent.name,
+  }
 
   export type IdResolver = (
     parent: User,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
+    info: GraphQLResolveInfo,
+  ) => string | Promise<string>
 
   export type NameResolver = (
     parent: User,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | null | Promise<string | null>;
+    info: GraphQLResolveInfo,
+  ) => string | null | Promise<string | null>
 
   export interface Type {
     id: (
       parent: User,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
+      info: GraphQLResolveInfo,
+    ) => string | Promise<string>
 
     name: (
       parent: User,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo
-    ) => string | null | Promise<string | null>;
+      info: GraphQLResolveInfo,
+    ) => string | null | Promise<string | null>
   }
 }
 
 export interface Resolvers {
-  Query: QueryResolvers.Type;
-  User: UserResolvers.Type;
+  Query: QueryResolvers.Type
+  User: UserResolvers.Type
 }
 ```
 

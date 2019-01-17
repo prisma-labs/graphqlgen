@@ -1,16 +1,16 @@
-export interface Template {
+interface Template {
   name: string
   description: string
   repo: TemplateRepository
 }
 
-export interface TemplateRepository {
+interface TemplateRepository {
   uri: string
   branch: string
   path: string
 }
 
-export const defaultTemplate: Template = {
+const defaultTemplate: Template = {
   name: 'typescript-yoga',
   description: 'GraphQL Yoga template with TypeScript',
   repo: {
@@ -20,7 +20,7 @@ export const defaultTemplate: Template = {
   },
 }
 
-export const availableTemplates: Template[] = [
+const availableTemplates: Template[] = [
   defaultTemplate,
   {
     name: 'flow-yoga',
@@ -33,6 +33,12 @@ export const availableTemplates: Template[] = [
   },
 ]
 
-export const templatesNames = availableTemplates
-  .map(t => `\`${t.name}\``)
-  .join(', ')
+const templatesNames = availableTemplates.map(t => `\`${t.name}\``).join(', ')
+
+export {
+  Template,
+  TemplateRepository,
+  defaultTemplate,
+  availableTemplates,
+  templatesNames,
+}

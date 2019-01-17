@@ -48,17 +48,20 @@ export type GraphQLTypeDefinition = {
 
 export type GraphQLType = GraphQLTypeDefinition & {
   isArray: boolean
+  isArrayRequired: boolean
   isRequired: boolean
 }
 
-type GraphQLTypeArgument = {
+export type GraphQLTypeArgument = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
 }
 
 export type GraphQLTypeField = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
   arguments: GraphQLTypeArgument[]
 }
 
@@ -91,6 +94,7 @@ export type GraphQLInterfaceObject = {
 interface FinalType {
   isRequired: boolean
   isArray: boolean
+  isArrayRequired: boolean
   type: GraphQLInputType | GraphQLOutputType
 }
 
@@ -138,13 +142,20 @@ function extractTypeDefinition(
 
 const getFinalType = (
   type: GraphQLInputType | GraphQLOutputType,
-  acc: FinalType = { isArray: false, isRequired: false, type },
+  acc: FinalType = {
+    isArray: false,
+    isArrayRequired: false,
+    isRequired: false,
+    type,
+  },
 ): FinalType => {
   if (type instanceof GraphQLNonNull) {
     acc.isRequired = true
   }
   if (type instanceof GraphQLList) {
     acc.isArray = true
+    acc.isArrayRequired = acc.isRequired
+    acc.isRequired = false
   }
 
   if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
@@ -165,12 +176,20 @@ function extractTypeLike(
   type: GraphQLInputType | GraphQLOutputType,
 ): GraphQLType {
   const typeLike: GraphQLType = {} as GraphQLType
-  const { isArray, isRequired, type: finalType } = getFinalType(type)
+  const {
+    isArray,
+    isArrayRequired,
+    isRequired,
+    type: finalType,
+  } = getFinalType(type)
   if (isRequired) {
     typeLike.isRequired = true
   }
   if (isArray) {
     typeLike.isArray = true
+  }
+  if (isArrayRequired) {
+    typeLike.isArrayRequired = true
   }
   if (
     finalType instanceof GraphQLObjectType ||
@@ -201,6 +220,7 @@ function extractTypeFieldsFromObjectType(
       fieldNode.args.forEach((arg: GraphQLArgument) => {
         fieldArguments.push({
           name: arg.name,
+          defaultValue: arg.defaultValue,
           type: extractTypeLike(schema, arg.type),
         })
       })
@@ -223,6 +243,7 @@ function extractTypeFieldsFromInputType(
     fields.push({
       name: input.name,
       type: extractTypeLike(schema, input.type),
+      defaultValue: input.defaultValue,
       arguments: [],
     })
   })

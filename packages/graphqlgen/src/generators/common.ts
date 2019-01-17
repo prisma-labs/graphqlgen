@@ -7,12 +7,10 @@ import {
   GraphQLTypeDefinition,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
-import { flatten, uniq } from '../utils'
 import {
   TypeDefinition,
   FieldDefinition,
   InterfaceDefinition,
-  TypeAliasDefinition,
   AnonymousInterfaceAnnotation,
 } from '../introspection/types'
 import {
@@ -50,10 +48,10 @@ export function fieldsFromModelDefinition(
   // If model is of type `type TypeName = { ... }`
   if (
     modelDef.kind === 'TypeAliasDefinition' &&
-    (modelDef as TypeAliasDefinition).getType().kind ===
-      'AnonymousInterfaceAnnotation'
+    modelDef.getType() &&
+    modelDef.getType().kind === 'AnonymousInterfaceAnnotation'
   ) {
-    const interfaceDef = (modelDef as TypeAliasDefinition).getType() as AnonymousInterfaceAnnotation
+    const interfaceDef = modelDef.getType() as AnonymousInterfaceAnnotation
 
     return interfaceDef.fields
   }
@@ -197,49 +195,130 @@ export function shouldScaffoldFieldResolver(
   return !shouldRenderDefaultResolver(graphQLField, modelField, args)
 }
 
-export function printFieldLikeType(
+const nullable = (type: string): string => {
+  return `${type} | null`
+}
+
+const kv = (
+  key: string,
+  value: string,
+  isOptional: boolean = false,
+): string => {
+  return `${key}${isOptional ? '?' : ''}: ${value}`
+}
+
+const array = (
+  innerType: string,
+  config: { innerUnion?: boolean } = {},
+): string => {
+  return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
+}
+
+const union = (types: string[]): string => {
+  return types.join(' | ')
+}
+
+type FieldPrintOptions = {
+  isReturn?: boolean
+}
+
+export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
-) {
-  if (field.type.isScalar) {
-    return `${getTypeFromGraphQLType(field.type.name)}${
-      field.type.isArray ? '[]' : ''
-    }${!field.type.isRequired ? '| null' : ''}`
-  }
+  options: FieldPrintOptions = {
+    isReturn: false,
+  },
+): string => {
+  if (field.type.isInterface || field.type.isUnion) {
+    const typesMap = field.type.isInterface ? interfacesMap : unionsMap
 
-  if (field.type.isInput || field.type.isEnum) {
-    return `${field.type.name}${field.type.isArray ? '[]' : ''}${
-      !field.type.isRequired ? '| null' : ''
-    }`
-  }
+    const modelNames = typesMap[field.type.name].map(type =>
+      getModelName(type, modelMap),
+    )
 
-  if (field.type.isInterface) {
-    let types = interfacesMap[field.type.name]
-      .map(type => getModelName(type, modelMap))
-      .filter(uniq)
-      .join(' | ')
-    if (field.type.isArray) {
-      types = `Array<${types}>`
+    let rendering = union(modelNames)
+
+    if (!field.type.isRequired) {
+      rendering = nullable(rendering)
     }
-    return `${types}${!field.type.isRequired ? '| null' : ''}`
-  }
 
-  if (field.type.isUnion) {
-    let types = unionsMap[field.type.name]
-      .map(type => getModelName(type, modelMap))
-      .filter(uniq)
-      .join(' | ')
     if (field.type.isArray) {
-      types = `Array<${types}>`
+      rendering = array(rendering, { innerUnion: false })
     }
-    return `${types}${!field.type.isRequired ? '| null' : ''}`
+
+    if (!field.type.isArrayRequired) {
+      rendering = nullable(rendering)
+    }
+
+    // We do not have to handle defaults becuase graphql only
+    // supports defaults on field params but conversely
+    // interfaces and unions are only supported on output. Therefore
+    // these two features will never cross.
+
+    // No check for isReturn option because unions and interfaces
+    // cannot be used to type graphql field parameters which implies
+    // this branch will always be for a return case.
+
+    return rendering
   }
 
-  return `${getModelName(field.type, modelMap)}${
-    field.type.isArray ? '[]' : ''
-  }${!field.type.isRequired ? '| null' : ''}`
+  const name = field.type.isScalar
+    ? getTypeFromGraphQLType(field.type.name)
+    : field.type.isInput || field.type.isEnum
+    ? field.type.name
+    : getModelName(field.type, modelMap)
+
+  /**
+   * Considerable difference between types in array versus not, such as what
+   * default value means, isRequired, ..., lead to forking the rendering paths.
+   *
+   * Regarding voidable, note how it can only show up in the k:v rendering e.g.:
+   *
+   *     foo?: null | string
+   *
+   * but not for return style e.g.:
+   *
+   *     undefined | null | string
+   *
+   * given footnote 1 below.
+   *
+   * 1. Return type doesn't permit void return since that would allow
+   *    resolvers to e.g. forget to return anything and that be considered OK.
+   */
+
+  if (field.type.isArray) {
+    const innerUnion = field.type.isRequired
+
+    // - Not voidable here because a void array member is not possible
+    // - For arrays default value does not apply to inner value
+    const valueInnerType = field.type.isRequired ? name : nullable(name)
+
+    const isArrayNullable =
+      !field.type.isArrayRequired &&
+      (field.defaultValue === undefined || field.defaultValue === null)
+
+    const isArrayVoidable = isArrayNullable && field.defaultValue === undefined
+
+    const valueType = isArrayNullable
+      ? nullable(array(valueInnerType, { innerUnion })) // [1]
+      : array(valueInnerType, { innerUnion })
+
+    return options.isReturn
+      ? valueType
+      : kv(field.name, valueType, isArrayVoidable)
+  } else {
+    const isNullable =
+      !field.type.isRequired &&
+      (field.defaultValue === undefined || field.defaultValue === null)
+
+    const isVoidable = isNullable && field.defaultValue === undefined
+
+    const valueType = isNullable ? nullable(name) : name // [1]
+
+    return options.isReturn ? valueType : kv(field.name, valueType, isVoidable)
+  }
 }
 
 export function getTypeFromGraphQLType(
@@ -257,41 +336,41 @@ export function getTypeFromGraphQLType(
   return 'string'
 }
 
-function deepResolveInputTypes(
-  inputTypesMap: InputTypesMap,
-  typeName: string,
-  seen: { [k: string]: boolean } = {},
-): string[] {
-  const type = inputTypesMap[typeName]
-  if (type) {
-    const childTypes = type.fields
-      .filter(t => t.type.isInput && !seen[t.type.name])
-      .map(t => t.type.name)
-      .map(name =>
-        deepResolveInputTypes(inputTypesMap, name, { ...seen, [name]: true }),
-      )
-      .reduce(flatten, [])
-    return [typeName, ...childTypes]
-  } else {
-    throw new Error(`Input type ${typeName} not found`)
-  }
-}
-
-export function getDistinctInputTypes(
+export const getDistinctInputTypes = (
   type: GraphQLTypeObject,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
-) {
-  return typeToInputTypeAssociation[type.name]
-    .map(t => deepResolveInputTypes(inputTypesMap, t))
-    .reduce(flatten, [])
-    .filter(uniq)
+) => {
+  const inputTypes: GraphQLTypeObject[] = []
+  const seen: Record<string, boolean> = {}
+  const inputTypeNames: string[] = []
+  const see = (typeName: string): void => {
+    if (!seen[typeName]) {
+      seen[typeName] = true
+      inputTypes.push(inputTypesMap[typeName])
+    }
+  }
+
+  typeToInputTypeAssociation[type.name].forEach(see)
+
+  for (const inputType of inputTypes) {
+    inputTypeNames.push(inputType.type.name)
+
+    // Keep seeing (aka. traversing the tree) until we've seen everything.
+    for (const field of inputType.fields) {
+      if (field.type.isInput) {
+        see(field.type.name)
+      }
+    }
+  }
+
+  return inputTypeNames
 }
 
 export function renderEnums(args: GenerateArgs): string {
   return args.enums
     .map(enumObject => {
-      return `type ${enumObject.name} = ${enumObject.values
+      return `export type ${enumObject.name} = ${enumObject.values
         .map(value => `'${value}'`)
         .join(' | ')}`
     })

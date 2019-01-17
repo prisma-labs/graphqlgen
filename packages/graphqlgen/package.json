@@ -1,6 +1,6 @@
 {
   "name": "graphqlgen",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "Generate resolver types based on a GraphQL Schema",
   "main": "dist/index.js",
   "files": [
@@ -13,12 +13,15 @@
     "gg": "dist/index.js"
   },
   "scripts": {
+    "clean": "rm -rf ./src/tests/**/tmp && rm -rf ./src/tests/**/generated",
     "prepublish": "rm -rf example/node_modules && npm test && npm run build",
-    "build": "npm run lint && tsc --declaration",
+    "benchmarks": "ts-node benchmarks",
+    "build": "npm run clean && npm run lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
-    "t": "jest",
-    "test": "npm run lint && npm run t",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "npm run lint && jest --maxWorkers 4",
     "gen": "ts-node --files src/index.ts"
   },
   "repository": {
@@ -33,35 +36,38 @@
   "homepage": "https://github.com/prisma/graphqlgen#readme",
   "dependencies": {
     "@babel/parser": "^7.1.5",
-    "@babel/types": "7.1.5",
+    "@babel/types": "7.2.2",
     "ajv": "^6.5.5",
     "camelcase": "5.0.0",
-    "chalk": "2.4.1",
+    "chalk": "2.4.2",
     "glob": "^7.1.3",
     "graphql": "^0.13.0 || ^14.0.0",
     "graphql-import": "0.7.1",
     "graphqlgen-json-schema": "0.2.12",
-    "js-yaml": "3.12.0",
+    "js-yaml": "3.12.1",
     "mkdirp": "0.5.1",
-    "prettier": "1.15.2",
+    "prettier": "1.15.3",
     "reason": "3.3.4",
-    "rimraf": "2.6.2",
-    "typescript": "3.1.6",
-    "yargs": "12.0.2"
+    "rimraf": "2.6.3",
+    "typescript": "3.2.2",
+    "yargs": "12.0.5"
   },
   "devDependencies": {
+    "@types/benchmark": "1.0.31",
     "@types/camelcase": "4.1.0",
-    "@types/graphql": "14.0.3",
-    "@types/jest": "23.3.9",
-    "@types/js-yaml": "3.11.2",
+    "@types/graphql": "14.0.5",
+    "@types/jest": "23.3.12",
+    "@types/js-yaml": "3.11.4",
     "@types/mkdirp": "0.5.2",
-    "@types/node": "10.12.8",
-    "@types/prettier": "1.13.2",
+    "@types/node": "10.12.18",
+    "@types/prettier": "1.15.2",
     "@types/rimraf": "2.0.2",
-    "@types/yargs": "12.0.1",
+    "@types/yargs": "12.0.5",
+    "benchmark": "2.1.4",
+    "flow-bin": "0.86.0",
     "jest": "23.6.0",
-    "ts-jest": "23.10.4",
+    "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
-    "tslint": "5.11.0"
+    "tslint": "5.12.1"
   }
 }

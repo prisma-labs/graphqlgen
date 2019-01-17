@@ -8,11 +8,11 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { User } from \\"../../../fixtures/enum/types\\";
+import { User } from \\"../../fixtures/enum/types\\";
 type Context = any;
 
-type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
-type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
+export type EnumAnnotation = \\"EDITOR\\" | \\"COLLABORATOR\\";
+export type EnumAsUnionType = \\"RED\\" | \\"GREEN\\" | \\"BLUE\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -175,7 +175,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { AddMemberPayload } from \\"../../../fixtures/input/types\\";
+import { AddMemberPayload } from \\"../../fixtures/input/types\\";
 type Context = any;
 
 export namespace MutationResolvers {
@@ -184,25 +184,28 @@ export namespace MutationResolvers {
   export interface AddMemberData {
     email: string;
     projects: string[];
-    sideProjects: string[] | null;
+    sideProjects?: Array<string | null> | null;
     profile: ProfileData | null;
-    phones: PhoneData[] | null;
+    phones: Array<PhoneData | null>;
+    isVIP: boolean;
   }
   export interface ProfileData {
-    firstName: string | null;
-    lastName: string | null;
-    photo: Photo | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    photo?: Photo | null;
+  }
+  export interface PhoneData {
+    number: string;
   }
   export interface Photo {
     title: string;
     url: string;
   }
-  export interface PhoneData {
-    number: string;
-  }
 
   export interface ArgsAddMember {
     data: AddMemberData;
+    upsert: boolean;
+    note: string | null;
   }
 
   export interface ArgsAddMembers {
@@ -356,7 +359,7 @@ export namespace QueryResolvers {
   export const defaultResolvers = {};
 
   export interface ArgsMedia {
-    first: number | null;
+    first?: number | null;
   }
 
   export type MediaResolver = (
@@ -364,7 +367,10 @@ export namespace QueryResolvers {
     args: ArgsMedia,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Image | Video> | null | Promise<Array<Image | Video> | null>;
+  ) =>
+    | Array<Image | Video | null>
+    | null
+    | Promise<Array<Image | Video | null> | null>;
 
   export interface Type {
     media: (
@@ -372,7 +378,10 @@ export namespace QueryResolvers {
       args: ArgsMedia,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Array<Image | Video> | null | Promise<Array<Image | Video> | null>;
+    ) =>
+      | Array<Image | Video | null>
+      | null
+      | Promise<Array<Image | Video | null> | null>;
   }
 }
 
@@ -668,7 +677,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { AddMemberPayload } from \\"../../../fixtures/scalar/types\\";
+import { AddMemberPayload } from \\"../../fixtures/scalar/types\\";
 type Context = any;
 
 export namespace MutationResolvers {
@@ -788,7 +797,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { Number } from \\"../../../fixtures/basic\\";
+import { Number } from \\"../../fixtures/basic\\";
 type Context = any;
 
 export namespace QueryResolvers {
@@ -836,14 +845,14 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Number[] | null | Promise<Number[] | null>;
+  ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
 
   export type Custom_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Number[] | Promise<Number[]>;
+  ) => Array<Number | null> | Promise<Array<Number | null>>;
 
   export type Custom_with_argResolver = (
     parent: undefined,
@@ -878,14 +887,14 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | null | Promise<boolean[] | null>;
+  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
   export type Scalar_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | Promise<boolean[]>;
+  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
   export type Scalar_with_argResolver = (
     parent: undefined,
@@ -928,14 +937,14 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Number[] | null | Promise<Number[] | null>;
+    ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
 
     custom_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Number[] | Promise<Number[]>;
+    ) => Array<Number | null> | Promise<Array<Number | null>>;
 
     custom_with_arg: (
       parent: undefined,
@@ -970,14 +979,14 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | null | Promise<boolean[] | null>;
+    ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
     scalar_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | Promise<boolean[]>;
+    ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
     scalar_with_arg: (
       parent: undefined,
@@ -1134,14 +1143,14 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { Student, Professor, User } from \\"../../../fixtures/union/types\\";
+import { Student, Professor, User } from \\"../../fixtures/union/types\\";
 type Context = any;
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
   export interface ArgsUsers {
-    first: number | null;
+    first?: number | null;
   }
 
   export type UsersResolver = (
@@ -1366,8 +1375,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { User } from \\"../../../fixtures/context/types\\";
-import { Context } from \\"../../../fixtures/context/types\\";
+import { User, Context } from \\"../../fixtures/context/types\\";
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -1477,7 +1485,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { NumberNode } from \\"../../../fixtures/defaultName\\";
+import { NumberNode } from \\"../../fixtures/defaultName\\";
 type Context = any;
 
 export namespace QueryResolvers {
@@ -1525,14 +1533,17 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => NumberNode[] | null | Promise<NumberNode[] | null>;
+  ) =>
+    | Array<NumberNode | null>
+    | null
+    | Promise<Array<NumberNode | null> | null>;
 
   export type Custom_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => NumberNode[] | Promise<NumberNode[]>;
+  ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>;
 
   export type Custom_with_argResolver = (
     parent: undefined,
@@ -1567,14 +1578,14 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | null | Promise<boolean[] | null>;
+  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
   export type Scalar_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | Promise<boolean[]>;
+  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
   export type Scalar_with_argResolver = (
     parent: undefined,
@@ -1617,14 +1628,17 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => NumberNode[] | null | Promise<NumberNode[] | null>;
+    ) =>
+      | Array<NumberNode | null>
+      | null
+      | Promise<Array<NumberNode | null> | null>;
 
     custom_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => NumberNode[] | Promise<NumberNode[]>;
+    ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>;
 
     custom_with_arg: (
       parent: undefined,
@@ -1659,14 +1673,14 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | null | Promise<boolean[] | null>;
+    ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
     scalar_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | Promise<boolean[]>;
+    ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
     scalar_with_arg: (
       parent: undefined,
@@ -1871,14 +1885,14 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Number[] | null | Promise<Number[] | null>;
+  ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
 
   export type Custom_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Number[] | Promise<Number[]>;
+  ) => Array<Number | null> | Promise<Array<Number | null>>;
 
   export type Custom_with_argResolver = (
     parent: undefined,
@@ -1913,14 +1927,14 @@ export namespace QueryResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | null | Promise<boolean[] | null>;
+  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
   export type Scalar_array_requiredResolver = (
     parent: undefined,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean[] | Promise<boolean[]>;
+  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
   export type Scalar_with_argResolver = (
     parent: undefined,
@@ -1963,14 +1977,14 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Number[] | null | Promise<Number[] | null>;
+    ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
 
     custom_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Number[] | Promise<Number[]>;
+    ) => Array<Number | null> | Promise<Array<Number | null>>;
 
     custom_with_arg: (
       parent: undefined,
@@ -2005,14 +2019,14 @@ export namespace QueryResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | null | Promise<boolean[] | null>;
+    ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
 
     scalar_array_required: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean[] | Promise<boolean[]>;
+    ) => Array<boolean | null> | Promise<Array<boolean | null>>;
 
     scalar_with_arg: (
       parent: undefined,
@@ -2169,7 +2183,7 @@ import {
   GraphQLTypeResolver,
   GraphQLIsTypeOfFn
 } from \\"graphql\\";
-import { User } from \\"../../../fixtures/subscription/types\\";
+import { User } from \\"../../fixtures/subscription/types\\";
 type Context = any;
 
 export namespace SubscriptionResolvers {

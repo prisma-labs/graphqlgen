@@ -1,56 +1,59 @@
 import { testGeneration } from '../generation'
 import { join } from 'path'
 
-const language = 'typescript'
 const relative = (p: string) => join(__dirname, p)
 
+const typesPath = relative('./generated-basic/graphqlgen.ts')
+const resolversDir = relative('./generated-basic/tmp-resolvers/')
+const language = 'typescript'
+
 test('basic schema', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/basic/schema.graphql'),
     models: {
       files: [relative('../fixtures/basic/index.ts')],
     },
-    output: relative('./generated/basic/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/basic/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic enum', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/enum/schema.graphql'),
     models: {
       files: [relative('../fixtures/enum/types.ts')],
     },
-    output: relative('./generated/enum/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/enum/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic union', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/union/schema.graphql'),
     models: {
       files: [relative('../fixtures/union/types.ts')],
     },
-    output: relative('./generated/union/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/union/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('defaultName', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/defaultName/schema.graphql'),
     models: {
@@ -61,70 +64,70 @@ test('defaultName', async () => {
         },
       ],
     },
-    output: relative('./generated/defaultName/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic scalar', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/scalar/schema.graphql'),
     models: {
       files: [relative('../fixtures/scalar/types.ts')],
     },
-    output: relative('./generated/scalar/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/scalar/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('basic input', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/input/schema.graphql'),
     models: {
       files: [relative('../fixtures/input/types.ts')],
     },
-    output: relative('./generated/input/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('context', async () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/context/schema.graphql'),
     context: relative('../fixtures/context/types.ts:Context'),
     models: {
       files: [relative('../fixtures/context/types.ts')],
     },
-    output: relative('./generated/context/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
 })
 
 test('subscription', () => {
-  testGeneration({
+  return testGeneration({
     language,
     schema: relative('../fixtures/subscription/schema.graphql'),
     models: {
       files: [relative('../fixtures/subscription/types.ts')],
     },
-    output: relative('./generated/subscription/graphqlgen.ts'),
+    output: typesPath,
     ['resolver-scaffolding']: {
-      output: relative('./tmp/input/'),
+      output: resolversDir,
       layout: 'file-per-type',
     },
   })
