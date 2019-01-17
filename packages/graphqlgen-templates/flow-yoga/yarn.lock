@@ -1574,9 +1574,9 @@ graphqlgen-json-schema@0.2.12:
   version "0.2.12"
   resolved "https://registry.yarnpkg.com/graphqlgen-json-schema/-/graphqlgen-json-schema-0.2.12.tgz#445a2da9839a460841d729fba5941fd3007249c2"
 
-graphqlgen@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.5.0.tgz#69f7d44208519f7f6c21ff6ae1fd79df0d1d6b82"
+graphqlgen@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/graphqlgen/-/graphqlgen-0.5.1.tgz#b45684a25bf3ff1f3bfb6a300ddb32fdc14e025c"
   dependencies:
     "@babel/parser" "^7.1.5"
     "@babel/types" "7.2.2"

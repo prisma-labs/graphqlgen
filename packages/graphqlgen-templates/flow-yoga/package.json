@@ -18,7 +18,7 @@
     "@babel/preset-flow": "7.0.0",
     "flow-bin": "0.89.0",
     "flow-typed": "2.5.1",
-    "graphqlgen": "0.5.0"
+    "graphqlgen": "0.5.1"
   },
   "license": "MIT"
 }
