@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(name: String): User!
+  createUser(name: String = null): User!
   createDraft(title: String!, content: String!, authorId: ID!): Post!
   deletePost(id: ID!): Post
   publish(id: ID!): Post
