@@ -11,7 +11,6 @@ import {
   TypeDefinition,
   FieldDefinition,
   InterfaceDefinition,
-  TypeAliasDefinition,
   AnonymousInterfaceAnnotation,
 } from '../introspection/types'
 import {
