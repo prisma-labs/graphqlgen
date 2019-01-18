@@ -71,22 +71,21 @@ export function generate(args: GenerateArgs): string {
       }
     }, {})
 
-  const interfacesMap: InterfacesMap = args.interfaces.reduce(
-    (interfaces, int) => {
-      return {
-        ...interfaces,
-        [int.name]: int.types,
-      }
+  const interfacesMap = args.interfaces.reduce(
+    (interfaces, inter) => {
+      interfaces[inter.name] = inter.types
+      return interfaces
     },
-    {},
+    {} as InterfacesMap,
   )
 
-  const unionsMap: InterfacesMap = args.unions.reduce((interfaces, int) => {
-    return {
-      ...interfaces,
-      [int.name]: int.types,
-    }
-  }, {})
+  const unionsMap = args.unions.reduce(
+    (unions, union) => {
+      unions[union.name] = union.types
+      return unions
+    },
+    {} as UnionsMap,
+  )
 
   return `\
   ${renderHeader(args)}

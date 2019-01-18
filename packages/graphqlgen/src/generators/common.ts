@@ -28,13 +28,9 @@ export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
 
-export interface InterfacesMap {
-  [interfaceName: string]: GraphQLTypeDefinition[]
-}
+export type InterfacesMap = Record<string, GraphQLTypeDefinition[]>
 
-export interface UnionsMap {
-  [unionName: string]: GraphQLTypeDefinition[]
-}
+export type UnionsMap = Record<string, GraphQLTypeDefinition[]>
 
 export function fieldsFromModelDefinition(
   modelDef: TypeDefinition,
