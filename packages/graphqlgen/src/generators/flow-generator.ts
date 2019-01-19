@@ -73,7 +73,7 @@ export function generate(args: GenerateArgs): string {
 
   const interfacesMap = args.interfaces.reduce(
     (interfaces, inter) => {
-      interfaces[inter.name] = inter.types
+      interfaces[inter.name] = inter.implementors
       return interfaces
     },
     {} as InterfacesMap,

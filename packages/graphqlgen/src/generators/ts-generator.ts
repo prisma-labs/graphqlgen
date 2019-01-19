@@ -78,7 +78,7 @@ export function generate(args: GenerateArgs): string {
     (interfaces, int) => {
       return {
         ...interfaces,
-        [int.name]: int.types,
+        [int.name]: int.implementors,
       }
     },
     {},
@@ -245,7 +245,7 @@ function renderInterfaceNamespace(
       )}
 
       export interface Type {
-        __resolveType: GraphQLTypeResolver<${graphQLTypeObject.types
+        __resolveType: GraphQLTypeResolver<${graphQLTypeObject.implementors
           .map(interfaceType => getModelName(interfaceType, args.modelMap))
           .join(' | ')}, ${getContextName(args.context)}>;
       }
