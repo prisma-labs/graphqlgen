@@ -328,7 +328,7 @@ function renderIsTypeOfFunctionInterface(
   let possibleTypes: GraphQLTypeDefinition[] = []
 
   // TODO Refactor once type is a proper discriminated union
-  if (type.type.isInterface) {
+  if (!type.type.isInterface) {
     type = type as GraphQLTypeObject
     if (type.implements) {
       possibleTypes = type.implements.reduce(
