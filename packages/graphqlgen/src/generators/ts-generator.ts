@@ -21,6 +21,8 @@ import {
   groupModelsNameByImportPath,
   InterfacesMap,
   UnionsMap,
+  createInterfacesMap,
+  createUnionsMap,
 } from './common'
 import { TypeAliasDefinition } from '../introspection/types'
 import { upperFirst } from '../utils'
@@ -74,22 +76,8 @@ export function generate(args: GenerateArgs): string {
       }
     }, {})
 
-  const interfacesMap: InterfacesMap = args.interfaces.reduce(
-    (interfaces, int) => {
-      return {
-        ...interfaces,
-        [int.name]: int.implementors,
-      }
-    },
-    {},
-  )
-
-  const unionsMap: InterfacesMap = args.unions.reduce((interfaces, int) => {
-    return {
-      ...interfaces,
-      [int.name]: int.types,
-    }
-  }, {})
+  const interfacesMap = createInterfacesMap(args.interfaces)
+  const unionsMap = createUnionsMap(args.unions)
 
   return `\
   ${renderHeader(args)}

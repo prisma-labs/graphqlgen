@@ -5,6 +5,8 @@ import {
   GraphQLTypeDefinition,
   GraphQLTypeField,
   getGraphQLEnumValues,
+  GraphQLInterfaceObject,
+  GraphQLUnionObject,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import {
@@ -30,7 +32,21 @@ export interface TypeToInputTypeAssociation {
 
 export type InterfacesMap = Record<string, GraphQLTypeDefinition[]>
 
+export const createInterfacesMap = (
+  interfaces: GraphQLInterfaceObject[],
+): InterfacesMap =>
+  interfaces.reduce<InterfacesMap>((interfacesMap, inter) => {
+    interfacesMap[inter.name] = inter.implementors
+    return interfacesMap
+  }, {})
+
 export type UnionsMap = Record<string, GraphQLTypeDefinition[]>
+
+export const createUnionsMap = (unions: GraphQLUnionObject[]): UnionsMap =>
+  unions.reduce<UnionsMap>((unionsMap, union) => {
+    unionsMap[union.name] = union.types
+    return unionsMap
+  }, {})
 
 export function fieldsFromModelDefinition(
   modelDef: TypeDefinition,

@@ -20,6 +20,8 @@ import {
   TypeToInputTypeAssociation,
   InterfacesMap,
   UnionsMap,
+  createInterfacesMap,
+  createUnionsMap,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -71,21 +73,8 @@ export function generate(args: GenerateArgs): string {
       }
     }, {})
 
-  const interfacesMap = args.interfaces.reduce(
-    (interfaces, inter) => {
-      interfaces[inter.name] = inter.implementors
-      return interfaces
-    },
-    {} as InterfacesMap,
-  )
-
-  const unionsMap = args.unions.reduce(
-    (unions, union) => {
-      unions[union.name] = union.types
-      return unions
-    },
-    {} as UnionsMap,
-  )
+  const interfacesMap = createInterfacesMap(args.interfaces)
+  const unionsMap = createUnionsMap(args.unions)
 
   return `\
   ${renderHeader(args)}
