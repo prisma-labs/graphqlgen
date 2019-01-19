@@ -2,7 +2,7 @@ import * as os from 'os'
 
 import {
   GraphQLTypeObject,
-  GraphQLType,
+  GraphQLTypeDefinition,
   GraphQLTypeField,
   getGraphQLEnumValues,
 } from '../source-helper'
@@ -28,9 +28,9 @@ export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
 
-export type InterfacesMap = Record<string, GraphQLType[]>
+export type InterfacesMap = Record<string, GraphQLTypeDefinition[]>
 
-export type UnionsMap = Record<string, GraphQLType[]>
+export type UnionsMap = Record<string, GraphQLTypeDefinition[]>
 
 export function fieldsFromModelDefinition(
   modelDef: TypeDefinition,
@@ -118,7 +118,7 @@ export function getContextName(context?: ContextDefinition) {
 }
 
 export function getModelName(
-  type: GraphQLType,
+  type: GraphQLTypeDefinition,
   modelMap: ModelMap,
   emptyType: string = '{}',
 ): string {
