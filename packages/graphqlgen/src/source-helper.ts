@@ -32,7 +32,7 @@ export function extractTypes(typeDefs: string): GraphQLTypes {
   const types = extractGraphQLTypes(schema)
   const unions = extractGraphQLUnions(schema)
   const enums = extractGraphQLEnums(schema)
-  const interfaces = extractGraphQLInterfaces(schema)
+  const interfaces = extractGraphQLInterfaces(schema, types)
   return { types, enums, unions, interfaces }
 }
 
@@ -361,8 +361,9 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
 
 function extractGraphQLInterfaces(
   schema: GraphQLSchema,
+  types: GraphQLTypeObject[],
 ): GraphQLInterfaceObject[] {
-  const typesUsingInterfaces = extractGraphQLTypes(schema).filter(
+  const typesUsingInterfaces = types.filter(
     type => type.interfaces !== undefined,
   )
 
