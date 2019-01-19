@@ -4,7 +4,7 @@ import {
   GraphQLTypeObject,
   GraphQLTypeField,
   getGraphQLEnumValues,
-  GraphQLTypeDefinition,
+  GraphQLType,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import {
@@ -28,9 +28,9 @@ export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
 
-export type InterfacesMap = Record<string, GraphQLTypeDefinition[]>
+export type InterfacesMap = Record<string, GraphQLType[]>
 
-export type UnionsMap = Record<string, GraphQLTypeDefinition[]>
+export type UnionsMap = Record<string, GraphQLType[]>
 
 export function fieldsFromModelDefinition(
   modelDef: TypeDefinition,
@@ -118,7 +118,7 @@ export function getContextName(context?: ContextDefinition) {
 }
 
 export function getModelName(
-  type: GraphQLTypeDefinition,
+  type: GraphQLType,
   modelMap: ModelMap,
   emptyType: string = '{}',
 ): string {
@@ -383,7 +383,7 @@ export function groupModelsNameByImportPath(models: Model[]) {
   return models.reduce<{ [importPath: string]: string[] }>((acc, model) => {
     const fileModels = acc[model.importPathRelativeToOutput] || []
 
-    if (fileModels.indexOf(model.definition.name) === -1) {
+    if (!fileModels.includes(model.definition.name)) {
       fileModels.push(model.definition.name)
     }
 
