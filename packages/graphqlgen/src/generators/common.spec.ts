@@ -13,11 +13,13 @@ it('getDistinctInputTypes', () => {
       isUnion: false,
     },
     fields: [],
+    interfaces: null,
   }
 
   const typeMap: Common.InputTypesMap = {
     A: {
       name: 'A',
+      interfaces: null,
       type: {
         name: 'A',
         isInput: true,
@@ -64,6 +66,7 @@ it('getDistinctInputTypes', () => {
     },
     B: {
       name: 'B',
+      interfaces: null,
       type: {
         name: 'B',
         isInput: true,
@@ -94,6 +97,7 @@ it('getDistinctInputTypes', () => {
     },
     C: {
       name: 'C',
+      interfaces: null,
       type: {
         name: 'C',
         isInput: true,
@@ -124,6 +128,7 @@ it('getDistinctInputTypes', () => {
     },
     D: {
       name: 'D',
+      interfaces: null,
       type: {
         name: 'D',
         isInput: true,

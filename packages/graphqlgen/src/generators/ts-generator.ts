@@ -319,7 +319,7 @@ function renderNamespace(
 }
 
 function renderIsTypeOfFunctionInterface(
-  type: GraphQLTypeObject,
+  type: GraphQLTypeObject | GraphQLInterfaceObject,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
@@ -327,13 +327,17 @@ function renderIsTypeOfFunctionInterface(
 ) {
   let possibleTypes: GraphQLTypeDefinition[] = []
 
-  if (type.interfaces) {
-    possibleTypes = type.interfaces.reduce(
-      (obj: GraphQLTypeDefinition[], interfaceName) => {
-        return [...obj, ...interfacesMap[interfaceName]]
-      },
-      [],
-    )
+  // TODO Refactor once type is a proper discriminated union
+  if (type.type.isInterface) {
+    type = type as GraphQLTypeObject
+    if (type.interfaces) {
+      possibleTypes = type.interfaces.reduce(
+        (obj: GraphQLTypeDefinition[], interfaceName) => {
+          return [...obj, ...interfacesMap[interfaceName]]
+        },
+        [],
+      )
+    }
   }
 
   for (let unionName in unionsMap) {
@@ -375,7 +379,7 @@ function renderInputTypeInterfaces(
 }
 
 function renderInputArgInterfaces(
-  type: GraphQLTypeObject,
+  type: GraphQLTypeObject | GraphQLInterfaceObject,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
@@ -477,19 +481,27 @@ function renderResolverFunctionInterface(
 }
 
 function renderResolverTypeInterface(
-  type: GraphQLTypeObject,
+  type: GraphQLTypeObject | GraphQLInterfaceObject,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
   context?: ContextDefinition,
   interfaceName: string = 'Type',
 ): string {
-  const extend =
-    type.interfaces && type.interfaces.length
-      ? `extends ${type.interfaces
-          .map(typeInterface => `${typeInterface}Resolvers.InterfaceType`)
-          .join(',')}`
-      : ''
+  // TODO: Refactor this with proper union type branching once the
+  // type modelling is refactored itself to support that.
+  let extend = ''
+
+  if (!type.type.isInterface) {
+    type = type as GraphQLTypeObject
+
+    extend =
+      type.interfaces && type.interfaces.length
+        ? `extends ${type.interfaces
+            .map(typeInterface => `${typeInterface}Resolvers.InterfaceType`)
+            .join(',')}`
+        : ''
+  }
 
   return `
   export interface ${interfaceName} ${extend} {
@@ -518,7 +530,7 @@ function renderResolverTypeInterface(
 
 function renderResolverTypeInterfaceFunction(
   field: GraphQLTypeField,
-  type: GraphQLTypeObject,
+  type: GraphQLTypeObject | GraphQLInterfaceObject,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,

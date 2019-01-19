@@ -87,7 +87,7 @@ export type GraphQLUnionObject = {
 export type GraphQLInterfaceObject = {
   name: string
   type: GraphQLTypeDefinition
-  fields: any // TODO
+  fields: GraphQLTypeField[]
   implementors: GraphQLTypeDefinition[]
 }
 
