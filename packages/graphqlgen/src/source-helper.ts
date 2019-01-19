@@ -69,7 +69,7 @@ export type GraphQLTypeObject = {
   name: string
   type: GraphQLTypeDefinition
   fields: GraphQLTypeField[]
-  interfaces: null | string[]
+  implements: null | string[]
 }
 
 export type GraphQLEnumObject = {
@@ -270,7 +270,7 @@ function extractGraphQLTypes(schema: GraphQLSchema): GraphQLTypeObject[] {
           isInterface: false,
         },
         fields: [], // extractTypeFields(schema, node),
-        interfaces: null,
+        implements: null,
       })
     } else if (node instanceof GraphQLObjectType) {
       types.push({
@@ -285,7 +285,7 @@ function extractGraphQLTypes(schema: GraphQLSchema): GraphQLTypeObject[] {
           isInterface: false,
         },
         fields: extractTypeFieldsFromObjectType(schema, node),
-        interfaces: node
+        implements: node
           .getInterfaces()
           .map(interfaceType => interfaceType.name),
       })
@@ -302,7 +302,7 @@ function extractGraphQLTypes(schema: GraphQLSchema): GraphQLTypeObject[] {
           isInterface: false,
         },
         fields: extractTypeFieldsFromInputType(schema, node),
-        interfaces: null,
+        implements: null,
       })
     }
   })
@@ -365,7 +365,7 @@ function extractGraphQLInterfaces(
   schema: GraphQLSchema,
   types: GraphQLTypeObject[],
 ): GraphQLInterfaceObject[] {
-  const interfaceUsingTypes = types.filter(type => type.interfaces !== null)
+  const interfaceUsingTypes = types.filter(type => type.implements !== null)
 
   return Object.values(schema.getTypeMap())
     .filter(node => node instanceof GraphQLInterfaceType)
@@ -374,7 +374,7 @@ function extractGraphQLInterfaces(
         node = node as GraphQLInterfaceType
 
         const implementorTypes = interfaceUsingTypes
-          .filter(type => type.interfaces!.includes(node.name))
+          .filter(type => type.implements!.includes(node.name))
           .map(type => type.type)
 
         interfaces.push({

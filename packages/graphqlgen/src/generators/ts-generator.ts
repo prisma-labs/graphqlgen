@@ -330,8 +330,8 @@ function renderIsTypeOfFunctionInterface(
   // TODO Refactor once type is a proper discriminated union
   if (type.type.isInterface) {
     type = type as GraphQLTypeObject
-    if (type.interfaces) {
-      possibleTypes = type.interfaces.reduce(
+    if (type.implements) {
+      possibleTypes = type.implements.reduce(
         (obj: GraphQLTypeDefinition[], interfaceName) => {
           return [...obj, ...interfacesMap[interfaceName]]
         },
@@ -496,8 +496,8 @@ function renderResolverTypeInterface(
     type = type as GraphQLTypeObject
 
     extend =
-      type.interfaces && type.interfaces.length
-        ? `extends ${type.interfaces
+      type.implements && type.implements.length
+        ? `extends ${type.implements
             .map(typeInterface => `${typeInterface}Resolvers.InterfaceType`)
             .join(',')}`
         : ''

@@ -1,7 +1,8 @@
+import * as Source from '../source-helper'
 import * as Common from './common'
 
 it('getDistinctInputTypes', () => {
-  const Z = {
+  const Z: Source.GraphQLTypeObject = {
     name: 'Z',
     type: {
       name: 'Z',
@@ -13,13 +14,13 @@ it('getDistinctInputTypes', () => {
       isUnion: false,
     },
     fields: [],
-    interfaces: null,
+    implements: null,
   }
 
   const typeMap: Common.InputTypesMap = {
     A: {
       name: 'A',
-      interfaces: null,
+      implements: null,
       type: {
         name: 'A',
         isInput: true,
@@ -66,7 +67,7 @@ it('getDistinctInputTypes', () => {
     },
     B: {
       name: 'B',
-      interfaces: null,
+      implements: null,
       type: {
         name: 'B',
         isInput: true,
@@ -97,7 +98,7 @@ it('getDistinctInputTypes', () => {
     },
     C: {
       name: 'C',
-      interfaces: null,
+      implements: null,
       type: {
         name: 'C',
         isInput: true,
@@ -128,7 +129,7 @@ it('getDistinctInputTypes', () => {
     },
     D: {
       name: 'D',
-      interfaces: null,
+      implements: null,
       type: {
         name: 'D',
         isInput: true,
