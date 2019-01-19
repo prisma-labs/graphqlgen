@@ -2,9 +2,9 @@ import * as os from 'os'
 
 import {
   GraphQLTypeObject,
+  GraphQLType,
   GraphQLTypeField,
   getGraphQLEnumValues,
-  GraphQLType,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import {
