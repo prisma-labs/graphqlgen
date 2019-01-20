@@ -1,7 +1,7 @@
 import { MutationResolvers } from '../generated/graphqlgen'
 
 export const Mutation: MutationResolvers.Type = {
-  createUser: (parent, { name = null }, ctx) => {
+  createUser: (parent, { name }, ctx) => {
     const id = ctx.data.idProvider()
     const newUser = { id, name, postIDs: [] }
     ctx.data.users.push(newUser)
