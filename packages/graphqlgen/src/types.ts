@@ -3,10 +3,12 @@ import {
   GraphQLTypeObject,
   GraphQLEnumObject,
   GraphQLUnionObject,
+  GraphQLInterfaceObject,
 } from './source-helper'
 import { TypeDefinition } from './introspection/types'
 
 export interface GenerateArgs {
+  interfaces: GraphQLInterfaceObject[]
   types: GraphQLTypeObject[]
   enums: GraphQLEnumObject[]
   unions: GraphQLUnionObject[]

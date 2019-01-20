@@ -1,7 +1,10 @@
+type Query {
+  users(first: Int): [UserType!]!
+}
+
 type User {
   id: ID!
   name: String!
-  type: UserType!
 }
 
 union UserType = Student | Professor

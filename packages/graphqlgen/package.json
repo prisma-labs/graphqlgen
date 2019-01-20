@@ -20,6 +20,7 @@
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
     "test": "jest",
+    "check:types": "yarn tsc --noEmit",
     "test:watch": "jest --watch",
     "test:ci": "npm run lint && jest --maxWorkers 4",
     "gen": "ts-node --files src/index.ts"

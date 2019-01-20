@@ -18,6 +18,10 @@ import {
   renderDefaultResolvers,
   renderEnums,
   TypeToInputTypeAssociation,
+  InterfacesMap,
+  UnionsMap,
+  createInterfacesMap,
+  createUnionsMap,
 } from './common'
 
 export function format(code: string, options: prettier.Options = {}) {
@@ -69,12 +73,21 @@ export function generate(args: GenerateArgs): string {
       }
     }, {})
 
+  const interfacesMap = createInterfacesMap(args.interfaces)
+  const unionsMap = createUnionsMap(args.unions)
+
   return `\
   ${renderHeader(args)}
 
   ${renderEnums(args)}
 
-  ${renderNamespaces(args, typeToInputTypeAssociation, inputTypesMap)}
+  ${renderNamespaces(
+    args,
+    interfacesMap,
+    unionsMap,
+    typeToInputTypeAssociation,
+    inputTypesMap,
+  )}
 
   ${renderResolvers(args)}
 
@@ -115,19 +128,30 @@ function renderContext(context?: ContextDefinition) {
 
 function renderNamespaces(
   args: GenerateArgs,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
 ): string {
   return args.types
     .filter(type => type.type.isObject)
     .map(type =>
-      renderNamespace(type, typeToInputTypeAssociation, inputTypesMap, args),
+      renderNamespace(
+        type,
+        interfacesMap,
+        unionsMap,
+        typeToInputTypeAssociation,
+        inputTypesMap,
+        args,
+      ),
     )
     .join(os.EOL)
 }
 
 function renderNamespace(
   type: GraphQLTypeObject,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
   args: GenerateArgs,
@@ -141,15 +165,29 @@ function renderNamespace(
     ${renderInputTypeInterfaces(
       type,
       args.modelMap,
+      interfacesMap,
+      unionsMap,
       typeToInputTypeAssociation,
       inputTypesMap,
     )}
 
-    ${renderInputArgInterfaces(type, args.modelMap)}
+    ${renderInputArgInterfaces(type, args.modelMap, interfacesMap, unionsMap)}
 
-    ${renderResolverFunctionInterfaces(type, args.modelMap, args.context)}
+    ${renderResolverFunctionInterfaces(
+      type,
+      args.modelMap,
+      interfacesMap,
+      unionsMap,
+      args.context,
+    )}
 
-    ${renderResolverTypeInterface(type, args.modelMap, args.context)}
+    ${renderResolverTypeInterface(
+      type,
+      args.modelMap,
+      interfacesMap,
+      unionsMap,
+      args.context,
+    )}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
   `
@@ -158,6 +196,8 @@ function renderNamespace(
 function renderInputTypeInterfaces(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
 ) {
@@ -171,7 +211,7 @@ function renderInputTypeInterfaces(
         inputTypesMap[typeAssociation].name,
       )} {
       ${inputTypesMap[typeAssociation].fields.map(field =>
-        printFieldLikeType(field, modelMap),
+        printFieldLikeType(field, modelMap, interfacesMap, unionsMap),
       )}
     }`
     })
@@ -181,9 +221,13 @@ function renderInputTypeInterfaces(
 function renderInputArgInterfaces(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
 ): string {
   return type.fields
-    .map(field => renderInputArgInterface(type, field, modelMap))
+    .map(field =>
+      renderInputArgInterface(type, field, modelMap, interfacesMap, unionsMap),
+    )
     .join(os.EOL)
 }
 
@@ -191,6 +235,8 @@ function renderInputArgInterface(
   type: GraphQLTypeObject,
   field: GraphQLTypeField,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
 ): string {
   if (field.arguments.length === 0) {
     return ''
@@ -200,10 +246,12 @@ function renderInputArgInterface(
   export interface ${getInputArgName(type, field)} {
     ${field.arguments
       .map(arg =>
-        printFieldLikeType(arg as GraphQLTypeField, modelMap).replace(
-          ': ',
-          `: ${getArgTypePrefix(type, arg)}`,
-        ),
+        printFieldLikeType(
+          arg as GraphQLTypeField,
+          modelMap,
+          interfacesMap,
+          unionsMap,
+        ).replace(': ', `: ${getArgTypePrefix(type, arg)}`),
       )
       .join(',' + os.EOL)}
   }
@@ -227,11 +275,20 @@ const getArgTypePrefix = (
 function renderResolverFunctionInterfaces(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   context?: ContextDefinition,
 ): string {
   return type.fields
     .map(field =>
-      renderResolverFunctionInterface(field, type, modelMap, context),
+      renderResolverFunctionInterface(
+        field,
+        type,
+        modelMap,
+        interfacesMap,
+        unionsMap,
+        context,
+      ),
     )
     .join(os.EOL)
 }
@@ -240,6 +297,8 @@ function renderResolverFunctionInterface(
   field: GraphQLTypeField,
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   context?: ContextDefinition,
 ): string {
   const resolverName = `${upperFirst(type.name)}_${upperFirst(
@@ -254,9 +313,15 @@ function renderResolverFunctionInterface(
   )
   `
 
-  const returnType = printFieldLikeType(field, modelMap, {
-    isReturn: true,
-  })
+  const returnType = printFieldLikeType(
+    field,
+    modelMap,
+    interfacesMap,
+    unionsMap,
+    {
+      isReturn: true,
+    },
+  )
 
   if (type.name === 'Subscription') {
     return `
@@ -275,13 +340,22 @@ function renderResolverFunctionInterface(
 function renderResolverTypeInterface(
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   context?: ContextDefinition,
 ): string {
   return `
   export interface ${upperFirst(type.name)}_Resolvers {
     ${type.fields
       .map(field =>
-        renderResolverTypeInterfaceFunction(field, type, modelMap, context),
+        renderResolverTypeInterfaceFunction(
+          field,
+          type,
+          modelMap,
+          interfacesMap,
+          unionsMap,
+          context,
+        ),
       )
       .join(os.EOL)}
   }
@@ -292,6 +366,8 @@ function renderResolverTypeInterfaceFunction(
   field: GraphQLTypeField,
   type: GraphQLTypeObject,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   context?: ContextDefinition,
 ): string {
   const resolverDefinition = `
@@ -301,9 +377,15 @@ function renderResolverTypeInterfaceFunction(
     ctx: ${getContextName(context)},
     info: GraphQLResolveInfo,
   )`
-  const returnType = printFieldLikeType(field, modelMap, {
-    isReturn: true,
-  })
+  const returnType = printFieldLikeType(
+    field,
+    modelMap,
+    interfacesMap,
+    unionsMap,
+    {
+      isReturn: true,
+    },
+  )
 
   if (type.name === 'Subscription') {
     return `
@@ -323,10 +405,17 @@ function renderResolverTypeInterfaceFunction(
 function renderResolvers(args: GenerateArgs): string {
   return `
 export interface Resolvers {
-  ${args.types
-    .filter(type => type.type.isObject)
-    .map(type => `${type.name}: ${upperFirst(type.name)}_Resolvers`)
-    .join(',' + os.EOL)}
+  ${[
+    ...args.types
+      .filter(type => type.type.isObject)
+      .map(type => `${type.name}: ${upperFirst(type.name)}_Resolvers`),
+    ...args.interfaces.map(
+      type => `${type.name}?: ${upperFirst(type.name)}_Resolvers`,
+    ),
+    ...args.unions.map(
+      type => `${type.name}?: ${upperFirst(type.name)}_Resolvers`,
+    ),
+  ].join(`,${os.EOL}`)}
 }
   `
 }

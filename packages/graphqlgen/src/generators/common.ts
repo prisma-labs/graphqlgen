@@ -2,9 +2,11 @@ import * as os from 'os'
 
 import {
   GraphQLTypeObject,
-  GraphQLType,
+  GraphQLTypeDefinition,
   GraphQLTypeField,
   getGraphQLEnumValues,
+  GraphQLInterfaceObject,
+  GraphQLUnionObject,
 } from '../source-helper'
 import { ModelMap, ContextDefinition, GenerateArgs, Model } from '../types'
 import {
@@ -27,6 +29,24 @@ export interface InputTypesMap {
 export interface TypeToInputTypeAssociation {
   [objectTypeName: string]: string[]
 }
+
+export type InterfacesMap = Record<string, GraphQLTypeDefinition[]>
+
+export const createInterfacesMap = (
+  interfaces: GraphQLInterfaceObject[],
+): InterfacesMap =>
+  interfaces.reduce<InterfacesMap>((interfacesMap, inter) => {
+    interfacesMap[inter.name] = inter.implementors
+    return interfacesMap
+  }, {})
+
+export type UnionsMap = Record<string, GraphQLTypeDefinition[]>
+
+export const createUnionsMap = (unions: GraphQLUnionObject[]): UnionsMap =>
+  unions.reduce<UnionsMap>((unionsMap, union) => {
+    unionsMap[union.name] = union.types
+    return unionsMap
+  }, {})
 
 export function fieldsFromModelDefinition(
   modelDef: TypeDefinition,
@@ -114,7 +134,7 @@ export function getContextName(context?: ContextDefinition) {
 }
 
 export function getModelName(
-  type: GraphQLType,
+  type: GraphQLTypeDefinition,
   modelMap: ModelMap,
   emptyType: string = '{}',
 ): string {
@@ -199,8 +219,15 @@ const kv = (
   return `${key}${isOptional ? '?' : ''}: ${value}`
 }
 
-const array = (innerType: string, config: { innerUnion?: boolean } = {}) => {
+const array = (
+  innerType: string,
+  config: { innerUnion?: boolean } = {},
+): string => {
   return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
+}
+
+const union = (types: string[]): string => {
+  return types.join(' | ')
 }
 
 type FieldPrintOptions = {
@@ -210,10 +237,45 @@ type FieldPrintOptions = {
 export const printFieldLikeType = (
   field: GraphQLTypeField,
   modelMap: ModelMap,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
   options: FieldPrintOptions = {
     isReturn: false,
   },
 ): string => {
+  if (field.type.isInterface || field.type.isUnion) {
+    const typesMap = field.type.isInterface ? interfacesMap : unionsMap
+
+    const modelNames = typesMap[field.type.name].map(type =>
+      getModelName(type, modelMap),
+    )
+
+    let rendering = union(modelNames)
+
+    if (!field.type.isRequired) {
+      rendering = nullable(rendering)
+    }
+
+    if (field.type.isArray) {
+      rendering = array(rendering, { innerUnion: false })
+    }
+
+    if (!field.type.isArrayRequired) {
+      rendering = nullable(rendering)
+    }
+
+    // We do not have to handle defaults becuase graphql only
+    // supports defaults on field params but conversely
+    // interfaces and unions are only supported on output. Therefore
+    // these two features will never cross.
+
+    // No check for isReturn option because unions and interfaces
+    // cannot be used to type graphql field parameters which implies
+    // this branch will always be for a return case.
+
+    return rendering
+  }
+
   const name = field.type.isScalar
     ? getTypeFromGraphQLType(field.type.name)
     : field.type.isInput || field.type.isEnum
@@ -335,11 +397,13 @@ export function isParentType(name: string) {
 
 export function groupModelsNameByImportPath(models: Model[]) {
   return models.reduce<{ [importPath: string]: string[] }>((acc, model) => {
-    if (acc[model.importPathRelativeToOutput] === undefined) {
-      acc[model.importPathRelativeToOutput] = []
+    const fileModels = acc[model.importPathRelativeToOutput] || []
+
+    if (!fileModels.includes(model.definition.name)) {
+      fileModels.push(model.definition.name)
     }
 
-    acc[model.importPathRelativeToOutput].push(model.definition.name)
+    acc[model.importPathRelativeToOutput] = fileModels
 
     return acc
   }, {})

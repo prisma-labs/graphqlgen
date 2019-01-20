@@ -23,6 +23,7 @@ export type GraphQLTypes = {
   types: GraphQLTypeObject[]
   unions: GraphQLUnionObject[]
   enums: GraphQLEnumObject[]
+  interfaces: GraphQLInterfaceObject[]
 }
 
 /** Converts typeDefs, e.g. the raw SDL string, into our `GraphQLTypes`. */
@@ -31,10 +32,11 @@ export function extractTypes(typeDefs: string): GraphQLTypes {
   const types = extractGraphQLTypes(schema)
   const unions = extractGraphQLUnions(schema)
   const enums = extractGraphQLEnums(schema)
-  return { types, enums, unions }
+  const interfaces = extractGraphQLInterfaces(schema, types)
+  return { types, enums, unions, interfaces }
 }
 
-type GraphQLTypeDefinition = {
+export type GraphQLTypeDefinition = {
   name: string
   isScalar: boolean
   isEnum: boolean
@@ -67,6 +69,7 @@ export type GraphQLTypeObject = {
   name: string
   type: GraphQLTypeDefinition
   fields: GraphQLTypeField[]
+  implements: null | string[]
 }
 
 export type GraphQLEnumObject = {
@@ -79,6 +82,13 @@ export type GraphQLUnionObject = {
   name: string
   type: GraphQLTypeDefinition
   types: GraphQLTypeDefinition[]
+}
+
+export type GraphQLInterfaceObject = {
+  name: string
+  type: GraphQLTypeDefinition
+  fields: GraphQLTypeField[]
+  implementors: GraphQLTypeDefinition[]
 }
 
 interface FinalType {
@@ -200,7 +210,7 @@ function extractTypeLike(
 
 function extractTypeFieldsFromObjectType(
   schema: GraphQLSchema,
-  node: GraphQLObjectType,
+  node: GraphQLObjectType | GraphQLInterfaceType,
 ) {
   const fields: GraphQLTypeField[] = []
   Object.values(node.getFields()).forEach(
@@ -240,7 +250,7 @@ function extractTypeFieldsFromInputType(
   return fields
 }
 
-function extractGraphQLTypes(schema: GraphQLSchema) {
+function extractGraphQLTypes(schema: GraphQLSchema): GraphQLTypeObject[] {
   const types: GraphQLTypeObject[] = []
   Object.values(schema.getTypeMap()).forEach((node: GraphQLNamedType) => {
     // Ignore meta types like __Schema and __TypeKind
@@ -260,6 +270,7 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: [], // extractTypeFields(schema, node),
+        implements: null,
       })
     } else if (node instanceof GraphQLObjectType) {
       types.push({
@@ -274,6 +285,9 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: extractTypeFieldsFromObjectType(schema, node),
+        implements: node
+          .getInterfaces()
+          .map(interfaceType => interfaceType.name),
       })
     } else if (node instanceof GraphQLInputObjectType) {
       types.push({
@@ -288,6 +302,7 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: extractTypeFieldsFromInputType(schema, node),
+        implements: null,
       })
     }
   })
@@ -344,6 +359,45 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
     }
   })
   return types
+}
+
+function extractGraphQLInterfaces(
+  schema: GraphQLSchema,
+  types: GraphQLTypeObject[],
+): GraphQLInterfaceObject[] {
+  const interfaceUsingTypes = types.filter(type => type.implements !== null)
+
+  return Object.values(schema.getTypeMap())
+    .filter(node => node instanceof GraphQLInterfaceType)
+    .reduce(
+      (interfaces, node) => {
+        node = node as GraphQLInterfaceType
+
+        const implementorTypes = interfaceUsingTypes
+          .filter(type => type.implements!.includes(node.name))
+          .map(type => type.type)
+
+        if (implementorTypes.length) {
+          interfaces.push({
+            name: node.name,
+            type: {
+              name: node.name,
+              isObject: false,
+              isInput: false,
+              isEnum: false,
+              isUnion: false,
+              isScalar: false,
+              isInterface: true,
+            },
+            implementors: implementorTypes,
+            fields: extractTypeFieldsFromObjectType(schema, node),
+          })
+        }
+
+        return interfaces
+      },
+      [] as GraphQLInterfaceObject[],
+    )
 }
 
 const graphqlToTypescriptFlow: { [key: string]: string } = {

@@ -3,6 +3,7 @@ import * as Benchmark from '../lib/benchmark'
 
 const type = {
   name: 'Z',
+  implements: null,
   type: {
     name: 'Z',
     isInput: false,
@@ -18,6 +19,7 @@ const type = {
 const typeMap: Core.InputTypesMap = {
   A: {
     name: 'A',
+    implements: null,
     type: {
       name: 'A',
       isInput: true,
@@ -41,6 +43,7 @@ const typeMap: Core.InputTypesMap = {
           isUnion: false,
           isRequired: false,
           isArray: false,
+          isArrayRequired: false,
         },
       },
       {
@@ -56,12 +59,14 @@ const typeMap: Core.InputTypesMap = {
           isUnion: false,
           isRequired: false,
           isArray: false,
+          isArrayRequired: false,
         },
       },
     ],
   },
   B: {
     name: 'B',
+    implements: null,
     type: {
       name: 'B',
       isInput: true,
@@ -85,12 +90,14 @@ const typeMap: Core.InputTypesMap = {
           isUnion: false,
           isRequired: false,
           isArray: false,
+          isArrayRequired: false,
         },
       },
     ],
   },
   C: {
     name: 'C',
+    implements: null,
     type: {
       name: 'C',
       isInput: true,
@@ -114,12 +121,14 @@ const typeMap: Core.InputTypesMap = {
           isUnion: false,
           isRequired: false,
           isArray: false,
+          isArrayRequired: false,
         },
       },
     ],
   },
   D: {
     name: 'D',
+    implements: null,
     type: {
       name: 'D',
       isInput: true,
@@ -143,6 +152,7 @@ const typeMap: Core.InputTypesMap = {
           isUnion: false,
           isRequired: false,
           isArray: false,
+          isArrayRequired: false,
         },
       },
     ],

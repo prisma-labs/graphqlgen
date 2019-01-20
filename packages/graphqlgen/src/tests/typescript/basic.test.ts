@@ -149,3 +149,18 @@ test('override model', async () => {
     },
   })
 })
+
+test('basic interface', async () => {
+  testGeneration({
+    language,
+    schema: relative('../fixtures/interface/schema.graphql'),
+    models: {
+      files: [relative('../fixtures/interface/types.ts')],
+    },
+    output: relative('./generated/interface/graphqlgen.ts'),
+    ['resolver-scaffolding']: {
+      output: relative('./tmp/interface/'),
+      layout: 'file-per-type',
+    },
+  })
+})
