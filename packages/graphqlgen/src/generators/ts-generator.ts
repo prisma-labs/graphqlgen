@@ -223,15 +223,6 @@ function renderInterfaceNamespace(
         unionsMap,
       )}
 
-      ${renderResolverTypeInterface(
-        graphQLTypeObject,
-        args.modelMap,
-        interfacesMap,
-        unionsMap,
-        args.context,
-        'InterfaceType',
-      )}
-
       export interface Type {
         __resolveType: GraphQLTypeResolver<${graphQLTypeObject.implementors
           .map(interfaceType => getModelName(interfaceType, args.modelMap))
@@ -476,23 +467,8 @@ function renderResolverTypeInterface(
   context?: ContextDefinition,
   interfaceName: string = 'Type',
 ): string {
-  // TODO: Refactor this with proper union type branching once the
-  // type modelling is refactored itself to support that.
-  let extend = ''
-
-  if (!type.type.isInterface) {
-    type = type as GraphQLTypeObject
-
-    extend =
-      type.implements && type.implements.length
-        ? `extends ${type.implements
-            .map(typeInterface => `${typeInterface}Resolvers.InterfaceType`)
-            .join(',')}`
-        : ''
-  }
-
   return `
-  export interface ${interfaceName} ${extend} {
+  export interface ${interfaceName} {
     ${type.fields
       .map(field =>
         renderResolverTypeInterfaceFunction(
