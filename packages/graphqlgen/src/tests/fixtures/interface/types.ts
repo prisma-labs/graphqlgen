@@ -1,5 +1,3 @@
-// export interface Context {}
-
 export interface Media {
   id: string
   url: string
