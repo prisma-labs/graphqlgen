@@ -1,0 +1,15 @@
+type Query {
+  id: ID!
+  foo: Foo!
+  bar: Bar!
+}
+
+type Foo {
+  id: ID
+  value: Float
+}
+
+type Bar {
+  id: ID
+  value: String
+}
