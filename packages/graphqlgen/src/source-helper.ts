@@ -377,20 +377,22 @@ function extractGraphQLInterfaces(
           .filter(type => type.implements!.includes(node.name))
           .map(type => type.type)
 
-        interfaces.push({
-          name: node.name,
-          type: {
+        if (implementorTypes.length) {
+          interfaces.push({
             name: node.name,
-            isObject: false,
-            isInput: false,
-            isEnum: false,
-            isUnion: false,
-            isScalar: false,
-            isInterface: true,
-          },
-          implementors: implementorTypes,
-          fields: extractTypeFieldsFromObjectType(schema, node),
-        })
+            type: {
+              name: node.name,
+              isObject: false,
+              isInput: false,
+              isEnum: false,
+              isUnion: false,
+              isScalar: false,
+              isInterface: true,
+            },
+            implementors: implementorTypes,
+            fields: extractTypeFieldsFromObjectType(schema, node),
+          })
+        }
 
         return interfaces
       },

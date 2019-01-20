@@ -2,6 +2,10 @@ type Query {
   media(first: Int): [Media]
 }
 
+interface Unused {
+  foo: Int
+}
+
 interface Media {
   id: ID!
   url: String!
