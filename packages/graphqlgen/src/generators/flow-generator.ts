@@ -6,6 +6,7 @@ import {
   GraphQLTypeField,
   GraphQLTypeObject,
   GraphQLTypeArgument,
+  GraphQLUnionObject,
 } from '../source-helper'
 import { upperFirst } from '../utils'
 import {
@@ -133,7 +134,7 @@ function renderNamespaces(
   typeToInputTypeAssociation: TypeToInputTypeAssociation,
   inputTypesMap: InputTypesMap,
 ): string {
-  return args.types
+  const objectNamespaces = args.types
     .filter(type => type.type.isObject)
     .map(type =>
       renderNamespace(
@@ -146,6 +147,12 @@ function renderNamespaces(
       ),
     )
     .join(os.EOL)
+
+  return `\
+    ${objectNamespaces}
+
+    ${renderUnionNamespaces(args)}
+  `
 }
 
 function renderNamespace(
@@ -190,6 +197,23 @@ function renderNamespace(
     )}
 
     ${/* TODO renderResolverClass(type, modelMap) */ ''}
+  `
+}
+
+function renderUnionNamespaces(args: GenerateArgs): string {
+  return args.unions.map(type => renderUnionNamespace(type, args)).join(os.EOL)
+}
+
+function renderUnionNamespace(
+  graphQLTypeObject: GraphQLUnionObject,
+  args: GenerateArgs,
+): string {
+  return `\
+    export interface ${graphQLTypeObject.name}_Resolvers {
+      __resolveType?: GraphQLTypeResolver<${graphQLTypeObject.types
+        .map(interfaceType => getModelName(interfaceType, args.modelMap))
+        .join(' | ')}, ${getContextName(args.context)}>;
+    }
   `
 }
 

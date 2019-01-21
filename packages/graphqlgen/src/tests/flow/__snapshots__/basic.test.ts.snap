@@ -718,6 +718,10 @@ export interface User_Resolvers {
   ) => string | Promise<string>;
 }
 
+export interface UserType_Resolvers {
+  __resolveType?: GraphQLTypeResolver<Student | Professor, Context>;
+}
+
 export interface Resolvers {
   Query: Query_Resolvers;
   Student: Student_Resolvers;
