@@ -1,6 +1,6 @@
-import { getAbsoluteFilePath } from '../../path-helpers'
+import { getAbsoluteFilePath } from '../../src/path-helpers'
 import { join, resolve } from 'path'
-import { normalizeFilePath } from '../../utils'
+import { normalizeFilePath } from '../../src/utils'
 
 const relative = (p: string) => join(__dirname, p)
 const language = 'typescript'

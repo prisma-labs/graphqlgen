@@ -1,13 +1,13 @@
-import { extractGlobPattern } from '../../glob'
+import { extractGlobPattern } from '../../src/glob'
 
 /**
  * Walk through all files under a directory
  */
 test('Basic Walk', () => {
-  const mockPath = './src/tests/glob/mocks/dir-1/*.ts'
+  const mockPath = './tests/glob/mocks/dir-1/*.ts'
   expect(extractGlobPattern(mockPath)).toMatchObject([
-    './src/tests/glob/mocks/dir-1/file-11.ts',
-    './src/tests/glob/mocks/dir-1/file-12.ts',
+    './tests/glob/mocks/dir-1/file-11.ts',
+    './tests/glob/mocks/dir-1/file-12.ts',
   ])
 })
 
@@ -15,12 +15,12 @@ test('Basic Walk', () => {
  * Walk through all folders under a dir using pattern
  */
 test('Wild Walk', () => {
-  const mockPath = './src/tests/glob/mocks/**/*.ts'
+  const mockPath = './tests/glob/mocks/**/*.ts'
   expect(extractGlobPattern(mockPath)).toMatchObject([
-    './src/tests/glob/mocks/dir-1/file-11.ts',
-    './src/tests/glob/mocks/dir-1/file-12.ts',
-    './src/tests/glob/mocks/dir-2/file-21.ts',
-    './src/tests/glob/mocks/dir-2/file-22.ts',
+    './tests/glob/mocks/dir-1/file-11.ts',
+    './tests/glob/mocks/dir-1/file-12.ts',
+    './tests/glob/mocks/dir-2/file-21.ts',
+    './tests/glob/mocks/dir-2/file-22.ts',
   ])
 })
 
@@ -28,7 +28,7 @@ test('Wild Walk', () => {
  * If no glob pattern is mentioned, Return the input array
  */
 test('No Walk', () => {
-  const mockPath = './src/tests/glob/mocks/dir-1/file-11.ts'
+  const mockPath = './tests/glob/mocks/dir-1/file-11.ts'
   expect(extractGlobPattern(mockPath)).toMatchObject([mockPath])
 })
 
@@ -36,7 +36,7 @@ test('No Walk', () => {
  * Unknown Path, Returns an empty array
  */
 test('Unknown Walk', () => {
-  const mockPath = './src/tests/glob/mocks/dir-3/*.ts'
+  const mockPath = './tests/glob/mocks/dir-3/*.ts'
 
   expect(extractGlobPattern(mockPath)).toMatchObject([])
 })

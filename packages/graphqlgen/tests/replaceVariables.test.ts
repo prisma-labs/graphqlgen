@@ -1,4 +1,4 @@
-import { replaceVariablesInString } from '../parse'
+import { replaceVariablesInString } from '../src/parse'
 
 describe('replaceVariablesInString', () => {
   test('basic usage', () => {

@@ -6,10 +6,10 @@ import { execFile } from 'child_process'
 import { writeFileSync } from 'fs'
 import chalk from 'chalk'
 import { File, GraphQLGenDefinition } from 'graphqlgen-json-schema'
-import { getPath, parseModels, parseSchema } from '../parse'
-import { validateConfig } from '../validation'
-import { writeResolversScaffolding, writeTypes } from '../project-output'
-import { generateCode } from '../index'
+import { getPath, parseModels, parseSchema } from '../src/parse'
+import { validateConfig } from '../src/validation'
+import { writeResolversScaffolding, writeTypes } from '../src/project-output'
+import { generateCode } from '../src/index'
 const flow = require('flow-bin')
 
 class ExecError extends Error {

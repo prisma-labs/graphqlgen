@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { addFileToTypesMap } from '../../introspection'
+import { addFileToTypesMap } from '../../src/introspection'
 
 const relative = (p: string) => join(__dirname, p)
 const language = 'flow'

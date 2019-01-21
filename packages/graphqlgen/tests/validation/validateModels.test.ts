@@ -1,6 +1,6 @@
 import { join } from 'path'
-import { validateModels } from '../../validation'
-import { parseSchema } from '../../parse'
+import { validateModels } from '../../src/validation'
+import { parseSchema } from '../../src/parse'
 import { Models } from 'graphqlgen-json-schema'
 
 interface TestConfig {

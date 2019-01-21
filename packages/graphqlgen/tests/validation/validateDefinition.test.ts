@@ -1,4 +1,4 @@
-import { validateDefinition } from '../../validation'
+import { validateDefinition } from '../../src/validation'
 import { join } from 'path'
 
 const relative = (p: string) => join(__dirname, p)
