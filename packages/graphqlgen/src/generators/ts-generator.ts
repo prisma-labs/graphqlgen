@@ -23,6 +23,7 @@ import {
   UnionsMap,
   createInterfacesMap,
   createUnionsMap,
+  union,
 } from './common'
 import { TypeAliasDefinition } from '../introspection/types'
 import { upperFirst } from '../utils'
@@ -108,7 +109,7 @@ function renderHeader(
   { hasPolymorphicObjects = false }: HeaderOptions = {},
 ): string {
   const imports = hasPolymorphicObjects
-    ? ['GraphQLResolveInfo', 'GraphQLTypeResolver', 'GraphQLIsTypeOfFn']
+    ? ['GraphQLResolveInfo', 'GraphQLIsTypeOfFn']
     : ['GraphQLResolveInfo']
 
   return `
@@ -237,13 +238,43 @@ function renderInterfaceNamespace(
       )}
 
       export interface Type {
-        __resolveType: GraphQLTypeResolver<${graphQLTypeObject.implementors
-          .map(interfaceType => getModelName(interfaceType, args.modelMap))
-          .join(' | ')}, ${getContextName(args.context)}>;
+        __resolveType: ${renderTypeResolveTypeResolver(graphQLTypeObject, args)}
       }
     }
   `
 }
+
+const renderTypeResolveTypeResolver = (
+  abstractType: GraphQLInterfaceObject | GraphQLUnionObject,
+  args: GenerateArgs,
+): string => {
+  const modelNames: string[] = []
+  const gqlObjectNameTypes: string[] = []
+  const gqlObjects =
+    abstractType.kind === 'interface'
+      ? abstractType.implementors
+      : abstractType.types
+
+  for (const gqlObj of gqlObjects) {
+    modelNames.push(getModelName(gqlObj, args.modelMap))
+    gqlObjectNameTypes.push(renderStringConstant(gqlObj.name))
+  }
+
+  // For purely stylistic reasons render the return type with
+  // type name string-constants before model types. Example:
+  //
+  //    'Apple' | 'Pear' | Apple | Pear
+
+  return `
+  (
+    value: ${union(modelNames)},
+    context: ${getContextName(args.context)},
+    info: GraphQLResolveInfo
+  ) => ${resolverReturnType(union(gqlObjectNameTypes))}
+  `
+}
+
+const renderStringConstant = (x: unknown) => `"${x}"`
 
 function renderUnionNamespace(
   graphQLTypeObject: GraphQLUnionObject,
@@ -252,9 +283,10 @@ function renderUnionNamespace(
   return `\
     export namespace ${graphQLTypeObject.name}Resolvers {
       export interface Type {
-        __resolveType?: GraphQLTypeResolver<${graphQLTypeObject.types
-          .map(interfaceType => getModelName(interfaceType, args.modelMap))
-          .join(' | ')}, ${getContextName(args.context)}>;
+        __resolveType?: ${renderTypeResolveTypeResolver(
+          graphQLTypeObject,
+          args,
+        )}
       }
     }
   `
@@ -430,6 +462,7 @@ function renderResolverFunctionInterfaces(
     .join(os.EOL)
 }
 
+// MARK
 function renderResolverFunctionInterface(
   field: GraphQLTypeField,
   type: GraphQLTypeObject,
@@ -468,9 +501,14 @@ function renderResolverFunctionInterface(
   }
 
   return `
-  export type ${resolverName} = ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+  export type ${resolverName} = ${resolverDefinition} => ${resolverReturnType(
+    returnType,
+  )}
   `
 }
+
+const resolverReturnType = (returnType: string): string =>
+  union([returnType, `Promise<${returnType}>`])
 
 function renderResolverTypeInterface(
   type: GraphQLTypeObject | GraphQLInterfaceObject,

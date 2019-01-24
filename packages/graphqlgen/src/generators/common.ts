@@ -226,7 +226,7 @@ const array = (
   return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
 }
 
-const union = (types: string[]): string => {
+export const union = (types: string[]): string => {
   return types.join(' | ')
 }
 
