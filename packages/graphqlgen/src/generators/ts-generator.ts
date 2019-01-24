@@ -236,6 +236,8 @@ function renderInterfaceNamespace(
         unionsMap,
       )}
 
+      ${renderResolverTypeInterfaceUnion(graphQLTypeObject)}
+
       export interface Type {
         __resolveType: GraphQLTypeResolver<${graphQLTypeObject.implementors
           .map(interfaceType => getModelName(interfaceType, args.modelMap))
@@ -469,6 +471,16 @@ function renderResolverFunctionInterface(
 
   return `
   export type ${resolverName} = ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+  `
+}
+
+function renderResolverTypeInterfaceUnion(
+  type: GraphQLInterfaceObject,
+): string {
+  return `
+  export type InterfaceType = ${type.implementors
+    .map(impl => `${impl.name}Resolvers.Type`)
+    .join(' | ')}
   `
 }
 

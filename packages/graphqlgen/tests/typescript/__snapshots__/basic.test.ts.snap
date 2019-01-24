@@ -517,6 +517,8 @@ export namespace VideoResolvers {
 }
 
 export namespace MediaResolvers {
+  export type InterfaceType = ImageResolvers.Type | VideoResolvers.Type;
+
   export interface Type {
     __resolveType: GraphQLTypeResolver<Image | Video, Context>;
   }
