@@ -260,11 +260,6 @@ const renderTypeResolveTypeResolver = (
     gqlObjectNameTypes.push(renderStringConstant(gqlObj.name))
   }
 
-  // For purely stylistic reasons render the return type with
-  // type name string-constants before model types. Example:
-  //
-  //    'Apple' | 'Pear' | Apple | Pear
-
   return `
   (
     value: ${union(modelNames)},
