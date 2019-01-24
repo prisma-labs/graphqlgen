@@ -19,6 +19,7 @@ import {
   isFieldDefinitionEnumOrLiteral,
   getEnumValues,
 } from '../introspection/utils'
+import { uniq } from '../utils'
 
 type SpecificGraphQLScalarType = 'boolean' | 'number' | 'string'
 
@@ -246,9 +247,9 @@ export const printFieldLikeType = (
   if (field.type.isInterface || field.type.isUnion) {
     const typesMap = field.type.isInterface ? interfacesMap : unionsMap
 
-    const modelNames = typesMap[field.type.name].map(type =>
-      getModelName(type, modelMap),
-    )
+    const modelNames = typesMap[field.type.name]
+      .map(type => getModelName(type, modelMap))
+      .filter(uniq)
 
     let rendering = union(modelNames)
 
@@ -258,10 +259,10 @@ export const printFieldLikeType = (
 
     if (field.type.isArray) {
       rendering = array(rendering, { innerUnion: false })
-    }
 
-    if (!field.type.isArrayRequired) {
-      rendering = nullable(rendering)
+      if (!field.type.isArrayRequired) {
+        rendering = nullable(rendering)
+      }
     }
 
     // We do not have to handle defaults becuase graphql only
