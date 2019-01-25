@@ -244,7 +244,7 @@ function renderInterfaceNamespace(
   `
 }
 
-const renderTypeResolveTypeResolver = (
+export const renderTypeResolveTypeResolver = (
   abstractType: GraphQLInterfaceObject | GraphQLUnionObject,
   args: GenerateArgs,
 ): string => {
