@@ -24,6 +24,7 @@ import {
   createInterfacesMap,
   createUnionsMap,
   union,
+  resolverReturnType,
 } from './common'
 import { TypeAliasDefinition } from '../introspection/types'
 import { upperFirst } from '../utils'
@@ -501,9 +502,6 @@ function renderResolverFunctionInterface(
   )}
   `
 }
-
-const resolverReturnType = (returnType: string): string =>
-  union([returnType, `Promise<${returnType}>`])
 
 function renderResolverTypeInterface(
   type: GraphQLTypeObject | GraphQLInterfaceObject,

@@ -23,6 +23,7 @@ import {
   UnionsMap,
   createInterfacesMap,
   createUnionsMap,
+  resolverReturnType,
 } from './common'
 import { renderTypeResolveTypeResolver } from './ts-generator'
 
@@ -352,13 +353,15 @@ function renderResolverFunctionInterface(
     return `
     export type ${resolverName} = {|
       subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>,
-      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+      resolve?: ${resolverDefinition} => ${resolverReturnType(returnType)}
     |}
     `
   }
 
   return `
-  export type ${resolverName} = ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+  export type ${resolverName} = ${resolverDefinition} => ${resolverReturnType(
+    returnType,
+  )}
   `
 }
 
@@ -416,14 +419,12 @@ function renderResolverTypeInterfaceFunction(
     return `
     ${field.name}: {|
       subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>,
-      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+      resolve?: ${resolverDefinition} => ${resolverReturnType(returnType)}
     |}
     `
   }
   return `
-  ${
-    field.name
-  }: ${resolverDefinition} => ${returnType} | Promise<${returnType}>,
+  ${field.name}: ${resolverDefinition} => ${resolverReturnType(returnType)},
   `
 }
 

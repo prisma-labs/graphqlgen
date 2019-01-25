@@ -230,6 +230,9 @@ export const union = (types: string[]): string => {
   return types.join(' | ')
 }
 
+export const resolverReturnType = (returnType: string): string =>
+  union([returnType, `Promise<${returnType}>`])
+
 type FieldPrintOptions = {
   isReturn?: boolean
 }
