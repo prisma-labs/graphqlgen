@@ -80,12 +80,14 @@ export type GraphQLEnumObject = {
 
 export type GraphQLUnionObject = {
   name: string
+  kind: 'union'
   type: GraphQLTypeDefinition
   types: GraphQLTypeDefinition[]
 }
 
 export type GraphQLInterfaceObject = {
   name: string
+  kind: 'interface'
   type: GraphQLTypeDefinition
   fields: GraphQLTypeField[]
   implementors: GraphQLTypeDefinition[]
@@ -345,6 +347,7 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
       })
       types.push({
         name: node.name,
+        kind: 'union',
         type: {
           name: node.name,
           isObject: false,
@@ -380,6 +383,7 @@ function extractGraphQLInterfaces(
         if (implementorTypes.length) {
           interfaces.push({
             name: node.name,
+            kind: 'interface',
             type: {
               name: node.name,
               isObject: false,
