@@ -350,6 +350,10 @@ export namespace QueryResolvers {
     first?: number | null;
   }
 
+  export interface ArgsMediaItem {
+    id: number;
+  }
+
   export type MediaResolver = (
     parent: undefined,
     args: ArgsMedia,
@@ -359,6 +363,13 @@ export namespace QueryResolvers {
     | Array<Image | Video | null>
     | null
     | Promise<Array<Image | Video | null> | null>;
+
+  export type MediaItemResolver = (
+    parent: undefined,
+    args: ArgsMediaItem,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Image | Video | null | Promise<Image | Video | null>;
 
   export interface Type {
     media: (
@@ -370,6 +381,13 @@ export namespace QueryResolvers {
       | Array<Image | Video | null>
       | null
       | Promise<Array<Image | Video | null> | null>;
+
+    mediaItem: (
+      parent: undefined,
+      args: ArgsMediaItem,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Image | Video | null | Promise<Image | Video | null>;
   }
 }
 
@@ -614,6 +632,9 @@ import { QueryResolvers } from \\"[TEMPLATE-INTERFACES-PATH]\\";
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
   media: (parent, args, ctx) => {
+    throw new Error(\\"Resolver not implemented\\");
+  },
+  mediaItem: (parent, args, ctx) => {
     throw new Error(\\"Resolver not implemented\\");
   }
 };

@@ -1,5 +1,6 @@
 type Query {
   media(first: Int): [Media]
+  mediaItem(id: Int!): Media
 }
 
 interface Unused {

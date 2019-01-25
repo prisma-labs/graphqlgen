@@ -261,10 +261,10 @@ export const printFieldLikeType = (
 
     if (field.type.isArray) {
       rendering = array(rendering, { innerUnion: false })
-    }
 
-    if (!field.type.isArrayRequired) {
-      rendering = nullable(rendering)
+      if (!field.type.isArrayRequired) {
+        rendering = nullable(rendering)
+      }
     }
 
     // We do not have to handle defaults becuase graphql only
