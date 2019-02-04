@@ -445,62 +445,18 @@ function renderResolverFunctionInterfaces(
   context?: ContextDefinition,
 ): string {
   return type.fields
-    .map(field =>
-      renderResolverFunctionInterface(
-        field,
-        type,
-        modelMap,
-        interfacesMap,
-        unionsMap,
-        context,
-      ),
+    .map(
+      field =>
+        `export type ${upperFirst(field.name)}Resolver = ${renderTypeResolver(
+          field,
+          type,
+          modelMap,
+          interfacesMap,
+          unionsMap,
+          context,
+        )}`,
     )
     .join(os.EOL)
-}
-
-// MARK
-function renderResolverFunctionInterface(
-  field: GraphQLTypeField,
-  type: GraphQLTypeObject,
-  modelMap: ModelMap,
-  interfacesMap: InterfacesMap,
-  unionsMap: UnionsMap,
-  context?: ContextDefinition,
-): string {
-  const resolverName = `${upperFirst(field.name)}Resolver`
-  const resolverDefinition = `
-  (
-    parent: ${getModelName(type.type as any, modelMap, 'undefined')},
-    args: ${
-      field.arguments.length > 0 ? `Args${upperFirst(field.name)}` : '{}'
-    },
-    ctx: ${getContextName(context)},
-    info: GraphQLResolveInfo,
-  )
-  `
-
-  const returnType = printFieldLikeType(
-    field,
-    modelMap,
-    interfacesMap,
-    unionsMap,
-    { isReturn: true },
-  )
-
-  if (type.name === 'Subscription') {
-    return `
-    export type ${resolverName} = {
-      subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>
-      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
-    }
-    `
-  }
-
-  return `
-  export type ${resolverName} = ${resolverDefinition} => ${resolverReturnType(
-    returnType,
-  )}
-  `
 }
 
 function renderResolverTypeInterface(
@@ -514,15 +470,16 @@ function renderResolverTypeInterface(
   return `
   export interface ${interfaceName} {
     ${type.fields
-      .map(field =>
-        renderResolverTypeInterfaceFunction(
-          field,
-          type,
-          modelMap,
-          interfacesMap,
-          unionsMap,
-          context,
-        ),
+      .map(
+        field =>
+          `${field.name}: ${renderTypeResolver(
+            field,
+            type,
+            modelMap,
+            interfacesMap,
+            unionsMap,
+            context,
+          )}`,
       )
       .join(os.EOL)}
       ${renderIsTypeOfFunctionInterface(
@@ -536,14 +493,14 @@ function renderResolverTypeInterface(
   `
 }
 
-function renderResolverTypeInterfaceFunction(
+const renderTypeResolver = (
   field: GraphQLTypeField,
   type: GraphQLTypeObject | GraphQLInterfaceObject,
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
   context?: ContextDefinition,
-): string {
+): string => {
   let parent: string
 
   if (type.type.isInterface) {
@@ -556,7 +513,7 @@ function renderResolverTypeInterfaceFunction(
     parent = getModelName(type.type as any, modelMap, 'undefined')
   }
 
-  const resolverDefinition = `
+  const params = `
   (
     parent: ${parent},
     args: ${
@@ -576,18 +533,20 @@ function renderResolverTypeInterfaceFunction(
 
   if (type.name === 'Subscription') {
     return `
-    ${field.name}: {
-      subscribe: ${resolverDefinition} => AsyncIterator<${returnType}> | Promise<AsyncIterator<${returnType}>>
-      resolve?: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+    {
+      subscribe: ${params} => ${resolverReturnType(
+      `AsyncIterator<${returnType}>`,
+    )}
+      resolve?: ${params} => ${resolverReturnType(returnType)}
     }
     `
   }
 
-  return `
-    ${
-      field.name
-    }: ${resolverDefinition} => ${returnType} | Promise<${returnType}>
+  const func = `
+    ${params} => ${resolverReturnType(returnType)}
   `
+
+  return func
 }
 
 function renderResolvers(args: GenerateArgs): string {

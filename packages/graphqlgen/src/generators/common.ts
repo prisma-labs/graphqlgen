@@ -211,7 +211,7 @@ const nullable = (type: string): string => {
   return `${type} | null`
 }
 
-const kv = (
+export const kv = (
   key: string,
   value: string,
   isOptional: boolean = false,
