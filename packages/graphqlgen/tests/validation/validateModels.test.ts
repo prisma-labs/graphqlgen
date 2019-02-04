@@ -74,4 +74,49 @@ describe('test validateModels()', () => {
       false,
     )
   })
+
+  test('import schema ts default', () => {
+    testValidateModels(
+      {
+        schema: relative('./mocks/tsSchemaDefault/schema.ts'),
+        models: {
+          files: [relative('./mocks/tsSchemaDefault/types.ts')],
+          override: {
+            Post: relative('./mocks/tsSchemaDefault/model.ts:PostModel'),
+          },
+        },
+      },
+      true,
+    )
+  })
+
+  test('import schema ts const', () => {
+    testValidateModels(
+      {
+        schema: relative('./mocks/tsSchemaConst/schema.ts:typeDefs'),
+        models: {
+          files: [relative('./mocks/tsSchemaConst/types.ts')],
+          override: {
+            Post: relative('./mocks/tsSchemaConst/model.ts:PostModel'),
+          },
+        },
+      },
+      true,
+    )
+  })
+
+  test('import schema gql default', () => {
+    testValidateModels(
+      {
+        schema: relative('./mocks/gqlSchema/schema.ts:typeDefs'),
+        models: {
+          files: [relative('./mocks/gqlSchema/types.ts')],
+          override: {
+            Post: relative('./mocks/gqlSchema/model.ts:PostModel'),
+          },
+        },
+      },
+      true,
+    )
+  })
 })

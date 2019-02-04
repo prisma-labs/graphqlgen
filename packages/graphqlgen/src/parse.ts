@@ -2,6 +2,7 @@ import * as Ajv from 'ajv'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
 import * as yaml from 'js-yaml'
+import { print } from 'graphql'
 import { importSchema } from 'graphql-import'
 
 import {
@@ -83,17 +84,32 @@ export function parseContext(
 }
 
 export function parseSchema(schemaPath: string): GraphQLTypes {
-  if (!fs.existsSync(schemaPath)) {
+  const [filePath, constName] = schemaPath.split(':')
+
+  if (!fs.existsSync(filePath)) {
     console.error(
-      chalk.default.red(`The schema file ${schemaPath} does not exist`),
+      chalk.default.red(`The schema file ${filePath} does not exist`),
     )
     process.exit(1)
   }
 
   let schema: string | undefined
   try {
-    schema = importSchema(schemaPath)
+    if (filePath.endsWith('.ts')) {
+      console.log('TS!')
+
+      const loadedSchema = require(filePath)[constName || 'default']
+
+      if (typeof loadedSchema === 'string') {
+        schema = loadedSchema
+      } else {
+        schema = print(loadedSchema)
+      }
+    } else {
+      schema = importSchema(filePath)
+    }
   } catch (e) {
+    throw e
     console.error(
       chalk.default.red(`Error occurred while reading schema: ${e}`),
     )

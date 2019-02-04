@@ -66,6 +66,7 @@
     "@types/yargs": "12.0.8",
     "benchmark": "2.1.4",
     "flow-bin": "0.86.0",
+    "graphql-tag": "^2.10.1",
     "jest": "23.6.0",
     "ts-jest": "23.10.5",
     "ts-node": "8.0.2",
