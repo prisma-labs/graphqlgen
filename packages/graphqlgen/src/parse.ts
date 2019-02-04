@@ -96,8 +96,6 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
   let schema: string | undefined
   try {
     if (filePath.endsWith('.ts')) {
-      console.log('TS!')
-
       const loadedSchema = require(filePath)[constName || 'default']
 
       if (typeof loadedSchema === 'string') {
