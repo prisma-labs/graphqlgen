@@ -543,7 +543,8 @@ export namespace QueryResolvers {
       ) =>
         | Array<Image | Video | null>
         | null
-        | Promise<Array<Image | Video | null> | null>)
+        | Promise<Array<Image | Video | null> | null>
+      )
     | {
         fragment: string;
         resolver: (
@@ -584,7 +585,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<Image | Video | null>
           | null
-          | Promise<Array<Image | Video | null> | null>)
+          | Promise<Array<Image | Video | null> | null>
+        )
       | {
           fragment: string;
           resolver: (
@@ -1624,7 +1626,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<boolean | null>
           | null
-          | Promise<Array<boolean | null> | null>)
+          | Promise<Array<boolean | null> | null>
+        )
       | {
           fragment: string;
           resolver: (
@@ -2426,7 +2429,8 @@ export namespace QueryResolvers {
       ) =>
         | Array<NumberNode | null>
         | null
-        | Promise<Array<NumberNode | null> | null>)
+        | Promise<Array<NumberNode | null> | null>
+      )
     | {
         fragment: string;
         resolver: (
@@ -2657,7 +2661,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<NumberNode | null>
           | null
-          | Promise<Array<NumberNode | null> | null>)
+          | Promise<Array<NumberNode | null> | null>
+        )
       | {
           fragment: string;
           resolver: (
@@ -2765,7 +2770,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<boolean | null>
           | null
-          | Promise<Array<boolean | null> | null>)
+          | Promise<Array<boolean | null> | null>
+        )
       | {
           fragment: string;
           resolver: (
@@ -3419,7 +3425,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<boolean | null>
           | null
-          | Promise<Array<boolean | null> | null>)
+          | Promise<Array<boolean | null> | null>
+        )
       | {
           fragment: string;
           resolver: (

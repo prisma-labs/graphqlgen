@@ -7284,7 +7284,8 @@ export namespace PaymentAccountResolvers {
         ) =>
           | CreditCardInformation
           | null
-          | Promise<CreditCardInformation | null>)
+          | Promise<CreditCardInformation | null>
+        )
       | {
           fragment: string;
           resolver: (
