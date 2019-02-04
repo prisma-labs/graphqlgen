@@ -542,11 +542,18 @@ const renderTypeResolver = (
     `
   }
 
-  const func = `
-    ${params} => ${resolverReturnType(returnType)}
+  const func = `${params} => ${resolverReturnType(returnType)}`
+
+  const DelegatedParentResolver = `
+    {
+      fragment: string
+      resolver: ${func}
+    }
   `
 
-  return func
+  const resolver = union([`(${func})`, DelegatedParentResolver])
+
+  return resolver
 }
 
 function renderResolvers(args: GenerateArgs): string {
