@@ -109,7 +109,6 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
       schema = importSchema(filePath)
     }
   } catch (e) {
-    throw e
     console.error(
       chalk.default.red(`Error occurred while reading schema: ${e}`),
     )
