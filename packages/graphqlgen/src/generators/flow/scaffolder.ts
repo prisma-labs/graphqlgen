@@ -1,23 +1,23 @@
-import { GenerateArgs, CodeFileLike } from '../types'
-import { upperFirst } from '../utils'
+import { GenerateArgs, CodeFileLike } from '../../types'
+import { upperFirst } from '../../utils'
 import {
   GraphQLTypeObject,
   GraphQLInterfaceObject,
   GraphQLUnionObject,
-} from '../source-helper'
+} from '../../source-helper'
 import {
   fieldsFromModelDefinition,
   shouldScaffoldFieldResolver,
   isParentType,
-} from './common'
+} from '../common'
 
-export { format } from './flow-generator'
+export { format } from './generator'
 
 function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   const upperTypeName = upperFirst(type.name)
   const code = `/* @flow */
   import type { ${upperTypeName}_Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
-  
+
   export const ${type.name}: ${upperTypeName}_Resolvers = {
     ${type.fields.map(field => {
       if (type.name === 'Subscription') {

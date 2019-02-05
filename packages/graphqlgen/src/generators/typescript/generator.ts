@@ -1,14 +1,14 @@
 import * as os from 'os'
 import * as prettier from 'prettier'
 
-import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
+import { GenerateArgs, ModelMap, ContextDefinition } from '../../types'
 import {
   GraphQLTypeField,
   GraphQLTypeObject,
   GraphQLInterfaceObject,
   GraphQLTypeDefinition,
   GraphQLUnionObject,
-} from '../source-helper'
+} from '../../source-helper'
 import {
   renderDefaultResolvers,
   getContextName,
@@ -25,9 +25,9 @@ import {
   createUnionsMap,
   union,
   resolverReturnType,
-} from './common'
-import { TypeAliasDefinition } from '../introspection/types'
-import { upperFirst } from '../utils'
+} from '../common'
+import { TypeAliasDefinition } from '../../introspection/types'
+import { upperFirst } from '../../utils'
 
 export function format(code: string, options: prettier.Options = {}) {
   try {

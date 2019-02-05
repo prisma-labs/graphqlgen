@@ -1,16 +1,16 @@
-import { GenerateArgs, CodeFileLike } from '../types'
+import { GenerateArgs, CodeFileLike } from '../../types'
 import {
   GraphQLTypeObject,
   GraphQLInterfaceObject,
   GraphQLUnionObject,
-} from '../source-helper'
+} from '../../source-helper'
 import {
   fieldsFromModelDefinition,
   shouldScaffoldFieldResolver,
   isParentType,
-} from './common'
+} from '../common'
 
-export { format } from './ts-generator'
+export { format } from './generator'
 
 function renderResolvers(
   type: GraphQLTypeObject,
@@ -63,7 +63,7 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   // Please do not import this file directly but copy & paste to your application code.
 
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
-  
+
   export const ${type.name}: ${type.name}Resolvers.Type = {
     ...${type.name}Resolvers.defaultResolvers,
     ${type.fields.map(field => {

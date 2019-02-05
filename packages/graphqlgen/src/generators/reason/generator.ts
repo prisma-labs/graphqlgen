@@ -1,10 +1,10 @@
 import * as os from 'os'
 import * as camelCase from 'camelcase'
 import * as refmt from 'reason'
-import { GraphQLScalarType, GraphQLTypeField } from '../source-helper'
+import { GraphQLScalarType, GraphQLTypeField } from '../../source-helper'
 
-import { GenerateArgs } from '../types'
-import { upperFirst } from '../utils'
+import { GenerateArgs } from '../../types'
+import { upperFirst } from '../../utils'
 
 type SpecificGraphQLScalarType =
   | 'bool'
@@ -88,7 +88,7 @@ export function generate(args: GenerateArgs) {
         .map(
           union => `
         type ${camelCase(union.name)} =
-          ${union.types.map(t => `| ${t.name}`).join(os.EOL)}  
+          ${union.types.map(t => `| ${t.name}`).join(os.EOL)}
       `,
         )
         .join(os.EOL)}
@@ -97,7 +97,7 @@ export function generate(args: GenerateArgs) {
         .map(
           e => `
         type ${camelCase(e.name)} =
-          ${e.values.map(v => `| ${v}`).join(os.EOL)}  
+          ${e.values.map(v => `| ${v}`).join(os.EOL)}
       `,
         )
         .join(os.EOL)}
@@ -108,7 +108,7 @@ export function generate(args: GenerateArgs) {
     .map(
       type => `
     module ${upperFirst(type.name)} = {
-      
+
       ${type.fields
         .filter(field => field.arguments.length > 0)
         .map(
@@ -131,7 +131,7 @@ export function generate(args: GenerateArgs) {
       type args;
       type context;
       type info;
-      
+
       type resolvers = {
         .
         ${type.fields

@@ -1,14 +1,14 @@
 import * as os from 'os'
 import * as prettier from 'prettier'
 
-import { GenerateArgs, ModelMap, ContextDefinition } from '../types'
+import { GenerateArgs, ModelMap, ContextDefinition } from '../../types'
 import {
   GraphQLTypeField,
   GraphQLTypeObject,
   GraphQLTypeArgument,
   GraphQLUnionObject,
-} from '../source-helper'
-import { upperFirst } from '../utils'
+} from '../../source-helper'
+import { upperFirst } from '../../utils'
 import {
   getContextName,
   getDistinctInputTypes,
@@ -24,8 +24,8 @@ import {
   createInterfacesMap,
   createUnionsMap,
   resolverReturnType,
-} from './common'
-import { renderTypeResolveTypeResolver } from './ts-generator'
+} from '../common'
+import { renderTypeResolveTypeResolver } from '../typescript/generator'
 
 export function format(code: string, options: prettier.Options = {}) {
   try {

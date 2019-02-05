@@ -9,13 +9,13 @@ import { IGenerator, GenerateArgs, CodeFileLike, ModelMap } from './types'
 import {
   generate as generateTS,
   format as formatTS,
-} from './generators/ts-generator'
+} from './generators/typescript/generator'
 import {
   generate as generateFlow,
   format as formatFlow,
-} from './generators/flow-generator'
-import { generate as scaffoldTS } from './generators/ts-scaffolder'
-import { generate as scaffoldFlow } from './generators/flow-scaffolder'
+} from './generators/flow/generator'
+import { generate as scaffoldTS } from './generators/typescript/scaffolder'
+import { generate as scaffoldFlow } from './generators/flow/scaffolder'
 import { parseConfig, parseContext, parseSchema, parseModels } from './parse'
 import { validateConfig } from './validation'
 import { handleGlobPattern } from './glob'
