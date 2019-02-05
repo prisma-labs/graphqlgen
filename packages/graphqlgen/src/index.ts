@@ -21,7 +21,7 @@ import { validateConfig } from './validation'
 import { handleGlobPattern } from './glob'
 import * as Project from './project-output'
 
-export type GenerateCodeArgs = {
+export type CodeGenArgs = {
   schema: GraphQLTypes
   config: GraphQLGenDefinition
   modelMap: ModelMap
@@ -50,7 +50,7 @@ function getResolversGenerator(language: Language): IGenerator {
 
 function generateTypes(
   generateArgs: GenerateArgs,
-  generateCodeArgs: GenerateCodeArgs,
+  generateCodeArgs: CodeGenArgs,
 ): string {
   const generatorFn: IGenerator = getTypesGenerator(generateCodeArgs.language!)
   const generatedTypes = generatorFn.generate(generateArgs)
@@ -65,7 +65,7 @@ function generateTypes(
 
 function generateResolvers(
   generateArgs: GenerateArgs,
-  generateCodeArgs: GenerateCodeArgs,
+  generateCodeArgs: CodeGenArgs,
 ): CodeFileLike[] {
   const generatorFn: IGenerator = getResolversGenerator(
     generateCodeArgs.language!,
@@ -85,20 +85,29 @@ function generateResolvers(
   })
 }
 
-export function generateCode(
-  generateCodeArgs: GenerateCodeArgs,
-): { generatedTypes: string; generatedResolvers: CodeFileLike[] } {
-  const { schema } = generateCodeArgs
+type CodeGenResult = {
+  generatedTypes: string
+  generatedResolvers?: CodeFileLike[]
+}
+
+export function generateCode(codeGenArgs: CodeGenArgs): CodeGenResult {
+  const { schema } = codeGenArgs
+
   const generateArgs: GenerateArgs = {
     ...schema,
     context: parseContext(
-      generateCodeArgs.config.context,
-      generateCodeArgs.config.output,
+      codeGenArgs.config.context,
+      codeGenArgs.config.output,
     ),
-    modelMap: generateCodeArgs.modelMap!,
+    modelMap: codeGenArgs.modelMap!,
   }
-  const generatedTypes = generateTypes(generateArgs, generateCodeArgs)
-  const generatedResolvers = generateResolvers(generateArgs, generateCodeArgs)
+
+  const generatedTypes = generateTypes(generateArgs, codeGenArgs)
+
+  const generatedResolvers = codeGenArgs.config['resolver-scaffolding']
+    ? generateResolvers(generateArgs, codeGenArgs)
+    : undefined
+
   // const generatedModels = generateModels(generateArgs, {schema, prettify, prettifyOptions, language})
 
   return { generatedTypes, generatedResolvers }
@@ -160,7 +169,10 @@ async function run() {
   })
 
   Project.writeTypes(generatedTypes, config)
-  Project.writeResolversScaffolding(generatedResolvers, config)
+
+  if (config['resolver-scaffolding']) {
+    Project.writeResolversScaffolding(generatedResolvers!, config)
+  }
 }
 
 // Only call run when running from CLI, not when included for tests
