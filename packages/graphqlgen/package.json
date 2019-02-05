@@ -65,7 +65,7 @@
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.8",
     "benchmark": "2.1.4",
-    "flow-bin": "0.86.0",
+    "flow-bin": "0.92.1",
     "graphql-tag": "2.10.1",
     "jest": "23.6.0",
     "ts-jest": "23.10.5",
