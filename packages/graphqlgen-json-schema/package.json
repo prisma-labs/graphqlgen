@@ -1,6 +1,6 @@
 {
   "name": "graphqlgen-json-schema",
-  "version": "0.6.0-rc2",
+  "version": "0.6.0-rc3",
   "main": "dist/definition.js",
   "typings": "dist/definition.d.ts",
   "files": [
