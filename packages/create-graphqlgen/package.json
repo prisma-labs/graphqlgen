@@ -3,7 +3,7 @@
   "version": "0.6.0-rc3",
   "main": "dist/index.js",
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "yarn build",
     "clean": "rimraf dist",
     "build": "yarn clean && tsc --declaration",
     "build:watch": "yarn clean && tsc --declaration --watch",

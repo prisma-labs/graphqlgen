@@ -14,15 +14,15 @@
   },
   "scripts": {
     "clean": "rm -rf ./src/tests/**/tmp && rm -rf ./src/tests/**/generated",
-    "prepublish": "rm -rf example/node_modules && npm test && npm run build",
+    "prepublish": "rm -rf example/node_modules && yarn test && yarn build",
     "benchmarks": "ts-node benchmarks",
-    "build": "npm run clean && npm run lint && tsc --declaration",
+    "build": "yarn clean && yarn lint && tsc --declaration",
     "watch": "tsc -w",
     "lint": "tslint --project tsconfig.json {src,test}/**/*.ts",
     "test": "jest",
     "check:types": "yarn tsc --noEmit",
     "test:watch": "jest --watch",
-    "test:ci": "npm run lint && jest --maxWorkers 4",
+    "test:ci": "yarn lint && jest --maxWorkers 4",
     "gen": "ts-node --files src/index.ts"
   },
   "repository": {

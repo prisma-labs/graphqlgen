@@ -2,7 +2,7 @@
 
 ## 1. Create Release Notes
 1. [Draft a new release on Github](https://github.com/prisma/graphqlgen/releases/new)
-2. `npm install -g git-release-notes`
+2. `yarn global add git-release-notes`
 3. Get the release notes from executing `.github/make-release-notes.sh`
 4. Separate them like [here](https://github.com/prisma/graphqlgen/releases/tag/0.5.0) by Features and Fixes and add them to the draft
 5. Get feedback for the draft

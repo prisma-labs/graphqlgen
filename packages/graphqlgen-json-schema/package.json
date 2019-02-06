@@ -7,9 +7,9 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "yarn build",
     "build": "rm -rf dist && tsc -d; cp src/schema.json dist",
-    "test": "npm run build",
+    "test": "yarn build",
     "t": "jest"
   },
   "devDependencies": {

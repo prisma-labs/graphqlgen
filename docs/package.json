@@ -1,8 +1,8 @@
 {
   "scripts": {
     "prepare": "gitbook install && cp -a node_modules/highlight.js/. ~/.gitbook/versions/3.2.3/node_modules/highlight.js/",
-    "build": "npm run prepare && gitbook build && mv _book tmp && mkdir _book && mv tmp _book/graphqlgen",
-    "start": "npm run prepare && gitbook serve"
+    "build": "yarn prepare && gitbook build && mv _book tmp && mkdir _book && mv tmp _book/graphqlgen",
+    "start": "yarn prepare && gitbook serve"
   },
   "devDependencies": {
     "gitbook-cli": "2.3.2"
