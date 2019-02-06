@@ -13,7 +13,7 @@
     "graphqlgen": "0.5.1",
     "nodemon": "1.18.9",
     "ts-node": "8.0.2",
-    "typescript": "3.2.4"
+    "typescript": "3.3.1"
   },
   "license": "MIT"
 }
