@@ -5,6 +5,7 @@ export interface GraphQLGenDefinition {
   models: Models
   output: string
   ['resolver-scaffolding']?: ResolverScaffolding
+  ['default-resolvers']?: boolean
 }
 
 export interface Models {

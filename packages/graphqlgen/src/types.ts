@@ -14,6 +14,7 @@ export interface GenerateArgs {
   unions: GraphQLUnionObject[]
   context?: ContextDefinition
   modelMap: ModelMap
+  defaultResolversEnabled: boolean
 }
 
 export interface ModelMap {

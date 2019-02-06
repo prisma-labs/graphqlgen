@@ -299,7 +299,11 @@ function renderNamespace(
   return `\
     export namespace ${graphQLTypeObject.name}Resolvers {
 
-    ${renderDefaultResolvers(graphQLTypeObject, args, 'defaultResolvers')}
+    ${
+      args.defaultResolversEnabled
+        ? renderDefaultResolvers(graphQLTypeObject, args, 'defaultResolvers')
+        : ''
+    }
 
     ${renderInputTypeInterfaces(
       graphQLTypeObject,

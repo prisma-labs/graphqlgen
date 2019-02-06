@@ -171,7 +171,11 @@ function renderNamespace(
 
   return `\
     // Types for ${typeName}
-    ${renderDefaultResolvers(type, args, `${typeName}_defaultResolvers`)}
+    ${
+      args.defaultResolversEnabled
+        ? renderDefaultResolvers(type, args, `${typeName}_defaultResolvers`)
+        : ''
+    }
 
     ${renderInputTypeInterfaces(
       type,

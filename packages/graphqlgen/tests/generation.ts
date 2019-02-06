@@ -137,7 +137,7 @@ export async function testGeneration(config: GraphQLGenDefinition) {
     config.output,
     config.language,
   )
-  const { generatedTypes, generatedResolvers } = generateCode({
+  const { generatedTypes, generatedResolvers = [] } = generateCode({
     schema,
     language: config.language,
     config,

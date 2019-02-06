@@ -26,7 +26,11 @@ function renderResolvers(
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
   export const ${type.name}: ${type.name}Resolvers.Type = {
-    ...${type.name}Resolvers.defaultResolvers,
+    ${
+      args.defaultResolversEnabled
+        ? `...${type.name}Resolvers.defaultResolvers,`
+        : ''
+    }
     ${type.fields
       .filter(field => shouldScaffoldFieldResolver(field, modelFields, args))
       .map(
@@ -57,7 +61,10 @@ function renderPolyResolvers(
   return { path: `${type.name}.ts`, force: false, code }
 }
 
-function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
+function renderParentResolvers(
+  type: GraphQLTypeObject,
+  args: GenerateArgs,
+): CodeFileLike {
   const code = `\
   // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
   // Please do not import this file directly but copy & paste to your application code.
@@ -65,7 +72,11 @@ function renderParentResolvers(type: GraphQLTypeObject): CodeFileLike {
   import { ${type.name}Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
   export const ${type.name}: ${type.name}Resolvers.Type = {
-    ...${type.name}Resolvers.defaultResolvers,
+    ${
+      args.defaultResolversEnabled
+        ? `...${type.name}Resolvers.defaultResolvers,`
+        : ''
+    }
     ${type.fields.map(field => {
       if (type.name === 'Subscription') {
         return `${field.name}: {
@@ -126,7 +137,7 @@ export function generate(args: GenerateArgs): CodeFileLike[] {
     args.types
       .filter(type => type.type.isObject)
       .filter(type => isParentType(type.name))
-      .map(renderParentResolvers),
+      .map(type => renderParentResolvers(type, args)),
   )
 
   files.push({
