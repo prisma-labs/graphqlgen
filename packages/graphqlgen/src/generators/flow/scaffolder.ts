@@ -92,11 +92,15 @@ function renderResolvers(
   const modelFields = fieldsFromModelDefinition(model.definition)
   const upperTypeName = upperFirst(type.name)
   const code = `/* @flow */
-import { ${upperTypeName}_defaultResolvers } from '[TEMPLATE-INTERFACES-PATH]'
+${
+  args.defaultResolversEnabled
+    ? `import { ${upperTypeName}_defaultResolvers } from '[TEMPLATE-INTERFACES-PATH]'`
+    : ''
+}
 import type { ${upperTypeName}_Resolvers } from '[TEMPLATE-INTERFACES-PATH]'
 
 export const ${type.name}: ${upperTypeName}_Resolvers = {
-  ...${upperTypeName}_defaultResolvers,
+  ${args.defaultResolversEnabled ? `...${upperTypeName}_defaultResolvers,` : ''}
   ${type.fields
     .filter(graphQLField =>
       shouldScaffoldFieldResolver(graphQLField, modelFields, args),
