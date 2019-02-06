@@ -101,7 +101,7 @@ export function generateCode(codeGenArgs: CodeGenArgs): CodeGenResult {
       codeGenArgs.config.context,
       codeGenArgs.config.output,
     ),
-    defaultResolvers:
+    defaultResolversEnabled:
       typeof codeGenArgs.config['default-resolvers'] === 'boolean'
         ? codeGenArgs.config['default-resolvers']
         : true,
