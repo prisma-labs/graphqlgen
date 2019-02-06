@@ -91,19 +91,23 @@ type CodeGenResult = {
 }
 
 export function generateCode(codeGenArgs: CodeGenArgs): CodeGenResult {
-  const { schema } = codeGenArgs
-
   const generateArgs: GenerateArgs = {
-    ...schema,
+    enums: codeGenArgs.schema.enums,
+    interfaces: codeGenArgs.schema.interfaces,
+    types: codeGenArgs.schema.types,
+    unions: codeGenArgs.schema.unions,
+    modelMap: codeGenArgs.modelMap!,
     context: parseContext(
       codeGenArgs.config.context,
       codeGenArgs.config.output,
     ),
-    modelMap: codeGenArgs.modelMap!,
+    defaultResolvers:
+      typeof codeGenArgs.config['default-resolvers'] === 'boolean'
+        ? codeGenArgs.config['default-resolvers']
+        : true,
   }
 
   const generatedTypes = generateTypes(generateArgs, codeGenArgs)
-
   const generatedResolvers = codeGenArgs.config['resolver-scaffolding']
     ? generateResolvers(generateArgs, codeGenArgs)
     : undefined
