@@ -32,7 +32,7 @@
     "@types/execa": "0.9.0",
     "@types/inquirer": "0.0.43",
     "@types/meow": "5.0.0",
-    "@types/node": "10.12.19",
+    "@types/node": "10.12.21",
     "@types/ora": "3.0.0",
     "@types/parse-github-url": "1.0.0",
     "@types/request": "2.48.1",

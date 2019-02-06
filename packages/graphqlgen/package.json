@@ -60,7 +60,7 @@
     "@types/jest": "23.3.13",
     "@types/js-yaml": "3.12.0",
     "@types/mkdirp": "0.5.2",
-    "@types/node": "10.12.19",
+    "@types/node": "10.12.21",
     "@types/prettier": "1.15.2",
     "@types/rimraf": "2.0.2",
     "@types/yargs": "12.0.8",
