@@ -90,7 +90,8 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
   // We can assume absolute path is cwd prefixed because
   // gg currently only works when run in a directory with the
   // graphqlgen manifest.
-  const absoluteFilePath = Path.join(process.cwd(), filePath)
+  const absoluteFilePath =
+    filePath[0] == '/' ? filePath : Path.join(process.cwd(), filePath)
 
   if (!fs.existsSync(absoluteFilePath)) {
     console.error(
