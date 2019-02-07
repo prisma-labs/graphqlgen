@@ -14,7 +14,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./src/tests/**/tmp && rm -rf ./src/tests/**/generated",
-    "prepublish": "rm -rf example/node_modules && yarn test && yarn build",
+    "prepublishOnly": "rm -rf example/node_modules && yarn test && yarn build",
     "benchmarks": "ts-node benchmarks",
     "build": "yarn clean && yarn lint && tsc --declaration",
     "watch": "tsc -w",
