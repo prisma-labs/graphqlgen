@@ -27,7 +27,7 @@ export namespace QueryResolvers {
       ) => User | null | Promise<User | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCreateUser,
           ctx: Context,
@@ -45,7 +45,7 @@ export namespace QueryResolvers {
         ) => User | null | Promise<User | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCreateUser,
             ctx: Context,
@@ -71,7 +71,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -88,7 +88,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -105,7 +105,7 @@ export namespace UserResolvers {
       ) => EnumAnnotation | Promise<EnumAnnotation>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -122,7 +122,7 @@ export namespace UserResolvers {
       ) => EnumAsUnionType | Promise<EnumAsUnionType>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -140,7 +140,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -157,7 +157,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -174,7 +174,7 @@ export namespace UserResolvers {
         ) => EnumAnnotation | Promise<EnumAnnotation>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -191,7 +191,7 @@ export namespace UserResolvers {
         ) => EnumAsUnionType | Promise<EnumAsUnionType>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -313,7 +313,7 @@ export namespace MutationResolvers {
       ) => AddMemberPayload | Promise<AddMemberPayload>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsAddMember,
           ctx: Context,
@@ -330,7 +330,7 @@ export namespace MutationResolvers {
       ) => AddMemberPayload | Promise<AddMemberPayload>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsAddMembers,
           ctx: Context,
@@ -348,7 +348,7 @@ export namespace MutationResolvers {
         ) => AddMemberPayload | Promise<AddMemberPayload>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsAddMember,
             ctx: Context,
@@ -365,7 +365,7 @@ export namespace MutationResolvers {
         ) => AddMemberPayload | Promise<AddMemberPayload>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsAddMembers,
             ctx: Context,
@@ -389,7 +389,7 @@ export namespace AddMemberPayloadResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: AddMemberPayload,
           args: {},
           ctx: Context,
@@ -406,7 +406,7 @@ export namespace AddMemberPayloadResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: AddMemberPayload,
           args: {},
           ctx: Context,
@@ -424,7 +424,7 @@ export namespace AddMemberPayloadResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: AddMemberPayload,
             args: {},
             ctx: Context,
@@ -441,7 +441,7 @@ export namespace AddMemberPayloadResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: AddMemberPayload,
             args: {},
             ctx: Context,
@@ -547,7 +547,7 @@ export namespace QueryResolvers {
       )
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsMedia,
           ctx: Context,
@@ -567,7 +567,7 @@ export namespace QueryResolvers {
       ) => Image | Video | null | Promise<Image | Video | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsMediaItem,
           ctx: Context,
@@ -589,7 +589,7 @@ export namespace QueryResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsMedia,
             ctx: Context,
@@ -609,7 +609,7 @@ export namespace QueryResolvers {
         ) => Image | Video | null | Promise<Image | Video | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsMediaItem,
             ctx: Context,
@@ -634,7 +634,7 @@ export namespace DimensionsResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Dimensions,
           args: {},
           ctx: Context,
@@ -651,7 +651,7 @@ export namespace DimensionsResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Dimensions,
           args: {},
           ctx: Context,
@@ -669,7 +669,7 @@ export namespace DimensionsResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Dimensions,
             args: {},
             ctx: Context,
@@ -686,7 +686,7 @@ export namespace DimensionsResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Dimensions,
             args: {},
             ctx: Context,
@@ -710,7 +710,7 @@ export namespace ImageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Image,
           args: {},
           ctx: Context,
@@ -727,7 +727,7 @@ export namespace ImageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Image,
           args: {},
           ctx: Context,
@@ -744,7 +744,7 @@ export namespace ImageResolvers {
       ) => Dimensions | Promise<Dimensions>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Image,
           args: {},
           ctx: Context,
@@ -762,7 +762,7 @@ export namespace ImageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Image,
             args: {},
             ctx: Context,
@@ -779,7 +779,7 @@ export namespace ImageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Image,
             args: {},
             ctx: Context,
@@ -796,7 +796,7 @@ export namespace ImageResolvers {
         ) => Dimensions | Promise<Dimensions>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Image,
             args: {},
             ctx: Context,
@@ -820,7 +820,7 @@ export namespace VideoResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Video,
           args: {},
           ctx: Context,
@@ -837,7 +837,7 @@ export namespace VideoResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Video,
           args: {},
           ctx: Context,
@@ -854,7 +854,7 @@ export namespace VideoResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Video,
           args: {},
           ctx: Context,
@@ -872,7 +872,7 @@ export namespace VideoResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Video,
             args: {},
             ctx: Context,
@@ -889,7 +889,7 @@ export namespace VideoResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Video,
             args: {},
             ctx: Context,
@@ -906,7 +906,7 @@ export namespace VideoResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Video,
             args: {},
             ctx: Context,
@@ -1082,7 +1082,7 @@ export namespace MutationResolvers {
       ) => AddMemberPayload | Promise<AddMemberPayload>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsAddMember,
           ctx: Context,
@@ -1100,7 +1100,7 @@ export namespace MutationResolvers {
         ) => AddMemberPayload | Promise<AddMemberPayload>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsAddMember,
             ctx: Context,
@@ -1124,7 +1124,7 @@ export namespace AddMemberPayloadResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: AddMemberPayload,
           args: {},
           ctx: Context,
@@ -1142,7 +1142,7 @@ export namespace AddMemberPayloadResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: AddMemberPayload,
             args: {},
             ctx: Context,
@@ -1245,7 +1245,7 @@ export namespace QueryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1262,7 +1262,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1279,7 +1279,7 @@ export namespace QueryResolvers {
       ) => Number | null | Promise<Number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1296,7 +1296,7 @@ export namespace QueryResolvers {
       ) => Array<Number | null> | null | Promise<Array<Number | null> | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1313,7 +1313,7 @@ export namespace QueryResolvers {
       ) => Array<Number | null> | Promise<Array<Number | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1330,7 +1330,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_arg,
           ctx: Context,
@@ -1347,7 +1347,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_custom_arg,
           ctx: Context,
@@ -1364,7 +1364,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1381,7 +1381,7 @@ export namespace QueryResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1398,7 +1398,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1418,7 +1418,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | Promise<Array<boolean | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -1435,7 +1435,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_arg,
           ctx: Context,
@@ -1452,7 +1452,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_custom_arg,
           ctx: Context,
@@ -1470,7 +1470,7 @@ export namespace QueryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1487,7 +1487,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1504,7 +1504,7 @@ export namespace QueryResolvers {
         ) => Number | null | Promise<Number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1521,7 +1521,7 @@ export namespace QueryResolvers {
         ) => Array<Number | null> | null | Promise<Array<Number | null> | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1541,7 +1541,7 @@ export namespace QueryResolvers {
         ) => Array<Number | null> | Promise<Array<Number | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1558,7 +1558,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_arg,
             ctx: Context,
@@ -1575,7 +1575,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_custom_arg,
             ctx: Context,
@@ -1592,7 +1592,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1609,7 +1609,7 @@ export namespace QueryResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1630,7 +1630,7 @@ export namespace QueryResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1650,7 +1650,7 @@ export namespace QueryResolvers {
         ) => Array<boolean | null> | Promise<Array<boolean | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -1667,7 +1667,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_arg,
             ctx: Context,
@@ -1684,7 +1684,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_custom_arg,
             ctx: Context,
@@ -1709,7 +1709,7 @@ export namespace NumberResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Number,
           args: {},
           ctx: Context,
@@ -1726,7 +1726,7 @@ export namespace NumberResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Number,
           args: {},
           ctx: Context,
@@ -1744,7 +1744,7 @@ export namespace NumberResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Number,
             args: {},
             ctx: Context,
@@ -1761,7 +1761,7 @@ export namespace NumberResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Number,
             args: {},
             ctx: Context,
@@ -1888,7 +1888,7 @@ export namespace QueryResolvers {
       ) => Array<Student | Professor> | Promise<Array<Student | Professor>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsUsers,
           ctx: Context,
@@ -1906,7 +1906,7 @@ export namespace QueryResolvers {
         ) => Array<Student | Professor> | Promise<Array<Student | Professor>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsUsers,
             ctx: Context,
@@ -1930,7 +1930,7 @@ export namespace StudentResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Student,
           args: {},
           ctx: Context,
@@ -1948,7 +1948,7 @@ export namespace StudentResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Student,
             args: {},
             ctx: Context,
@@ -1974,7 +1974,7 @@ export namespace ProfessorResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Professor,
           args: {},
           ctx: Context,
@@ -1992,7 +1992,7 @@ export namespace ProfessorResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Professor,
             args: {},
             ctx: Context,
@@ -2019,7 +2019,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2036,7 +2036,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2054,7 +2054,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2071,7 +2071,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2215,7 +2215,7 @@ export namespace QueryResolvers {
       ) => User | null | Promise<User | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2233,7 +2233,7 @@ export namespace QueryResolvers {
         ) => User | null | Promise<User | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2257,7 +2257,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2275,7 +2275,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2378,7 +2378,7 @@ export namespace QueryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2395,7 +2395,7 @@ export namespace QueryResolvers {
       ) => NumberNode | Promise<NumberNode>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2412,7 +2412,7 @@ export namespace QueryResolvers {
       ) => NumberNode | null | Promise<NumberNode | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2433,7 +2433,7 @@ export namespace QueryResolvers {
       )
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2453,7 +2453,7 @@ export namespace QueryResolvers {
       ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2470,7 +2470,7 @@ export namespace QueryResolvers {
       ) => NumberNode | Promise<NumberNode>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_arg,
           ctx: Context,
@@ -2487,7 +2487,7 @@ export namespace QueryResolvers {
       ) => NumberNode | Promise<NumberNode>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_custom_arg,
           ctx: Context,
@@ -2504,7 +2504,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2521,7 +2521,7 @@ export namespace QueryResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2538,7 +2538,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2558,7 +2558,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | Promise<Array<boolean | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -2575,7 +2575,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_arg,
           ctx: Context,
@@ -2592,7 +2592,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_custom_arg,
           ctx: Context,
@@ -2610,7 +2610,7 @@ export namespace QueryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2627,7 +2627,7 @@ export namespace QueryResolvers {
         ) => NumberNode | Promise<NumberNode>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2644,7 +2644,7 @@ export namespace QueryResolvers {
         ) => NumberNode | null | Promise<NumberNode | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2665,7 +2665,7 @@ export namespace QueryResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2685,7 +2685,7 @@ export namespace QueryResolvers {
         ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2702,7 +2702,7 @@ export namespace QueryResolvers {
         ) => NumberNode | Promise<NumberNode>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_arg,
             ctx: Context,
@@ -2719,7 +2719,7 @@ export namespace QueryResolvers {
         ) => NumberNode | Promise<NumberNode>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_custom_arg,
             ctx: Context,
@@ -2736,7 +2736,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2753,7 +2753,7 @@ export namespace QueryResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2774,7 +2774,7 @@ export namespace QueryResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2794,7 +2794,7 @@ export namespace QueryResolvers {
         ) => Array<boolean | null> | Promise<Array<boolean | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -2811,7 +2811,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_arg,
             ctx: Context,
@@ -2828,7 +2828,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_custom_arg,
             ctx: Context,
@@ -2853,7 +2853,7 @@ export namespace NumberResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: NumberNode,
           args: {},
           ctx: Context,
@@ -2870,7 +2870,7 @@ export namespace NumberResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: NumberNode,
           args: {},
           ctx: Context,
@@ -2888,7 +2888,7 @@ export namespace NumberResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: NumberNode,
             args: {},
             ctx: Context,
@@ -2905,7 +2905,7 @@ export namespace NumberResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: NumberNode,
             args: {},
             ctx: Context,
@@ -3044,7 +3044,7 @@ export namespace QueryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3061,7 +3061,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3078,7 +3078,7 @@ export namespace QueryResolvers {
       ) => Number | null | Promise<Number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3095,7 +3095,7 @@ export namespace QueryResolvers {
       ) => Array<Number | null> | null | Promise<Array<Number | null> | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3112,7 +3112,7 @@ export namespace QueryResolvers {
       ) => Array<Number | null> | Promise<Array<Number | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3129,7 +3129,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_arg,
           ctx: Context,
@@ -3146,7 +3146,7 @@ export namespace QueryResolvers {
       ) => Number | Promise<Number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsCustom_with_custom_arg,
           ctx: Context,
@@ -3163,7 +3163,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3180,7 +3180,7 @@ export namespace QueryResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3197,7 +3197,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3217,7 +3217,7 @@ export namespace QueryResolvers {
       ) => Array<boolean | null> | Promise<Array<boolean | null>>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -3234,7 +3234,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_arg,
           ctx: Context,
@@ -3251,7 +3251,7 @@ export namespace QueryResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsScalar_with_custom_arg,
           ctx: Context,
@@ -3269,7 +3269,7 @@ export namespace QueryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3286,7 +3286,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3303,7 +3303,7 @@ export namespace QueryResolvers {
         ) => Number | null | Promise<Number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3320,7 +3320,7 @@ export namespace QueryResolvers {
         ) => Array<Number | null> | null | Promise<Array<Number | null> | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3340,7 +3340,7 @@ export namespace QueryResolvers {
         ) => Array<Number | null> | Promise<Array<Number | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3357,7 +3357,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_arg,
             ctx: Context,
@@ -3374,7 +3374,7 @@ export namespace QueryResolvers {
         ) => Number | Promise<Number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsCustom_with_custom_arg,
             ctx: Context,
@@ -3391,7 +3391,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3408,7 +3408,7 @@ export namespace QueryResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3429,7 +3429,7 @@ export namespace QueryResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3449,7 +3449,7 @@ export namespace QueryResolvers {
         ) => Array<boolean | null> | Promise<Array<boolean | null>>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -3466,7 +3466,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_arg,
             ctx: Context,
@@ -3483,7 +3483,7 @@ export namespace QueryResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsScalar_with_custom_arg,
             ctx: Context,
@@ -3508,7 +3508,7 @@ export namespace NumberResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Number,
           args: {},
           ctx: Context,
@@ -3525,7 +3525,7 @@ export namespace NumberResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Number,
           args: {},
           ctx: Context,
@@ -3543,7 +3543,7 @@ export namespace NumberResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Number,
             args: {},
             ctx: Context,
@@ -3560,7 +3560,7 @@ export namespace NumberResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Number,
             args: {},
             ctx: Context,
@@ -3721,7 +3721,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -3739,7 +3739,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,

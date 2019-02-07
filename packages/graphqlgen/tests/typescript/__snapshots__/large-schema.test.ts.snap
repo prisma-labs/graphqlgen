@@ -75,7 +75,7 @@ export namespace QueryResolvers {
       ) => Experience[] | Promise<Experience[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -92,7 +92,7 @@ export namespace QueryResolvers {
       ) => Home[] | Promise<Home[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -109,7 +109,7 @@ export namespace QueryResolvers {
       ) => Home[] | Promise<Home[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsHomesInPriceRange,
           ctx: Context,
@@ -126,7 +126,7 @@ export namespace QueryResolvers {
       ) => Reservation[] | Promise<Reservation[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -143,7 +143,7 @@ export namespace QueryResolvers {
       ) => Neighbourhood[] | Promise<Neighbourhood[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -160,7 +160,7 @@ export namespace QueryResolvers {
       ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsExperiencesByCity,
           ctx: Context,
@@ -177,7 +177,7 @@ export namespace QueryResolvers {
       ) => Viewer | null | Promise<Viewer | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -194,7 +194,7 @@ export namespace QueryResolvers {
       ) => Location | null | Promise<Location | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: {},
           ctx: Context,
@@ -212,7 +212,7 @@ export namespace QueryResolvers {
         ) => Experience[] | Promise<Experience[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -229,7 +229,7 @@ export namespace QueryResolvers {
         ) => Home[] | Promise<Home[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -246,7 +246,7 @@ export namespace QueryResolvers {
         ) => Home[] | Promise<Home[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsHomesInPriceRange,
             ctx: Context,
@@ -263,7 +263,7 @@ export namespace QueryResolvers {
         ) => Reservation[] | Promise<Reservation[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -280,7 +280,7 @@ export namespace QueryResolvers {
         ) => Neighbourhood[] | Promise<Neighbourhood[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -297,7 +297,7 @@ export namespace QueryResolvers {
         ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsExperiencesByCity,
             ctx: Context,
@@ -314,7 +314,7 @@ export namespace QueryResolvers {
         ) => Viewer | null | Promise<Viewer | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -331,7 +331,7 @@ export namespace QueryResolvers {
         ) => Location | null | Promise<Location | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: {},
             ctx: Context,
@@ -363,7 +363,7 @@ export namespace ExperienceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -380,7 +380,7 @@ export namespace ExperienceResolvers {
       ) => ExperienceCategory | null | Promise<ExperienceCategory | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -397,7 +397,7 @@ export namespace ExperienceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -414,7 +414,7 @@ export namespace ExperienceResolvers {
       ) => Location | Promise<Location>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -431,7 +431,7 @@ export namespace ExperienceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -448,7 +448,7 @@ export namespace ExperienceResolvers {
       ) => Review[] | Promise<Review[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -465,7 +465,7 @@ export namespace ExperienceResolvers {
       ) => Picture | Promise<Picture>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -482,7 +482,7 @@ export namespace ExperienceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Experience,
           args: {},
           ctx: Context,
@@ -500,7 +500,7 @@ export namespace ExperienceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -517,7 +517,7 @@ export namespace ExperienceResolvers {
         ) => ExperienceCategory | null | Promise<ExperienceCategory | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -534,7 +534,7 @@ export namespace ExperienceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -551,7 +551,7 @@ export namespace ExperienceResolvers {
         ) => Location | Promise<Location>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -568,7 +568,7 @@ export namespace ExperienceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -585,7 +585,7 @@ export namespace ExperienceResolvers {
         ) => Review[] | Promise<Review[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -602,7 +602,7 @@ export namespace ExperienceResolvers {
         ) => Picture | Promise<Picture>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -619,7 +619,7 @@ export namespace ExperienceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Experience,
             args: {},
             ctx: Context,
@@ -647,7 +647,7 @@ export namespace ExperienceCategoryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperienceCategory,
           args: {},
           ctx: Context,
@@ -664,7 +664,7 @@ export namespace ExperienceCategoryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperienceCategory,
           args: {},
           ctx: Context,
@@ -681,7 +681,7 @@ export namespace ExperienceCategoryResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperienceCategory,
           args: {},
           ctx: Context,
@@ -698,7 +698,7 @@ export namespace ExperienceCategoryResolvers {
       ) => Experience | null | Promise<Experience | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperienceCategory,
           args: {},
           ctx: Context,
@@ -716,7 +716,7 @@ export namespace ExperienceCategoryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperienceCategory,
             args: {},
             ctx: Context,
@@ -733,7 +733,7 @@ export namespace ExperienceCategoryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperienceCategory,
             args: {},
             ctx: Context,
@@ -750,7 +750,7 @@ export namespace ExperienceCategoryResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperienceCategory,
             args: {},
             ctx: Context,
@@ -767,7 +767,7 @@ export namespace ExperienceCategoryResolvers {
         ) => Experience | null | Promise<Experience | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperienceCategory,
             args: {},
             ctx: Context,
@@ -797,7 +797,7 @@ export namespace LocationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Location,
           args: {},
           ctx: Context,
@@ -814,7 +814,7 @@ export namespace LocationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Location,
           args: {},
           ctx: Context,
@@ -831,7 +831,7 @@ export namespace LocationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Location,
           args: {},
           ctx: Context,
@@ -848,7 +848,7 @@ export namespace LocationResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Location,
           args: {},
           ctx: Context,
@@ -865,7 +865,7 @@ export namespace LocationResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Location,
           args: {},
           ctx: Context,
@@ -883,7 +883,7 @@ export namespace LocationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Location,
             args: {},
             ctx: Context,
@@ -900,7 +900,7 @@ export namespace LocationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Location,
             args: {},
             ctx: Context,
@@ -917,7 +917,7 @@ export namespace LocationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Location,
             args: {},
             ctx: Context,
@@ -934,7 +934,7 @@ export namespace LocationResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Location,
             args: {},
             ctx: Context,
@@ -951,7 +951,7 @@ export namespace LocationResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Location,
             args: {},
             ctx: Context,
@@ -984,7 +984,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1001,7 +1001,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1018,7 +1018,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1035,7 +1035,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1052,7 +1052,7 @@ export namespace ReviewResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1069,7 +1069,7 @@ export namespace ReviewResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1086,7 +1086,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1103,7 +1103,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1120,7 +1120,7 @@ export namespace ReviewResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1137,7 +1137,7 @@ export namespace ReviewResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Review,
           args: {},
           ctx: Context,
@@ -1155,7 +1155,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1172,7 +1172,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1189,7 +1189,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1206,7 +1206,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1223,7 +1223,7 @@ export namespace ReviewResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1240,7 +1240,7 @@ export namespace ReviewResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1257,7 +1257,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1274,7 +1274,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1291,7 +1291,7 @@ export namespace ReviewResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1308,7 +1308,7 @@ export namespace ReviewResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Review,
             args: {},
             ctx: Context,
@@ -1333,7 +1333,7 @@ export namespace PictureResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Picture,
           args: {},
           ctx: Context,
@@ -1350,7 +1350,7 @@ export namespace PictureResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Picture,
           args: {},
           ctx: Context,
@@ -1368,7 +1368,7 @@ export namespace PictureResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Picture,
             args: {},
             ctx: Context,
@@ -1385,7 +1385,7 @@ export namespace PictureResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Picture,
             args: {},
             ctx: Context,
@@ -1420,7 +1420,7 @@ export namespace HomeResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1437,7 +1437,7 @@ export namespace HomeResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1454,7 +1454,7 @@ export namespace HomeResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1471,7 +1471,7 @@ export namespace HomeResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1488,7 +1488,7 @@ export namespace HomeResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1505,7 +1505,7 @@ export namespace HomeResolvers {
       ) => Picture[] | Promise<Picture[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: ArgsPictures,
           ctx: Context,
@@ -1522,7 +1522,7 @@ export namespace HomeResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Home,
           args: {},
           ctx: Context,
@@ -1540,7 +1540,7 @@ export namespace HomeResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1557,7 +1557,7 @@ export namespace HomeResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1574,7 +1574,7 @@ export namespace HomeResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1591,7 +1591,7 @@ export namespace HomeResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1608,7 +1608,7 @@ export namespace HomeResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1625,7 +1625,7 @@ export namespace HomeResolvers {
         ) => Picture[] | Promise<Picture[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: ArgsPictures,
             ctx: Context,
@@ -1642,7 +1642,7 @@ export namespace HomeResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Home,
             args: {},
             ctx: Context,
@@ -1673,7 +1673,7 @@ export namespace ReservationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1690,7 +1690,7 @@ export namespace ReservationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1707,7 +1707,7 @@ export namespace ReservationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1724,7 +1724,7 @@ export namespace ReservationResolvers {
       ) => Picture[] | Promise<Picture[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1741,7 +1741,7 @@ export namespace ReservationResolvers {
       ) => Location | Promise<Location>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1758,7 +1758,7 @@ export namespace ReservationResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1775,7 +1775,7 @@ export namespace ReservationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1792,7 +1792,7 @@ export namespace ReservationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Reservation,
           args: {},
           ctx: Context,
@@ -1810,7 +1810,7 @@ export namespace ReservationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1827,7 +1827,7 @@ export namespace ReservationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1844,7 +1844,7 @@ export namespace ReservationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1861,7 +1861,7 @@ export namespace ReservationResolvers {
         ) => Picture[] | Promise<Picture[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1878,7 +1878,7 @@ export namespace ReservationResolvers {
         ) => Location | Promise<Location>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1895,7 +1895,7 @@ export namespace ReservationResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1912,7 +1912,7 @@ export namespace ReservationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1929,7 +1929,7 @@ export namespace ReservationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Reservation,
             args: {},
             ctx: Context,
@@ -1960,7 +1960,7 @@ export namespace NeighbourhoodResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -1977,7 +1977,7 @@ export namespace NeighbourhoodResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -1994,7 +1994,7 @@ export namespace NeighbourhoodResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -2011,7 +2011,7 @@ export namespace NeighbourhoodResolvers {
       ) => Picture | null | Promise<Picture | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -2028,7 +2028,7 @@ export namespace NeighbourhoodResolvers {
       ) => City | Promise<City>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -2045,7 +2045,7 @@ export namespace NeighbourhoodResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -2062,7 +2062,7 @@ export namespace NeighbourhoodResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Neighbourhood,
           args: {},
           ctx: Context,
@@ -2080,7 +2080,7 @@ export namespace NeighbourhoodResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2097,7 +2097,7 @@ export namespace NeighbourhoodResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2114,7 +2114,7 @@ export namespace NeighbourhoodResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2131,7 +2131,7 @@ export namespace NeighbourhoodResolvers {
         ) => Picture | null | Promise<Picture | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2148,7 +2148,7 @@ export namespace NeighbourhoodResolvers {
         ) => City | Promise<City>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2165,7 +2165,7 @@ export namespace NeighbourhoodResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2182,7 +2182,7 @@ export namespace NeighbourhoodResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Neighbourhood,
             args: {},
             ctx: Context,
@@ -2207,7 +2207,7 @@ export namespace CityResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: City,
           args: {},
           ctx: Context,
@@ -2224,7 +2224,7 @@ export namespace CityResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: City,
           args: {},
           ctx: Context,
@@ -2242,7 +2242,7 @@ export namespace CityResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: City,
             args: {},
             ctx: Context,
@@ -2259,7 +2259,7 @@ export namespace CityResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: City,
             args: {},
             ctx: Context,
@@ -2284,7 +2284,7 @@ export namespace ExperiencesByCityResolvers {
       ) => Experience[] | Promise<Experience[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperiencesByCity,
           args: {},
           ctx: Context,
@@ -2301,7 +2301,7 @@ export namespace ExperiencesByCityResolvers {
       ) => City | Promise<City>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: ExperiencesByCity,
           args: {},
           ctx: Context,
@@ -2319,7 +2319,7 @@ export namespace ExperiencesByCityResolvers {
         ) => Experience[] | Promise<Experience[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperiencesByCity,
             args: {},
             ctx: Context,
@@ -2336,7 +2336,7 @@ export namespace ExperiencesByCityResolvers {
         ) => City | Promise<City>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: ExperiencesByCity,
             args: {},
             ctx: Context,
@@ -2361,7 +2361,7 @@ export namespace ViewerResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Viewer,
           args: {},
           ctx: Context,
@@ -2378,7 +2378,7 @@ export namespace ViewerResolvers {
       ) => Booking[] | Promise<Booking[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Viewer,
           args: {},
           ctx: Context,
@@ -2396,7 +2396,7 @@ export namespace ViewerResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Viewer,
             args: {},
             ctx: Context,
@@ -2413,7 +2413,7 @@ export namespace ViewerResolvers {
         ) => Booking[] | Promise<Booking[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Viewer,
             args: {},
             ctx: Context,
@@ -2456,7 +2456,7 @@ export namespace UserResolvers {
       ) => Booking[] | null | Promise<Booking[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2473,7 +2473,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2490,7 +2490,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2507,7 +2507,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2524,7 +2524,7 @@ export namespace UserResolvers {
       ) => Experience[] | null | Promise<Experience[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2541,7 +2541,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2558,7 +2558,7 @@ export namespace UserResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2575,7 +2575,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2592,7 +2592,7 @@ export namespace UserResolvers {
       ) => Location | Promise<Location>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2609,7 +2609,7 @@ export namespace UserResolvers {
       ) => Notification[] | null | Promise<Notification[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2626,7 +2626,7 @@ export namespace UserResolvers {
       ) => Place[] | null | Promise<Place[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2643,7 +2643,7 @@ export namespace UserResolvers {
       ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2660,7 +2660,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2677,7 +2677,7 @@ export namespace UserResolvers {
       ) => Picture | null | Promise<Picture | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2694,7 +2694,7 @@ export namespace UserResolvers {
       ) => Message[] | null | Promise<Message[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2711,7 +2711,7 @@ export namespace UserResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2728,7 +2728,7 @@ export namespace UserResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2745,7 +2745,7 @@ export namespace UserResolvers {
       ) => Message[] | null | Promise<Message[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2762,7 +2762,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2779,7 +2779,7 @@ export namespace UserResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: User,
           args: {},
           ctx: Context,
@@ -2797,7 +2797,7 @@ export namespace UserResolvers {
         ) => Booking[] | null | Promise<Booking[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2814,7 +2814,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2831,7 +2831,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2848,7 +2848,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2865,7 +2865,7 @@ export namespace UserResolvers {
         ) => Experience[] | null | Promise<Experience[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2882,7 +2882,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2899,7 +2899,7 @@ export namespace UserResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2916,7 +2916,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2933,7 +2933,7 @@ export namespace UserResolvers {
         ) => Location | Promise<Location>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2950,7 +2950,7 @@ export namespace UserResolvers {
         ) => Notification[] | null | Promise<Notification[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2967,7 +2967,7 @@ export namespace UserResolvers {
         ) => Place[] | null | Promise<Place[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -2984,7 +2984,7 @@ export namespace UserResolvers {
         ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3001,7 +3001,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3018,7 +3018,7 @@ export namespace UserResolvers {
         ) => Picture | null | Promise<Picture | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3035,7 +3035,7 @@ export namespace UserResolvers {
         ) => Message[] | null | Promise<Message[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3052,7 +3052,7 @@ export namespace UserResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3069,7 +3069,7 @@ export namespace UserResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3086,7 +3086,7 @@ export namespace UserResolvers {
         ) => Message[] | null | Promise<Message[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3103,7 +3103,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3120,7 +3120,7 @@ export namespace UserResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: User,
             args: {},
             ctx: Context,
@@ -3150,7 +3150,7 @@ export namespace BookingResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3167,7 +3167,7 @@ export namespace BookingResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3184,7 +3184,7 @@ export namespace BookingResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3201,7 +3201,7 @@ export namespace BookingResolvers {
       ) => Place | Promise<Place>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3218,7 +3218,7 @@ export namespace BookingResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3235,7 +3235,7 @@ export namespace BookingResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3252,7 +3252,7 @@ export namespace BookingResolvers {
       ) => Payment | Promise<Payment>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Booking,
           args: {},
           ctx: Context,
@@ -3270,7 +3270,7 @@ export namespace BookingResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3287,7 +3287,7 @@ export namespace BookingResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3304,7 +3304,7 @@ export namespace BookingResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3321,7 +3321,7 @@ export namespace BookingResolvers {
         ) => Place | Promise<Place>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3338,7 +3338,7 @@ export namespace BookingResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3355,7 +3355,7 @@ export namespace BookingResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3372,7 +3372,7 @@ export namespace BookingResolvers {
         ) => Payment | Promise<Payment>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Booking,
             args: {},
             ctx: Context,
@@ -3420,7 +3420,7 @@ export namespace PlaceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3437,7 +3437,7 @@ export namespace PlaceResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3454,7 +3454,7 @@ export namespace PlaceResolvers {
       ) => PLACE_SIZES | null | Promise<PLACE_SIZES | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3471,7 +3471,7 @@ export namespace PlaceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3488,7 +3488,7 @@ export namespace PlaceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3505,7 +3505,7 @@ export namespace PlaceResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3522,7 +3522,7 @@ export namespace PlaceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3539,7 +3539,7 @@ export namespace PlaceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3556,7 +3556,7 @@ export namespace PlaceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3573,7 +3573,7 @@ export namespace PlaceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3590,7 +3590,7 @@ export namespace PlaceResolvers {
       ) => Review[] | Promise<Review[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3607,7 +3607,7 @@ export namespace PlaceResolvers {
       ) => Amenities | Promise<Amenities>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3624,7 +3624,7 @@ export namespace PlaceResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3641,7 +3641,7 @@ export namespace PlaceResolvers {
       ) => Pricing | Promise<Pricing>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3658,7 +3658,7 @@ export namespace PlaceResolvers {
       ) => Location | Promise<Location>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3675,7 +3675,7 @@ export namespace PlaceResolvers {
       ) => PlaceViews | Promise<PlaceViews>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3692,7 +3692,7 @@ export namespace PlaceResolvers {
       ) => GuestRequirements | null | Promise<GuestRequirements | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3709,7 +3709,7 @@ export namespace PlaceResolvers {
       ) => Policies | null | Promise<Policies | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3726,7 +3726,7 @@ export namespace PlaceResolvers {
       ) => HouseRules | null | Promise<HouseRules | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3743,7 +3743,7 @@ export namespace PlaceResolvers {
       ) => Booking[] | Promise<Booking[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3760,7 +3760,7 @@ export namespace PlaceResolvers {
       ) => Picture[] | null | Promise<Picture[] | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3777,7 +3777,7 @@ export namespace PlaceResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Place,
           args: {},
           ctx: Context,
@@ -3795,7 +3795,7 @@ export namespace PlaceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3812,7 +3812,7 @@ export namespace PlaceResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3829,7 +3829,7 @@ export namespace PlaceResolvers {
         ) => PLACE_SIZES | null | Promise<PLACE_SIZES | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3846,7 +3846,7 @@ export namespace PlaceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3863,7 +3863,7 @@ export namespace PlaceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3880,7 +3880,7 @@ export namespace PlaceResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3897,7 +3897,7 @@ export namespace PlaceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3914,7 +3914,7 @@ export namespace PlaceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3931,7 +3931,7 @@ export namespace PlaceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3948,7 +3948,7 @@ export namespace PlaceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3965,7 +3965,7 @@ export namespace PlaceResolvers {
         ) => Review[] | Promise<Review[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3982,7 +3982,7 @@ export namespace PlaceResolvers {
         ) => Amenities | Promise<Amenities>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -3999,7 +3999,7 @@ export namespace PlaceResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4016,7 +4016,7 @@ export namespace PlaceResolvers {
         ) => Pricing | Promise<Pricing>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4033,7 +4033,7 @@ export namespace PlaceResolvers {
         ) => Location | Promise<Location>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4050,7 +4050,7 @@ export namespace PlaceResolvers {
         ) => PlaceViews | Promise<PlaceViews>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4067,7 +4067,7 @@ export namespace PlaceResolvers {
         ) => GuestRequirements | null | Promise<GuestRequirements | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4084,7 +4084,7 @@ export namespace PlaceResolvers {
         ) => Policies | null | Promise<Policies | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4101,7 +4101,7 @@ export namespace PlaceResolvers {
         ) => HouseRules | null | Promise<HouseRules | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4118,7 +4118,7 @@ export namespace PlaceResolvers {
         ) => Booking[] | Promise<Booking[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4135,7 +4135,7 @@ export namespace PlaceResolvers {
         ) => Picture[] | null | Promise<Picture[] | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4152,7 +4152,7 @@ export namespace PlaceResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Place,
             args: {},
             ctx: Context,
@@ -4220,7 +4220,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4237,7 +4237,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4254,7 +4254,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4271,7 +4271,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4288,7 +4288,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4305,7 +4305,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4322,7 +4322,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4339,7 +4339,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4356,7 +4356,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4373,7 +4373,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4390,7 +4390,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4407,7 +4407,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4424,7 +4424,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4441,7 +4441,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4458,7 +4458,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4475,7 +4475,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4492,7 +4492,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4509,7 +4509,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4526,7 +4526,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4543,7 +4543,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4560,7 +4560,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4577,7 +4577,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4594,7 +4594,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4611,7 +4611,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4628,7 +4628,7 @@ export namespace AmenitiesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4645,7 +4645,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4662,7 +4662,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4679,7 +4679,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4696,7 +4696,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4713,7 +4713,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4730,7 +4730,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4747,7 +4747,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4764,7 +4764,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4781,7 +4781,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4798,7 +4798,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4815,7 +4815,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4832,7 +4832,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4849,7 +4849,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4866,7 +4866,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4883,7 +4883,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4900,7 +4900,7 @@ export namespace AmenitiesResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Amenities,
           args: {},
           ctx: Context,
@@ -4918,7 +4918,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -4935,7 +4935,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -4952,7 +4952,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -4969,7 +4969,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -4986,7 +4986,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5003,7 +5003,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5020,7 +5020,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5037,7 +5037,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5054,7 +5054,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5071,7 +5071,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5088,7 +5088,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5105,7 +5105,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5122,7 +5122,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5139,7 +5139,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5156,7 +5156,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5173,7 +5173,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5190,7 +5190,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5207,7 +5207,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5224,7 +5224,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5241,7 +5241,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5258,7 +5258,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5275,7 +5275,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5292,7 +5292,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5309,7 +5309,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5326,7 +5326,7 @@ export namespace AmenitiesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5343,7 +5343,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5360,7 +5360,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5377,7 +5377,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5394,7 +5394,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5411,7 +5411,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5428,7 +5428,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5445,7 +5445,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5462,7 +5462,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5479,7 +5479,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5496,7 +5496,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5513,7 +5513,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5530,7 +5530,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5547,7 +5547,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5564,7 +5564,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5581,7 +5581,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5598,7 +5598,7 @@ export namespace AmenitiesResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Amenities,
             args: {},
             ctx: Context,
@@ -5641,7 +5641,7 @@ export namespace PricingResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5658,7 +5658,7 @@ export namespace PricingResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5675,7 +5675,7 @@ export namespace PricingResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5692,7 +5692,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5709,7 +5709,7 @@ export namespace PricingResolvers {
       ) => CURRENCY | null | Promise<CURRENCY | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5726,7 +5726,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5743,7 +5743,7 @@ export namespace PricingResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5760,7 +5760,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5777,7 +5777,7 @@ export namespace PricingResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5794,7 +5794,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5811,7 +5811,7 @@ export namespace PricingResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5828,7 +5828,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5845,7 +5845,7 @@ export namespace PricingResolvers {
       ) => number | null | Promise<number | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Pricing,
           args: {},
           ctx: Context,
@@ -5863,7 +5863,7 @@ export namespace PricingResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5880,7 +5880,7 @@ export namespace PricingResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5897,7 +5897,7 @@ export namespace PricingResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5914,7 +5914,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5931,7 +5931,7 @@ export namespace PricingResolvers {
         ) => CURRENCY | null | Promise<CURRENCY | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5948,7 +5948,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5965,7 +5965,7 @@ export namespace PricingResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5982,7 +5982,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -5999,7 +5999,7 @@ export namespace PricingResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -6016,7 +6016,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -6033,7 +6033,7 @@ export namespace PricingResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -6050,7 +6050,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -6067,7 +6067,7 @@ export namespace PricingResolvers {
         ) => number | null | Promise<number | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Pricing,
             args: {},
             ctx: Context,
@@ -6092,7 +6092,7 @@ export namespace PlaceViewsResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PlaceViews,
           args: {},
           ctx: Context,
@@ -6109,7 +6109,7 @@ export namespace PlaceViewsResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PlaceViews,
           args: {},
           ctx: Context,
@@ -6127,7 +6127,7 @@ export namespace PlaceViewsResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PlaceViews,
             args: {},
             ctx: Context,
@@ -6144,7 +6144,7 @@ export namespace PlaceViewsResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PlaceViews,
             args: {},
             ctx: Context,
@@ -6173,7 +6173,7 @@ export namespace GuestRequirementsResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: GuestRequirements,
           args: {},
           ctx: Context,
@@ -6190,7 +6190,7 @@ export namespace GuestRequirementsResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: GuestRequirements,
           args: {},
           ctx: Context,
@@ -6207,7 +6207,7 @@ export namespace GuestRequirementsResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: GuestRequirements,
           args: {},
           ctx: Context,
@@ -6224,7 +6224,7 @@ export namespace GuestRequirementsResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: GuestRequirements,
           args: {},
           ctx: Context,
@@ -6242,7 +6242,7 @@ export namespace GuestRequirementsResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: GuestRequirements,
             args: {},
             ctx: Context,
@@ -6259,7 +6259,7 @@ export namespace GuestRequirementsResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: GuestRequirements,
             args: {},
             ctx: Context,
@@ -6276,7 +6276,7 @@ export namespace GuestRequirementsResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: GuestRequirements,
             args: {},
             ctx: Context,
@@ -6293,7 +6293,7 @@ export namespace GuestRequirementsResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: GuestRequirements,
             args: {},
             ctx: Context,
@@ -6322,7 +6322,7 @@ export namespace PoliciesResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6339,7 +6339,7 @@ export namespace PoliciesResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6356,7 +6356,7 @@ export namespace PoliciesResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6373,7 +6373,7 @@ export namespace PoliciesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6390,7 +6390,7 @@ export namespace PoliciesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6407,7 +6407,7 @@ export namespace PoliciesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Policies,
           args: {},
           ctx: Context,
@@ -6425,7 +6425,7 @@ export namespace PoliciesResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6442,7 +6442,7 @@ export namespace PoliciesResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6459,7 +6459,7 @@ export namespace PoliciesResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6476,7 +6476,7 @@ export namespace PoliciesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6493,7 +6493,7 @@ export namespace PoliciesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6510,7 +6510,7 @@ export namespace PoliciesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Policies,
             args: {},
             ctx: Context,
@@ -6554,7 +6554,7 @@ export namespace HouseRulesResolvers {
       ) => string | null | Promise<string | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6571,7 +6571,7 @@ export namespace HouseRulesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6588,7 +6588,7 @@ export namespace HouseRulesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6605,7 +6605,7 @@ export namespace HouseRulesResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6622,7 +6622,7 @@ export namespace HouseRulesResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6639,7 +6639,7 @@ export namespace HouseRulesResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6656,7 +6656,7 @@ export namespace HouseRulesResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6673,7 +6673,7 @@ export namespace HouseRulesResolvers {
       ) => boolean | null | Promise<boolean | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6690,7 +6690,7 @@ export namespace HouseRulesResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: HouseRules,
           args: {},
           ctx: Context,
@@ -6708,7 +6708,7 @@ export namespace HouseRulesResolvers {
         ) => string | null | Promise<string | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6725,7 +6725,7 @@ export namespace HouseRulesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6742,7 +6742,7 @@ export namespace HouseRulesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6759,7 +6759,7 @@ export namespace HouseRulesResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6776,7 +6776,7 @@ export namespace HouseRulesResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6793,7 +6793,7 @@ export namespace HouseRulesResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6810,7 +6810,7 @@ export namespace HouseRulesResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6827,7 +6827,7 @@ export namespace HouseRulesResolvers {
         ) => boolean | null | Promise<boolean | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6844,7 +6844,7 @@ export namespace HouseRulesResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: HouseRules,
             args: {},
             ctx: Context,
@@ -6872,7 +6872,7 @@ export namespace PaymentResolvers {
       ) => Booking | Promise<Booking>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Payment,
           args: {},
           ctx: Context,
@@ -6889,7 +6889,7 @@ export namespace PaymentResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Payment,
           args: {},
           ctx: Context,
@@ -6906,7 +6906,7 @@ export namespace PaymentResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Payment,
           args: {},
           ctx: Context,
@@ -6923,7 +6923,7 @@ export namespace PaymentResolvers {
       ) => PaymentAccount | Promise<PaymentAccount>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Payment,
           args: {},
           ctx: Context,
@@ -6940,7 +6940,7 @@ export namespace PaymentResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Payment,
           args: {},
           ctx: Context,
@@ -6958,7 +6958,7 @@ export namespace PaymentResolvers {
         ) => Booking | Promise<Booking>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Payment,
             args: {},
             ctx: Context,
@@ -6975,7 +6975,7 @@ export namespace PaymentResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Payment,
             args: {},
             ctx: Context,
@@ -6992,7 +6992,7 @@ export namespace PaymentResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Payment,
             args: {},
             ctx: Context,
@@ -7009,7 +7009,7 @@ export namespace PaymentResolvers {
         ) => PaymentAccount | Promise<PaymentAccount>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Payment,
             args: {},
             ctx: Context,
@@ -7026,7 +7026,7 @@ export namespace PaymentResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Payment,
             args: {},
             ctx: Context,
@@ -7059,7 +7059,7 @@ export namespace PaymentAccountResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7076,7 +7076,7 @@ export namespace PaymentAccountResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7093,7 +7093,7 @@ export namespace PaymentAccountResolvers {
       ) => PAYMENT_PROVIDER | null | Promise<PAYMENT_PROVIDER | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7110,7 +7110,7 @@ export namespace PaymentAccountResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7127,7 +7127,7 @@ export namespace PaymentAccountResolvers {
       ) => Payment[] | Promise<Payment[]>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7144,7 +7144,7 @@ export namespace PaymentAccountResolvers {
       ) => PaypalInformation | null | Promise<PaypalInformation | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7161,7 +7161,7 @@ export namespace PaymentAccountResolvers {
       ) => CreditCardInformation | null | Promise<CreditCardInformation | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaymentAccount,
           args: {},
           ctx: Context,
@@ -7182,7 +7182,7 @@ export namespace PaymentAccountResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7199,7 +7199,7 @@ export namespace PaymentAccountResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7216,7 +7216,7 @@ export namespace PaymentAccountResolvers {
         ) => PAYMENT_PROVIDER | null | Promise<PAYMENT_PROVIDER | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7233,7 +7233,7 @@ export namespace PaymentAccountResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7250,7 +7250,7 @@ export namespace PaymentAccountResolvers {
         ) => Payment[] | Promise<Payment[]>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7267,7 +7267,7 @@ export namespace PaymentAccountResolvers {
         ) => PaypalInformation | null | Promise<PaypalInformation | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7288,7 +7288,7 @@ export namespace PaymentAccountResolvers {
         )
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaymentAccount,
             args: {},
             ctx: Context,
@@ -7318,7 +7318,7 @@ export namespace PaypalInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaypalInformation,
           args: {},
           ctx: Context,
@@ -7335,7 +7335,7 @@ export namespace PaypalInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaypalInformation,
           args: {},
           ctx: Context,
@@ -7352,7 +7352,7 @@ export namespace PaypalInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaypalInformation,
           args: {},
           ctx: Context,
@@ -7369,7 +7369,7 @@ export namespace PaypalInformationResolvers {
       ) => PaymentAccount | Promise<PaymentAccount>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: PaypalInformation,
           args: {},
           ctx: Context,
@@ -7387,7 +7387,7 @@ export namespace PaypalInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaypalInformation,
             args: {},
             ctx: Context,
@@ -7404,7 +7404,7 @@ export namespace PaypalInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaypalInformation,
             args: {},
             ctx: Context,
@@ -7421,7 +7421,7 @@ export namespace PaypalInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaypalInformation,
             args: {},
             ctx: Context,
@@ -7438,7 +7438,7 @@ export namespace PaypalInformationResolvers {
         ) => PaymentAccount | Promise<PaymentAccount>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: PaypalInformation,
             args: {},
             ctx: Context,
@@ -7473,7 +7473,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7490,7 +7490,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7507,7 +7507,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7524,7 +7524,7 @@ export namespace CreditCardInformationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7541,7 +7541,7 @@ export namespace CreditCardInformationResolvers {
       ) => number | Promise<number>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7558,7 +7558,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7575,7 +7575,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7592,7 +7592,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7609,7 +7609,7 @@ export namespace CreditCardInformationResolvers {
       ) => PaymentAccount | null | Promise<PaymentAccount | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7626,7 +7626,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7643,7 +7643,7 @@ export namespace CreditCardInformationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: CreditCardInformation,
           args: {},
           ctx: Context,
@@ -7661,7 +7661,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7678,7 +7678,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7695,7 +7695,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7712,7 +7712,7 @@ export namespace CreditCardInformationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7729,7 +7729,7 @@ export namespace CreditCardInformationResolvers {
         ) => number | Promise<number>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7746,7 +7746,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7763,7 +7763,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7780,7 +7780,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7797,7 +7797,7 @@ export namespace CreditCardInformationResolvers {
         ) => PaymentAccount | null | Promise<PaymentAccount | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7814,7 +7814,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7831,7 +7831,7 @@ export namespace CreditCardInformationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: CreditCardInformation,
             args: {},
             ctx: Context,
@@ -7861,7 +7861,7 @@ export namespace NotificationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7878,7 +7878,7 @@ export namespace NotificationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7895,7 +7895,7 @@ export namespace NotificationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7912,7 +7912,7 @@ export namespace NotificationResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7929,7 +7929,7 @@ export namespace NotificationResolvers {
       ) => NOTIFICATION_TYPE | null | Promise<NOTIFICATION_TYPE | null>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7946,7 +7946,7 @@ export namespace NotificationResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Notification,
           args: {},
           ctx: Context,
@@ -7964,7 +7964,7 @@ export namespace NotificationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -7981,7 +7981,7 @@ export namespace NotificationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -7998,7 +7998,7 @@ export namespace NotificationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -8015,7 +8015,7 @@ export namespace NotificationResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -8032,7 +8032,7 @@ export namespace NotificationResolvers {
         ) => NOTIFICATION_TYPE | null | Promise<NOTIFICATION_TYPE | null>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -8049,7 +8049,7 @@ export namespace NotificationResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Notification,
             args: {},
             ctx: Context,
@@ -8076,7 +8076,7 @@ export namespace MessageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Message,
           args: {},
           ctx: Context,
@@ -8093,7 +8093,7 @@ export namespace MessageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Message,
           args: {},
           ctx: Context,
@@ -8110,7 +8110,7 @@ export namespace MessageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Message,
           args: {},
           ctx: Context,
@@ -8127,7 +8127,7 @@ export namespace MessageResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: Message,
           args: {},
           ctx: Context,
@@ -8145,7 +8145,7 @@ export namespace MessageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Message,
             args: {},
             ctx: Context,
@@ -8162,7 +8162,7 @@ export namespace MessageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Message,
             args: {},
             ctx: Context,
@@ -8179,7 +8179,7 @@ export namespace MessageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Message,
             args: {},
             ctx: Context,
@@ -8196,7 +8196,7 @@ export namespace MessageResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: Message,
             args: {},
             ctx: Context,
@@ -8249,7 +8249,7 @@ export namespace MutationResolvers {
       ) => AuthPayload | Promise<AuthPayload>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsSignup,
           ctx: Context,
@@ -8266,7 +8266,7 @@ export namespace MutationResolvers {
       ) => AuthPayload | Promise<AuthPayload>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsLogin,
           ctx: Context,
@@ -8283,7 +8283,7 @@ export namespace MutationResolvers {
       ) => MutationResult | Promise<MutationResult>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsAddPaymentMethod,
           ctx: Context,
@@ -8300,7 +8300,7 @@ export namespace MutationResolvers {
       ) => MutationResult | Promise<MutationResult>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: undefined,
           args: ArgsBook,
           ctx: Context,
@@ -8318,7 +8318,7 @@ export namespace MutationResolvers {
         ) => AuthPayload | Promise<AuthPayload>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsSignup,
             ctx: Context,
@@ -8335,7 +8335,7 @@ export namespace MutationResolvers {
         ) => AuthPayload | Promise<AuthPayload>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsLogin,
             ctx: Context,
@@ -8352,7 +8352,7 @@ export namespace MutationResolvers {
         ) => MutationResult | Promise<MutationResult>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsAddPaymentMethod,
             ctx: Context,
@@ -8369,7 +8369,7 @@ export namespace MutationResolvers {
         ) => MutationResult | Promise<MutationResult>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: undefined,
             args: ArgsBook,
             ctx: Context,
@@ -8394,7 +8394,7 @@ export namespace AuthPayloadResolvers {
       ) => string | Promise<string>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: AuthPayload,
           args: {},
           ctx: Context,
@@ -8411,7 +8411,7 @@ export namespace AuthPayloadResolvers {
       ) => User | Promise<User>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: AuthPayload,
           args: {},
           ctx: Context,
@@ -8429,7 +8429,7 @@ export namespace AuthPayloadResolvers {
         ) => string | Promise<string>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: AuthPayload,
             args: {},
             ctx: Context,
@@ -8446,7 +8446,7 @@ export namespace AuthPayloadResolvers {
         ) => User | Promise<User>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: AuthPayload,
             args: {},
             ctx: Context,
@@ -8470,7 +8470,7 @@ export namespace MutationResultResolvers {
       ) => boolean | Promise<boolean>)
     | {
         fragment: string;
-        resolver: (
+        resolve: (
           parent: MutationResult,
           args: {},
           ctx: Context,
@@ -8488,7 +8488,7 @@ export namespace MutationResultResolvers {
         ) => boolean | Promise<boolean>)
       | {
           fragment: string;
-          resolver: (
+          resolve: (
             parent: MutationResult,
             args: {},
             ctx: Context,
