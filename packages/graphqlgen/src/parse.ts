@@ -2,9 +2,10 @@ import * as Ajv from 'ajv'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
 import * as yaml from 'js-yaml'
+import * as Path from 'path'
+import * as tsNode from 'ts-node'
 import { print } from 'graphql'
 import { importSchema } from 'graphql-import'
-
 import {
   GraphQLGenDefinition,
   Language,
@@ -84,9 +85,14 @@ export function parseContext(
 }
 
 export function parseSchema(schemaPath: string): GraphQLTypes {
-  const [filePath, constName] = schemaPath.split(':')
+  const [filePath, exportName = 'default'] = schemaPath.split(':')
 
-  if (!fs.existsSync(filePath)) {
+  // We can assume absolute path is cwd prefixed because
+  // gg currently only works when run in a directory with the
+  // graphqlgen manifest.
+  const absoluteFilePath = Path.join(process.cwd(), filePath)
+
+  if (!fs.existsSync(absoluteFilePath)) {
     console.error(
       chalk.default.red(`The schema file ${filePath} does not exist`),
     )
@@ -96,7 +102,11 @@ export function parseSchema(schemaPath: string): GraphQLTypes {
   let schema: string | undefined
   try {
     if (filePath.endsWith('.ts')) {
-      const loadedSchema = require(filePath)[constName || 'default']
+      tsNode.register({
+        transpileOnly: true,
+      })
+      const schemaModule = require(absoluteFilePath)
+      const loadedSchema = schemaModule[exportName]
 
       if (typeof loadedSchema === 'string') {
         schema = loadedSchema
