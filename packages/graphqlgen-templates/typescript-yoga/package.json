@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "graphqlgen": "0.5.1",
-    "nodemon": "1.18.9",
+    "nodemon": "1.18.10",
     "ts-node": "8.0.2",
     "typescript": "3.3.3"
   },
