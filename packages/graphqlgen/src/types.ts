@@ -15,6 +15,7 @@ export interface GenerateArgs {
   context?: ContextDefinition
   modelMap: ModelMap
   defaultResolversEnabled: boolean
+  iResolversAugmentationEnabled: boolean
 }
 
 export interface ModelMap {
