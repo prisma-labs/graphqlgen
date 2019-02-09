@@ -121,7 +121,12 @@ export function generate(args: GenerateArgs): string {
  *  - https://github.com/prisma/graphqlgen/issues/15
  */
 const renderGraphqlToolsModuleAugmentationIResolvers = (): string => {
+  // Use ts-ignore otherwise tests will throw an error about no such
+  // module being found. Further, if a user for some reason is not using
+  // Apollo Server, then this augmentation doesn't matter anyways, and
+  // should not throw an exception for them either.
   return `
+    // @ts-ignore
     declare module "graphql-tools" {
       interface IResolvers extends Resolvers {}
     }
