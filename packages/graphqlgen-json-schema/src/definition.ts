@@ -6,6 +6,7 @@ export interface GraphQLGenDefinition {
   output: string
   ['resolver-scaffolding']?: ResolverScaffolding
   ['default-resolvers']?: boolean
+  ['iresolvers-augmentation']?: boolean
 }
 
 export interface Models {

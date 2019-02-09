@@ -205,6 +205,11 @@ export interface Resolvers {
   Query: QueryResolvers.Type;
   User: UserResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
@@ -454,6 +459,11 @@ export namespace AddMemberPayloadResolvers {
 export interface Resolvers {
   Mutation: MutationResolvers.Type;
   AddMemberPayload: AddMemberPayloadResolvers.Type;
+}
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
 }
 "
 `;
@@ -935,6 +945,11 @@ export interface Resolvers {
   Video: VideoResolvers.Type;
   Media?: MediaResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
@@ -1155,6 +1170,11 @@ export namespace AddMemberPayloadResolvers {
 export interface Resolvers {
   Mutation: MutationResolvers.Type;
   AddMemberPayload: AddMemberPayloadResolvers.Type;
+}
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
 }
 "
 `;
@@ -1775,6 +1795,11 @@ export interface Resolvers {
   Query: QueryResolvers.Type;
   Number: NumberResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
@@ -2098,6 +2123,11 @@ export interface Resolvers {
   User: UserResolvers.Type;
   UserType?: UserTypeResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
@@ -2288,6 +2318,11 @@ export namespace UserResolvers {
 export interface Resolvers {
   Query: QueryResolvers.Type;
   User: UserResolvers.Type;
+}
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
 }
 "
 `;
@@ -2918,6 +2953,11 @@ export namespace NumberResolvers {
 export interface Resolvers {
   Query: QueryResolvers.Type;
   Number: NumberResolvers.Type;
+}
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
 }
 "
 `;
@@ -3574,6 +3614,11 @@ export interface Resolvers {
   Query: QueryResolvers.Type;
   Number: NumberResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
@@ -3752,6 +3797,11 @@ export namespace UserResolvers {
 export interface Resolvers {
   Subscription: SubscriptionResolvers.Type;
   User: UserResolvers.Type;
+}
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
 }
 "
 `;

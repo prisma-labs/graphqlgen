@@ -8530,6 +8530,11 @@ export interface Resolvers {
   AuthPayload: AuthPayloadResolvers.Type;
   MutationResult: MutationResultResolvers.Type;
 }
+
+// @ts-ignore
+declare module \\"graphql-tools\\" {
+  interface IResolvers extends Resolvers {}
+}
 "
 `;
 
