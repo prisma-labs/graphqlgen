@@ -72,42 +72,42 @@ export type Query_TopExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Experience[] | Promise<Experience[]>;
+) => Iterable<Experience> | Promise<Iterable<Experience>>;
 
 export type Query_TopHomes_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Home[] | Promise<Home[]>;
+) => Iterable<Home> | Promise<Iterable<Home>>;
 
 export type Query_HomesInPriceRange_Resolver = (
   parent: {},
   args: Query_Args_HomesInPriceRange,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Home[] | Promise<Home[]>;
+) => Iterable<Home> | Promise<Iterable<Home>>;
 
 export type Query_TopReservations_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Reservation[] | Promise<Reservation[]>;
+) => Iterable<Reservation> | Promise<Iterable<Reservation>>;
 
 export type Query_FeaturedDestinations_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Neighbourhood[] | Promise<Neighbourhood[]>;
+) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>;
 
 export type Query_ExperiencesByCity_Resolver = (
   parent: {},
   args: Query_Args_ExperiencesByCity,
   ctx: Context,
   info: GraphQLResolveInfo
-) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
+) => Iterable<ExperiencesByCity> | Promise<Iterable<ExperiencesByCity>>;
 
 export type Query_Viewer_Resolver = (
   parent: {},
@@ -129,42 +129,42 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience[] | Promise<Experience[]>;
+  ) => Iterable<Experience> | Promise<Iterable<Experience>>;
 
   topHomes: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Home[] | Promise<Home[]>;
+  ) => Iterable<Home> | Promise<Iterable<Home>>;
 
   homesInPriceRange: (
     parent: {},
     args: Query_Args_HomesInPriceRange,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Home[] | Promise<Home[]>;
+  ) => Iterable<Home> | Promise<Iterable<Home>>;
 
   topReservations: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Reservation[] | Promise<Reservation[]>;
+  ) => Iterable<Reservation> | Promise<Iterable<Reservation>>;
 
   featuredDestinations: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Neighbourhood[] | Promise<Neighbourhood[]>;
+  ) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>;
 
   experiencesByCity: (
     parent: {},
     args: Query_Args_ExperiencesByCity,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
+  ) => Iterable<ExperiencesByCity> | Promise<Iterable<ExperiencesByCity>>;
 
   viewer: (
     parent: {},
@@ -234,7 +234,7 @@ export type Experience_Reviews_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Review[] | Promise<Review[]>;
+) => Iterable<Review> | Promise<Iterable<Review>>;
 
 export type Experience_Preview_Resolver = (
   parent: Experience,
@@ -291,7 +291,7 @@ export interface Experience_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Review[] | Promise<Review[]>;
+  ) => Iterable<Review> | Promise<Iterable<Review>>;
 
   preview: (
     parent: Experience,
@@ -706,7 +706,7 @@ export type Home_Pictures_Resolver = (
   args: Home_Args_Pictures,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture[] | Promise<Picture[]>;
+) => Iterable<Picture> | Promise<Iterable<Picture>>;
 
 export type Home_PerNight_Resolver = (
   parent: Home,
@@ -756,7 +756,7 @@ export interface Home_Resolvers {
     args: Home_Args_Pictures,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture[] | Promise<Picture[]>;
+  ) => Iterable<Picture> | Promise<Iterable<Picture>>;
 
   perNight: (
     parent: Home,
@@ -804,7 +804,7 @@ export type Reservation_Pictures_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture[] | Promise<Picture[]>;
+) => Iterable<Picture> | Promise<Iterable<Picture>>;
 
 export type Reservation_Location_Resolver = (
   parent: Reservation,
@@ -861,7 +861,7 @@ export interface Reservation_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture[] | Promise<Picture[]>;
+  ) => Iterable<Picture> | Promise<Iterable<Picture>>;
 
   location: (
     parent: Reservation,
@@ -1051,7 +1051,7 @@ export type ExperiencesByCity_Experiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Experience[] | Promise<Experience[]>;
+) => Iterable<Experience> | Promise<Iterable<Experience>>;
 
 export type ExperiencesByCity_City_Resolver = (
   parent: ExperiencesByCity,
@@ -1066,7 +1066,7 @@ export interface ExperiencesByCity_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience[] | Promise<Experience[]>;
+  ) => Iterable<Experience> | Promise<Iterable<Experience>>;
 
   city: (
     parent: ExperiencesByCity,
@@ -1094,7 +1094,7 @@ export type Viewer_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Booking[] | Promise<Booking[]>;
+) => Iterable<Booking> | Promise<Iterable<Booking>>;
 
 export interface Viewer_Resolvers {
   me: (
@@ -1109,7 +1109,7 @@ export interface Viewer_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Booking[] | Promise<Booking[]>;
+  ) => Iterable<Booking> | Promise<Iterable<Booking>>;
 }
 
 // Types for User
@@ -1141,7 +1141,7 @@ export type User_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Booking[] | null | Promise<Booking[] | null>;
+) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>;
 
 export type User_CreatedAt_Resolver = (
   parent: User,
@@ -1169,7 +1169,7 @@ export type User_HostingExperiences_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Experience[] | null | Promise<Experience[] | null>;
+) => Iterable<Experience> | null | Promise<Iterable<Experience> | null>;
 
 export type User_Id_Resolver = (
   parent: User,
@@ -1204,21 +1204,21 @@ export type User_Notifications_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Notification[] | null | Promise<Notification[] | null>;
+) => Iterable<Notification> | null | Promise<Iterable<Notification> | null>;
 
 export type User_OwnedPlaces_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Place[] | null | Promise<Place[] | null>;
+) => Iterable<Place> | null | Promise<Iterable<Place> | null>;
 
 export type User_PaymentAccount_Resolver = (
   parent: User,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
+) => Iterable<PaymentAccount> | null | Promise<Iterable<PaymentAccount> | null>;
 
 export type User_Phone_Resolver = (
   parent: User,
@@ -1239,7 +1239,7 @@ export type User_ReceivedMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Message[] | null | Promise<Message[] | null>;
+) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
 
 export type User_ResponseRate_Resolver = (
   parent: User,
@@ -1260,7 +1260,7 @@ export type User_SentMessages_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Message[] | null | Promise<Message[] | null>;
+) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
 
 export type User_UpdatedAt_Resolver = (
   parent: User,
@@ -1282,7 +1282,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Booking[] | null | Promise<Booking[] | null>;
+  ) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>;
 
   createdAt: (
     parent: User,
@@ -1310,7 +1310,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Experience[] | null | Promise<Experience[] | null>;
+  ) => Iterable<Experience> | null | Promise<Iterable<Experience> | null>;
 
   id: (
     parent: User,
@@ -1345,21 +1345,24 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Notification[] | null | Promise<Notification[] | null>;
+  ) => Iterable<Notification> | null | Promise<Iterable<Notification> | null>;
 
   ownedPlaces: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Place[] | null | Promise<Place[] | null>;
+  ) => Iterable<Place> | null | Promise<Iterable<Place> | null>;
 
   paymentAccount: (
     parent: User,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
+  ) =>
+    | Iterable<PaymentAccount>
+    | null
+    | Promise<Iterable<PaymentAccount> | null>;
 
   phone: (
     parent: User,
@@ -1380,7 +1383,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | null | Promise<Message[] | null>;
+  ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
 
   responseRate: (
     parent: User,
@@ -1401,7 +1404,7 @@ export interface User_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Message[] | null | Promise<Message[] | null>;
+  ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
 
   updatedAt: (
     parent: User,
@@ -1633,7 +1636,7 @@ export type Place_Reviews_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Review[] | Promise<Review[]>;
+) => Iterable<Review> | Promise<Iterable<Review>>;
 
 export type Place_Amenities_Resolver = (
   parent: Place,
@@ -1696,14 +1699,14 @@ export type Place_Bookings_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Booking[] | Promise<Booking[]>;
+) => Iterable<Booking> | Promise<Iterable<Booking>>;
 
 export type Place_Pictures_Resolver = (
   parent: Place,
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Picture[] | null | Promise<Picture[] | null>;
+) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>;
 
 export type Place_Popularity_Resolver = (
   parent: Place,
@@ -1788,7 +1791,7 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Review[] | Promise<Review[]>;
+  ) => Iterable<Review> | Promise<Iterable<Review>>;
 
   amenities: (
     parent: Place,
@@ -1851,14 +1854,14 @@ export interface Place_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Booking[] | Promise<Booking[]>;
+  ) => Iterable<Booking> | Promise<Iterable<Booking>>;
 
   pictures: (
     parent: Place,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Picture[] | null | Promise<Picture[] | null>;
+  ) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>;
 
   popularity: (
     parent: Place,
@@ -3178,7 +3181,7 @@ export type PaymentAccount_Payments_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Payment[] | Promise<Payment[]>;
+) => Iterable<Payment> | Promise<Iterable<Payment>>;
 
 export type PaymentAccount_Paypal_Resolver = (
   parent: PaymentAccount,
@@ -3228,7 +3231,7 @@ export interface PaymentAccount_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Payment[] | Promise<Payment[]>;
+  ) => Iterable<Payment> | Promise<Iterable<Payment>>;
 
   paypal: (
     parent: PaymentAccount,

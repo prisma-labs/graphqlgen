@@ -324,14 +324,14 @@ export type Query_Custom_array_nullable_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
+) => Iterable<Number | null> | null | Promise<Iterable<Number | null> | null>;
 
 export type Query_Custom_array_required_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Number | null> | Promise<Array<Number | null>>;
+) => Iterable<Number | null> | Promise<Iterable<Number | null>>;
 
 export type Query_Custom_with_arg_Resolver = (
   parent: {},
@@ -366,14 +366,14 @@ export type Query_Scalar_array_nullable_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
+) => Iterable<boolean | null> | null | Promise<Iterable<boolean | null> | null>;
 
 export type Query_Scalar_array_required_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<boolean | null> | Promise<Array<boolean | null>>;
+) => Iterable<boolean | null> | Promise<Iterable<boolean | null>>;
 
 export type Query_Scalar_with_arg_Resolver = (
   parent: {},
@@ -416,14 +416,14 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Number | null> | null | Promise<Array<Number | null> | null>;
+  ) => Iterable<Number | null> | null | Promise<Iterable<Number | null> | null>;
 
   custom_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Number | null> | Promise<Array<Number | null>>;
+  ) => Iterable<Number | null> | Promise<Iterable<Number | null>>;
 
   custom_with_arg: (
     parent: {},
@@ -458,14 +458,17 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
+  ) =>
+    | Iterable<boolean | null>
+    | null
+    | Promise<Iterable<boolean | null> | null>;
 
   scalar_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
+  ) => Iterable<boolean | null> | Promise<Iterable<boolean | null>>;
 
   scalar_with_arg: (
     parent: {},
@@ -629,7 +632,7 @@ export type Query_Users_Resolver = (
   args: Query_Args_Users,
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<Student | Professor> | Promise<Array<Student | Professor>>;
+) => Iterable<Student | Professor> | Promise<Iterable<Student | Professor>>;
 
 export interface Query_Resolvers {
   users: (
@@ -637,7 +640,7 @@ export interface Query_Resolvers {
     args: Query_Args_Users,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<Student | Professor> | Promise<Array<Student | Professor>>;
+  ) => Iterable<Student | Professor> | Promise<Iterable<Student | Professor>>;
 }
 
 // Types for Student
@@ -984,14 +987,17 @@ export type Query_Custom_array_nullable_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<NumberNode | null> | null | Promise<Array<NumberNode | null> | null>;
+) =>
+  | Iterable<NumberNode | null>
+  | null
+  | Promise<Iterable<NumberNode | null> | null>;
 
 export type Query_Custom_array_required_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>;
+) => Iterable<NumberNode | null> | Promise<Iterable<NumberNode | null>>;
 
 export type Query_Custom_with_arg_Resolver = (
   parent: {},
@@ -1026,14 +1032,14 @@ export type Query_Scalar_array_nullable_Resolver = (
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
+) => Iterable<boolean | null> | null | Promise<Iterable<boolean | null> | null>;
 
 export type Query_Scalar_array_required_Resolver = (
   parent: {},
   args: {},
   ctx: Context,
   info: GraphQLResolveInfo
-) => Array<boolean | null> | Promise<Array<boolean | null>>;
+) => Iterable<boolean | null> | Promise<Iterable<boolean | null>>;
 
 export type Query_Scalar_with_arg_Resolver = (
   parent: {},
@@ -1077,16 +1083,16 @@ export interface Query_Resolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) =>
-    | Array<NumberNode | null>
+    | Iterable<NumberNode | null>
     | null
-    | Promise<Array<NumberNode | null> | null>;
+    | Promise<Iterable<NumberNode | null> | null>;
 
   custom_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<NumberNode | null> | Promise<Array<NumberNode | null>>;
+  ) => Iterable<NumberNode | null> | Promise<Iterable<NumberNode | null>>;
 
   custom_with_arg: (
     parent: {},
@@ -1121,14 +1127,17 @@ export interface Query_Resolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null> | null | Promise<Array<boolean | null> | null>;
+  ) =>
+    | Iterable<boolean | null>
+    | null
+    | Promise<Iterable<boolean | null> | null>;
 
   scalar_array_required: (
     parent: {},
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Array<boolean | null> | Promise<Array<boolean | null>>;
+  ) => Iterable<boolean | null> | Promise<Iterable<boolean | null>>;
 
   scalar_with_arg: (
     parent: {},

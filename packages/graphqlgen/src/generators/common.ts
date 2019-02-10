@@ -219,12 +219,11 @@ export const kv = (
   return `${key}${isOptional ? '?' : ''}: ${value}`
 }
 
-const array = (
-  innerType: string,
-  config: { innerUnion?: boolean } = {},
-): string => {
-  return config.innerUnion ? `${innerType}[]` : `Array<${innerType}>`
+const array = (innerType: string, innerUnion: boolean): string => {
+  return innerUnion ? `Array<${innerType}>` : `${innerType}[]`
 }
+
+const iterable = (innerType: string) => `Iterable<${innerType}>`
 
 export const union = (types: string[]): string => {
   return types.join(' | ')
@@ -242,9 +241,7 @@ export const printFieldLikeType = (
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
-  options: FieldPrintOptions = {
-    isReturn: false,
-  },
+  options: FieldPrintOptions = {},
 ): string => {
   if (field.type.isInterface || field.type.isUnion) {
     const typesMap = field.type.isInterface ? interfacesMap : unionsMap
@@ -260,7 +257,7 @@ export const printFieldLikeType = (
     }
 
     if (field.type.isArray) {
-      rendering = array(rendering, { innerUnion: false })
+      rendering = iterable(rendering)
 
       if (!field.type.isArrayRequired) {
         rendering = nullable(rendering)
@@ -304,8 +301,6 @@ export const printFieldLikeType = (
    */
 
   if (field.type.isArray) {
-    const innerUnion = field.type.isRequired
-
     // - Not voidable here because a void array member is not possible
     // - For arrays default value does not apply to inner value
     const valueInnerType = field.type.isRequired ? name : nullable(name)
@@ -316,9 +311,12 @@ export const printFieldLikeType = (
 
     const isArrayVoidable = isArrayNullable && field.defaultValue === undefined
 
+    const arrayType = options.isReturn
+      ? iterable(valueInnerType)
+      : array(valueInnerType, !field.type.isRequired)
     const valueType = isArrayNullable
-      ? nullable(array(valueInnerType, { innerUnion })) // [1]
-      : array(valueInnerType, { innerUnion })
+      ? nullable(arrayType) // [1]
+      : arrayType
 
     return options.isReturn
       ? valueType
