@@ -13,7 +13,7 @@
     "gg": "dist/index.js"
   },
   "scripts": {
-    "clean": "rm -rf ./src/tests/**/tmp && rm -rf ./src/tests/**/generated && rm -rf ./dist",
+    "clean": "rm -rf tests/**/tmp && rm -rf tests/**/generated && rm -rf dist",
     "prepublishOnly": "rm -rf example/node_modules && yarn checks && yarn test && yarn build",
     "postpublish": "yarn clean",
     "benchmarks": "ts-node benchmarks",
