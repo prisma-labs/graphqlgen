@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/jest": "23.3.14",
-    "ajv": "6.9.0",
+    "ajv": "6.9.1",
     "jest": "23.6.0",
     "js-yaml": "3.12.1",
     "ts-jest": "23.10.5",
