@@ -1,7 +1,6 @@
 import * as Path from 'path'
 import * as FS from 'fs'
 import * as mkdirp from 'mkdirp'
-import * as rimraf from 'rimraf'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import chalk from 'chalk'
 import { CodeFileLike } from './types'
