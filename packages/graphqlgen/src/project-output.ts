@@ -1,7 +1,6 @@
 import * as Path from 'path'
 import * as FS from 'fs'
 import * as mkdirp from 'mkdirp'
-import * as rimraf from 'rimraf'
 import { GraphQLGenDefinition } from 'graphqlgen-json-schema'
 import chalk from 'chalk'
 import { CodeFileLike } from './types'
@@ -10,6 +9,18 @@ import {
   getAbsoluteFilePath,
 } from './path-helpers'
 import { replaceAll } from './utils'
+
+function writeChangesOnly(filename: string, content: string) {
+  if (
+    !FS.existsSync(filename) ||
+    FS.readFileSync(filename, { encoding: 'utf-8' }) !== content
+  ) {
+    console.log(chalk.green(`Overriding ${filename} with new model`))
+    FS.writeFileSync(filename, content)
+  } else {
+    console.log(chalk.gray(`File ${filename} is the same`))
+  }
+}
 
 /**
  * Bootstrap a graphqlgen config for the user to finish configuring.
@@ -65,7 +76,7 @@ const writeTypes = (types: string, config: GraphQLGenDefinition): void => {
   mkdirp.sync(Path.dirname(config.output))
 
   try {
-    FS.writeFileSync(config.output, types, { encoding: 'utf-8' })
+    writeChangesOnly(config.output, types)
   } catch (e) {
     console.error(
       chalk.red(`Failed to write the file at ${config.output}, error: ${e}`),
@@ -93,13 +104,27 @@ const writeResolversScaffolding = (
 
   const outputResolversDir = config['resolver-scaffolding'].output
 
-  rimraf.sync(outputResolversDir)
+  const toBeCreatedFiles = resolvers.map(f =>
+    Path.join(outputResolversDir, f.path),
+  )
+
+  if (FS.existsSync(outputResolversDir)) {
+    FS.readdirSync(outputResolversDir)
+      .map(f => Path.join(outputResolversDir, f))
+      .filter(f => !toBeCreatedFiles.includes(f))
+      .forEach(f => {
+        FS.unlinkSync(f)
+        console.log(
+          chalk.yellow(`Deleting file ${f} - model scaffold no long available`),
+        )
+      })
+  }
 
   resolvers.forEach(f => {
     const writePath = Path.join(outputResolversDir, f.path)
     mkdirp.sync(Path.dirname(writePath))
     try {
-      FS.writeFileSync(
+      writeChangesOnly(
         writePath,
         replaceAll(
           f.code,

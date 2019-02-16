@@ -15,8 +15,8 @@ export function outputDefinitionFilesNotFound(
   console.log(`❌ Some path to model definitions defined in your graphqlgen.yml were not found
   
 ${chalk.bold(
-    'Step 1',
-  )}: Make sure each of these model definitions point to an existing file
+  'Step 1',
+)}: Make sure each of these model definitions point to an existing file
 
   models:
     override:
@@ -42,8 +42,8 @@ export function outputWrongSyntaxFiles(
   console.log(`❌ Some model definitions defined in your graphqlgen.yml have syntax errors
   
 ${chalk.bold(
-    'Step 1',
-  )}: Make sure each of these model definitions follow the correct syntax
+  'Step 1',
+)}: Make sure each of these model definitions follow the correct syntax
 
   ${chalk.cyan(
     `(Correct syntax: ${chalk.bold('<typeName>')}: ${chalk.bold(
@@ -74,8 +74,8 @@ export function outputInterfaceDefinitionsNotFound(
   console.log(`❌ Some model definitions defined in your graphqlgen.yml were not found
   
 ${chalk.bold(
-    'Step 1',
-  )}: Make sure each of these model definitions are defined in the following files
+  'Step 1',
+)}: Make sure each of these model definitions are defined in the following files
 
   models:
     override:
@@ -99,12 +99,12 @@ export function outputMissingModels(
   console.log(`❌ Some types from your application schema have model definitions that are not defined yet
   
 ${chalk.bold(
-    'Step 1',
-  )}: Copy/paste the model definitions below to your application
+  'Step 1',
+)}: Copy/paste the model definitions below to your application
 
 ${missingModels
-    .map(type => renderModelFromType(type, language, defaultName))
-    .join(os.EOL)}
+  .map(type => renderModelFromType(type, language, defaultName))
+  .join(os.EOL)}
 
 
 ${chalk.bold('Step 2')}: Reference the model definitions in your ${chalk.bold(
@@ -151,9 +151,9 @@ function renderTypescriptModelFromType(
   return `\
 export interface ${chalk.bold(name)} {
 ${type.fields
-    .filter(field => field.type.isScalar)
-    .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
-    .join(os.EOL)}
+  .filter(field => field.type.isScalar)
+  .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
+  .join(os.EOL)}
 }`
 }
 
@@ -165,7 +165,7 @@ function renderFlowModelFromType(
   return `\
 export interface ${chalk.bold(name)} {
 ${type.fields
-    .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
-    .join(',' + os.EOL)}
+  .map(field => `  ${field.name}: ${graphQLToTypecriptFlowType(field.type)}`)
+  .join(',' + os.EOL)}
 }`
 }
