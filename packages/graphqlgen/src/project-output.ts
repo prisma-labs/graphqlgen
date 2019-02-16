@@ -108,15 +108,17 @@ const writeResolversScaffolding = (
     Path.join(outputResolversDir, f.path),
   )
 
-  FS.readdirSync(outputResolversDir)
-    .map(f => Path.join(outputResolversDir, f))
-    .filter(f => !toBeCreatedFiles.includes(f))
-    .forEach(f => {
-      FS.unlinkSync(f)
-      console.log(
-        chalk.yellow(`Deleting file ${f} - model scaffold no long availabel`),
-      )
-    })
+  if (FS.existsSync(outputResolversDir)) {
+    FS.readdirSync(outputResolversDir)
+      .map(f => Path.join(outputResolversDir, f))
+      .filter(f => !toBeCreatedFiles.includes(f))
+      .forEach(f => {
+        FS.unlinkSync(f)
+        console.log(
+          chalk.yellow(`Deleting file ${f} - model scaffold no long available`),
+        )
+      })
+  }
 
   resolvers.forEach(f => {
     const writePath = Path.join(outputResolversDir, f.path)
