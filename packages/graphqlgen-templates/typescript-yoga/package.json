@@ -10,10 +10,10 @@
     "graphql-yoga": "^1.16.7"
   },
   "devDependencies": {
-    "graphqlgen": "0.3.0",
-    "nodemon": "1.18.6",
-    "ts-node": "7.0.1",
-    "typescript": "3.1.6"
+    "graphqlgen": "0.5.1",
+    "nodemon": "1.18.9",
+    "ts-node": "8.0.2",
+    "typescript": "3.3.3"
   },
   "license": "MIT"
 }

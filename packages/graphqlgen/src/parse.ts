@@ -2,8 +2,10 @@ import * as Ajv from 'ajv'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
 import * as yaml from 'js-yaml'
+import * as Path from 'path'
+import * as tsNode from 'ts-node'
+import { print } from 'graphql'
 import { importSchema } from 'graphql-import'
-
 import {
   GraphQLGenDefinition,
   Language,
@@ -24,7 +26,7 @@ import {
   GraphQLTypes,
 } from './source-helper'
 import { FilesToTypesMap } from './introspection/types'
-import { buildFilesToTypesMap } from './introspection'
+import { getFilesToTypesMap } from './introspection'
 
 export interface NormalizedFile {
   path: string
@@ -83,16 +85,38 @@ export function parseContext(
 }
 
 export function parseSchema(schemaPath: string): GraphQLTypes {
-  if (!fs.existsSync(schemaPath)) {
+  const [filePath, exportName = 'default'] = schemaPath.split(':')
+
+  // We can assume absolute path is cwd prefixed because
+  // gg currently only works when run in a directory with the
+  // graphqlgen manifest.
+  const absoluteFilePath =
+    filePath[0] == '/' ? filePath : Path.join(process.cwd(), filePath)
+
+  if (!fs.existsSync(absoluteFilePath)) {
     console.error(
-      chalk.default.red(`The schema file ${schemaPath} does not exist`),
+      chalk.default.red(`The schema file ${filePath} does not exist`),
     )
     process.exit(1)
   }
 
   let schema: string | undefined
   try {
-    schema = importSchema(schemaPath)
+    if (filePath.endsWith('.ts')) {
+      tsNode.register({
+        transpileOnly: true,
+      })
+      const schemaModule = require(absoluteFilePath)
+      const loadedSchema = schemaModule[exportName]
+
+      if (typeof loadedSchema === 'string') {
+        schema = loadedSchema
+      } else {
+        schema = print(loadedSchema)
+      }
+    } else {
+      schema = importSchema(filePath)
+    }
   } catch (e) {
     console.error(
       chalk.default.red(`Error occurred while reading schema: ${e}`),
@@ -166,7 +190,7 @@ export function parseModels(
 ): ModelMap {
   const graphQLTypes = extractGraphQLTypesWithoutRootsAndInputsAndEnums(schema)
   const normalizedFiles = normalizeFiles(models.files, language)
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
+  const filesToTypesMap = getFilesToTypesMap()
   const overriddenModels = !!models.override ? models.override : {}
   const typeToFileMapping = getTypeToFileMapping(
     normalizedFiles,
@@ -181,7 +205,7 @@ export function parseModels(
         ...acc,
         [type.name]: buildModel(
           modelName,
-          filePath,
+          normalizeFilePath(filePath, language),
           filesToTypesMap,
           outputDir,
           language,

@@ -20,7 +20,7 @@ import {
   normalizeFiles,
   NormalizedFile,
 } from './parse'
-import { buildFilesToTypesMap, findTypeInFile } from './introspection'
+import { addFilesToTypesMap, findTypeInFile } from './introspection'
 
 type Definition = {
   typeName: string
@@ -180,7 +180,7 @@ function validateSchemaToModelMapping(
     def => def.definition.typeName,
   )
 
-  const filesToTypesMap = buildFilesToTypesMap(normalizedFiles, language)
+  const filesToTypesMap = addFilesToTypesMap(normalizedFiles, language)
   const interfaceNamesToPath = getTypeToFileMapping(
     normalizedFiles,
     filesToTypesMap,

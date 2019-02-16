@@ -1,0 +1,30 @@
+type Query {
+  media(first: Int): [Media]
+  mediaItem(id: Int!): Media
+}
+
+interface Unused {
+  foo: Int
+}
+
+interface Media {
+  id: ID!
+  url: String!
+}
+
+type Dimensions {
+  width: Int!
+  height: Int!
+}
+
+type Image implements Media {
+  id: ID!
+  url: String!
+  dimensions: Dimensions!
+}
+
+type Video implements Media {
+  id: ID!
+  url: String!
+  duration: Int!
+}

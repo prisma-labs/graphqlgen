@@ -1,0 +1,37 @@
+type AddMemberPayload {
+  newUserId: ID
+  existingUserInviteSent: Boolean
+}
+
+input AddMemberData {
+  email: String!
+  projects: [ID!]!
+  sideProjects: [ID]
+  profile: ProfileData = null
+  phones: [PhoneData] = []
+  isVIP: Boolean = false
+}
+
+input ProfileData {
+  firstName: String
+  lastName: String
+  photo: Photo
+}
+
+input Photo {
+  title: String!
+  url: String!
+}
+
+input PhoneData {
+  number: String!
+}
+
+type Mutation {
+  addMember(
+    data: AddMemberData!
+    upsert: Boolean = false
+    note: String = null
+  ): AddMemberPayload!
+  addMembers(data: [AddMemberData!]!): AddMemberPayload!
+}

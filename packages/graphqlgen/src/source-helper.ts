@@ -23,6 +23,7 @@ export type GraphQLTypes = {
   types: GraphQLTypeObject[]
   unions: GraphQLUnionObject[]
   enums: GraphQLEnumObject[]
+  interfaces: GraphQLInterfaceObject[]
 }
 
 /** Converts typeDefs, e.g. the raw SDL string, into our `GraphQLTypes`. */
@@ -31,10 +32,11 @@ export function extractTypes(typeDefs: string): GraphQLTypes {
   const types = extractGraphQLTypes(schema)
   const unions = extractGraphQLUnions(schema)
   const enums = extractGraphQLEnums(schema)
-  return { types, enums, unions }
+  const interfaces = extractGraphQLInterfaces(schema, types)
+  return { types, enums, unions, interfaces }
 }
 
-type GraphQLTypeDefinition = {
+export type GraphQLTypeDefinition = {
   name: string
   isScalar: boolean
   isEnum: boolean
@@ -46,17 +48,20 @@ type GraphQLTypeDefinition = {
 
 export type GraphQLType = GraphQLTypeDefinition & {
   isArray: boolean
+  isArrayRequired: boolean
   isRequired: boolean
 }
 
-type GraphQLTypeArgument = {
+export type GraphQLTypeArgument = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
 }
 
 export type GraphQLTypeField = {
   name: string
   type: GraphQLType
+  defaultValue?: unknown
   arguments: GraphQLTypeArgument[]
 }
 
@@ -64,6 +69,7 @@ export type GraphQLTypeObject = {
   name: string
   type: GraphQLTypeDefinition
   fields: GraphQLTypeField[]
+  implements: null | string[]
 }
 
 export type GraphQLEnumObject = {
@@ -74,13 +80,23 @@ export type GraphQLEnumObject = {
 
 export type GraphQLUnionObject = {
   name: string
+  kind: 'union'
   type: GraphQLTypeDefinition
   types: GraphQLTypeDefinition[]
+}
+
+export type GraphQLInterfaceObject = {
+  name: string
+  kind: 'interface'
+  type: GraphQLTypeDefinition
+  fields: GraphQLTypeField[]
+  implementors: GraphQLTypeDefinition[]
 }
 
 interface FinalType {
   isRequired: boolean
   isArray: boolean
+  isArrayRequired: boolean
   type: GraphQLInputType | GraphQLOutputType
 }
 
@@ -128,13 +144,20 @@ function extractTypeDefinition(
 
 const getFinalType = (
   type: GraphQLInputType | GraphQLOutputType,
-  acc: FinalType = { isArray: false, isRequired: false, type },
+  acc: FinalType = {
+    isArray: false,
+    isArrayRequired: false,
+    isRequired: false,
+    type,
+  },
 ): FinalType => {
   if (type instanceof GraphQLNonNull) {
     acc.isRequired = true
   }
   if (type instanceof GraphQLList) {
     acc.isArray = true
+    acc.isArrayRequired = acc.isRequired
+    acc.isRequired = false
   }
 
   if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
@@ -155,12 +178,20 @@ function extractTypeLike(
   type: GraphQLInputType | GraphQLOutputType,
 ): GraphQLType {
   const typeLike: GraphQLType = {} as GraphQLType
-  const { isArray, isRequired, type: finalType } = getFinalType(type)
+  const {
+    isArray,
+    isArrayRequired,
+    isRequired,
+    type: finalType,
+  } = getFinalType(type)
   if (isRequired) {
     typeLike.isRequired = true
   }
   if (isArray) {
     typeLike.isArray = true
+  }
+  if (isArrayRequired) {
+    typeLike.isArrayRequired = true
   }
   if (
     finalType instanceof GraphQLObjectType ||
@@ -181,7 +212,7 @@ function extractTypeLike(
 
 function extractTypeFieldsFromObjectType(
   schema: GraphQLSchema,
-  node: GraphQLObjectType,
+  node: GraphQLObjectType | GraphQLInterfaceType,
 ) {
   const fields: GraphQLTypeField[] = []
   Object.values(node.getFields()).forEach(
@@ -191,6 +222,7 @@ function extractTypeFieldsFromObjectType(
       fieldNode.args.forEach((arg: GraphQLArgument) => {
         fieldArguments.push({
           name: arg.name,
+          defaultValue: arg.defaultValue,
           type: extractTypeLike(schema, arg.type),
         })
       })
@@ -213,13 +245,14 @@ function extractTypeFieldsFromInputType(
     fields.push({
       name: input.name,
       type: extractTypeLike(schema, input.type),
+      defaultValue: input.defaultValue,
       arguments: [],
     })
   })
   return fields
 }
 
-function extractGraphQLTypes(schema: GraphQLSchema) {
+function extractGraphQLTypes(schema: GraphQLSchema): GraphQLTypeObject[] {
   const types: GraphQLTypeObject[] = []
   Object.values(schema.getTypeMap()).forEach((node: GraphQLNamedType) => {
     // Ignore meta types like __Schema and __TypeKind
@@ -239,6 +272,7 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: [], // extractTypeFields(schema, node),
+        implements: null,
       })
     } else if (node instanceof GraphQLObjectType) {
       types.push({
@@ -253,6 +287,9 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: extractTypeFieldsFromObjectType(schema, node),
+        implements: node
+          .getInterfaces()
+          .map(interfaceType => interfaceType.name),
       })
     } else if (node instanceof GraphQLInputObjectType) {
       types.push({
@@ -267,6 +304,7 @@ function extractGraphQLTypes(schema: GraphQLSchema) {
           isInterface: false,
         },
         fields: extractTypeFieldsFromInputType(schema, node),
+        implements: null,
       })
     }
   })
@@ -309,6 +347,7 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
       })
       types.push({
         name: node.name,
+        kind: 'union',
         type: {
           name: node.name,
           isObject: false,
@@ -325,13 +364,53 @@ function extractGraphQLUnions(schema: GraphQLSchema) {
   return types
 }
 
+function extractGraphQLInterfaces(
+  schema: GraphQLSchema,
+  types: GraphQLTypeObject[],
+): GraphQLInterfaceObject[] {
+  const interfaceUsingTypes = types.filter(type => type.implements !== null)
+
+  return Object.values(schema.getTypeMap())
+    .filter(node => node instanceof GraphQLInterfaceType)
+    .reduce(
+      (interfaces, node) => {
+        node = node as GraphQLInterfaceType
+
+        const implementorTypes = interfaceUsingTypes
+          .filter(type => type.implements!.includes(node.name))
+          .map(type => type.type)
+
+        if (implementorTypes.length) {
+          interfaces.push({
+            name: node.name,
+            kind: 'interface',
+            type: {
+              name: node.name,
+              isObject: false,
+              isInput: false,
+              isEnum: false,
+              isUnion: false,
+              isScalar: false,
+              isInterface: true,
+            },
+            implementors: implementorTypes,
+            fields: extractTypeFieldsFromObjectType(schema, node),
+          })
+        }
+
+        return interfaces
+      },
+      [] as GraphQLInterfaceObject[],
+    )
+}
+
 const graphqlToTypescriptFlow: { [key: string]: string } = {
   String: 'string',
   Boolean: 'boolean',
   ID: 'string',
   Int: 'number',
   Float: 'number',
-  DateTime: 'string'
+  DateTime: 'string',
 }
 
 export function graphQLToTypecriptFlowType(type: GraphQLType): string {

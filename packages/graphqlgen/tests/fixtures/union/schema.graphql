@@ -1,0 +1,18 @@
+type Query {
+  users(first: Int): [UserType!]!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+union UserType = Student | Professor
+
+type Student {
+  age: Int!
+}
+
+type Professor {
+  degree: String
+}

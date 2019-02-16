@@ -14,6 +14,8 @@ The configuration file must be called **`graphqlgen.yml`**.
 - `resolver-scaffolding`: An object with two properties
   - `output`: Specifies where the scaffolded resolvers should be located. Must point to a **directory**.
   - `layout`: Specifies the [_layout_](#layouts) for the generated files. Possible values: `file-per-type` (more layouts [coming soon](https://github.com/prisma/graphqlgen/issues/106): `single-file`, `file-per-type-classes`, `single-file-classes`).
+- `default-resolvers`: A boolean dictating if default resolvers will be generated or not. Defaults to `true`.
+- `iresolvers-augmentation`: A boolean dictating if Apollo Server IResolvers type should be augmented so that it is compatible with graphqlgen `Resolvers` type. Defaults to `true`.
 
 Whether a property is required or not depends on whether you're doing [Generation](#generation) or [Scaffolding](#scaffolding).
 

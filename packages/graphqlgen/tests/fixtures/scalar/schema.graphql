@@ -1,0 +1,14 @@
+scalar Json
+
+type AddMemberPayload {
+  json: Json
+}
+
+input AddMemberData {
+  email: String!
+  projects: [ID!]!
+}
+
+type Mutation {
+  addMember(data: AddMemberData!): AddMemberPayload!
+}

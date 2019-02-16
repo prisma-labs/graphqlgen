@@ -1,76 +1,166 @@
-import * as path from 'path'
-import { existsSync } from 'fs'
+import * as Path from 'path'
+import * as FS from 'fs'
 import { Language } from 'graphqlgen-json-schema'
 
 import { getExtNameFromLanguage } from './path-helpers'
 import { NormalizedFile } from './parse'
 import { FilesToTypesMap, InterfaceNamesToFile } from './introspection/types'
 
-export function upperFirst(s: string) {
+/**
+ * Uppercase the first letter of a string. Useful when generating type names.
+ */
+const upperFirst = (s: string): string => {
   return s.replace(/^\w/, c => c.toUpperCase())
 }
 
 /**
- * Support for different path notation
- *
- * './path/to/index.ts' => './path/to/index.ts'
- * './path/to' => './path/to/to.ts'
- * './path/to' => './path/to/index.ts'
- * './path/to/' => './path/to/index.ts'
+ * Append a file extension to a file name. Leading dots in given
+ * file extension are gracefully dropped.
  */
+const appendExt = (ext: string, filePath: string): string => {
+  const normalizedExt = ext.replace(/^\.+/, '')
+  return filePath + '.' + normalizedExt
+}
 
-export function normalizeFilePath(
-  filePath: string,
-  language: Language,
-): string {
+/**
+ * Normalize different kinds of path notation. Will do synchronous
+ * file IO to accomplish task.
+ *
+ * Examples:
+ *
+ *    ./path/to/index.ts => `pwd`/path/to/index.ts
+ *    ./path/to          => `pwd`/path/to/to.ts
+ *    ./path/to          => `pwd`/path/to/index.ts
+ *    ./path/to/         => `pwd`/path/to/index.ts
+ */
+const normalizeFilePath = (filePath: string, language: Language): string => {
   const ext = getExtNameFromLanguage(language)
 
-  if (path.extname(filePath) !== ext) {
-    const pathToFileWithExt = path.resolve(filePath) + ext
-
-    if (existsSync(pathToFileWithExt)) {
-      return pathToFileWithExt
-    }
-
-    return path.join(path.resolve(filePath), 'index' + ext)
+  // If the filepath is set against a file then just return that.
+  if (Path.extname(filePath) === ext) {
+    return Path.resolve(filePath)
   }
 
-  return path.resolve(filePath)
+  // If there is no file extension then infer it (from given language) and return if
+  // exists on file system. Otherwise consider file path as being to a folder that
+  // mnust have an index file.
+
+  const filePathWithExt = Path.resolve(filePath) + ext
+
+  if (FS.existsSync(filePathWithExt)) {
+    return filePathWithExt
+  }
+
+  return Path.join(Path.resolve(filePath), appendExt(ext, 'index'))
 }
 
 /**
  * Create a map of interface names to the path of the file in which they're defined
  * The first evaluated interfaces are always the chosen ones
  */
-export function getTypeToFileMapping(
+const getTypeToFileMapping = (
   files: NormalizedFile[],
   filesToTypesMap: FilesToTypesMap,
-): InterfaceNamesToFile {
-  return files.reduce(
-    (acc, file) => {
-      const typesMap = filesToTypesMap[file.path]
-      const interfaceNames = Object.keys(typesMap).filter(
-        interfaceName => !acc[interfaceName],
-      )
+): InterfaceNamesToFile => {
+  // REFACTOR: This function basically just takes an index and flips it. Make generic.
+  const mapping: InterfaceNamesToFile = {}
 
-      interfaceNames.forEach(interfaceName => {
-        acc[interfaceName] = file
-      })
+  for (const file of files) {
+    // WARNING: typesMap is not typesafe since the lookup could fail.
+    const typesMap = filesToTypesMap[file.path]
+    const interfaceNames = Object.keys(typesMap)
 
-      return acc
-    },
-    {} as InterfaceNamesToFile,
-  )
+    for (const interfaceName of interfaceNames) {
+      if (!mapping[interfaceName]) {
+        mapping[interfaceName] = file
+      }
+    }
+  }
+
+  return mapping
 }
 
-export function replaceAll(str: string, search: string, replacement: string) {
+/**
+ * Replace all occurances of given search string in a given
+ * string with another string.
+ */
+const replaceAll = (
+  str: string,
+  search: string,
+  replacement: string,
+): string => {
   return str.split(search).join(replacement)
 }
 
-export function flatten(a: Array<any>, b: Array<any>) {
-  return [...a, ...b]
+/**
+ * Return a new array whose items are a merger of the given two arrays.
+ */
+const concat = <T = unknown>(a: T[], b: T[]): T[] => {
+  return a.concat(b)
 }
 
-export function uniq(value: any, index: number, array: Array<any>) {
+// TODO Refactor; confusing; only one callsite
+const uniq = <T = unknown>(value: T, index: number, array: T[]): boolean => {
   return array.indexOf(value) === index
+}
+
+type LanguageExtension = 'ts' | 'js'
+const languageExtensions: LanguageExtension[] = ['ts', 'js']
+
+const extToLangIndex: Record<'ts' | 'js', Language> = {
+  ts: 'typescript',
+  js: 'flow',
+}
+
+const langToExtIndex: Record<Language, 'ts' | 'js'> = {
+  typescript: 'ts',
+  flow: 'js',
+}
+
+const getExtFromLang = (lang: Language): LanguageExtension => {
+  return langToExtIndex[lang]
+}
+
+const getLangFromExt = (ext: LanguageExtension): Language => {
+  return extToLangIndex[ext]
+}
+
+/**
+ * Get the extension from a file name (or path with file name).
+ * Unlike Path.extname this returns null if no ext can be extracted.
+ */
+const getExt = (path: string): null | string => {
+  const ext = Path.extname(path)
+  if (ext === '') return null
+  const extWithoutDot = ext.slice(1)
+  return extWithoutDot
+}
+
+/**
+ * Predicate function for checking if a path is to file.
+ * Relies on convention that a dot being present in last
+ * path item is a file.
+ *
+ * Examples:
+ *
+ *    /a/b/c -> false
+ *    /a/b/c.foo -> true
+ */
+const isFile = (path: string): boolean => {
+  return Path.extname(path) !== ''
+}
+
+export {
+  LanguageExtension,
+  languageExtensions,
+  getLangFromExt,
+  getExtFromLang,
+  getTypeToFileMapping,
+  uniq,
+  concat,
+  replaceAll,
+  upperFirst,
+  normalizeFilePath,
+  getExt,
+  isFile,
 }
