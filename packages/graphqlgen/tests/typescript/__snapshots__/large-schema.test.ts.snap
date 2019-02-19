@@ -72,7 +72,7 @@ export namespace QueryResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Experience[] | Promise<Experience[]>)
+      ) => Iterable<Experience> | Promise<Iterable<Experience>>)
     | {
         fragment: string;
         resolve: (
@@ -80,7 +80,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | Promise<Experience[]>;
+        ) => Iterable<Experience> | Promise<Iterable<Experience>>;
       };
 
   export type TopHomesResolver =
@@ -89,7 +89,7 @@ export namespace QueryResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Home[] | Promise<Home[]>)
+      ) => Iterable<Home> | Promise<Iterable<Home>>)
     | {
         fragment: string;
         resolve: (
@@ -97,7 +97,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Home[] | Promise<Home[]>;
+        ) => Iterable<Home> | Promise<Iterable<Home>>;
       };
 
   export type HomesInPriceRangeResolver =
@@ -106,7 +106,7 @@ export namespace QueryResolvers {
         args: ArgsHomesInPriceRange,
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Home[] | Promise<Home[]>)
+      ) => Iterable<Home> | Promise<Iterable<Home>>)
     | {
         fragment: string;
         resolve: (
@@ -114,7 +114,7 @@ export namespace QueryResolvers {
           args: ArgsHomesInPriceRange,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Home[] | Promise<Home[]>;
+        ) => Iterable<Home> | Promise<Iterable<Home>>;
       };
 
   export type TopReservationsResolver =
@@ -123,7 +123,7 @@ export namespace QueryResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Reservation[] | Promise<Reservation[]>)
+      ) => Iterable<Reservation> | Promise<Iterable<Reservation>>)
     | {
         fragment: string;
         resolve: (
@@ -131,7 +131,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Reservation[] | Promise<Reservation[]>;
+        ) => Iterable<Reservation> | Promise<Iterable<Reservation>>;
       };
 
   export type FeaturedDestinationsResolver =
@@ -140,7 +140,7 @@ export namespace QueryResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Neighbourhood[] | Promise<Neighbourhood[]>)
+      ) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>)
     | {
         fragment: string;
         resolve: (
@@ -148,7 +148,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Neighbourhood[] | Promise<Neighbourhood[]>;
+        ) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>;
       };
 
   export type ExperiencesByCityResolver =
@@ -157,7 +157,7 @@ export namespace QueryResolvers {
         args: ArgsExperiencesByCity,
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>)
+      ) => Iterable<ExperiencesByCity> | Promise<Iterable<ExperiencesByCity>>)
     | {
         fragment: string;
         resolve: (
@@ -165,7 +165,7 @@ export namespace QueryResolvers {
           args: ArgsExperiencesByCity,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
+        ) => Iterable<ExperiencesByCity> | Promise<Iterable<ExperiencesByCity>>;
       };
 
   export type ViewerResolver =
@@ -209,7 +209,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | Promise<Experience[]>)
+        ) => Iterable<Experience> | Promise<Iterable<Experience>>)
       | {
           fragment: string;
           resolve: (
@@ -217,7 +217,7 @@ export namespace QueryResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Experience[] | Promise<Experience[]>;
+          ) => Iterable<Experience> | Promise<Iterable<Experience>>;
         };
 
     topHomes:
@@ -226,7 +226,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Home[] | Promise<Home[]>)
+        ) => Iterable<Home> | Promise<Iterable<Home>>)
       | {
           fragment: string;
           resolve: (
@@ -234,7 +234,7 @@ export namespace QueryResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Home[] | Promise<Home[]>;
+          ) => Iterable<Home> | Promise<Iterable<Home>>;
         };
 
     homesInPriceRange:
@@ -243,7 +243,7 @@ export namespace QueryResolvers {
           args: ArgsHomesInPriceRange,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Home[] | Promise<Home[]>)
+        ) => Iterable<Home> | Promise<Iterable<Home>>)
       | {
           fragment: string;
           resolve: (
@@ -251,7 +251,7 @@ export namespace QueryResolvers {
             args: ArgsHomesInPriceRange,
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Home[] | Promise<Home[]>;
+          ) => Iterable<Home> | Promise<Iterable<Home>>;
         };
 
     topReservations:
@@ -260,7 +260,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Reservation[] | Promise<Reservation[]>)
+        ) => Iterable<Reservation> | Promise<Iterable<Reservation>>)
       | {
           fragment: string;
           resolve: (
@@ -268,7 +268,7 @@ export namespace QueryResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Reservation[] | Promise<Reservation[]>;
+          ) => Iterable<Reservation> | Promise<Iterable<Reservation>>;
         };
 
     featuredDestinations:
@@ -277,7 +277,7 @@ export namespace QueryResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Neighbourhood[] | Promise<Neighbourhood[]>)
+        ) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>)
       | {
           fragment: string;
           resolve: (
@@ -285,7 +285,7 @@ export namespace QueryResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Neighbourhood[] | Promise<Neighbourhood[]>;
+          ) => Iterable<Neighbourhood> | Promise<Iterable<Neighbourhood>>;
         };
 
     experiencesByCity:
@@ -294,7 +294,7 @@ export namespace QueryResolvers {
           args: ArgsExperiencesByCity,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>)
+        ) => Iterable<ExperiencesByCity> | Promise<Iterable<ExperiencesByCity>>)
       | {
           fragment: string;
           resolve: (
@@ -302,7 +302,9 @@ export namespace QueryResolvers {
             args: ArgsExperiencesByCity,
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => ExperiencesByCity[] | Promise<ExperiencesByCity[]>;
+          ) =>
+            | Iterable<ExperiencesByCity>
+            | Promise<Iterable<ExperiencesByCity>>;
         };
 
     viewer:
@@ -445,7 +447,7 @@ export namespace ExperienceResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Review[] | Promise<Review[]>)
+      ) => Iterable<Review> | Promise<Iterable<Review>>)
     | {
         fragment: string;
         resolve: (
@@ -453,7 +455,7 @@ export namespace ExperienceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Review[] | Promise<Review[]>;
+        ) => Iterable<Review> | Promise<Iterable<Review>>;
       };
 
   export type PreviewResolver =
@@ -582,7 +584,7 @@ export namespace ExperienceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Review[] | Promise<Review[]>)
+        ) => Iterable<Review> | Promise<Iterable<Review>>)
       | {
           fragment: string;
           resolve: (
@@ -590,7 +592,7 @@ export namespace ExperienceResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Review[] | Promise<Review[]>;
+          ) => Iterable<Review> | Promise<Iterable<Review>>;
         };
 
     preview:
@@ -1502,7 +1504,7 @@ export namespace HomeResolvers {
         args: ArgsPictures,
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Picture[] | Promise<Picture[]>)
+      ) => Iterable<Picture> | Promise<Iterable<Picture>>)
     | {
         fragment: string;
         resolve: (
@@ -1510,7 +1512,7 @@ export namespace HomeResolvers {
           args: ArgsPictures,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | Promise<Picture[]>;
+        ) => Iterable<Picture> | Promise<Iterable<Picture>>;
       };
 
   export type PerNightResolver =
@@ -1622,7 +1624,7 @@ export namespace HomeResolvers {
           args: ArgsPictures,
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | Promise<Picture[]>)
+        ) => Iterable<Picture> | Promise<Iterable<Picture>>)
       | {
           fragment: string;
           resolve: (
@@ -1630,7 +1632,7 @@ export namespace HomeResolvers {
             args: ArgsPictures,
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Picture[] | Promise<Picture[]>;
+          ) => Iterable<Picture> | Promise<Iterable<Picture>>;
         };
 
     perNight:
@@ -1721,7 +1723,7 @@ export namespace ReservationResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Picture[] | Promise<Picture[]>)
+      ) => Iterable<Picture> | Promise<Iterable<Picture>>)
     | {
         fragment: string;
         resolve: (
@@ -1729,7 +1731,7 @@ export namespace ReservationResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | Promise<Picture[]>;
+        ) => Iterable<Picture> | Promise<Iterable<Picture>>;
       };
 
   export type LocationResolver =
@@ -1858,7 +1860,7 @@ export namespace ReservationResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | Promise<Picture[]>)
+        ) => Iterable<Picture> | Promise<Iterable<Picture>>)
       | {
           fragment: string;
           resolve: (
@@ -1866,7 +1868,7 @@ export namespace ReservationResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Picture[] | Promise<Picture[]>;
+          ) => Iterable<Picture> | Promise<Iterable<Picture>>;
         };
 
     location:
@@ -2281,7 +2283,7 @@ export namespace ExperiencesByCityResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Experience[] | Promise<Experience[]>)
+      ) => Iterable<Experience> | Promise<Iterable<Experience>>)
     | {
         fragment: string;
         resolve: (
@@ -2289,7 +2291,7 @@ export namespace ExperiencesByCityResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | Promise<Experience[]>;
+        ) => Iterable<Experience> | Promise<Iterable<Experience>>;
       };
 
   export type CityResolver =
@@ -2316,7 +2318,7 @@ export namespace ExperiencesByCityResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | Promise<Experience[]>)
+        ) => Iterable<Experience> | Promise<Iterable<Experience>>)
       | {
           fragment: string;
           resolve: (
@@ -2324,7 +2326,7 @@ export namespace ExperiencesByCityResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Experience[] | Promise<Experience[]>;
+          ) => Iterable<Experience> | Promise<Iterable<Experience>>;
         };
 
     city:
@@ -2375,7 +2377,7 @@ export namespace ViewerResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Booking[] | Promise<Booking[]>)
+      ) => Iterable<Booking> | Promise<Iterable<Booking>>)
     | {
         fragment: string;
         resolve: (
@@ -2383,7 +2385,7 @@ export namespace ViewerResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | Promise<Booking[]>;
+        ) => Iterable<Booking> | Promise<Iterable<Booking>>;
       };
 
   export interface Type {
@@ -2410,7 +2412,7 @@ export namespace ViewerResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | Promise<Booking[]>)
+        ) => Iterable<Booking> | Promise<Iterable<Booking>>)
       | {
           fragment: string;
           resolve: (
@@ -2418,7 +2420,7 @@ export namespace ViewerResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Booking[] | Promise<Booking[]>;
+          ) => Iterable<Booking> | Promise<Iterable<Booking>>;
         };
   }
 }
@@ -2453,7 +2455,7 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Booking[] | null | Promise<Booking[] | null>)
+      ) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>)
     | {
         fragment: string;
         resolve: (
@@ -2461,7 +2463,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | null | Promise<Booking[] | null>;
+        ) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>;
       };
 
   export type CreatedAtResolver =
@@ -2521,7 +2523,7 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Experience[] | null | Promise<Experience[] | null>)
+      ) => Iterable<Experience> | null | Promise<Iterable<Experience> | null>)
     | {
         fragment: string;
         resolve: (
@@ -2529,7 +2531,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | null | Promise<Experience[] | null>;
+        ) => Iterable<Experience> | null | Promise<Iterable<Experience> | null>;
       };
 
   export type IdResolver =
@@ -2606,7 +2608,11 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Notification[] | null | Promise<Notification[] | null>)
+      ) =>
+        | Iterable<Notification>
+        | null
+        | Promise<Iterable<Notification> | null>
+      )
     | {
         fragment: string;
         resolve: (
@@ -2614,7 +2620,10 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Notification[] | null | Promise<Notification[] | null>;
+        ) =>
+          | Iterable<Notification>
+          | null
+          | Promise<Iterable<Notification> | null>;
       };
 
   export type OwnedPlacesResolver =
@@ -2623,7 +2632,7 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Place[] | null | Promise<Place[] | null>)
+      ) => Iterable<Place> | null | Promise<Iterable<Place> | null>)
     | {
         fragment: string;
         resolve: (
@@ -2631,7 +2640,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Place[] | null | Promise<Place[] | null>;
+        ) => Iterable<Place> | null | Promise<Iterable<Place> | null>;
       };
 
   export type PaymentAccountResolver =
@@ -2640,7 +2649,11 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>)
+      ) =>
+        | Iterable<PaymentAccount>
+        | null
+        | Promise<Iterable<PaymentAccount> | null>
+      )
     | {
         fragment: string;
         resolve: (
@@ -2648,7 +2661,10 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
+        ) =>
+          | Iterable<PaymentAccount>
+          | null
+          | Promise<Iterable<PaymentAccount> | null>;
       };
 
   export type PhoneResolver =
@@ -2691,7 +2707,7 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Message[] | null | Promise<Message[] | null>)
+      ) => Iterable<Message> | null | Promise<Iterable<Message> | null>)
     | {
         fragment: string;
         resolve: (
@@ -2699,7 +2715,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Message[] | null | Promise<Message[] | null>;
+        ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
       };
 
   export type ResponseRateResolver =
@@ -2742,7 +2758,7 @@ export namespace UserResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Message[] | null | Promise<Message[] | null>)
+      ) => Iterable<Message> | null | Promise<Iterable<Message> | null>)
     | {
         fragment: string;
         resolve: (
@@ -2750,7 +2766,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Message[] | null | Promise<Message[] | null>;
+        ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
       };
 
   export type UpdatedAtResolver =
@@ -2794,7 +2810,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | null | Promise<Booking[] | null>)
+        ) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>)
       | {
           fragment: string;
           resolve: (
@@ -2802,7 +2818,7 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Booking[] | null | Promise<Booking[] | null>;
+          ) => Iterable<Booking> | null | Promise<Iterable<Booking> | null>;
         };
 
     createdAt:
@@ -2862,7 +2878,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Experience[] | null | Promise<Experience[] | null>)
+        ) => Iterable<Experience> | null | Promise<Iterable<Experience> | null>)
       | {
           fragment: string;
           resolve: (
@@ -2870,7 +2886,10 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Experience[] | null | Promise<Experience[] | null>;
+          ) =>
+            | Iterable<Experience>
+            | null
+            | Promise<Iterable<Experience> | null>;
         };
 
     id:
@@ -2947,7 +2966,11 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Notification[] | null | Promise<Notification[] | null>)
+        ) =>
+          | Iterable<Notification>
+          | null
+          | Promise<Iterable<Notification> | null>
+        )
       | {
           fragment: string;
           resolve: (
@@ -2955,7 +2978,10 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Notification[] | null | Promise<Notification[] | null>;
+          ) =>
+            | Iterable<Notification>
+            | null
+            | Promise<Iterable<Notification> | null>;
         };
 
     ownedPlaces:
@@ -2964,7 +2990,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Place[] | null | Promise<Place[] | null>)
+        ) => Iterable<Place> | null | Promise<Iterable<Place> | null>)
       | {
           fragment: string;
           resolve: (
@@ -2972,7 +2998,7 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Place[] | null | Promise<Place[] | null>;
+          ) => Iterable<Place> | null | Promise<Iterable<Place> | null>;
         };
 
     paymentAccount:
@@ -2981,7 +3007,11 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>)
+        ) =>
+          | Iterable<PaymentAccount>
+          | null
+          | Promise<Iterable<PaymentAccount> | null>
+        )
       | {
           fragment: string;
           resolve: (
@@ -2989,7 +3019,10 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => PaymentAccount[] | null | Promise<PaymentAccount[] | null>;
+          ) =>
+            | Iterable<PaymentAccount>
+            | null
+            | Promise<Iterable<PaymentAccount> | null>;
         };
 
     phone:
@@ -3032,7 +3065,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Message[] | null | Promise<Message[] | null>)
+        ) => Iterable<Message> | null | Promise<Iterable<Message> | null>)
       | {
           fragment: string;
           resolve: (
@@ -3040,7 +3073,7 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Message[] | null | Promise<Message[] | null>;
+          ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
         };
 
     responseRate:
@@ -3083,7 +3116,7 @@ export namespace UserResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Message[] | null | Promise<Message[] | null>)
+        ) => Iterable<Message> | null | Promise<Iterable<Message> | null>)
       | {
           fragment: string;
           resolve: (
@@ -3091,7 +3124,7 @@ export namespace UserResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Message[] | null | Promise<Message[] | null>;
+          ) => Iterable<Message> | null | Promise<Iterable<Message> | null>;
         };
 
     updatedAt:
@@ -3587,7 +3620,7 @@ export namespace PlaceResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Review[] | Promise<Review[]>)
+      ) => Iterable<Review> | Promise<Iterable<Review>>)
     | {
         fragment: string;
         resolve: (
@@ -3595,7 +3628,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Review[] | Promise<Review[]>;
+        ) => Iterable<Review> | Promise<Iterable<Review>>;
       };
 
   export type AmenitiesResolver =
@@ -3740,7 +3773,7 @@ export namespace PlaceResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Booking[] | Promise<Booking[]>)
+      ) => Iterable<Booking> | Promise<Iterable<Booking>>)
     | {
         fragment: string;
         resolve: (
@@ -3748,7 +3781,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | Promise<Booking[]>;
+        ) => Iterable<Booking> | Promise<Iterable<Booking>>;
       };
 
   export type PicturesResolver =
@@ -3757,7 +3790,7 @@ export namespace PlaceResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Picture[] | null | Promise<Picture[] | null>)
+      ) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>)
     | {
         fragment: string;
         resolve: (
@@ -3765,7 +3798,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | null | Promise<Picture[] | null>;
+        ) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>;
       };
 
   export type PopularityResolver =
@@ -3962,7 +3995,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Review[] | Promise<Review[]>)
+        ) => Iterable<Review> | Promise<Iterable<Review>>)
       | {
           fragment: string;
           resolve: (
@@ -3970,7 +4003,7 @@ export namespace PlaceResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Review[] | Promise<Review[]>;
+          ) => Iterable<Review> | Promise<Iterable<Review>>;
         };
 
     amenities:
@@ -4115,7 +4148,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Booking[] | Promise<Booking[]>)
+        ) => Iterable<Booking> | Promise<Iterable<Booking>>)
       | {
           fragment: string;
           resolve: (
@@ -4123,7 +4156,7 @@ export namespace PlaceResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Booking[] | Promise<Booking[]>;
+          ) => Iterable<Booking> | Promise<Iterable<Booking>>;
         };
 
     pictures:
@@ -4132,7 +4165,7 @@ export namespace PlaceResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Picture[] | null | Promise<Picture[] | null>)
+        ) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>)
       | {
           fragment: string;
           resolve: (
@@ -4140,7 +4173,7 @@ export namespace PlaceResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Picture[] | null | Promise<Picture[] | null>;
+          ) => Iterable<Picture> | null | Promise<Iterable<Picture> | null>;
         };
 
     popularity:
@@ -7124,7 +7157,7 @@ export namespace PaymentAccountResolvers {
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => Payment[] | Promise<Payment[]>)
+      ) => Iterable<Payment> | Promise<Iterable<Payment>>)
     | {
         fragment: string;
         resolve: (
@@ -7132,7 +7165,7 @@ export namespace PaymentAccountResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Payment[] | Promise<Payment[]>;
+        ) => Iterable<Payment> | Promise<Iterable<Payment>>;
       };
 
   export type PaypalResolver =
@@ -7247,7 +7280,7 @@ export namespace PaymentAccountResolvers {
           args: {},
           ctx: Context,
           info: GraphQLResolveInfo
-        ) => Payment[] | Promise<Payment[]>)
+        ) => Iterable<Payment> | Promise<Iterable<Payment>>)
       | {
           fragment: string;
           resolve: (
@@ -7255,7 +7288,7 @@ export namespace PaymentAccountResolvers {
             args: {},
             ctx: Context,
             info: GraphQLResolveInfo
-          ) => Payment[] | Promise<Payment[]>;
+          ) => Iterable<Payment> | Promise<Iterable<Payment>>;
         };
 
     paypal:
