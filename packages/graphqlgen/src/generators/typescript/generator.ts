@@ -358,6 +358,7 @@ function renderNamespace(
       args.modelMap,
       interfacesMap,
       unionsMap,
+      args.delegatedParentResolversEnabled,
       args.context,
     )}
 
@@ -366,6 +367,7 @@ function renderNamespace(
       args.modelMap,
       interfacesMap,
       unionsMap,
+      args.delegatedParentResolversEnabled,
       args.context,
     )}
 
@@ -478,6 +480,7 @@ function renderResolverFunctionInterfaces(
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
+  delegatedParentResolversEnabled: boolean,
   context?: ContextDefinition,
 ): string {
   return type.fields
@@ -489,6 +492,7 @@ function renderResolverFunctionInterfaces(
           modelMap,
           interfacesMap,
           unionsMap,
+          delegatedParentResolversEnabled,
           context,
         )}`,
     )
@@ -500,6 +504,7 @@ function renderResolverTypeInterface(
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
+  delegatedParentResolversEnabled: boolean,
   context?: ContextDefinition,
   interfaceName: string = 'Type',
 ): string {
@@ -514,6 +519,7 @@ function renderResolverTypeInterface(
             modelMap,
             interfacesMap,
             unionsMap,
+            delegatedParentResolversEnabled,
             context,
           )}`,
       )
@@ -535,6 +541,7 @@ const renderTypeResolver = (
   modelMap: ModelMap,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
+  delegatedParentResolversEnabled: boolean,
   context?: ContextDefinition,
 ): string => {
   let parent: string
@@ -579,6 +586,8 @@ const renderTypeResolver = (
   }
 
   const resolveFunc = `${params} => ${resolverReturnType(returnType)}`
+
+  if (!delegatedParentResolversEnabled) return resolveFunc
 
   const DelegatedParentResolver = `
     {
