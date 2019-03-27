@@ -1,7 +1,12 @@
 import * as os from 'os'
 import * as prettier from 'prettier'
 
-import { GenerateArgs, ModelMap, ContextDefinition } from '../../types'
+import {
+  GenerateArgs,
+  ModelMap,
+  ContextDefinition,
+  CodeFileLike,
+} from '../../types'
 import {
   GraphQLTypeField,
   GraphQLTypeObject,
@@ -45,7 +50,7 @@ export function format(code: string, options: prettier.Options = {}) {
   }
 }
 
-export function generate(args: GenerateArgs): string {
+export function generate(args: GenerateArgs): string | CodeFileLike[] {
   // TODO: Maybe move this to source helper
   const inputTypesMap: InputTypesMap = args.types
     .filter(type => type.type.isInput)
@@ -82,6 +87,28 @@ export function generate(args: GenerateArgs): string {
   const unionsMap = createUnionsMap(args.unions)
   const hasPolymorphicObjects =
     Object.keys(interfacesMap).length > 0 || Object.keys(unionsMap).length > 0
+
+  // Object, interface, union
+
+  const files: CodeFileLike[] = args.types
+    .filter(type => type.type.isObject)
+    .map(type => ({
+      path: `${type.name}.ts`,
+      force: true,
+      code: `
+      ${renderHeader(args, { hasPolymorphicObjects })}
+      ${renderNamespace(
+        type,
+        interfacesMap,
+        unionsMap,
+        typeToInputTypeAssociation,
+        inputTypesMap,
+        args,
+      )}
+      `,
+    }))
+
+  return files
 
   return `\
   ${renderHeader(args, { hasPolymorphicObjects })}

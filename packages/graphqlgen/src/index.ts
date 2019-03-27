@@ -51,16 +51,28 @@ function getResolversGenerator(language: Language): IGenerator {
 function generateTypes(
   generateArgs: GenerateArgs,
   generateCodeArgs: CodeGenArgs,
-): string {
+): string | CodeFileLike[] {
   const generatorFn: IGenerator = getTypesGenerator(generateCodeArgs.language!)
   const generatedTypes = generatorFn.generate(generateArgs)
 
-  return generateCodeArgs.prettify
-    ? generatorFn.format(
-        generatedTypes as string,
-        generateCodeArgs.prettifyOptions,
-      )
-    : (generatedTypes as string)
+  if (typeof generatedTypes === 'string') {
+    return generateCodeArgs.prettify
+      ? generatorFn.format(
+          generatedTypes as string,
+          generateCodeArgs.prettifyOptions,
+        )
+      : (generatedTypes as string)
+  } else {
+    return generatedTypes.map(t => {
+      return {
+        path: t.path,
+        force: t.force,
+        code: generateCodeArgs.prettify
+          ? generatorFn.format(t.code, generateCodeArgs.prettifyOptions)
+          : t.code,
+      }
+    })
+  }
 }
 
 function generateResolvers(
@@ -86,7 +98,7 @@ function generateResolvers(
 }
 
 type CodeGenResult = {
-  generatedTypes: string
+  generatedTypes: string | CodeFileLike[]
   generatedResolvers?: CodeFileLike[]
 }
 

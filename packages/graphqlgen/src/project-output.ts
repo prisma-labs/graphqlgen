@@ -70,18 +70,55 @@ resolver-scaffolding:
 /**
  * Output the generated resolver types.
  */
-const writeTypes = (types: string, config: GraphQLGenDefinition): void => {
+const writeTypes = (
+  types: string | CodeFileLike[],
+  config: GraphQLGenDefinition,
+): void => {
   // Create generation target folder, if it does not exist
   // TODO: Error handling around this
   mkdirp.sync(Path.dirname(config.output))
 
-  try {
-    writeChangesOnly(config.output, types)
-  } catch (e) {
-    console.error(
-      chalk.red(`Failed to write the file at ${config.output}, error: ${e}`),
-    )
-    process.exit(1)
+  if (typeof types === 'string') {
+    try {
+      writeChangesOnly(config.output, types)
+    } catch (e) {
+      console.error(
+        chalk.red(`Failed to write the file at ${config.output}, error: ${e}`),
+      )
+      process.exit(1)
+    }
+  } else {
+    const outputTypesDir = config.output
+    const toBeCreatedFiles = types.map(f => Path.join(outputTypesDir, f.path))
+
+    if (FS.existsSync(outputTypesDir)) {
+      FS.readdirSync(outputTypesDir)
+        .map(f => Path.join(outputTypesDir, f))
+        .filter(f => !toBeCreatedFiles.includes(f))
+        .forEach(f => {
+          FS.unlinkSync(f)
+          console.log(
+            chalk.yellow(
+              `Deleting file ${f} - model scaffold no long available`,
+            ),
+          )
+        })
+    }
+
+    types.forEach(f => {
+      const writePath = Path.join(outputTypesDir, f.path)
+      mkdirp.sync(Path.dirname(writePath))
+      try {
+        writeChangesOnly(writePath, f.code)
+      } catch (e) {
+        console.error(
+          chalk.red(
+            `Failed to write the file at ${outputTypesDir}, error: ${e}`,
+          ),
+        )
+        process.exit(1)
+      }
+    })
   }
 
   console.log(
