@@ -88,16 +88,23 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
   const hasPolymorphicObjects =
     Object.keys(interfacesMap).length > 0 || Object.keys(unionsMap).length > 0
 
-  // Object, interface, union
+  // [x] Object
+  // [] Interface
+  // [] Union
 
-  const files: CodeFileLike[] = args.types
-    .filter(type => type.type.isObject)
-    .map(type => ({
-      path: `${type.name}.ts`,
-      force: true,
-      code: `
+  //  ${renderEnums(args)}
+
+  const files: CodeFileLike[] = []
+  // Objects
+  files.push(
+    ...args.types
+      .filter(type => type.type.isObject)
+      .map(type => ({
+        path: `${type.name}.ts`,
+        force: true,
+        code: `
       ${renderHeader(args, { hasPolymorphicObjects })}
-      ${renderNamespace(
+      ${renderType(
         type,
         interfacesMap,
         unionsMap,
@@ -106,7 +113,47 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
         args,
       )}
       `,
-    }))
+      })),
+  )
+
+  // Interfaces
+  files.push(
+    ...args.interfaces.map(type => ({
+      path: `${type.name}.ts`,
+      force: true,
+      code: `
+      ${renderHeader(args, { hasPolymorphicObjects })}
+      ${renderInterface(type, interfacesMap, unionsMap, args)}
+      `,
+    })),
+  )
+
+  // Unions
+  files.push(
+    ...args.unions.map(type => ({
+      path: `${type.name}.ts`,
+      force: true,
+      code: `
+      ${renderHeader(args, { hasPolymorphicObjects })}
+      ${renderUnion(type, args)}
+      `,
+    })),
+  )
+
+  // Index
+  files.push({
+    path: 'index.ts',
+    force: false,
+    code: `
+    ${renderResolvers(args)}
+    
+    ${
+      args.iResolversAugmentationEnabled
+        ? renderGraphqlToolsModuleAugmentationIResolvers()
+        : ''
+    }
+    `,
+  })
 
   return files
 
@@ -256,7 +303,7 @@ function renderObjectNamespaces(
   return args.types
     .filter(type => type.type.isObject)
     .map(type =>
-      renderNamespace(
+      renderType(
         type,
         interfacesMap,
         unionsMap,
@@ -274,32 +321,30 @@ function renderInterfaceNamespaces(
   unionsMap: UnionsMap,
 ): string {
   return args.interfaces
-    .map(type => renderInterfaceNamespace(type, interfacesMap, unionsMap, args))
+    .map(type => renderInterface(type, interfacesMap, unionsMap, args))
     .join(os.EOL)
 }
 
 function renderUnionNamespaces(args: GenerateArgs): string {
-  return args.unions.map(type => renderUnionNamespace(type, args)).join(os.EOL)
+  return args.unions.map(type => renderUnion(type, args)).join(os.EOL)
 }
 
-function renderInterfaceNamespace(
+function renderInterface(
   graphQLTypeObject: GraphQLInterfaceObject,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
   args: GenerateArgs,
 ): string {
   return `\
-    export namespace ${graphQLTypeObject.name}Resolvers {
-      ${renderInputArgInterfaces(
-        graphQLTypeObject,
-        args.modelMap,
-        interfacesMap,
-        unionsMap,
-      )}
+    ${renderInputArgInterfaces(
+      graphQLTypeObject,
+      args.modelMap,
+      interfacesMap,
+      unionsMap,
+    )}
 
-      export interface Type {
-        __resolveType: ${renderTypeResolveTypeResolver(graphQLTypeObject, args)}
-      }
+    export interface Type {
+      __resolveType: ${renderTypeResolveTypeResolver(graphQLTypeObject, args)}
     }
   `
 }
@@ -331,23 +376,18 @@ export const renderTypeResolveTypeResolver = (
 
 const renderStringConstant = (x: unknown) => `"${x}"`
 
-function renderUnionNamespace(
+function renderUnion(
   graphQLTypeObject: GraphQLUnionObject,
   args: GenerateArgs,
 ): string {
   return `\
-    export namespace ${graphQLTypeObject.name}Resolvers {
-      export interface Type {
-        __resolveType?: ${renderTypeResolveTypeResolver(
-          graphQLTypeObject,
-          args,
-        )}
-      }
+    export interface Type {
+      __resolveType?: ${renderTypeResolveTypeResolver(graphQLTypeObject, args)}
     }
   `
 }
 
-function renderNamespace(
+function renderType(
   graphQLTypeObject: GraphQLTypeObject,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
@@ -356,48 +396,45 @@ function renderNamespace(
   args: GenerateArgs,
 ): string {
   return `\
-    export namespace ${graphQLTypeObject.name}Resolvers {
-
-    ${
-      args.defaultResolversEnabled
-        ? renderDefaultResolvers(graphQLTypeObject, args, 'defaultResolvers')
-        : ''
-    }
-
-    ${renderInputTypeInterfaces(
-      graphQLTypeObject,
-      args.modelMap,
-      interfacesMap,
-      unionsMap,
-      typeToInputTypeAssociation,
-      inputTypesMap,
-    )}
-
-    ${renderInputArgInterfaces(
-      graphQLTypeObject,
-      args.modelMap,
-      interfacesMap,
-      unionsMap,
-    )}
-
-    ${renderResolverFunctionInterfaces(
-      graphQLTypeObject,
-      args.modelMap,
-      interfacesMap,
-      unionsMap,
-      args.context,
-    )}
-
-    ${renderResolverTypeInterface(
-      graphQLTypeObject,
-      args.modelMap,
-      interfacesMap,
-      unionsMap,
-      args.context,
-    )}
-
-    ${/* TODO renderResolverClass(type, modelMap) */ ''}
+  ${
+    args.defaultResolversEnabled
+      ? renderDefaultResolvers(graphQLTypeObject, args, 'defaultResolvers')
+      : ''
   }
+
+  ${renderInputTypeInterfaces(
+    graphQLTypeObject,
+    args.modelMap,
+    interfacesMap,
+    unionsMap,
+    typeToInputTypeAssociation,
+    inputTypesMap,
+  )}
+
+  ${renderInputArgInterfaces(
+    graphQLTypeObject,
+    args.modelMap,
+    interfacesMap,
+    unionsMap,
+  )}
+
+  ${renderResolverFunctionInterfaces(
+    graphQLTypeObject,
+    args.modelMap,
+    interfacesMap,
+    unionsMap,
+    args.context,
+  )}
+
+  ${renderResolverTypeInterface(
+    graphQLTypeObject,
+    args.modelMap,
+    interfacesMap,
+    unionsMap,
+    args.context,
+  )}
+
+  ${/* TODO renderResolverClass(type, modelMap) */ ''}
   `
 }
 
@@ -528,10 +565,9 @@ function renderResolverTypeInterface(
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
   context?: ContextDefinition,
-  interfaceName: string = 'Type',
 ): string {
   return `
-  export interface ${interfaceName} {
+  export interface I${type.name} {
     ${type.fields
       .map(
         field =>
