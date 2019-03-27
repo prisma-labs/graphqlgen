@@ -51,7 +51,7 @@ export function getImportPathRelativeToOutput(
   absolutePath: string,
   outputDir: string,
 ): string {
-  let relativePath = path.relative(path.dirname(outputDir), absolutePath)
+  let relativePath = path.relative(outputDir, absolutePath)
 
   if (!relativePath.startsWith('.')) {
     relativePath = './' + relativePath
