@@ -88,10 +88,7 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
   const hasPolymorphicObjects =
     Object.keys(interfacesMap).length > 0 || Object.keys(unionsMap).length > 0
 
-  // [x] Object
-  // [] Interface
-  // [] Union
-
+  // TODO: Enums
   //  ${renderEnums(args)}
 
   const files: CodeFileLike[] = []
