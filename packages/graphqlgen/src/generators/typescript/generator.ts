@@ -97,7 +97,11 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
         const hasPolymorphicObjects =
           !!type.implements && type.implements.length > 0
         const enums = getReferencedEnums(type, enumsMap)
-        const neededModels = getNeededModels(type, interfacesMap, unionsMap)
+        const neededModels = getObjectNeededModels(
+          type,
+          interfacesMap,
+          unionsMap,
+        )
         return {
           path: `${type.name}.ts`,
           force: true,
@@ -147,11 +151,13 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
   )
 
   // Enums
-  files.push({
-    path: 'enums.ts',
-    force: false,
-    code: `${renderEnums(args)}`,
-  })
+  if (args.enums.length > 0) {
+    files.push({
+      path: 'enums.ts',
+      force: false,
+      code: `${renderEnums(args)}`,
+    })
+  }
 
   // Index
   files.push({
@@ -677,19 +683,23 @@ function getReferencedEnums(
   return referencedEnums
 }
 
-function getNeededModels(
+function getObjectNeededModels(
   type: GraphQLTypeObject,
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
 ): string[] {
   const neededModels: string[] = [type.name]
+
+  // Types used in it's fields
   type.fields.forEach(field => {
     if (field.type.isInterface) {
+      // TODO: Not sure if this is needed
       // Interfaces push the types they are implemented by
       interfacesMap[field.type.name].forEach(t => {
         neededModels.push(t.name)
       })
     } else if (field.type.isUnion) {
+      // TODO: I think this is needed, but double check
       // Unions push the types they are made of
       unionsMap[field.type.name].forEach(t => {
         neededModels.push(t.name)
@@ -703,5 +713,18 @@ function getNeededModels(
       })
     }
   })
+
+  // Types used in __isTypeOf
+  if (type.implements) {
+    type.implements.forEach(i => {
+      interfacesMap[i].forEach(t => {
+        neededModels.push(t.name)
+      })
+    })
+  }
+
+  if (type.name === 'Film') {
+    console.log(type)
+  }
   return neededModels
 }
