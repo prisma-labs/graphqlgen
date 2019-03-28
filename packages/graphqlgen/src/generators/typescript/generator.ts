@@ -87,7 +87,6 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
   const unionsMap = createUnionsMap(args.unions)
 
   const enumsMap = createEnumsMap(args)
-  console.log(enumsMap)
 
   const files: CodeFileLike[] = []
   // Objects
@@ -98,7 +97,7 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
         const hasPolymorphicObjects =
           !!type.implements && type.implements.length > 0
         const enums = getReferencedEnums(type, enumsMap)
-        const neededModels = getNeededModels(type)
+        const neededModels = getNeededModels(type, interfacesMap, unionsMap)
         return {
           path: `${type.name}.ts`,
           force: true,
@@ -119,26 +118,32 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
 
   // Interfaces
   files.push(
-    ...args.interfaces.map(type => ({
-      path: `${type.name}.ts`,
-      force: true,
-      code: `
-      ${renderHeader(args)}
+    ...args.interfaces.map(type => {
+      const neededModels = type.implementors.map(i => i.name)
+      return {
+        path: `${type.name}.ts`,
+        force: true,
+        code: `
+      ${renderHeader(args, { neededModels })}
       ${renderInterface(type, interfacesMap, unionsMap, args)}
       `,
-    })),
+      }
+    }),
   )
 
   // Unions
   files.push(
-    ...args.unions.map(type => ({
-      path: `${type.name}.ts`,
-      force: true,
-      code: `
-      ${renderHeader(args)}
+    ...args.unions.map(type => {
+      const neededModels = type.types.map(i => i.name)
+      return {
+        path: `${type.name}.ts`,
+        force: true,
+        code: `
+      ${renderHeader(args, { neededModels })}
       ${renderUnion(type, args)}
       `,
-    })),
+      }
+    }),
   )
 
   // Enums
@@ -655,7 +660,13 @@ function getReferencedEnums(
   type: GraphQLTypeObject,
   enumsMap: EnumsMap,
 ): string[] {
-  const referencedTypeNames = getReferencedTypeNames(type, [])
+  const referencedTypeNames = [type.name]
+  type.fields.forEach(t => {
+    t.arguments.forEach(a => {
+      referencedTypeNames.push(a.type.name)
+    })
+  })
+
   const referencedEnums: string[] = []
   referencedTypeNames.forEach(t => {
     const enums = enumsMap[t]
@@ -666,21 +677,26 @@ function getReferencedEnums(
   return referencedEnums
 }
 
-function getReferencedTypeNames(type: GraphQLTypeObject, referenced: string[]) {
-  referenced.push(type.name)
-  type.fields.forEach(t => {
-    referenced.push(t.type.name)
-    t.arguments.forEach(a => {
-      referenced.push(a.type.name)
-    })
-  })
-  return referenced
-}
-
-function getNeededModels(type: GraphQLTypeObject): string[] {
+function getNeededModels(
+  type: GraphQLTypeObject,
+  interfacesMap: InterfacesMap,
+  unionsMap: UnionsMap,
+): string[] {
   const neededModels: string[] = [type.name]
   type.fields.forEach(field => {
-    neededModels.push(field.type.name)
+    if (field.type.isInterface) {
+      // Interfaces push the types they are implemented by
+      interfacesMap[field.type.name].forEach(t => {
+        neededModels.push(t.name)
+      })
+    } else if (field.type.isUnion) {
+      // Unions push the types they are made of
+      unionsMap[field.type.name].forEach(t => {
+        neededModels.push(t.name)
+      })
+    } else {
+      neededModels.push(field.type.name)
+    }
     if (field.arguments) {
       field.arguments.forEach(a => {
         neededModels.push(a.type.name)
