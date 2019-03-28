@@ -87,6 +87,7 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
   const unionsMap = createUnionsMap(args.unions)
 
   const enumsMap = createEnumsMap(args)
+  console.log(enumsMap)
 
   const files: CodeFileLike[] = []
   // Objects
@@ -94,12 +95,14 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
     ...args.types
       .filter(type => type.type.isObject)
       .map(type => {
+        const hasPolymorphicObjects =
+          !!type.implements && type.implements.length > 0
         const enums = getReferencedEnums(type, enumsMap)
         return {
           path: `${type.name}.ts`,
           force: true,
           code: `
-      ${renderHeader(args, { enums })}
+      ${renderHeader(args, { enums, hasPolymorphicObjects })}
       ${renderType(
         type,
         interfacesMap,
@@ -131,9 +134,7 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
       path: `${type.name}.ts`,
       force: true,
       code: `
-      ${renderHeader(args, {
-        hasPolymorphicObjects: true,
-      })}
+      ${renderHeader(args)}
       ${renderUnion(type, args)}
       `,
     })),
@@ -625,9 +626,17 @@ type EnumsMap = Record<string, string[]>
 // typename: Enums used
 function createEnumsMap(args: GenerateArgs): EnumsMap {
   return args.types.reduce<EnumsMap>((enumsMap, type) => {
-    enumsMap[type.name] = type.fields
-      .filter(t => t.type.isEnum)
-      .map(t => t.type.name)
+    enumsMap[type.name] = []
+    type.fields.forEach(t => {
+      if (t.type.isEnum) {
+        enumsMap[type.name].push(t.type.name)
+      }
+      t.arguments.forEach(a => {
+        if (a.type.isEnum) {
+          enumsMap[type.name].push(a.type.name)
+        }
+      })
+    })
     return enumsMap
   }, {})
 }
