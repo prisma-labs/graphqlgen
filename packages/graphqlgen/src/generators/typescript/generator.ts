@@ -681,8 +681,8 @@ function getReferencedEnums(
   return referencedEnums
 }
 
-// We need a list of all object/input types, so that
-// we can identify what enums are being used
+// We need a list of all object/input types used by this object,
+// so that we can identify what enums are being used
 function getReferencedTypeNames(
   type: GraphQLTypeObject,
   inputTypesMap: InputTypesMap,
@@ -700,6 +700,12 @@ function getReferencedTypeNames(
     )
     .forEach(t => {
       referencedTypeNames.push(t.type.name)
+      if (t.type.isInput) {
+        const inputType = inputTypesMap[t.type.name]
+        referencedTypeNames.push(
+          ...getReferencedTypeNames(inputType, inputTypesMap),
+        )
+      }
       t.arguments
         // We don't care about primitive types
         // and object types cannot be args
@@ -711,6 +717,10 @@ function getReferencedTypeNames(
           )
         })
     })
+  if (type.type.name === 'OrderUnboundHardware') {
+    // console.dir(type, { depth: null });
+    console.log(referencedTypeNames)
+  }
   return referencedTypeNames
 }
 
