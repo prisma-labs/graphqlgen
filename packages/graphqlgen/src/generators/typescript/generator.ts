@@ -688,38 +688,39 @@ function getReferencedTypeNames(
   inputTypesMap: InputTypesMap,
 ) {
   const referencedTypeNames = [type.type.name]
-  type.fields
-    // We don't care about primitive types
-    .filter(
-      t =>
-        t.type.isObject ||
-        t.type.isInput ||
-        t.type.isEnum ||
-        t.type.isInterface ||
-        t.type.isUnion,
-    )
-    .forEach(t => {
-      referencedTypeNames.push(t.type.name)
-      if (t.type.isInput) {
-        const inputType = inputTypesMap[t.type.name]
-        referencedTypeNames.push(
-          ...getReferencedTypeNames(inputType, inputTypesMap),
-        )
-      }
-      t.arguments
-        // We don't care about primitive types
-        // and object types cannot be args
-        .filter(a => a.type.isInput)
-        .forEach(a => {
-          const inputType = inputTypesMap[a.type.name]
+  if (type.type.isInput || type.type.name === 'Mutation') {
+    // Regular types don't refrence their fields' fields
+    // Input types store all of their types in their file
+    // Mutation needs all the types
+    type.fields
+      // We don't care about primitive types
+      .filter(
+        t =>
+          t.type.isObject ||
+          t.type.isInput ||
+          t.type.isEnum ||
+          t.type.isInterface ||
+          t.type.isUnion,
+      )
+      .forEach(t => {
+        referencedTypeNames.push(t.type.name)
+        if (t.type.isInput) {
+          const inputType = inputTypesMap[t.type.name]
           referencedTypeNames.push(
             ...getReferencedTypeNames(inputType, inputTypesMap),
           )
-        })
-    })
-  if (type.type.name === 'OrderUnboundHardware') {
-    // console.dir(type, { depth: null });
-    console.log(referencedTypeNames)
+        }
+        t.arguments
+          // We don't care about primitive types
+          // and object types cannot be args
+          .filter(a => a.type.isInput)
+          .forEach(a => {
+            const inputType = inputTypesMap[a.type.name]
+            referencedTypeNames.push(
+              ...getReferencedTypeNames(inputType, inputTypesMap),
+            )
+          })
+      })
   }
   return referencedTypeNames
 }
