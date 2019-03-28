@@ -99,9 +99,15 @@ const concat = <T = unknown>(a: T[], b: T[]): T[] => {
   return a.concat(b)
 }
 
-// TODO Refactor; confusing; only one callsite
-const uniq = <T = unknown>(value: T, index: number, array: T[]): boolean => {
-  return array.indexOf(value) === index
+/**
+ * Creates a duplicate-free version of an array
+ */
+const uniq = <T = unknown>(array: T[]): T[] => {
+  const ret: T[] = []
+  array.forEach(e => {
+    if (!ret.includes(e)) ret.push(e)
+  })
+  return ret
 }
 
 type LanguageExtension = 'ts' | 'js'
