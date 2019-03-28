@@ -692,14 +692,7 @@ function getObjectNeededModels(
 
   // Types used in it's fields
   type.fields.forEach(field => {
-    if (field.type.isInterface) {
-      // TODO: Not sure if this is needed
-      // Interfaces push the types they are implemented by
-      interfacesMap[field.type.name].forEach(t => {
-        neededModels.push(t.name)
-      })
-    } else if (field.type.isUnion) {
-      // TODO: I think this is needed, but double check
+    if (field.type.isUnion) {
       // Unions push the types they are made of
       unionsMap[field.type.name].forEach(t => {
         neededModels.push(t.name)
