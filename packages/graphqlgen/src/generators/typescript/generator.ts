@@ -132,6 +132,13 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
     })),
   )
 
+  // Enums
+  files.push({
+    path: 'enums.ts',
+    force: false,
+    code: `${renderEnums(args)}`,
+  })
+
   // Index
   files.push({
     path: 'index.ts',
@@ -146,8 +153,6 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
         ? renderGraphqlToolsModuleAugmentationIResolvers()
         : ''
     }
-
-    ${renderEnums(args)}
     `,
   })
 
