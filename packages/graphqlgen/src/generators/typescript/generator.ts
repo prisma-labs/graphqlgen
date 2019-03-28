@@ -96,7 +96,7 @@ export function generate(args: GenerateArgs): string | CodeFileLike[] {
       .map(type => {
         const hasPolymorphicObjects =
           !!type.implements && type.implements.length > 0
-        const enums = getReferencedEnums(type, enumsMap)
+        const enums = getReferencedEnums(type, enumsMap, inputTypesMap)
         const neededModels = getObjectNeededModels(
           type,
           interfacesMap,
@@ -662,16 +662,13 @@ function createEnumsMap(args: GenerateArgs): EnumsMap {
   }, {})
 }
 
+// Get all typenames used in a file, and get the enums needed
 function getReferencedEnums(
   type: GraphQLTypeObject,
   enumsMap: EnumsMap,
+  inputTypesMap: InputTypesMap,
 ): string[] {
-  const referencedTypeNames = [type.name]
-  type.fields.forEach(t => {
-    t.arguments.forEach(a => {
-      referencedTypeNames.push(a.type.name)
-    })
-  })
+  const referencedTypeNames = getReferencedTypeNames(type, inputTypesMap)
 
   const referencedEnums: string[] = []
   referencedTypeNames.forEach(t => {
@@ -681,6 +678,27 @@ function getReferencedEnums(
     }
   })
   return referencedEnums
+}
+
+function getReferencedTypeNames(
+  type: GraphQLTypeObject,
+  inputTypesMap: InputTypesMap,
+) {
+  const referencedTypeNames = [type.name]
+  type.fields.forEach(t => {
+    referencedTypeNames.push(t.type.name)
+    t.arguments.forEach(a => {
+      if (a.type.isInput) {
+        const inputType = inputTypesMap[a.type.name]
+        referencedTypeNames.push(
+          ...getReferencedTypeNames(inputType, inputTypesMap),
+        )
+      } else {
+        referencedTypeNames.push(a.type.name)
+      }
+    })
+  })
+  return referencedTypeNames
 }
 
 function getObjectNeededModels(
