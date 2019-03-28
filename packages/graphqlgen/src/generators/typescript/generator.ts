@@ -647,14 +647,14 @@ type EnumsMap = Record<string, string[]>
 // typename: Enums used
 function createEnumsMap(args: GenerateArgs): EnumsMap {
   return args.types.reduce<EnumsMap>((enumsMap, type) => {
-    enumsMap[type.name] = []
+    enumsMap[type.type.name] = []
     type.fields.forEach(t => {
       if (t.type.isEnum) {
-        enumsMap[type.name].push(t.type.name)
+        enumsMap[type.type.name].push(t.type.name)
       }
       t.arguments.forEach(a => {
         if (a.type.isEnum) {
-          enumsMap[type.name].push(a.type.name)
+          enumsMap[type.type.name].push(a.type.name)
         }
       })
     })
@@ -684,7 +684,7 @@ function getReferencedTypeNames(
   type: GraphQLTypeObject,
   inputTypesMap: InputTypesMap,
 ) {
-  const referencedTypeNames = [type.name]
+  const referencedTypeNames = [type.type.name]
   type.fields.forEach(t => {
     referencedTypeNames.push(t.type.name)
     t.arguments.forEach(a => {
@@ -698,6 +698,9 @@ function getReferencedTypeNames(
       }
     })
   })
+  if (type.name === 'Dog') {
+    console.log(referencedTypeNames)
+  }
   return referencedTypeNames
 }
 
@@ -706,7 +709,7 @@ function getObjectNeededModels(
   interfacesMap: InterfacesMap,
   unionsMap: UnionsMap,
 ): string[] {
-  const neededModels: string[] = [type.name]
+  const neededModels: string[] = [type.type.name]
 
   // Types used in it's fields
   type.fields.forEach(field => {
