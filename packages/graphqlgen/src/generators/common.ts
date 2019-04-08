@@ -178,6 +178,10 @@ function shouldRenderDefaultResolver(
 
   const modelFieldType = modelField.getType()
 
+  if (modelFieldType === undefined) {
+    return false;
+  }
+
   // If both types are enums, and model definition enum is a subset of the graphql enum
   // Then render as defaultResolver
   // eg: given GraphQLEnum = 'A' | 'B' | 'C'
