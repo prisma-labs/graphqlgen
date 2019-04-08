@@ -109,6 +109,10 @@ export function generateCode(codeGenArgs: CodeGenArgs): CodeGenResult {
       typeof codeGenArgs.config['iresolvers-augmentation'] === 'boolean'
         ? codeGenArgs.config['iresolvers-augmentation']
         : true,
+    delegatedParentResolversEnabled:
+      typeof codeGenArgs.config['delegated-parent-resolvers'] === 'boolean'
+        ? codeGenArgs.config['delegated-parent-resolvers']
+        : false,
   }
 
   const generatedTypes = generateTypes(generateArgs, codeGenArgs)

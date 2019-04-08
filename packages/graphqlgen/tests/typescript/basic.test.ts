@@ -164,3 +164,19 @@ test('basic interface', async () => {
     },
   })
 })
+
+test('basic schema with delegated parent resolvers', async () => {
+  return testGeneration({
+    language,
+    schema: relative('../fixtures/basic/schema.graphql'),
+    models: {
+      files: [relative('../fixtures/basic/index.ts')],
+    },
+    output: typesPath,
+    ['resolver-scaffolding']: {
+      output: resolversDir,
+      layout: 'file-per-type',
+    },
+    'delegated-parent-resolvers': true,
+  })
+})
