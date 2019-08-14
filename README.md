@@ -6,6 +6,12 @@
 
 Generate & scaffold type-safe resolvers based on your GraphQL Schema in TypeScript, Flow & Reason
 
+## Deprecation note
+
+`graphqlgen` has been officially deprecated in favor of the [The Guild](http://the-guild.dev)'s project [GraphQL Code Generator](https://graphql-code-generator.com/). Learn more about the collaboration of Prisma and the Guild in [this]( https://www.prisma.io/blog/the-guild-takes-over-oss-libraries-vvluy2i4uevs) blog post.
+
+---
+
 - [About](#about)
   - [Highlights](#highlights)
   - [Motivation](#motivation)
