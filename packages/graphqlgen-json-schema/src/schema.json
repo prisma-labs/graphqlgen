@@ -67,6 +67,18 @@
       },
       "required": ["output", "layout"],
       "additionalProperties": false
+    },
+    "iresolvers-augmentation": {
+      "description": "A boolean dictating if Apollo Server IResolvers type should be augmented so that it is compatible with graphqlgen `Resolvers` type",
+      "type": "boolean"
+    },
+    "default-resolvers": {
+      "description": "A boolean dictating if default resolvers will be generated or not",
+      "type": "boolean"
+    },
+    "delegated-parent-resolvers": {
+      "description": "A boolean dictating if the resolver signatures generated should include the signature for DelegatedParentResolvers",
+      "type": "boolean"
     }
   },
   "required": ["language", "schema", "models", "output"],
