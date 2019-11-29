@@ -1515,7 +1515,8 @@ export namespace QueryResolvers {
         ) =>
           | Array<boolean | null>
           | null
-          | Promise<Array<boolean | null> | null>)
+          | Promise<Array<boolean | null> | null>
+        )
       | {
           fragment: string;
           resolve: (
